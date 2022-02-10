@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/layout/activity_main.xml" value="0.26875" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/layout/app_bar_main.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/layout/content_main.xml" value="0.26875" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/layout/fragment_gallery.xml" value="0.26875" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/layout/fragment_home.xml" value="0.26875" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/layout/fragment_slideshow.xml" value="0.26875" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/layout/fragment_v_01.xml" value="0.35572916666666665" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/layout/fragment_v_02.xml" value="0.3020833333333333" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/layout/fragment_v_02_eve_card.xml" value="0.3020833333333333" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/layout/fragment_v_03.xml" value="0.3020833333333333" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/layout/fragment_v_03_act_card.xml" value="0.1947463768115942" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/layout/fragment_v_04.xml" value="0.35572916666666665" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/layout/fragment_v_04_1.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/layout/fragment_v_05.xml" value="0.35572916666666665" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/layout/nav_header_main.xml" value="0.24365942028985507" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/layout/reagment_v_03_act_card.xml" value="0.3020833333333333" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/menu-v23/activity_main_drawer.xml" value="0.3020833333333333" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/menu/activity_main_drawer.xml" value="0.26875" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/menu/main.xml" value="0.34739583333333335" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="corp_azul">#00a1e7</color>
+    <color name="corp_verde_claro">#b4e51c</color>
+    <color name="corp_verde_oscuro">#21b04b</color>
+    <color name="corp_marron">#b97957</color>
+    <color name="corp_amarillo">#fef100</color>
+    <color name="corp_blanco">#FFFFFFFF</color>
+    <color name="corp_negro">#000000</color>
+    <color name="corp_gris_oscuro">#828282</color>
+    <color name="corp_gris_claro">#f8f8f8</color>
+    <color name="corp_blanco_transparente_80_por_ciento">#CCFFFFFF</color>
+
+    <color name="colaboradorVerdeColor">#21b04b</color>
+    <color name="colaboradorVerdeLightColor">#62e379</color>
+    <color name="colaboradorVerdeDarkColor">#007f1d</color>
+
+    <color name="administradorMaronColor">#b97957</color>
+    <color name="administradorMaronLightColor">#eea884</color>
+    <color name="administradorMaronDarkColor">#864d2d</color>
+
+    <color name="valienteAzulColor">#00a1e7</color>
+    <color name="valienteAzulLightColor">#63d2ff</color>
+    <color name="valienteAzulDarkColor">#0073b4</color>
+
+    <color name="secondaryColor">#c5c5c5</color>
+    <color name="secondaryLightColor">#ffffff</color>
+    <color name="secondaryDarkColor">#c5c5c5</color>
+</resources>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/fondo_para_valiente"
+    tools:context=".ui.valiente.v_04.V_04">
+
+    <LinearLayout
+        android:id="@+id/v04_LinearLayout"
+        android:background="@drawable/v01_contenedor_blanco"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="220dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/v04_editTextTextEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginBottom="30dp"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/v04_editTextTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50dp"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp">
+
+            <CheckBox
+                android:id="@+id/v04_checkBox_recordarme"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:text="Recordarme" />
+
+            <TextView
+                android:id="@+id/v04_textView_olvidaste_contrasenia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="¿Olvidaste tu contraseña?" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/v04_button_iniciar_sesion"
+            android:layout_marginTop="80dp"
+            android:layout_marginHorizontal="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/v01_boton_formato_l"
+            android:text="Iniciar sesion" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/v04_button_registrarse"
+        android:layout_marginTop="-180dp"
+        android:layout_marginHorizontal="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/v01_boton_formato_l"
+        android:text="Registrarse" />
+</LinearLayout>

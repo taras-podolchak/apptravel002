@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--<FrameLayout-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/fondo_para_valiente"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/LinearLayout"
+        android:background="@drawable/v01_contenedor_blanco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="25dp"
+        android:layout_marginBottom="120dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RadioGroup
+            android:id="@+id/v01_RadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <RadioButton
+                android:id="@+id/v01_radioButton_exurciones_de_un_dia"
+                android:layout_marginHorizontal="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:text="Excurciones de un dia"
+                android:onClick="onRadioButtonClicked"/>
+
+            <RadioButton
+                android:id="@+id/v01_radioButton_fin_de_semana"
+                android:layout_marginHorizontal="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:text="Fin de semana"
+                android:onClick="onRadioButtonClicked"/>
+
+            <RadioButton
+                android:id="@+id/v01_radioButton_aventuras_mas_largas"
+                android:layout_marginHorizontal="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:text="Aventuras más largas"
+                android:onClick="onRadioButtonClicked"/>
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/v01_boton_buscaar_actividades"
+            android:background="@drawable/v01_boton_formato_l"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="50dp"
+            android:text="Buscar actividades"
+            android:layout_below="@+id/radioGroup"/>
+    </LinearLayout>
+
+</LinearLayout>

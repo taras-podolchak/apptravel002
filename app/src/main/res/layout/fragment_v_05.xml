@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_para_valiente"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ui.valiente.v_05.V_05">
+
+    <LinearLayout
+        android:id="@+id/v05_LinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/v01_contenedor_blanco"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/v05_imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="182dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/v03_imagen_formato"
+                    tools:src="" />
+
+                <TextView
+                    android:id="@+id/v05_textView_info_completa"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:text="Toda la informacion completa sobre el evento" />
+
+                <Spinner
+                    android:id="@+id/v05_spinner_lista_personas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minHeight="48dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="306dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="¿LLevas el coche?" />
+
+                    <Switch
+                        android:id="@+id/v05_swich_llevas_el_coche"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/v05_spinner_nesesito_coche"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="48dp" />
+
+                    <Spinner
+                        android:id="@+id/v05_spinner_ofresco_coche"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="48dp" />
+
+                </LinearLayout>
+
+
+                <Spinner
+                    android:id="@+id/v05_spinner_tipo_alojamiento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minHeight="48dp" />
+
+                <Spinner
+                    android:id="@+id/v05_spinner_restricciones_allimentarias"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minHeight="48dp" />
+                <Spinner
+                    android:id="@+id/v05_spinner_estado_de_pago"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minHeight="48dp" />
+
+                <EditText
+                    android:id="@+id/v05_editTextTextPersonName_tel_emerjencia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="left"
+                    android:inputType="textPersonName"
+                    android:text="Telefono emerjencia:" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp">
+
+            <Button
+                android:id="@+id/v05_boton_volver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/v01_boton_formato_l"
+                android:text="Volver" />
+
+            <Button
+                android:id="@+id/v05_boton_confirmar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/v01_boton_formato_r"
+                android:text="Confirmar" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

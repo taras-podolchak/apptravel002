@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_para_valiente"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ui.valiente.v_04_1.V_04_1">
+
+    <LinearLayout
+        android:id="@+id/v05_LinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/v01_contenedor_blanco"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/v04_1_editTextTextPersonName_nombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="left"
+            android:inputType="textPersonName"
+            android:text="Nombre:" />
+        <EditText
+            android:id="@+id/v04_1_editTextTextPersonName_apellido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="left"
+            android:inputType="textPersonName"
+            android:text="Apellido:" />
+        <EditText
+            android:id="@+id/v04_1_editTextTextPersonName_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="left"
+            android:inputType="textEmailAddress"
+            android:text="Email:" />
+
+
+        <EditText
+            android:id="@+id/v04_1_editTextTextPersonName_password1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="left"
+            android:inputType="textPassword"
+            android:text="Password" />
+        <EditText
+            android:id="@+id/v04_1_editTextTextPersonName_password2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="left"
+            android:inputType="textPassword"
+            android:text="Password" />
+        <EditText
+            android:id="@+id/v04_1_editTextTextPersonName_dni"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="left"
+            android:inputType="textPersonName"
+            android:text="DNI:" />
+        <EditText
+            android:id="@+id/v04_1_editTextTextPersonName_telefono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="left"
+            android:inputType="phone"
+            android:text="Telefono:" />
+
+        <Spinner
+            android:id="@+id/v04_1_spinner_valiente_colaborador"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minHeight="48dp" />
+
+        <CheckBox
+            android:id="@+id/v04_1_checkBox_aceptacion_condiciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Aceptacion de condiciones" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp">
+
+            <Button
+                android:id="@+id/v04_1_boton_volver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/v01_boton_formato_l"
+                android:text="Volver" />
+
+            <Button
+                android:id="@+id/v04_1_boton_aceptar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/v01_boton_formato_r"
+                android:text="Aceptar" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

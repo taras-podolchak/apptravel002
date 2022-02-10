@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group >
+        <item
+            android:id="@+id/mi_cuenta"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Mi cuenta" />
+        <item
+            android:id="@+id/rutas_pendientes"
+            android:icon="@android:drawable/stat_sys_upload"
+            android:title="Rutas pendientes" />
+        <item
+            android:id="@+id/rutas_pasadas"
+            android:icon="@android:drawable/stat_sys_download"
+            android:title="Rutas pasadas" />
+
+    </group>
+
+    <item android:title="Preguntas frecuentes">
+    <menu >
+        <item
+            android:id="@+id/datos_sobre_logistica"
+            android:icon="@android:drawable/stat_notify_chat"
+            android:title="Datos sobre logistica" />
+        <item
+            android:id="@+id/dudas_sobre_mantanismo"
+            android:icon="@android:drawable/stat_notify_chat"
+            android:title="Dudas sobre montañismo" />
+        <item
+            android:id="@+id/dudas_sobre_Club"
+            android:icon="@android:drawable/stat_notify_chat"
+            android:title="Dudas sobre Club" />
+    </menu>
+    </item>
+
+    <item android:title="Complementos">
+    <menu>
+
+        <item
+            android:id="@+id/licencia_federativa"
+            android:icon="@android:drawable/ic_menu_info_details"
+            android:title="Licencia Federativa" />
+        <item
+            android:id="@+id/equipamiento"
+            android:icon="@android:drawable/ic_menu_info_details"
+            android:title="Equipamiento" />
+    </menu>
+    </item>
+
+
+        <group
+            android:id="@+id/group1">
+            <item
+                android:id="@+id/paguina_web"
+                android:icon="@android:drawable/ic_dialog_email"
+                android:title="Pagina WEB" />
+            <item
+                android:id="@+id/colaborador"
+                android:icon="?android:attr/fingerprintAuthDrawable"
+                android:title="Colaborador" />
+            <item
+                android:id="@+id/administrador"
+                android:icon="?android:attr/fingerprintAuthDrawable"
+                android:title="Administrador" />
+        </group>
+
+    <item
+        android:id="@+id/cerrar_session"
+        android:icon="@drawable/ic_menu_slideshow"
+        android:title="Cerrar session" />
+
+  <!--  <group android:id="@+id/resto">
+        <item
+            android:id="@+id/nav_inicio_v01"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_inicio" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/menu_gallery" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_slideshow" />
+    </group>-->
+</menu>

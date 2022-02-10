@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_para_valiente"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".ui.valiente.v_06.V_06">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="249dp"
+        android:layout_height="215dp"
+        android:background="@drawable/logo_amigos_montana" />
+
+    <LinearLayout
+        android:id="@+id/v05_LinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/v01_contenedor_blanco"
+
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="Gracias por colaborar con nosotros.En breve resibirás un Email con la confirmacion de registro" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/v06_boton_activar_aviso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/v01_boton_formato_l"
+            android:text="Activar aviso" />
+
+        <Button
+            android:id="@+id/v06_boton_buscar_mas_actividades"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/v01_boton_formato_r"
+            android:text="Buscar mas actividades" />
+    </LinearLayout>
+
+</LinearLayout>

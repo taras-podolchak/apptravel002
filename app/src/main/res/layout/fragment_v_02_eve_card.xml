@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".ui.valiente.v_02.V_02"
+    android:id="@+id/v02_eve_card_LinearLayout_evento">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardEve"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imvFotoEve"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:textAlignment="center">
+
+                    <TextView
+                        android:id="@+id/txvTituloEve"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/txvFechaIdaTruEve"
+                            android:layout_width="120dp"
+                            android:layout_height="match_parent"
+                            android:textAlignment="textEnd"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text=" / "
+                            android:textAlignment="center"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/txvFechaVueltaTruEve"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textAlignment="textStart"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/txvNivelEve"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/txvDistanciaAct"
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:gravity="right" />
+
+                        <TextView
+                            android:id="@+id/textView6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text=" / " />
+
+                        <TextView
+                            android:id="@+id/txvDesnivelAct"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="left" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/txvHorasAct"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal" />
+
+                    <TextView
+                        android:id="@+id/txvTransporteTipoEve"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal" />
+
+                    <TextView
+                        android:id="@+id/txvNParticipantesEve"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
