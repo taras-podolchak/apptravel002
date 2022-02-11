@@ -20,12 +20,19 @@ import android.widget.Toast;
 
 import com.appvisibility.apptravel002.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.auth.User;
 
-import java.util.concurrent.Executor;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,11 +65,8 @@ public class V_04_1 extends Fragment {
     //Declaramos de los bbdd
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
+   // private DatabaseReference mDatabase;
 
-
-    public V_04_1() {
-        // Required empty public constructor
-    }
 
     /**
      * Use this factory method to create a new instance of
@@ -100,6 +104,8 @@ public class V_04_1 extends Fragment {
         //2ºREGISTROFB
         //inicializamos el objeto firebaseAuth
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        //mDatabase = FirebaseDatabase.getInstance().getReference();
         //Referenciamos los views
         v04_1_editTextTextPersonName_nombre = view.findViewById(R.id.v04_1_editTextTextPersonName_nombre);
         v04_1_editTextTextPersonName_apellido = view.findViewById(R.id.v04_1_editTextTextPersonName_apellido);
@@ -205,7 +211,6 @@ public class V_04_1 extends Fragment {
         progressDialog.setMessage("Realizando registro en linea...");
         progressDialog.show();
 
-        //creating a new user --> alice@ya.es getafe12345 || bob@ya.es 123456 || erik@ya.es 123456 || charlie@ya.es 123456 // alice@ya.com getafe12345
         firebaseAuth.createUserWithEmailAndPassword(email, passwordTrue)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() { //equi tenemos los cambios this -> getActivity()
                     @Override
@@ -222,7 +227,35 @@ public class V_04_1 extends Fragment {
                     }
                 });
 
+        Map<String, Object> user = new HashMap<>();
+        user.put("nombre_val", nombre);
+        user.put("apellido1_va", apeido);
+        user.put("email_val", email);
+        user.put("dni_val", dni);
+        user.put("movil_val", telefono);
+        firebaseFirestore.collection("valiente_val").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Toast.makeText(getActivity(), "DocumentSnapshot added with ID: " + documentReference.getId(), Toast.LENGTH_LONG).show();
+                ;
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(), "Error adding document" + e, Toast.LENGTH_LONG).show();
+                        ;
+                    }
+                });
+
+        /*mDatabase.child("16").child("data").child("30").child("nombre_val").setValue(nombre);
+        mDatabase.child("16").child("data").child("30").child("apellido1_va").setValue(apeido);
+        mDatabase.child("16").child("data").child("30").child("email_val").setValue(email);
+        mDatabase.child("16").child("data").child("30").child("dni_val").setValue(dni);
+       // mDatabase.child("16").child("data").add/*child("30").child("movil_val").setValue(telefono)*/;
+
     }
+
 
     @Override
     public void onAttach(Context context) {
