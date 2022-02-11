@@ -29,7 +29,7 @@
             android:ems="10"
             android:gravity="left"
             android:inputType="textPersonName"
-            android:text="Nombre:" />
+            android:hint="Nombre:" />
         <EditText
             android:id="@+id/v04_1_editTextTextPersonName_apellido"
             android:layout_width="match_parent"
@@ -38,7 +38,7 @@
             android:ems="10"
             android:gravity="left"
             android:inputType="textPersonName"
-            android:text="Apellido:" />
+            android:hint="Apellido:" />
         <EditText
             android:id="@+id/v04_1_editTextTextPersonName_email"
             android:layout_width="match_parent"
@@ -47,7 +47,7 @@
             android:ems="10"
             android:gravity="left"
             android:inputType="textEmailAddress"
-            android:text="Email:" />
+            android:hint="Email:" />
 
 
         <EditText
@@ -58,7 +58,7 @@
             android:ems="10"
             android:gravity="left"
             android:inputType="textPassword"
-            android:text="Password" />
+            android:hint="Password" />
         <EditText
             android:id="@+id/v04_1_editTextTextPersonName_password2"
             android:layout_width="match_parent"
@@ -67,7 +67,7 @@
             android:ems="10"
             android:gravity="left"
             android:inputType="textPassword"
-            android:text="Password" />
+            android:hint="Password" />
         <EditText
             android:id="@+id/v04_1_editTextTextPersonName_dni"
             android:layout_width="match_parent"
@@ -76,7 +76,7 @@
             android:ems="10"
             android:gravity="left"
             android:inputType="textPersonName"
-            android:text="DNI:" />
+            android:hint="DNI:" />
         <EditText
             android:id="@+id/v04_1_editTextTextPersonName_telefono"
             android:layout_width="match_parent"
@@ -85,7 +85,7 @@
             android:ems="10"
             android:gravity="left"
             android:inputType="phone"
-            android:text="Telefono:" />
+            android:hint="Telefono:" />
 
         <Spinner
             android:id="@+id/v04_1_spinner_valiente_colaborador"

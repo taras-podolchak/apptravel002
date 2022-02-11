@@ -65,7 +65,7 @@ public class V_04_1 extends Fragment {
     //Declaramos de los bbdd
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
-   // private DatabaseReference mDatabase;
+    // private DatabaseReference mDatabase; //no necesitamos  esa bbdd
 
 
     /**
@@ -105,7 +105,7 @@ public class V_04_1 extends Fragment {
         //inicializamos el objeto firebaseAuth
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
-        //mDatabase = FirebaseDatabase.getInstance().getReference();
+        //mDatabase = FirebaseDatabase.getInstance().getReference();  //no necesitamos  esa bbdd
         //Referenciamos los views
         v04_1_editTextTextPersonName_nombre = view.findViewById(R.id.v04_1_editTextTextPersonName_nombre);
         v04_1_editTextTextPersonName_apellido = view.findViewById(R.id.v04_1_editTextTextPersonName_apellido);
@@ -119,26 +119,13 @@ public class V_04_1 extends Fragment {
         v04_1_boton_aceptar = view.findViewById(R.id.v04_1_boton_aceptar);
         v04_1_boton_volver = view.findViewById(R.id.v04_1_boton_volver);
 
-
         progressDialog = new ProgressDialog(mContext);
-       /* fragmentContainerView = findViewById(R.id.fragmentContainerView);
-        cbTerminos = findViewById(R.id.cbTerminos);
-        cbDatos = findViewById(R.id.cbDatos);
-        //attaching listener to button
-        btnRegistrar.setOnClickListener(this);
-        //END2º
-        tvTerminosCondiciones = findViewById(R.id.tvTerminosCondiciones);
-        tvTerminosCondiciones.setOnClickListener(view -> {
-            //Navigation.findNavController(view, R.id.navigation_viajes).navigate(R.id.wvShowTOC);
-            startActivity(new Intent(this, WebviewActivity.class));
-        });
-         */
 
         v04_1_boton_aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                registrarUsuario();
-                //Navigation.findNavController(view).navigate(R.id.action_nav_v04_1_to_nav_v05);
+                //la navegacion se hace en registrarUsuario despues de que todos datos tienen exito
+                registrarUsuario(view);
             }
         });
 
@@ -152,8 +139,8 @@ public class V_04_1 extends Fragment {
     }
 
 
-    //2º MÉTODOS REGISTROFB  ||alice@ya.es 123456
-    private void registrarUsuario() {
+    //2º MÉTODOS REGISTROFB
+    private void registrarUsuario(View view) {
 
         if (!v04_1_checkBox_aceptacion_condiciones.isChecked() /*|| !cbTerminos.isChecked()*/) {
             Toast.makeText(getActivity(), "Debes aceptar los términos y condiciones", Toast.LENGTH_LONG).show();
@@ -208,17 +195,23 @@ public class V_04_1 extends Fragment {
             return;
         }
 
-        progressDialog.setMessage("Realizando registro en linea...");
-        progressDialog.show();
-
+        //creamos el objeto del usuario
+        Map<String, Object> user = new HashMap<>();
+        user.put("nombre_val", nombre);
+        user.put("apellido1_va", apeido);
+        user.put("email_val", email);
+        user.put("dni_val", dni);
+        user.put("movil_val", telefono);
         firebaseAuth.createUserWithEmailAndPassword(email, passwordTrue)
-                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() { //equi tenemos los cambios this -> getActivity()
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        //checking if success
+                        //comprobando el éxito
                         if (task.isSuccessful()) {
-
                             Toast.makeText(getActivity(), "Se ha registrado el usuario: " + nombre + " " + apeido, Toast.LENGTH_LONG).show();
+                            //añadomos el usuario a FirebaseFirestore
+                            firebaseFirestore.collection("valiente_val").document(firebaseAuth.getUid()).set(user);
+                            Navigation.findNavController(view).navigate(R.id.action_nav_v04_1_to_nav_v05);
                         } else {
 
                             Toast.makeText(getActivity(), "Ya existe el usuario con el mismo mail", Toast.LENGTH_LONG).show();
@@ -226,46 +219,22 @@ public class V_04_1 extends Fragment {
                         progressDialog.dismiss();
                     }
                 });
+        progressDialog.setMessage("Realizando registro en linea...");
+        progressDialog.show();
 
-        Map<String, Object> user = new HashMap<>();
-        user.put("nombre_val", nombre);
-        user.put("apellido1_va", apeido);
-        user.put("email_val", email);
-        user.put("dni_val", dni);
-        user.put("movil_val", telefono);
-        firebaseFirestore.collection("valiente_val").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Toast.makeText(getActivity(), "DocumentSnapshot added with ID: " + documentReference.getId(), Toast.LENGTH_LONG).show();
-                ;
-            }
-        })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(), "Error adding document" + e, Toast.LENGTH_LONG).show();
-                        ;
-                    }
-                });
-
+        //es un ejemplo como trabajar con DatabaseReference //no necesitamos  esa bbdd
         /*mDatabase.child("16").child("data").child("30").child("nombre_val").setValue(nombre);
         mDatabase.child("16").child("data").child("30").child("apellido1_va").setValue(apeido);
         mDatabase.child("16").child("data").child("30").child("email_val").setValue(email);
         mDatabase.child("16").child("data").child("30").child("dni_val").setValue(dni);
-       // mDatabase.child("16").child("data").add/*child("30").child("movil_val").setValue(telefono)*/;
+       // mDatabase.child("16").child("data").add/*child("30").child("movil_val").setValue(telefono)*/
+        ;
 
     }
-
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
     }
-   /* @Override
-    public void onClick(View view) {
-        //Invocamos al método:
-        registrarUsuario();
-    }*/
-    //2º FIN MÉTODOS REGISTROFB
 }
