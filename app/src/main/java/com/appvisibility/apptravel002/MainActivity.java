@@ -2,13 +2,19 @@ package com.appvisibility.apptravel002;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
 import com.appvisibility.apptravel002.databinding.ActivityMainBinding;
 import com.appvisibility.apptravel002.ui.valiente.v_01.V_01;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -16,10 +22,13 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity /*implements NavigationView.OnNavigationItemSelectedListener*/ {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private FirebaseAuth firebaseAuth; //de momento solo para cerrar sesion
+    private DrawerLayout mGraverLayout;
+    private NavigationView mDraver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +58,14 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_inicio_v01, R.id.nav_v02,R.id.nav_v03,R.id.nav_v04,R.id.nav_v05,R.id.nav_v06)
+                R.id.nav_inicio_v01, R.id.nav_v02, R.id.nav_v03, R.id.nav_v04, R.id.nav_v05, R.id.nav_v06)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        firebaseAuth = FirebaseAuth.getInstance();
 
 
     }   //fin de constructor
@@ -98,5 +108,43 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+
+// si el usuario ha iniciado la sesion debera saltar la v_04 y v_04_1, pero todavia no lo he hecho
+
+    /*   @Override
+       protected void onStart() {
+           super.onStart();
+           if (firebaseAuth.getCurrentUser()!=null){
+               startActivity(new Intent(MainActivity.this,MainActivity.class));
+               finish();
+           }
+       }*/
+
+
+ /*   @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.cerrar_session) {
+            //   Intent intent1 = new Intent(this,MyActivity.class);
+            //  this.startActivity(intent1);
+
+            firebaseAuth.signOut();     //ceramos la sesion
+            Toast.makeText(getApplicationContext(), "La sesion se ha cerrado correctamente", Toast.LENGTH_SHORT).show();
+            mGraverLayout.closeDrawer(GravityCompat.START);
+            finish();
+            return true;
+        }
+
+        if (id == R.id.paguina_web) {
+            Toast.makeText(this, "Se abrira la pagina WEB", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+        *//*
+        return super.onNavigationItemSelected(item);
+    }*/
 
 }

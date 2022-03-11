@@ -79,8 +79,8 @@
         android:label="v05"
         tools:layout="@layout/fragment_v_05" >
         <action
-            android:id="@+id/action_nav_v05_to_nav_v04"
-            app:destination="@id/nav_v04" />
+            android:id="@+id/action_nav_v05_to_nav_v02"
+            app:destination="@id/nav_v02" />
         <action
             android:id="@+id/action_nav_v05_to_nav_v06"
             app:destination="@id/nav_v06" />

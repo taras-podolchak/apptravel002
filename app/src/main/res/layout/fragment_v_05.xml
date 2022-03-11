@@ -9,6 +9,7 @@
     android:orientation="vertical"
     tools:context=".ui.valiente.v_05.V_05">
 
+
     <LinearLayout
         android:id="@+id/v05_LinearLayout"
         android:layout_width="match_parent"
@@ -23,7 +24,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -31,10 +33,17 @@
                 android:layout_margin="10dp"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/v05_titulo_eve"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_weight="1" />
+
                 <ImageView
                     android:id="@+id/v05_imageView"
                     android:layout_width="match_parent"
-                    android:layout_height="182dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/v03_imagen_formato"
                     tools:src="" />
@@ -42,10 +51,8 @@
                 <TextView
                     android:id="@+id/v05_textView_info_completa"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    android:text="Toda la informacion completa sobre el evento" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
 
                 <Spinner
                     android:id="@+id/v05_spinner_lista_personas"

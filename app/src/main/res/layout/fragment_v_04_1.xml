@@ -21,85 +21,128 @@
         android:gravity="bottom"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/v04_1_editTextTextPersonName_nombre"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:gravity="left"
-            android:inputType="textPersonName"
-            android:hint="Nombre:" />
-        <EditText
-            android:id="@+id/v04_1_editTextTextPersonName_apellido"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:gravity="left"
-            android:inputType="textPersonName"
-            android:hint="Apellido:" />
-        <EditText
-            android:id="@+id/v04_1_editTextTextPersonName_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:gravity="left"
-            android:inputType="textEmailAddress"
-            android:hint="Email:" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/v04_1_editTextTextPersonName_nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="left"
+                    android:hint="Nombre:"
+                    android:inputType="textPersonName"
+                    android:minHeight="48dp" />
+
+                <EditText
+                    android:id="@+id/v04_1_editTextTextPersonName_apellido"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="left"
+                    android:hint="Apellido:"
+                    android:inputType="textPersonName"
+                    android:minHeight="48dp" />
+
+                <EditText
+                    android:id="@+id/v04_1_editTextTextPersonName_apellido2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="left"
+                    android:hint="Apellido2:"
+                    android:inputType="textPersonName"
+                    android:minHeight="48dp" />
+
+                <EditText
+                    android:id="@+id/v04_1_editTextTextPersonName_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="left"
+                    android:hint="Email:"
+                    android:inputType="textEmailAddress"
+                    android:minHeight="48dp" />
 
 
-        <EditText
-            android:id="@+id/v04_1_editTextTextPersonName_password1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:gravity="left"
-            android:inputType="textPassword"
-            android:hint="Password" />
-        <EditText
-            android:id="@+id/v04_1_editTextTextPersonName_password2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:gravity="left"
-            android:inputType="textPassword"
-            android:hint="Password" />
-        <EditText
-            android:id="@+id/v04_1_editTextTextPersonName_dni"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:gravity="left"
-            android:inputType="textPersonName"
-            android:hint="DNI:" />
-        <EditText
-            android:id="@+id/v04_1_editTextTextPersonName_telefono"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:gravity="left"
-            android:inputType="phone"
-            android:hint="Telefono:" />
+                <EditText
+                    android:id="@+id/v04_1_editTextTextPersonName_password1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="left"
+                    android:hint="Password:"
+                    android:inputType="textPassword"
+                    android:minHeight="48dp" />
 
-        <Spinner
-            android:id="@+id/v04_1_spinner_valiente_colaborador"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:minHeight="48dp" />
+                <EditText
+                    android:id="@+id/v04_1_editTextTextPersonName_password2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="left"
+                    android:hint="Password:"
+                    android:inputType="textPassword"
+                    android:minHeight="48dp" />
 
-        <CheckBox
-            android:id="@+id/v04_1_checkBox_aceptacion_condiciones"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Aceptacion de condiciones" />
+                <EditText
+                    android:id="@+id/v04_1_editTextTextPersonName_dni"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="left"
+                    android:hint="DNI:"
+                    android:inputType="textPersonName"
+                    android:minHeight="48dp" />
+
+                <EditText
+                    android:id="@+id/v04_1_editTextTextPersonName_telefono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="left"
+                    android:hint="Telefono:"
+                    android:inputType="phone"
+                    android:minHeight="48dp" />
+
+                <EditText
+                    android:id="@+id/v04_1_editTextTextPersonName_telefono_emerjencia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="left"
+                    android:hint="Telefono emerjencia:"
+                    android:inputType="phone"
+                    android:minHeight="48dp" />
+
+
+
+                <CheckBox
+                    android:id="@+id/v04_1_checkBox_aceptacion_condiciones"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Aceptacion de condiciones" />
+            </LinearLayout>
+        </ScrollView>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="70dp">

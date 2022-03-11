@@ -12,6 +12,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -53,6 +55,7 @@ public class V_04_1 extends Fragment {
     //2ºREGISTROFB defining view objects
     private EditText v04_1_editTextTextPersonName_nombre;
     private EditText v04_1_editTextTextPersonName_apellido;
+    private EditText v04_1_editTextTextPersonName_apellido2;
     private EditText v04_1_editTextTextPersonName_email;
     private EditText v04_1_editTextTextPersonName_password1;
     private EditText v04_1_editTextTextPersonName_password2;
@@ -65,7 +68,7 @@ public class V_04_1 extends Fragment {
     //Declaramos de los bbdd
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
-    // private DatabaseReference mDatabase; //no necesitamos  esa bbdd
+    // private DatabaseReference mDatabase; //no necesitamos esa bbdd
 
 
     /**
@@ -109,18 +112,39 @@ public class V_04_1 extends Fragment {
         //Referenciamos los views
         v04_1_editTextTextPersonName_nombre = view.findViewById(R.id.v04_1_editTextTextPersonName_nombre);
         v04_1_editTextTextPersonName_apellido = view.findViewById(R.id.v04_1_editTextTextPersonName_apellido);
+        v04_1_editTextTextPersonName_apellido2 = view.findViewById(R.id.v04_1_editTextTextPersonName_apellido2);
         v04_1_editTextTextPersonName_email = view.findViewById(R.id.v04_1_editTextTextPersonName_email);
         v04_1_editTextTextPersonName_password1 = view.findViewById(R.id.v04_1_editTextTextPersonName_password1);
         v04_1_editTextTextPersonName_password2 = view.findViewById(R.id.v04_1_editTextTextPersonName_password2);
         v04_1_editTextTextPersonName_dni = view.findViewById(R.id.v04_1_editTextTextPersonName_dni);
         v04_1_editTextTextPersonName_telefono = view.findViewById(R.id.v04_1_editTextTextPersonName_telefono);
-        v04_1_spinner_valiente_colaborador = view.findViewById(R.id.v04_1_spinner_valiente_colaborador);
+        //v04_1_spinner_valiente_colaborador = view.findViewById(R.id.v04_1_spinner_valiente_colaborador);
         v04_1_checkBox_aceptacion_condiciones = view.findViewById(R.id.v04_1_checkBox_aceptacion_condiciones);
         v04_1_boton_aceptar = view.findViewById(R.id.v04_1_boton_aceptar);
         v04_1_boton_volver = view.findViewById(R.id.v04_1_boton_volver);
 
-        progressDialog = new ProgressDialog(mContext);
+        //el spinner para el futuro
+        /*String[] arraySpinner = new String[]{
+                "Valiente", "Colaborador"
+        };
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, arraySpinner);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        v04_1_spinner_valiente_colaborador.setAdapter(adapter);
+        v04_1_spinner_valiente_colaborador.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
+                // TODO Auto-generated method stub
+                 v04_1_resultado_spinner_valiente_colaborador = v04_1_spinner_valiente_colaborador.getSelectedItem().toString();
+                //Toast.makeText(getActivity(), resultado, Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+            }
+        });*/
+
+        progressDialog = new ProgressDialog(mContext);
         v04_1_boton_aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,6 +174,7 @@ public class V_04_1 extends Fragment {
         //Obtenemos el email y la contraseña desde las cajas de texto
         String nombre = v04_1_editTextTextPersonName_nombre.getText().toString().trim();
         String apeido = v04_1_editTextTextPersonName_apellido.getText().toString().trim();
+        String apeido2 = v04_1_editTextTextPersonName_apellido2.getText().toString().trim();
         String email = v04_1_editTextTextPersonName_email.getText().toString().trim();
         String password1 = v04_1_editTextTextPersonName_password1.getText().toString().trim();
         String password2 = v04_1_editTextTextPersonName_password2.getText().toString().trim();
@@ -199,9 +224,12 @@ public class V_04_1 extends Fragment {
         Map<String, Object> user = new HashMap<>();
         user.put("nombre_val", nombre);
         user.put("apellido1_va", apeido);
+        user.put("apellido2_va", apeido2);
         user.put("email_val", email);
         user.put("dni_val", dni);
         user.put("movil_val", telefono);
+        user.put("usuariotipo_val","Valiente");
+
         firebaseAuth.createUserWithEmailAndPassword(email, passwordTrue)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override

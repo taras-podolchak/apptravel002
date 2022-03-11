@@ -98,12 +98,10 @@ public class V_04 extends Fragment {
 
         progressDialog = new ProgressDialog(mContext);
 
-
         v04_button_iniciar_sesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                registrarUsuario();
-
+                registrarUsuario(view);
             }
         });
         v04_button_registrarse.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +119,7 @@ public class V_04 extends Fragment {
         mContext = context;
     }
 
-    private void registrarUsuario() {
+    private void registrarUsuario(View view) {
 
         //Obtenemos el email y la contraseña desde las cajas de texto
         String email = v04_editTextTextEmailAddress.getText().toString().trim();
@@ -137,24 +135,21 @@ public class V_04 extends Fragment {
             Toast.makeText(getActivity(), "Falta ingresar la contraseña", Toast.LENGTH_LONG).show();
             return;
         }
-
+        firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v05);
+                }else {
+                    Toast.makeText(getActivity(), "El email o la contraseña es incorrecta", Toast.LENGTH_LONG).show();
+                }
+                progressDialog.dismiss();
+            }
+        });
 
         progressDialog.setMessage("Realizando registro en linea...");
         progressDialog.show();
 
-        //creating a new user
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        //checking if success
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getActivity(), "Se ha registrado el usuario con el email: " + v04_editTextTextEmailAddress.getText(), Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(getActivity(), "No se pudo registrar el usuario ", Toast.LENGTH_LONG).show();
-                        }
-                        progressDialog.dismiss();
-                    }
-                });
+
     }
 }
