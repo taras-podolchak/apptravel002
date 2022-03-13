@@ -2,7 +2,6 @@ package com.appvisibility.apptravel002.ui.valiente.v_05;
 
 import static android.content.ContentValues.TAG;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -10,13 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -28,9 +25,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -54,12 +48,10 @@ public class V_05 extends Fragment {
     private String mParam1;
     private String mParam2;
     private Button v05_boton_confirmar, v05_boton_volver;
-    private StorageReference profile;
-    private ImageView v05_imageView;
     private FirebaseFirestore firebaseFirestore;
 
     private TextView v05_titulo_eve;
-    private ImageView v05__imageView;
+    private ImageView v05_imageView;
     private TextView v05_textView_info_completa;
     private Spinner v05_spinner_lista_personas;
     private Switch v05_swich_llevas_el_coche;
@@ -113,9 +105,9 @@ public class V_05 extends Fragment {
 
         v05_titulo_eve = view.findViewById(R.id.v05_titulo_eve);
         v05_textView_info_completa = view.findViewById(R.id.v05_textView_info_completa);
-        v05__imageView = view.findViewById(R.id.v05_imageView);
+        v05_imageView = view.findViewById(R.id.v05_imageView);
 
-        DocumentReference docRef = firebaseFirestore.collection("evento_eve").document("1");
+        DocumentReference docRef = firebaseFirestore.collection("evento_eve").document("2");
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -131,7 +123,7 @@ public class V_05 extends Fragment {
                         storageRef.child("Eventos/1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                Picasso.get().load(uri).into(v05__imageView);
+                                Picasso.get().load(uri).into(v05_imageView);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override

@@ -19,10 +19,10 @@ public class Actividad_act_data {
         return actividades;
     }
 
-    public static List<Actividad_act> actividadesExtracto (int id_eve) {
+    public static List<Actividad_act> actividadesExtracto(int id_eve) {
         List<Actividad_act> actividadesExtracto = new ArrayList<>();
-        for (Actividad_act a:actividades){
-            if (a.getId_eve()==id_eve){
+        for (Actividad_act a : actividades) {
+            if (a.getId_eve() == id_eve) {
                 actividadesExtracto.add(a);
             }
         }

@@ -44,6 +44,9 @@
         <action
             android:id="@+id/action_nav_v03_to_nav_v02"
             app:destination="@id/nav_v02" />
+        <action
+            android:id="@+id/action_nav_v03_to_nav_v05"
+            app:destination="@id/nav_v05" />
     </fragment>
     <fragment
         android:id="@+id/nav_v04"
@@ -95,17 +98,4 @@
             app:destination="@id/nav_inicio_v01" />
     </fragment>
 
-
-
-    <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.appvisibility.apptravel002.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.appvisibility.apptravel002.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
 </navigation>

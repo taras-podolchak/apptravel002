@@ -6,16 +6,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.cardview.widget.CardView;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.valiente.v_02.entities.Actividad_act;
 import com.appvisibility.apptravel002.ui.valiente.v_02.entities.Evento_eve;
 import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
-public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.ViewHolder>{
+public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.ViewHolder> {
 
     private final List<Evento_eve> eventos;
     private final List<Actividad_act> actividades;
@@ -54,12 +57,12 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
         Picasso.get().load(foto_eve).into(holder.imvFotoEve);
         holder.txvFechaIdaEve.setText(fechaidatru_eve);
         holder.txvFechaVueltaEve.setText(fechavueltatru_eve);
-        holder.txvNivelEve.setText("Nivel: " +nivel_eve);
-        holder.txvDistanciaAct.setText("Distancia: " +distancia_act);
-        holder.txvDesnivelAct.setText("Desnivel: " +desnivel_act);
-        holder.txvHorasAct.setText("Horas de marcha: " +horas_act);
+        holder.txvNivelEve.setText("Nivel: " + nivel_eve);
+        holder.txvDistanciaAct.setText("Distancia: " + distancia_act);
+        holder.txvDesnivelAct.setText("Desnivel: " + desnivel_act);
+        holder.txvHorasAct.setText("Horas de marcha: " + horas_act);
         holder.txvTransporteEve.setText(transportetipo_eve);
-        holder.txvNParticipantesEve.setText("Participantes: " +nparticipantes_eve);
+        holder.txvNParticipantesEve.setText("Participantes: " + nparticipantes_eve);
 
         holder.cardEve.setOnClickListener(new View.OnClickListener() {
 
@@ -71,7 +74,7 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
 
                 Bundle result = new Bundle();
                 result.putSerializable("evento", evento);
-                Navigation.findNavController(v).navigate(R.id.nav_v03,result);
+                Navigation.findNavController(v).navigate(R.id.nav_v03, result);
             }
         });
     }

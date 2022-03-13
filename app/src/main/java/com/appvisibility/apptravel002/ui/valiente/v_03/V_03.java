@@ -1,5 +1,7 @@
 package com.appvisibility.apptravel002.ui.valiente.v_03;
 
+import static com.appvisibility.apptravel002.MainActivity.sesionIniciada;
+
 import android.content.Context;
 import android.os.Bundle;
 
@@ -116,15 +118,19 @@ public class V_03 extends Fragment {
 
 
         v03_boton_me_interesaa = view.findViewById(R.id.v03_boton_me_interesa);
-        v03_boton_me_interesaa.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_nav_v03_to_nav_v04)); //lamda.. java8+
-
-        v03_boton_volver = view.findViewById(R.id.v03_boton_volver);
-        v03_boton_volver.setOnClickListener(new View.OnClickListener() {
+        v03_boton_me_interesaa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v02);
+                if(!sesionIniciada){
+                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v04);
+                }else{
+                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v05);
+                }
+
             }
         });
+        v03_boton_volver = view.findViewById(R.id.v03_boton_volver);
+        v03_boton_volver.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_nav_v03_to_nav_v02));//lamda.. java8+
         return view;
     }
 

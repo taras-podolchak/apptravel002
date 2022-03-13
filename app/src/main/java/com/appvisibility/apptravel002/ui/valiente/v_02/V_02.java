@@ -68,12 +68,13 @@ public class V_02 extends Fragment {
         }
 
     }
+
     private Context mContext;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mContext=context;
+        mContext = context;
     }
 
     @Override

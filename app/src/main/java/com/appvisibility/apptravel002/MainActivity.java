@@ -1,7 +1,10 @@
 package com.appvisibility.apptravel002;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -14,7 +17,7 @@ import com.appvisibility.apptravel002.ui.valiente.v_01.V_01;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
-import androidx.core.view.GravityCompat;
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -22,13 +25,12 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity /*implements NavigationView.OnNavigationItemSelectedListener*/ {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private FirebaseAuth firebaseAuth; //de momento solo para cerrar sesion
-    private DrawerLayout mGraverLayout;
-    private NavigationView mDraver;
+    public static boolean sesionIniciada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,28 +113,92 @@ public class MainActivity extends AppCompatActivity /*implements NavigationView.
 
 // si el usuario ha iniciado la sesion debera saltar la v_04 y v_04_1, pero todavia no lo he hecho
 
-    /*   @Override
-       protected void onStart() {
-           super.onStart();
-           if (firebaseAuth.getCurrentUser()!=null){
-               startActivity(new Intent(MainActivity.this,MainActivity.class));
-               finish();
-           }
-       }*/
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (firebaseAuth.getCurrentUser() != null) {
+            sesionIniciada = true;
+        }
+    }
+
+    public void serrarSecion() {
+        sesionIniciada = false;
+        Toast.makeText(getApplicationContext(), "Sesion cerrada", Toast.LENGTH_SHORT).show();
+    }
 
 
- /*   @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.cerrar_session) {
+            sesionIniciada = false;
+        }
+        return true;
+    }
+
+   /* @Override
+    public boolean onNavigationItemSelected( MenuItem item) {
+        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+       /* if (id == R.id.nav_camara) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else *//*if (id == R.id.paguina_web) {
+            Toast.makeText(this, "Se abrira la pagina WEB", Toast.LENGTH_LONG).show();
+            Log.d(TAG, "Se abrira la pagina WEB" );
+        } else if (id == R.id.cerrar_session) {
+            Toast.makeText(getApplicationContext(), "La sesion se ha cerrado correctamente", Toast.LENGTH_SHORT).show();
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }*/
+
+
+  /*  @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+       /* if (id == R.id.nav_camara) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else *//*if (id == R.id.paguina_web) {
+            Toast.makeText(this, "Se abrira la pagina WEB", Toast.LENGTH_LONG).show();
+            Log.d(TAG, "Se abrira la pagina WEB" );
+        } else if (id == R.id.cerrar_session) {
+            Toast.makeText(getApplicationContext(), "La sesion se ha cerrado correctamente", Toast.LENGTH_SHORT).show();
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;*/
+
+
+        /* int id = item.getItemId();
         if (id == R.id.cerrar_session) {
             //   Intent intent1 = new Intent(this,MyActivity.class);
             //  this.startActivity(intent1);
 
-            firebaseAuth.signOut();     //ceramos la sesion
+            // firebaseAuth.signOut();     //ceramos la sesion
             Toast.makeText(getApplicationContext(), "La sesion se ha cerrado correctamente", Toast.LENGTH_SHORT).show();
-            mGraverLayout.closeDrawer(GravityCompat.START);
-            finish();
+            // mGraverLayout.closeDrawer(GravityCompat.START);
+            //finish();
             return true;
         }
 
@@ -140,11 +206,11 @@ public class MainActivity extends AppCompatActivity /*implements NavigationView.
             Toast.makeText(this, "Se abrira la pagina WEB", Toast.LENGTH_LONG).show();
             return true;
         }
-        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-        *//*
-        return super.onNavigationItemSelected(item);
-    }*/
+        // return super.onNavigationItemSelected(item);
+    */
+
 
 }

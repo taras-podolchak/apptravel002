@@ -46,7 +46,7 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
         holder.txvNombreAct.setText(nombre_act);
         holder.txvActividadTipoAct.setText(actividadtipo_act);
         holder.txvFechaAct.setText(fecha_act);
-        holder.txvNivelAct.setText("Nivel: " +nivel_act);
+        holder.txvNivelAct.setText("Nivel: " + nivel_act);
         holder.txvDistanciaAct.setText("Distancia: " + String.valueOf(distancia_act));
         holder.txvDesnivelAct.setText("Desnivel: " + String.valueOf(desnivel_act));
         holder.txvHorasAct.setText("Horas de marcha: " + String.valueOf(horas_act));
@@ -65,7 +65,7 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
     }
 
     @Override
-    public int getItemCount () {
+    public int getItemCount() {
         return actividades.size();
     }
 
