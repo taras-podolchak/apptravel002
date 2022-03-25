@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".ui.valiente.v_02.service.v03_00_act_Adapter">
+    tools:context=".ui.service.v03_00_act_Adapter">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardAct"

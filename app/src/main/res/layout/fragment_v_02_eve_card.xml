@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".ui.valiente.v_02.V_02"
+    tools:context=".ui.controller.V_02"
     android:id="@+id/v02_eve_card_LinearLayout_evento">
 
     <androidx.cardview.widget.CardView

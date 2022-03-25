@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_inicio_v01"
-        android:name="com.appvisibility.apptravel002.ui.valiente.v_01.V_01"
+        android:name="com.appvisibility.apptravel002.ui.controller.V_01"
         android:label="@string/menu_inicio"
         tools:layout="@layout/fragment_v_01" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_v02"
-        android:name="com.appvisibility.apptravel002.ui.valiente.v_02.V_02"
+        android:name="com.appvisibility.apptravel002.ui.controller.V_02"
         android:label="V_02"
         tools:layout="@layout/fragment_v_02" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_v02_eve_card"
-        android:name="com.appvisibility.apptravel002.ui.valiente.v_02.V_02"
+        android:name="com.appvisibility.apptravel002.ui.controller.V_02"
         android:label="V_02"
         tools:layout="@layout/fragment_v_02_eve_card" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_v03"
-        android:name="com.appvisibility.apptravel002.ui.valiente.v_03.V_03"
+        android:name="com.appvisibility.apptravel002.ui.controller.V_03"
         android:label="V_03"
         tools:layout="@layout/fragment_v_03" >
 
@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_v04"
-        android:name="com.appvisibility.apptravel002.ui.valiente.v_04.V_04"
+        android:name="com.appvisibility.apptravel002.ui.controller.V_04"
         android:label="V_04"
         tools:layout="@layout/fragment_v_04" >
 
@@ -66,7 +66,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_v04_1"
-        android:name="com.appvisibility.apptravel002.ui.valiente.v_04_1.V_04_1"
+        android:name="com.appvisibility.apptravel002.ui.controller.V_04_1"
         android:label="nav_v04_1"
         tools:layout="@layout/fragment_v_04_1" >
         <action
@@ -78,7 +78,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_v05"
-        android:name="com.appvisibility.apptravel002.ui.valiente.v_05.V_05"
+        android:name="com.appvisibility.apptravel002.ui.controller.V_05"
         android:label="v05"
         tools:layout="@layout/fragment_v_05" >
         <action
@@ -90,7 +90,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_v06"
-        android:name="com.appvisibility.apptravel002.ui.valiente.v_06.V_06"
+        android:name="com.appvisibility.apptravel002.ui.controller.V_06"
         android:label="v06"
         tools:layout="@layout/fragment_v_06" >
         <action

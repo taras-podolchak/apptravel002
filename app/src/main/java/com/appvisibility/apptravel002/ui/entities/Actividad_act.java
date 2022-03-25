@@ -1,5 +1,5 @@
-package com.appvisibility.apptravel002.ui.valiente.v_02.entities;
-
+package com.appvisibility.apptravel002.ui.entities;
+/*
 import java.io.Serializable;
 
 public class Actividad_act implements Serializable {
@@ -97,7 +97,7 @@ public class Actividad_act implements Serializable {
         return id_eve;
     }
 
-    public void setId_Eve(int id_eve) {
+    public void setId_eve(int id_eve) {
         this.id_eve = id_eve;
     }
 
@@ -251,4 +251,4 @@ public class Actividad_act implements Serializable {
         builder.append("]");
         return builder.toString();
     }
-}
+}*/

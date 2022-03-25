@@ -1,4 +1,4 @@
-package com.appvisibility.apptravel002.ui.valiente.v_02;
+package com.appvisibility.apptravel002.ui.controller;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appvisibility.apptravel002.R;
-import com.appvisibility.apptravel002.ui.valiente.v_02.service.v02_00_eve_Adapter;
-import com.appvisibility.apptravel002.ui.valiente.v_02.entities.Actividad_act_data;
-import com.appvisibility.apptravel002.ui.valiente.v_02.entities.Evento_eve_data;
+import com.appvisibility.apptravel002.ui.service.v02_00_eve_Adapter;
+//import com.appvisibility.apptravel002.ui.valiente.v_02.entities.Actividad_act_data;
+//import com.appvisibility.apptravel002.ui.valiente.v_02.entities.Evento_eve_data;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -87,7 +87,7 @@ public class V_02 extends Fragment {
         this.miRecicler.setHasFixedSize(true);
         //this.miRecicler.setLayoutManager(new LinearLayoutManager(this));cambio this a....mContext
         this.miRecicler.setLayoutManager(new LinearLayoutManager(mContext));
-        this.miAdapter = new v02_00_eve_Adapter(Evento_eve_data.eventos(), Actividad_act_data.actividades());
+        this.miAdapter = new v02_00_eve_Adapter(/*Evento_eve_data.eventos(), *//*Actividad_act_data.actividades()*/);
         this.miRecicler.setAdapter(miAdapter);
         return view;
     }

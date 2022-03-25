@@ -1,4 +1,4 @@
-package com.appvisibility.apptravel002.ui.valiente.v_04_1;
+package com.appvisibility.apptravel002.ui.controller;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -12,8 +12,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -22,16 +20,10 @@ import android.widget.Toast;
 
 import com.appvisibility.apptravel002.R;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.auth.User;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -228,7 +220,10 @@ public class V_04_1 extends Fragment {
         user.put("email_val", email);
         user.put("dni_val", dni);
         user.put("movil_val", telefono);
-        user.put("usuariotipo_val","Valiente");
+        user.put("usuariotipo_val","Valiente"
+
+
+        );
 
         firebaseAuth.createUserWithEmailAndPassword(email, passwordTrue)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {

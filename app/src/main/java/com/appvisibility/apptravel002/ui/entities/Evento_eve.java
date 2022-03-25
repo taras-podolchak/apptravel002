@@ -1,10 +1,8 @@
-package com.appvisibility.apptravel002.ui.valiente.v_02.entities;
-
+package com.appvisibility.apptravel002.ui.entities;
+/*
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Evento_eve implements Serializable {
-//public class Evento_eve extends ArrayList<CharSequence> implements Serializable {
 
     private int id_eve;
     private String titulo_eve;
@@ -315,7 +313,7 @@ public class Evento_eve implements Serializable {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("	Empleado	 [	id_eve=	");
+        builder.append("	Evento_eve	 [	id_eve=	");
         builder.append(id_eve + " - ");
         builder.append("	0	 [	titulo_eve=	");
         builder.append(titulo_eve + " - ");
@@ -368,4 +366,4 @@ public class Evento_eve implements Serializable {
         builder.append("]");
         return builder.toString();
     }
-}
+}*/

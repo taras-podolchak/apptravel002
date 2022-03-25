@@ -8,7 +8,7 @@
     android:gravity="center"
     android:id="@+id/V03_Layout"
     android:background="@drawable/fondo_para_valiente"
-    tools:context=".ui.valiente.v_03.V_03">
+    tools:context=".ui.controller.V_03">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,8 +42,7 @@
                 <ImageView
                     android:id="@+id/imvFotoEve"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:layout_height="wrap_content" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -7,7 +7,7 @@
     android:background="@drawable/fondo_para_valiente"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".ui.valiente.v_05.V_05">
+    tools:context=".ui.controller.V_05">
 
 
     <LinearLayout

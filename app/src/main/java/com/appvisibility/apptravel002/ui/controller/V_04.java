@@ -1,4 +1,4 @@
-package com.appvisibility.apptravel002.ui.valiente.v_04;
+package com.appvisibility.apptravel002.ui.controller;
 
 
 import android.app.ProgressDialog;
@@ -22,8 +22,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.concurrent.Executor;
 
 
 /**

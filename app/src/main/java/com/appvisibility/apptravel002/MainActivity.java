@@ -1,19 +1,15 @@
 package com.appvisibility.apptravel002;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
-import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.appvisibility.apptravel002.databinding.ActivityMainBinding;
-import com.appvisibility.apptravel002.ui.valiente.v_01.V_01;
+import com.appvisibility.apptravel002.ui.controller.V_01;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
