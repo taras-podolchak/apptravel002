@@ -1,6 +1,5 @@
 package com.appvisibility.apptravel002.ui.controller;
 
-import static android.content.ContentValues.TAG;
 import static com.appvisibility.apptravel002.MainActivity.sesionIniciada;
 
 import android.content.Context;
@@ -8,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,21 +21,27 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.appvisibility.apptravel002.R;
+import com.appvisibility.apptravel002.ui.entities.Actividad_act;
+import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.service.v03_00_act_Adapter;
-//import com.appvisibility.apptravel002.ui.valiente.v_02.entities.Actividad_act_data;
-//import com.appvisibility.apptravel002.ui.valiente.v_02.entities.Evento_eve;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,22 +59,28 @@ public class V_03 extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-   // private Evento_eve evento;
-   // private int posicionEvento;
-    //private String posicionEventoString;
 
-
+    //TODO:los campos de xml
     private Button v03_boton_me_interesaa, v03_boton_volver;
+    private RecyclerView miSubRecicler;
+    private Evento_eve evento;
     private TextView titulo_eve;
     private ImageView foto_eve;
     private TextView fechaidatru_eve;
     private TextView fechavueltatru_eve;
     private TextView transportetipo_eve;
     private TextView nparticipantes_eve;
+
+    //TODO:acceso a datos
+    FirebaseFirestore db2 = FirebaseFirestore.getInstance();
+    Query query;
+
+    //TODO:entities
+    static List<Actividad_act> actividades = new ArrayList<>();
     private Context mContext;
-    private RecyclerView miSubRecicler;
+
+    //TODO:servise
     private v03_00_act_Adapter miSubAdapter;
-    private FirebaseFirestore firebaseFirestore;
 
 
     public V_03() {
@@ -108,20 +120,53 @@ public class V_03 extends Fragment {
         View view = inflater.inflate(R.layout.fragment_v_03,
                 container, false);
 
-        titulo_eve=view.findViewById(R.id.txvTituloEve);
-        foto_eve=view.findViewById(R.id.imvFotoEve);
-        fechaidatru_eve = view.findViewById(R.id.txvFechaIdaTruEve);
-        fechavueltatru_eve = view.findViewById(R.id.txvFechaVueltaTruEve);
-        transportetipo_eve = view.findViewById(R.id.txvTransporteTipoEve);
-        nparticipantes_eve = view.findViewById(R.id.txvNParticipantesEve);
         Bundle bundle = getArguments();
         //this.evento = (Evento_eve) bundle.getSerializable("evento");
-       int posicionEventoInt = (int) bundle.getSerializable("evento");
-        String  posicionEventoString=Integer.toString(posicionEventoInt);
+       // int posicion = (int) bundle.getSerializable("evento");
 
-        firebaseFirestore = FirebaseFirestore.getInstance();
+        this.titulo_eve = view.findViewById(R.id.txvTituloEve);
+        this.foto_eve = view.findViewById(R.id.imvFotoEve);
+        this.fechaidatru_eve = view.findViewById(R.id.txvFechaIdaTruEve);
+        this.fechavueltatru_eve = view.findViewById(R.id.txvFechaVueltaTruEve);
+        this.transportetipo_eve = view.findViewById(R.id.txvTransporteTipoEve);
+        this.nparticipantes_eve = view.findViewById(R.id.txvNParticipantesEve);
 
-        DocumentReference docRef = firebaseFirestore.collection("evento_eve").document(posicionEventoString);
+       /* this.titulo_eve.setText(this.evento.getTitulo_eve());
+        Picasso.get().load(evento.getFoto_eve()).into(foto_eve);
+//        this.foto_eve.setImageResource(this.evento.getFoto_eve());
+        this.fechaidatru_eve.setText(this.evento.getFechaidatru_eve());
+        this.fechavueltatru_eve.setText(this.evento.getFechavueltatru_eve());
+        this.transportetipo_eve.setText(this.evento.getTransportetipo_eve());
+//        this.nparticipantes_eve.setText(this.evento.getNparticipantes_eve());*/
+
+        this.miSubRecicler = (RecyclerView) view.findViewById(R.id.v03_00_act);
+        this.miSubRecicler.setHasFixedSize(true);
+        this.miSubRecicler.setLayoutManager(new LinearLayoutManager(mContext));
+
+        eventosChangeNoListener("1");
+        actividadesChangeListener(1);
+
+        this.miSubAdapter = new v03_00_act_Adapter(actividades, mContext);
+        this.miSubRecicler.setAdapter(miSubAdapter);
+
+        v03_boton_me_interesaa = view.findViewById(R.id.v03_boton_me_interesa);
+        v03_boton_me_interesaa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!sesionIniciada) {
+                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v04);
+                } else {
+                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v05);
+                }
+            }
+        });
+        v03_boton_volver = view.findViewById(R.id.v03_boton_volver);
+        v03_boton_volver.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_nav_v03_to_nav_v02));//lamda.. java8+
+        return view;
+    }
+    public void eventosChangeNoListener(String id_eve){
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        DocumentReference docRef = firebaseFirestore.collection("evento_eve").document(id_eve);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -134,7 +179,7 @@ public class V_03 extends Fragment {
                         //cargamos la imagen
                         FirebaseStorage storage = FirebaseStorage.getInstance();
                         StorageReference storageRef = storage.getReference();
-                        storageRef.child("Eventos/"+posicionEventoInt+".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        storageRef.child("Eventos/1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
                                 Picasso.get().load(uri).into(foto_eve);
@@ -146,77 +191,48 @@ public class V_03 extends Fragment {
                                 // Handle any errors
                             }
                         });
+                        //cargamos la info completa
                         fechaidatru_eve.setText(document.getString("fechaidatru_eve"));
                         fechavueltatru_eve.setText(document.getString("fechavueltatru_eve"));
                         transportetipo_eve.setText(document.getString("transportetipo_eve"));
-//        this.nparticipantes_eve.setText(this.evento.getNparticipantes_eve());
-                        //cargamos la info completa
-                       /* v05_textView_info_completa.setText(
-                                "Nivel de dificultad: " + document.getString("nivel_eve") + "\n"
-                                        + "Distancia ida: " + document.getString("distanciaidatru_eve") + "\n"
-                                        + "Distancia vuelta: " + document.getString("distanciavueltatru_eve") + "\n"
-                                        + "Fecha ida: " + document.getString("fechaidatru_eve") + "\n"
-                                        + "Fecha vuelta: " + document.getString("fechavueltatru_eve") + "\n"
-                                        + "Coordenadas de salida: " + document.getString("salidacoordenadastru_eve") + "\n"
-                                        + "Coordenadas de llegada: " + document.getString("llegadacoordenadastru_eve") + "\n"
-                                        + "Precio: " + document.getString("precio_eve") + "€\n"
-                                        + document.getString("descgeneral_eve"));
+//                      this.nparticipantes_eve.setText(this.evento.getNparticipantes_eve());
 
-                        //aqui se cargara mas cosas*/
+                        //aqui se cargara mas cosas
                     } else {
-                        Log.d(TAG, "No such document");
+//                        Log.d(TAG, "No such document");
                     }
                 } else {
-                    Log.d(TAG, "get failed with ", task.getException());
+//                    Log.d(TAG, "get failed with ", task.getException());
                 }
             }
         });
-       /* this.titulo_eve = view.findViewById(R.id.txvTituloEve);
-        this.foto_eve = view.findViewById(R.id.imvFotoEve);
-        this.fechaidatru_eve = view.findViewById(R.id.txvFechaIdaTruEve);
-        this.fechavueltatru_eve = view.findViewById(R.id.txvFechaVueltaTruEve);
-        this.transportetipo_eve = view.findViewById(R.id.txvTransporteTipoEve);
-        this.nparticipantes_eve = view.findViewById(R.id.txvNParticipantesEve);
-
-        this.titulo_eve.setText(this.evento.getTitulo_eve());
-        Picasso.get().load(evento.getFoto_eve()).into(foto_eve);
-//        this.foto_eve.setImageResource(this.evento.getFoto_eve());
-        this.fechaidatru_eve.setText(this.evento.getFechaidatru_eve());
-        this.fechavueltatru_eve.setText(this.evento.getFechavueltatru_eve());
-        this.transportetipo_eve.setText(this.evento.getTransportetipo_eve());
-//        this.nparticipantes_eve.setText(this.evento.getNparticipantes_eve());
-*/
-// Creación del recicler de Actividad dentro del recicler Evento
-        this.miSubRecicler = (RecyclerView) view.findViewById(R.id.v03_00_act);
-        this.miSubRecicler.setHasFixedSize(true);
-        this.miSubRecicler.setLayoutManager(new LinearLayoutManager(mContext));
-
-//        this.miSubAdapter = new v03_00_act_Adapter(Actividad_act_data.actividades);
-        this.miSubAdapter = new v03_00_act_Adapter(posicionEventoInt/*Actividad_act_data.actividadesExtracto(posicionEventoInt)*/);
-        this.miSubRecicler.setAdapter(miSubAdapter);
-
-
-        v03_boton_me_interesaa = view.findViewById(R.id.v03_boton_me_interesa);
-        v03_boton_me_interesaa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!sesionIniciada){
-                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v04);
-                }else{
-                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v05);
-                }
-
-            }
-        });
-        v03_boton_volver = view.findViewById(R.id.v03_boton_volver);
-        v03_boton_volver.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_nav_v03_to_nav_v02));//lamda.. java8+
-        return view;
     }
+    public void actividadesChangeListener( int id_eve) {
+        query = db2.collection("actividad_act").whereEqualTo("id_eve",id_eve);
+        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
+                Actividad_act enProceso;
+                if (error != null) {
+                    Log.e("Error en Firestore", error.getMessage());
+                    return;
+                }
+                actividades.clear();
+                for (DocumentSnapshot i : snapshots) {
+                    enProceso = i.toObject(Actividad_act.class);
+                    actividades.add(enProceso);
+                }
+                miSubAdapter.notifyDataSetChanged();
+                Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
     }
-
 }

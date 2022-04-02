@@ -1,17 +1,33 @@
 package com.appvisibility.apptravel002.ui.controller;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appvisibility.apptravel002.R;
+import com.appvisibility.apptravel002.ui.entities.Actividad_act;
+import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.service.v02_00_eve_Adapter;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 //import com.appvisibility.apptravel002.ui.valiente.v_02.entities.Actividad_act_data;
 //import com.appvisibility.apptravel002.ui.valiente.v_02.entities.Evento_eve_data;
 
@@ -33,9 +49,11 @@ public class V_02 extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
-
+    // https://firebase.google.com/docs/firestore/quickstart
+    FirebaseFirestore db2 = FirebaseFirestore.getInstance();
+    List<Evento_eve> eventos = new ArrayList<>();
+    Query query;
+    private Context mContext;
 
     public V_02() {
         // Required empty public constructor
@@ -47,7 +65,7 @@ public class V_02 extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment V_03.
+     * @return A new instance of fragment V_02.
      */
     // TODO: Rename and change types and number of parameters
     public static V_02 newInstance(String param1, String param2) {
@@ -69,8 +87,6 @@ public class V_02 extends Fragment {
 
     }
 
-    private Context mContext;
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -85,11 +101,33 @@ public class V_02 extends Fragment {
 
         this.miRecicler = (RecyclerView) view.findViewById(R.id.v02_00_eve);
         this.miRecicler.setHasFixedSize(true);
-        //this.miRecicler.setLayoutManager(new LinearLayoutManager(this));cambio this a....mContext
         this.miRecicler.setLayoutManager(new LinearLayoutManager(mContext));
-        this.miAdapter = new v02_00_eve_Adapter(/*Evento_eve_data.eventos(), *//*Actividad_act_data.actividades()*/);
+
+        eventosChangeListener("evento_eve", "id_eve");
+
+        this.miAdapter = new v02_00_eve_Adapter(eventos, mContext);
         this.miRecicler.setAdapter(miAdapter);
         return view;
     }
 
+    public void eventosChangeListener(String coleccion, String orden) {
+        query = db2.collection(coleccion).orderBy(orden, Query.Direction.ASCENDING);
+        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
+                Evento_eve enProceso;
+                if (error != null) {
+                    Log.e("Error en Firestore", error.getMessage());
+                    return;
+                }
+                eventos.clear();
+                for (DocumentSnapshot i : snapshots) {
+                    enProceso = i.toObject(Evento_eve.class);
+                    eventos.add(enProceso);
+                }
+                miAdapter.notifyDataSetChanged();
+                Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 }

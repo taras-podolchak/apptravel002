@@ -1,5 +1,5 @@
 package com.appvisibility.apptravel002.ui.entities;
-/*
+
 import java.io.Serializable;
 
 public class Evento_eve implements Serializable {
@@ -366,4 +366,4 @@ public class Evento_eve implements Serializable {
         builder.append("]");
         return builder.toString();
     }
-}*/
+}

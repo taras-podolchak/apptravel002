@@ -1,5 +1,5 @@
 package com.appvisibility.apptravel002.ui.entities;
-/*
+
 import java.io.Serializable;
 
 public class Actividad_act implements Serializable {
@@ -251,4 +251,4 @@ public class Actividad_act implements Serializable {
         builder.append("]");
         return builder.toString();
     }
-}*/
+}

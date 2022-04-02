@@ -220,10 +220,7 @@ public class V_04_1 extends Fragment {
         user.put("email_val", email);
         user.put("dni_val", dni);
         user.put("movil_val", telefono);
-        user.put("usuariotipo_val","Valiente"
-
-
-        );
+        user.put("usuariotipo_val","Valiente");
 
         firebaseAuth.createUserWithEmailAndPassword(email, passwordTrue)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {

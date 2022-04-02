@@ -2,10 +2,12 @@ package com.appvisibility.apptravel002.ui.controller;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -13,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -21,16 +25,27 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appvisibility.apptravel002.R;
+import com.appvisibility.apptravel002.ui.entities.Evento_eve;
+import com.appvisibility.apptravel002.ui.entities.Inscribir_evevalcoltpr;
+import com.appvisibility.apptravel002.ui.entities.Valiente_val;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,6 +64,7 @@ public class V_05 extends Fragment {
     private String mParam2;
     private Button v05_boton_confirmar, v05_boton_volver;
     private FirebaseFirestore firebaseFirestore;
+    private Context mContext;
 
     private TextView v05_titulo_eve;
     private ImageView v05_imageView;
@@ -106,8 +122,9 @@ public class V_05 extends Fragment {
         v05_titulo_eve = view.findViewById(R.id.v05_titulo_eve);
         v05_textView_info_completa = view.findViewById(R.id.v05_textView_info_completa);
         v05_imageView = view.findViewById(R.id.v05_imageView);
+        v05_spinner_lista_personas = view.findViewById(R.id.v05_spinner_lista_personas);
 
-        DocumentReference docRef = firebaseFirestore.collection("evento_eve").document("2");
+        DocumentReference docRef = firebaseFirestore.collection("evento_eve").document("1");
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -135,13 +152,13 @@ public class V_05 extends Fragment {
                         //cargamos la info completa
                         v05_textView_info_completa.setText(
                                 "Nivel de dificultad: " + document.getString("nivel_eve") + "\n"
-                                        + "Distancia ida: " + document.getString("distanciaidatru_eve") + "\n"
-                                        + "Distancia vuelta: " + document.getString("distanciavueltatru_eve") + "\n"
+                                        + "Distancia ida: " + document.get("distanciaidatru_eve") + "\n"
+                                        + "Distancia vuelta: " + document.get("distanciavueltatru_eve") + "\n"
                                         + "Fecha ida: " + document.getString("fechaidatru_eve") + "\n"
                                         + "Fecha vuelta: " + document.getString("fechavueltatru_eve") + "\n"
                                         + "Coordenadas de salida: " + document.getString("salidacoordenadastru_eve") + "\n"
                                         + "Coordenadas de llegada: " + document.getString("llegadacoordenadastru_eve") + "\n"
-                                        + "Precio: " + document.getString("precio_eve") + "€\n"
+                                        + "Precio: " + document.get("precio_eve") + "€\n"
                                         + document.getString("descgeneral_eve"));
 
                         //aqui se cargara mas cosas
@@ -153,8 +170,57 @@ public class V_05 extends Fragment {
                 }
             }
         });
+        ArrayList<Inscribir_evevalcoltpr> valientes = new ArrayList<>();
+/*        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("inscribir_evevalcoltpr")
+                .whereEqualTo("id_eve", 1)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                valientes.add(document.toObject(Inscribir_evevalcoltpr.class));
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });*/
 
+        FirebaseFirestore db2 = FirebaseFirestore.getInstance();
+        Query query = db2.collection("inscribir_evevalcoltpr").whereEqualTo("id_eve", 1);
+        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Log.e("Error en Firestore", error.getMessage());
+                    return;
+                }
+                for (DocumentSnapshot i : snapshots) {
+                    valientes.add(i.toObject(Inscribir_evevalcoltpr.class));
+                   /* enProceso=i.toObject(Inscribir_evevalcoltpr.class);
+                    valientes.add(enProceso.getDescestado_evevalcoltpr());*/
+                }
 
+                Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
+            }
+        });
+        ArrayAdapter<Inscribir_evevalcoltpr> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, valientes);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        v05_spinner_lista_personas.setAdapter(arrayAdapter);
+        /*v05_spinner_lista_personas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String tutorialsName = parent.getItemAtPosition(position).toString();
+                Toast.makeText(parent.getContext(), "Selected: " + tutorialsName, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });*/
         v05_boton_confirmar = view.findViewById(R.id.v05_boton_confirmar);    //button v01_boton_buscaar_actividades
         v05_boton_confirmar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,4 +238,9 @@ public class V_05 extends Fragment {
         return view;
     }//fin de constructor
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
 }
