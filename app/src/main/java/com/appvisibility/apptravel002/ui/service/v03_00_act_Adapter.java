@@ -1,26 +1,17 @@
 package com.appvisibility.apptravel002.ui.service;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appvisibility.apptravel002.R;
 //import com.appvisibility.apptravel002.ui.valiente.v_02.entities.Actividad_act;
 import com.appvisibility.apptravel002.ui.entities.Actividad_act;
-import com.appvisibility.apptravel002.ui.entities.Evento_eve;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 

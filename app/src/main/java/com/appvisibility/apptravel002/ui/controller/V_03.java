@@ -61,7 +61,8 @@ public class V_03 extends Fragment {
     private String mParam2;
 
     //TODO:los campos de xml
-    private Button v03_boton_me_interesaa, v03_boton_volver;
+    private Button v03_boton_me_interesa, v03_boton_volver;
+    private Button v03_btnDetalles;
     private RecyclerView miSubRecicler;
     private Evento_eve evento;
     private TextView titulo_eve;
@@ -124,12 +125,12 @@ public class V_03 extends Fragment {
         //this.evento = (Evento_eve) bundle.getSerializable("evento");
        // int posicion = (int) bundle.getSerializable("evento");
 
-        this.titulo_eve = view.findViewById(R.id.txvTituloEve);
-        this.foto_eve = view.findViewById(R.id.imvFotoEve);
-        this.fechaidatru_eve = view.findViewById(R.id.txvFechaIdaTruEve);
-        this.fechavueltatru_eve = view.findViewById(R.id.txvFechaVueltaTruEve);
-        this.transportetipo_eve = view.findViewById(R.id.txvTransporteTipoEve);
-        this.nparticipantes_eve = view.findViewById(R.id.txvNParticipantesEve);
+        this.titulo_eve = view.findViewById(R.id.v03_titulo_eve);
+        this.foto_eve = view.findViewById(R.id.v03_foto_eve);
+        this.fechaidatru_eve = view.findViewById(R.id.v03_fechaidatru_eve);
+        this.fechavueltatru_eve = view.findViewById(R.id.v03_fechavueltatru_eve);
+        this.transportetipo_eve = view.findViewById(R.id.v03_transportetipo_eve);
+        this.nparticipantes_eve = view.findViewById(R.id.v03_nparticipantes_eve);
 
        /* this.titulo_eve.setText(this.evento.getTitulo_eve());
         Picasso.get().load(evento.getFoto_eve()).into(foto_eve);
@@ -139,7 +140,7 @@ public class V_03 extends Fragment {
         this.transportetipo_eve.setText(this.evento.getTransportetipo_eve());
 //        this.nparticipantes_eve.setText(this.evento.getNparticipantes_eve());*/
 
-        this.miSubRecicler = (RecyclerView) view.findViewById(R.id.v03_00_act);
+        this.miSubRecicler = (RecyclerView) view.findViewById(R.id.v03_act);
         this.miSubRecicler.setHasFixedSize(true);
         this.miSubRecicler.setLayoutManager(new LinearLayoutManager(mContext));
 
@@ -149,8 +150,10 @@ public class V_03 extends Fragment {
         this.miSubAdapter = new v03_00_act_Adapter(actividades, mContext);
         this.miSubRecicler.setAdapter(miSubAdapter);
 
-        v03_boton_me_interesaa = view.findViewById(R.id.v03_boton_me_interesa);
-        v03_boton_me_interesaa.setOnClickListener(new View.OnClickListener() {
+        v03_btnDetalles = view.findViewById(R.id.v03_btnDetalles);
+        v03_btnDetalles.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_nav_v03_to_nav_v05));//lamda.. java8+
+        v03_boton_me_interesa = view.findViewById(R.id.v03_boton_me_interesa);
+        v03_boton_me_interesa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!sesionIniciada) {
@@ -164,6 +167,7 @@ public class V_03 extends Fragment {
         v03_boton_volver.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_nav_v03_to_nav_v02));//lamda.. java8+
         return view;
     }
+
     public void eventosChangeNoListener(String id_eve){
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         DocumentReference docRef = firebaseFirestore.collection("evento_eve").document(id_eve);
@@ -227,8 +231,6 @@ public class V_03 extends Fragment {
             }
         });
     }
-
-
 
     @Override
     public void onAttach(Context context) {

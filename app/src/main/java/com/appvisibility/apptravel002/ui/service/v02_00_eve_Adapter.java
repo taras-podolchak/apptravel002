@@ -139,14 +139,14 @@ Descomentar cuando se resuelva el problema de id empezando en 0 (debería empeza
 
         public ViewHolder(View v) {
             super(v);
-            this.txvTituloEve = v.findViewById(R.id.txvTituloEve);
+            this.txvTituloEve = v.findViewById(R.id.v03_titulo_eve);
 //            this.imvFotoEve = v.findViewById(R.id.imvFotoEve);
-            this.imvFotoEve = (ImageView) v.findViewById(R.id.imvFotoEve);
-            this.txvFechaIdaEve = v.findViewById(R.id.txvFechaIdaTruEve);
-            this.txvFechaVueltaEve = v.findViewById(R.id.txvFechaVueltaTruEve);
+            this.imvFotoEve = (ImageView) v.findViewById(R.id.v03_foto_eve);
+            this.txvFechaIdaEve = v.findViewById(R.id.v03_fechaidatru_eve);
+            this.txvFechaVueltaEve = v.findViewById(R.id.v03_fechavueltatru_eve);
             this.txvNivelEve = v.findViewById(R.id.txvNivelEve);
-            this.txvTransporteEve = v.findViewById(R.id.txvTransporteTipoEve);
-            this.txvNParticipantesEve = v.findViewById(R.id.txvNParticipantesEve);
+            this.txvTransporteEve = v.findViewById(R.id.v03_transportetipo_eve);
+            this.txvNParticipantesEve = v.findViewById(R.id.v03_nparticipantes_eve);
 
             this.cardEve = v.findViewById(R.id.cardEve);
         }

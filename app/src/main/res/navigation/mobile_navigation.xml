@@ -82,10 +82,40 @@
         android:label="v05"
         tools:layout="@layout/fragment_v_05" >
         <action
-            android:id="@+id/action_nav_v05_to_nav_v02"
-            app:destination="@id/nav_v02" />
+            android:id="@+id/action_nav_v05_to_nav_v03"
+            app:destination="@id/nav_v03" />
         <action
             android:id="@+id/action_nav_v05_to_nav_v06"
+            app:destination="@id/nav_v06" />
+        <action
+            android:id="@+id/action_nav_v05_to_nav_v05_1"
+            app:destination="@id/nav_v05_1" />
+        <action
+            android:id="@+id/action_nav_v05_to_nav_v05_2"
+            app:destination="@id/nav_v05_2" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_v05_1"
+        android:name="com.appvisibility.apptravel002.ui.controller.V_05_1"
+        android:label="V_05_1"
+        tools:layout="@layout/fragment_v_05_1" >
+        <action
+            android:id="@+id/action_nav_v05_1_to_nav_v05"
+            app:destination="@id/nav_v05" />
+        <action
+            android:id="@+id/action_nav_v05_1_to_nav_v06"
+            app:destination="@id/nav_v06" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_v05_2"
+        android:name="com.appvisibility.apptravel002.ui.controller.V_05_2"
+        android:label="V_05_2"
+        tools:layout="@layout/fragment_v_05_2" >
+        <action
+            android:id="@+id/action_nav_v05_2_to_nav_v05"
+            app:destination="@id/nav_v05" />
+        <action
+            android:id="@+id/action_nav_v05_2_to_nav_v06"
             app:destination="@id/nav_v06" />
     </fragment>
     <fragment

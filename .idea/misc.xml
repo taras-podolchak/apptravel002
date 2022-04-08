@@ -3,6 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_01.xml" value="0.17447916666666666" />
+        <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_02.xml" value="0.1328125" />
+        <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_02_eve_card.xml" value="0.1328125" />
+        <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_03.xml" value="0.15" />
+        <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_03_act_card.xml" value="0.1" />
+        <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_04.xml" value="0.10054347826086957" />
+        <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_04_1.xml" value="0.10054347826086957" />
+        <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_05.xml" value="0.1" />
+        <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_05Detalles.xml" value="0.15217391304347827" />
+        <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_05_1.xml" value="0.1" />
+        <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_05_2.xml" value="0.1" />
+        <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_05_act_card.xml" value="0.1" />
+        <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_05_val_card.xml" value="0.1" />
+        <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_06.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/layout/activity_main.xml" value="0.26875" />
         <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/layout/app_bar_main.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/layout/content_main.xml" value="0.26875" />
@@ -24,10 +38,7 @@
         <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/menu/main.xml" value="0.34739583333333335" />
         <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_slideshow.xml" value="0.1598731884057971" />
         <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_01.xml" value="0.13055555555555556" />
-        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_02.xml" value="0.17654508611955422" />
-        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_03.xml" value="0.22" />
-        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_04_1.xml" value="0.35572916666666665" />
-        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_05.xml" value="0.22" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_03.xml" value="0.1" />
       </map>
     </option>
   </component>
