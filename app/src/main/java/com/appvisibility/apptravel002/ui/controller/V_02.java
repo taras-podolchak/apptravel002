@@ -45,14 +45,13 @@ public class V_02 extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private RecyclerView miRecicler;            //V_02
     private RecyclerView.Adapter miAdapter;     //V_02
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    // https://firebase.google.com/docs/firestore/quickstart
-    FirebaseFirestore db2 = FirebaseFirestore.getInstance();
+    // TODO: Entities
     List<Evento_eve> eventos = new ArrayList<>();
-    Query query;
     private Context mContext;
 
     public V_02() {
@@ -111,7 +110,8 @@ public class V_02 extends Fragment {
     }
 
     public void eventosChangeListener(String coleccion, String orden) {
-        query = db2.collection(coleccion).orderBy(orden, Query.Direction.ASCENDING);
+        FirebaseFirestore db2 = FirebaseFirestore.getInstance();
+        Query query = db2.collection(coleccion).orderBy(orden, Query.Direction.ASCENDING);
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
@@ -122,8 +122,7 @@ public class V_02 extends Fragment {
                 }
                 eventos.clear();
                 for (DocumentSnapshot i : snapshots) {
-                    enProceso = i.toObject(Evento_eve.class);
-                    eventos.add(enProceso);
+                    eventos.add(i.toObject(Evento_eve.class));
                 }
                 miAdapter.notifyDataSetChanged();
                 Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();

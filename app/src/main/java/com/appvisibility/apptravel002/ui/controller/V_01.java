@@ -30,7 +30,6 @@ public class V_01 extends Fragment {
     private String mParam1;
     private String mParam2;
     private Button v01_boton_buscaar_actividades;
-    private RadioGroup mRadioGroup;
 
     public V_01() {
         // Required empty public constructor

@@ -62,10 +62,9 @@ public class V_05 extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private Button v05_boton_confirmar, v05_boton_volver;
-    private FirebaseFirestore firebaseFirestore;
-    private Context mContext;
 
+    //TODO:los campos de xml
+    private Button v05_boton_confirmar, v05_boton_volver;
     private TextView v05_titulo_eve;
     private ImageView v05_imageView;
     private TextView v05_textView_info_completa;
@@ -77,6 +76,11 @@ public class V_05 extends Fragment {
     private Spinner v05_spinner_restricciones_allimentarias;
     private Spinner v05_spinner_estado_de_pago;
 
+    //TODO:acceso a datos
+    private FirebaseFirestore firebaseFirestore;
+
+    //TODO:entities
+    private Context mContext;
 
     public V_05() {
         // Required empty public constructor

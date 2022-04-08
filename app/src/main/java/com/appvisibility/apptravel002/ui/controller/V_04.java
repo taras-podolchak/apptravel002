@@ -39,14 +39,20 @@ public class V_04 extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    //TODO:los campos de xml
     private Button v04_button_iniciar_sesion, v04_button_registrarse;
-    private Context mContext;
-    //defining view objects
     private EditText v04_editTextTextEmailAddress;
     private EditText v04_editTextTextPassword;
+
+    //TODO:servise
     private ProgressDialog progressDialog;
-    //Declaramos un objeto firebaseAuth
+
+    //TODO:acceso a datos
     private FirebaseAuth firebaseAuth;
+
+    //TODO:entities
+    private Context mContext;
 
     public V_04() {
         // Required empty public constructor
@@ -133,12 +139,12 @@ public class V_04 extends Fragment {
             Toast.makeText(getActivity(), "Falta ingresar la contraseña", Toast.LENGTH_LONG).show();
             return;
         }
-        firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v05);
-                }else {
+                } else {
                     Toast.makeText(getActivity(), "El email o la contraseña es incorrecta", Toast.LENGTH_LONG).show();
                 }
                 progressDialog.dismiss();

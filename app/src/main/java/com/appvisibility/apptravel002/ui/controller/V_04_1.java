@@ -43,8 +43,9 @@ public class V_04_1 extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    //TODO:los campos de xml
     private Button v04_1_boton_aceptar, v04_1_boton_volver;
-    //2ºREGISTROFB defining view objects
     private EditText v04_1_editTextTextPersonName_nombre;
     private EditText v04_1_editTextTextPersonName_apellido;
     private EditText v04_1_editTextTextPersonName_apellido2;
@@ -55,9 +56,14 @@ public class V_04_1 extends Fragment {
     private EditText v04_1_editTextTextPersonName_telefono;
     private Spinner v04_1_spinner_valiente_colaborador;
     private CheckBox v04_1_checkBox_aceptacion_condiciones;
+
+    //TODO:servise
     private ProgressDialog progressDialog;
+
+    //TODO:entities
     private Context mContext;
-    //Declaramos de los bbdd
+
+    //TODO:acceso a datos
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
     // private DatabaseReference mDatabase; //no necesitamos esa bbdd
