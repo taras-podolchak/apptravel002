@@ -2,21 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/v02_eve_card_LinearLayout_evento"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".ui.controller.V_02"
-    android:id="@+id/v02_eve_card_LinearLayout_evento">
+    tools:context=".ui.controller.V_02">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardEve"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp">
+       android:layout_margin="5dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -33,7 +29,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/v03_foto_eve"
+                        android:id="@+id/imvFotoEve"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         tools:srcCompat="@tools:sample/avatars" />
@@ -48,11 +44,11 @@
                     android:textAlignment="center">
 
                     <TextView
-                        android:id="@+id/v03_titulo_eve"
+                        android:id="@+id/txvTituloEve"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -60,7 +56,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/v03_fechaidatru_eve"
+                            android:id="@+id/txvFechaIdaTruEve"
                             android:layout_width="120dp"
                             android:layout_height="match_parent"
                             android:textAlignment="textEnd"
@@ -74,7 +70,7 @@
                             android:textSize="14sp" />
 
                         <TextView
-                            android:id="@+id/v03_fechavueltatru_eve"
+                            android:id="@+id/txvFechaVueltaTruEve"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:textAlignment="textStart"
@@ -87,44 +83,28 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal" />
 
-                    <LinearLayout
+
+                    <TextView
+                        android:id="@+id/txvDistanciaAct_txvDesnivelAct"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal">
+                        android:textAlignment="center"/>
 
-                        <TextView
-                            android:id="@+id/v05_crdDistancia_act"
-                            android:layout_width="100dp"
-                            android:layout_height="match_parent"
-                            android:gravity="right" />
 
-                        <TextView
-                            android:id="@+id/textView6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text=" / " />
-
-                        <TextView
-                            android:id="@+id/v05_crdDesnivel_act"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="left" />
-                    </LinearLayout>
-
+             <!--       <TextView
+                        android:id="@+id/txvHorasAct"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal" />
+                -->
                     <TextView
-                        android:id="@+id/v05_crdHoras_act"
+                        android:id="@+id/txvTransporteTipoEve"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal" />
 
                     <TextView
-                        android:id="@+id/v03_transportetipo_eve"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal" />
-
-                    <TextView
-                        android:id="@+id/v03_nparticipantes_eve"
+                        android:id="@+id/txvNParticipantesEve"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal" />

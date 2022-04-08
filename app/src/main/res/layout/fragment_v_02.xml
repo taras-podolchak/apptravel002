@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/fondo_para_valiente"
-    tools:context=".ui.controller.V_02" >
+    android:orientation="vertical"
+    tools:context=".ui.controller.V_02">
 
-    <TextView
-        android:id="@+id/txvTitulo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/corp_blanco"
-        android:text="EVENTOS"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
+    <!--  <TextView
+          android:id="@+id/txvTitulo"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="@color/corp_blanco"
+          android:text="EVENTOS"
+          android:textAlignment="center"
+          android:textSize="24sp"
+          android:textStyle="bold" />
+  -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/v02_00_eve"
         android:layout_width="match_parent"

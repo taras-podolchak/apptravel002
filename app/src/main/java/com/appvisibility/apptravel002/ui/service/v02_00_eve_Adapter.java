@@ -8,10 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -19,6 +21,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.ViewHolder> {
@@ -27,7 +30,7 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
     private final List<Evento_eve> eventos;
     Context context;
 
-    public v02_00_eve_Adapter(List<Evento_eve> eventos,  Context context) {
+    public v02_00_eve_Adapter(List<Evento_eve> eventos, Context context) {
         this.eventos = eventos;
         this.context = context;
     }
@@ -53,10 +56,12 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
         int id_eve = eventos.get(position).getId_eve();
         String titulo_eve = eventos.get(position).getTitulo_eve();
         String foto_eve = eventos.get(position).getFoto_eve();
-//        int foto_eve = eventos.get(position).getFoto_eve();
+        String nivel_eve = eventos.get(position).getNivel_eve();
+        int distanciaidatru_eve = eventos.get(position).getDistanciaidatru_eve();
+        int distanciavueltatru_eve = eventos.get(position).getDistanciavueltatru_eve();
         String fechaidatru_eve = eventos.get(position).getFechaidatru_eve();
         String fechavueltatru_eve = eventos.get(position).getFechavueltatru_eve();
-        String nivel_eve = eventos.get(position).getNivel_eve();
+
 
 /*
 Descomentar cuando se resuelva el problema de id empezando en 0 (debería empezar en 1) en tablas evento_eve y actividad_act Firestore
@@ -73,6 +78,7 @@ Descomentar cuando se resuelva el problema de id empezando en 0 (debería empeza
         storageRef.child("Eventos/" + foto_eve).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
+
                 Picasso.get().load(uri).into(holder.imvFotoEve);
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -85,11 +91,7 @@ Descomentar cuando se resuelva el problema de id empezando en 0 (debería empeza
         holder.txvFechaIdaEve.setText(fechaidatru_eve);
         holder.txvFechaVueltaEve.setText(fechavueltatru_eve);
         holder.txvNivelEve.setText("Nivel: " + nivel_eve);
-/*
-        holder.txvDistanciaAct.setText("Distancia: " +distancia_act);
-        holder.txvDesnivelAct.setText("Desnivel: " +desnivel_act);
-        holder.txvHorasAct.setText("Horas de marcha: " +horas_act);
-*/
+        holder.txvDistanciaAct_txvDesnivelAct.setText("Ida: " + distanciaidatru_eve + " - Vuelta: " + distanciavueltatru_eve);
         holder.txvTransporteEve.setText(transportetipo_eve);
         holder.txvNParticipantesEve.setText("Participantes: " + nparticipantes_eve);
 
@@ -99,8 +101,9 @@ Descomentar cuando se resuelva el problema de id empezando en 0 (debería empeza
                 //Evento_eve evento = eventos.get(position);
 
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("evento", position);
+                bundle.putInt("evento", position);
                 Navigation.findNavController(v).navigate(R.id.nav_v03);
+
 
                 /*
                  * Notificamos cambios para que el contenedor se entere y refresque los datos
@@ -133,20 +136,22 @@ Descomentar cuando se resuelva el problema de id empezando en 0 (debería empeza
         private TextView txvFechaIdaEve;
         private TextView txvFechaVueltaEve;
         private TextView txvNivelEve;
+        private TextView txvDistanciaAct_txvDesnivelAct;
         private TextView txvTransporteEve;
         private TextView txvNParticipantesEve;
         private CardView cardEve;
 
         public ViewHolder(View v) {
             super(v);
-            this.txvTituloEve = v.findViewById(R.id.v03_titulo_eve);
+            this.txvTituloEve = v.findViewById(R.id.txvTituloEve);
 //            this.imvFotoEve = v.findViewById(R.id.imvFotoEve);
-            this.imvFotoEve = (ImageView) v.findViewById(R.id.v03_foto_eve);
-            this.txvFechaIdaEve = v.findViewById(R.id.v03_fechaidatru_eve);
-            this.txvFechaVueltaEve = v.findViewById(R.id.v03_fechavueltatru_eve);
+            this.imvFotoEve = (ImageView) v.findViewById(R.id.imvFotoEve);
+            this.txvFechaIdaEve = v.findViewById(R.id.txvFechaIdaTruEve);
+            this.txvFechaVueltaEve = v.findViewById(R.id.txvFechaVueltaTruEve);
             this.txvNivelEve = v.findViewById(R.id.txvNivelEve);
-            this.txvTransporteEve = v.findViewById(R.id.v03_transportetipo_eve);
-            this.txvNParticipantesEve = v.findViewById(R.id.v03_nparticipantes_eve);
+            this.txvDistanciaAct_txvDesnivelAct = v.findViewById(R.id.txvDistanciaAct_txvDesnivelAct);
+            this.txvTransporteEve = v.findViewById(R.id.txvTransporteTipoEve);
+            this.txvNParticipantesEve = v.findViewById(R.id.txvNParticipantesEve);
 
             this.cardEve = v.findViewById(R.id.cardEve);
         }
