@@ -45,14 +45,14 @@ public class V_04 extends Fragment {
     private EditText v04_editTextTextEmailAddress;
     private EditText v04_editTextTextPassword;
 
-    //TODO:servise
-    private ProgressDialog progressDialog;
-
     //TODO:acceso a datos
     private FirebaseAuth firebaseAuth;
 
     //TODO:entities
     private Context mContext;
+
+    //TODO:servise
+    private ProgressDialog progressDialog;
 
     public V_04() {
         // Required empty public constructor
@@ -84,7 +84,11 @@ public class V_04 extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -115,12 +119,6 @@ public class V_04 extends Fragment {
             }
         });
         return view;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mContext = context;
     }
 
     private void registrarUsuario(View view) {

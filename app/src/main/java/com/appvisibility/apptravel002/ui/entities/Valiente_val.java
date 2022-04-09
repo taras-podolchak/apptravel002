@@ -432,7 +432,13 @@ public class Valiente_val implements Serializable {
     }
 
     @Override
+
     public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(nombre_val+" "+apellido1_val+" Plazas libres: 2");
+        return builder.toString();
+    }
+   /* public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("	Valiente_val	 [	id_val=	");
         builder.append(id_val + " - ");
@@ -508,5 +514,5 @@ public class Valiente_val implements Serializable {
         builder.append(numerocta_val + " - ");
         builder.append("]");
         return builder.toString();
-    }
+    }*/
 }															

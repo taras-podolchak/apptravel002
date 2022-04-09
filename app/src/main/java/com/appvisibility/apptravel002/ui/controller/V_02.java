@@ -1,14 +1,13 @@
 package com.appvisibility.apptravel002.ui.controller;
 
-import android.app.ProgressDialog;
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -16,14 +15,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appvisibility.apptravel002.R;
-import com.appvisibility.apptravel002.ui.entities.Actividad_act;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.service.v02_00_eve_Adapter;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -43,16 +41,23 @@ public class V_02 extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private RecyclerView miRecicler;            //V_02
-    private RecyclerView.Adapter miAdapter;     //V_02
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
+    //TODO:los campos de xml
+    private RecyclerView miRecicler;
+
+    //TODO:acceso a datos
+    FirebaseFirestore bbdd = FirebaseFirestore.getInstance();
+
     // TODO: Entities
     List<Evento_eve> eventos = new ArrayList<>();
     private Context mContext;
+
+    //TODO:servise
+    private v02_00_eve_Adapter eve_Adapter;
 
     public V_02() {
         // Required empty public constructor
@@ -104,29 +109,28 @@ public class V_02 extends Fragment {
 
         eventosChangeListener("evento_eve", "id_eve");
 
-        this.miAdapter = new v02_00_eve_Adapter(eventos, mContext);
-        this.miRecicler.setAdapter(miAdapter);
+        this.eve_Adapter = new v02_00_eve_Adapter(eventos, mContext);
+        this.miRecicler.setAdapter(eve_Adapter);
         return view;
-    }
+    }//Fin de cinstructor
 
     public void eventosChangeListener(String coleccion, String orden) {
-        FirebaseFirestore db2 = FirebaseFirestore.getInstance();
-        Query query = db2.collection(coleccion).orderBy(orden, Query.Direction.ASCENDING);
-        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
-                Evento_eve enProceso;
-                if (error != null) {
-                    Log.e("Error en Firestore", error.getMessage());
-                    return;
-                }
-                eventos.clear();
-                for (DocumentSnapshot i : snapshots) {
-                    eventos.add(i.toObject(Evento_eve.class));
-                }
-                miAdapter.notifyDataSetChanged();
-                Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
-            }
-        });
+        bbdd.collection(coleccion).orderBy(orden, Query.Direction.ASCENDING)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w(TAG, "Listen failed.", e);
+                            return;
+                        }
+                        eventos.clear();
+                        for (QueryDocumentSnapshot doc : value) {
+                            eventos.add(doc.toObject(Evento_eve.class));
+                        }
+                        eve_Adapter.notifyDataSetChanged();
+                        Log.d(TAG, "Current cites in CA: ");
+                    }
+                });
     }
 }

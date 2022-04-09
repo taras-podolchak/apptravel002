@@ -57,17 +57,16 @@ public class V_04_1 extends Fragment {
     private Spinner v04_1_spinner_valiente_colaborador;
     private CheckBox v04_1_checkBox_aceptacion_condiciones;
 
-    //TODO:servise
-    private ProgressDialog progressDialog;
-
-    //TODO:entities
-    private Context mContext;
-
     //TODO:acceso a datos
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
     // private DatabaseReference mDatabase; //no necesitamos esa bbdd
 
+    //TODO:entities
+    private Context mContext;
+
+    //TODO:servise
+    private ProgressDialog progressDialog;
 
     /**
      * Use this factory method to create a new instance of
@@ -95,7 +94,11 @@ public class V_04_1 extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -258,9 +261,5 @@ public class V_04_1 extends Fragment {
 
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mContext = context;
-    }
+
 }
