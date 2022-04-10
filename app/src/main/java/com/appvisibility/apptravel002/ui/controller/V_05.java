@@ -87,8 +87,8 @@ public class V_05 extends Fragment {
     private Context mContext;
 
     //TODO:servise
-    private v03_00_act_Adapter act_Adapter;
-    private v03_00_val_Adapter val_Adapter;
+    private v03_00_act_Adapter v03_adapter_act;
+    private v03_00_val_Adapter v03_adapter_val;
 
     public V_05() {
         // Required empty public constructor
@@ -105,10 +105,10 @@ public class V_05 extends Fragment {
     // TODO: Rename and change types and number of parameters
     public static V_05 newInstance(String param1, String param2) {
         V_05 fragment = new V_05();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+        Bundle bundle = new Bundle();
+        bundle.putString(ARG_PARAM1, param1);
+        bundle.putString(ARG_PARAM2, param2);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -153,7 +153,7 @@ public class V_05 extends Fragment {
         valientesChangeListener(1);
 
  /*       this.v05_adapter_val = new v03_00_val_Adapter(valientes, mContext);
-        this.v05_recycler_val.setAdapter(val_Adapter);
+        this.v05_recycler_val.setAdapter(v03_adapter_val);
 
         // TODO: carga de Actividades
         this.v05_recycler_act = (RecyclerView) view.findViewById(R.id.v05_rcv_actividades);
@@ -163,7 +163,7 @@ public class V_05 extends Fragment {
         actividadesChangeListener(1);
 
         this.v05_adapter_act = new v03_00_act_Adapter(actividades, mContext);
-        this.v05_recycler_act.setAdapter(act_Adapter);*/
+        this.v05_recycler_act.setAdapter(v03_adapter_act);*/
 
         // TODO: swich ¿llevas el coche?
         v05_llevas_coche.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -298,7 +298,7 @@ public class V_05 extends Fragment {
                     for (QueryDocumentSnapshot doc : value) {
                         actividades.add(doc.toObject((Actividad_act.class)));
                     }
-                    act_Adapter.notifyDataSetChanged();
+                    v03_adapter_act.notifyDataSetChanged();
                     Log.d(TAG, "Current cites in CA: ");
                 }
             });

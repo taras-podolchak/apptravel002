@@ -74,10 +74,10 @@ public class V_02 extends Fragment {
     // TODO: Rename and change types and number of parameters
     public static V_02 newInstance(String param1, String param2) {
         V_02 fragment = new V_02();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+        Bundle bundle = new Bundle();
+        bundle.putString(ARG_PARAM1, param1);
+        bundle.putString(ARG_PARAM2, param2);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -110,8 +110,8 @@ public class V_02 extends Fragment {
         return view;
     }//Fin de cinstructor
 
-    public void eventosChangeListener(String coleccion, String orden) {
-        fbf.collection(coleccion).orderBy(orden, Query.Direction.ASCENDING)
+    public void eventosChangeListener(String coleccion, String criterio) {
+        fbf.collection(coleccion).orderBy(criterio, Query.Direction.ASCENDING)
             .addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot value,

@@ -86,9 +86,9 @@ public class V_03 extends Fragment {
     private Context mContext;
 
     //TODO:servise
-    private v02_00_eve_Adapter adapter_eve;
+    private v02_00_eve_Adapter v03_adapter_eve;
     private v03_00_val_Adapter v03_adapter_val;
-    private v03_00_act_Adapter adapter_act;
+    private v03_00_act_Adapter v03_adapter_act;
 
     public V_03() {
         // Required empty public constructor
@@ -105,10 +105,10 @@ public class V_03 extends Fragment {
     // TODO: Rename and change types and number of parameters
     public static V_03 newInstance(String param1, String param2) {
         V_03 fragment = new V_03();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+        Bundle bundle = new Bundle();
+        bundle.putString(ARG_PARAM1, param1);
+        bundle.putString(ARG_PARAM2, param2);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -163,8 +163,8 @@ public class V_03 extends Fragment {
 
         actividadesChangeListener(1);
 
-        this.adapter_act = new v03_00_act_Adapter(actividades, mContext);
-        this.v03_recycler_act.setAdapter(adapter_act);
+        this.v03_adapter_act = new v03_00_act_Adapter(actividades, mContext);
+        this.v03_recycler_act.setAdapter(v03_adapter_act);
 
         // TODO: los botones
         v03_me_interesa = view.findViewById(R.id.v03_btn_me_interesa);
@@ -230,7 +230,7 @@ public class V_03 extends Fragment {
                     for (QueryDocumentSnapshot doc : value) {
                         valientes.add(doc.toObject(Valiente_val.class));
                     }
-                    adapter_act.notifyDataSetChanged();
+                    v03_adapter_act.notifyDataSetChanged();
                     Log.d(TAG, "Current cites in CA: ");
                 }
             });
@@ -267,7 +267,7 @@ public class V_03 extends Fragment {
                     for (QueryDocumentSnapshot doc : value) {
                         actividades.add(doc.toObject((Actividad_act.class)));
                     }
-                    adapter_act.notifyDataSetChanged();
+                    v03_adapter_act.notifyDataSetChanged();
                     Log.d(TAG, "Current cites in CA: ");
                 }
             });

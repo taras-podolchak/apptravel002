@@ -31,7 +31,6 @@ public class V_01 extends Fragment {
     //TODO:servise
     private static int resultado;       //se usa en setResultado. obtiene resultado desde mainActivity.onRadioButtonClicked()
 
-
     public V_01() {
         // Required empty public constructor
     }
@@ -46,10 +45,8 @@ public class V_01 extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_v_01,
-                container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_v_01, container, false);
         v01_buscar_actividades = view.findViewById(R.id.v01_btn_buscar_actividades);
         v01_buscar_actividades.setOnClickListener(new View.OnClickListener() {
             @Override

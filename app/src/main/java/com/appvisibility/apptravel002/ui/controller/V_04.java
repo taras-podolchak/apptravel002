@@ -1,6 +1,5 @@
 package com.appvisibility.apptravel002.ui.controller;
 
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -22,7 +21,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,13 +44,13 @@ public class V_04 extends Fragment {
     private EditText v04_contrasenna_val;
 
     //TODO:acceso a datos
-    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth fba;
 
     //TODO:entities
     private Context mContext;
 
     //TODO:servise
-    private ProgressDialog progressDialog;
+    private ProgressDialog pdg;
 
     public V_04() {
         // Required empty public constructor
@@ -69,10 +67,10 @@ public class V_04 extends Fragment {
     // TODO: Rename and change types and number of parameters
     public static V_04 newInstance(String param1, String param2) {
         V_04 fragment = new V_04();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+        Bundle bundel = new Bundle();
+        bundel.putString(ARG_PARAM1, param1);
+        bundel.putString(ARG_PARAM2, param2);
+        fragment.setArguments(bundel);
         return fragment;
     }
 
@@ -84,6 +82,7 @@ public class V_04 extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -95,7 +94,7 @@ public class V_04 extends Fragment {
         View view = inflater.inflate(R.layout.fragment_v_04, container, false);
 
         //inicializamos el objeto firebaseAuth
-        firebaseAuth = FirebaseAuth.getInstance();
+        fba = FirebaseAuth.getInstance();
 
         //Referenciamos los views
         v04_email_val = view.findViewById(R.id.v04_etx_email_val);
@@ -103,7 +102,7 @@ public class V_04 extends Fragment {
         v04_iniciar_sesion = view.findViewById(R.id.v04_btn_iniciar_sesion);
         v04_registrarse = view.findViewById(R.id.v04_btn_registrarse);
 
-        progressDialog = new ProgressDialog(mContext);
+        pdg = new ProgressDialog(mContext);
 
         v04_iniciar_sesion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +134,7 @@ public class V_04 extends Fragment {
             Toast.makeText(getActivity(), "Falta ingresar la contraseña", Toast.LENGTH_LONG).show();
             return;
         }
-        firebaseAuth.signInWithEmailAndPassword(email_val, contrasenna_val)
+        fba.signInWithEmailAndPassword(email_val, contrasenna_val)
             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -144,10 +143,10 @@ public class V_04 extends Fragment {
                 } else {
                     Toast.makeText(getActivity(), "El email_val o la contraseña es incorrecta", Toast.LENGTH_LONG).show();
                 }
-                progressDialog.dismiss();
+                pdg.dismiss();
             }
         });
-        progressDialog.setMessage("Realizando registro en linea...");
-        progressDialog.show();
+        pdg.setMessage("Realizando registro en linea...");
+        pdg.show();
     }
 }

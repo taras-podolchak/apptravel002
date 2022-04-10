@@ -66,7 +66,7 @@ public class V_04_1 extends Fragment {
     private Context mContext;
 
     //TODO:servise
-    private ProgressDialog progressDialog;
+    private ProgressDialog pdg;
 
     /**
      * Use this factory method to create a new instance of
@@ -79,10 +79,10 @@ public class V_04_1 extends Fragment {
     // TODO: Rename and change types and number of parameters
     public static V_04_1 newInstance(String param1, String param2) {
         V_04_1 fragment = new V_04_1();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+        Bundle bundle = new Bundle();
+        bundle.putString(ARG_PARAM1, param1);
+        bundle.putString(ARG_PARAM2, param2);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -144,7 +144,7 @@ public class V_04_1 extends Fragment {
             }
         });*/
 
-        progressDialog = new ProgressDialog(mContext);
+        pdg = new ProgressDialog(mContext);
         v04_1_aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -242,11 +242,11 @@ public class V_04_1 extends Fragment {
 
                         Toast.makeText(getActivity(), "Ya existe el usuario con el mismo mail", Toast.LENGTH_LONG).show();
                     }
-                    progressDialog.dismiss();
+                    pdg.dismiss();
                 }
             });
-        progressDialog.setMessage("Realizando registro en linea...");
-        progressDialog.show();
+        pdg.setMessage("Realizando registro en linea...");
+        pdg.show();
 
         //es un ejemplo como trabajar con DatabaseReference //no necesitamos  esa bbdd
         /*mDatabase.child("16").child("data").child("30").child("nombre_val").setValue(nombre_val);
@@ -255,6 +255,5 @@ public class V_04_1 extends Fragment {
         mDatabase.child("16").child("data").child("30").child("dni_val").setValue(dni_val);
        // mDatabase.child("16").child("data").add/*child("30").child("movil_val").setValue(movil_val)*/
         ;
-
     }
 }
