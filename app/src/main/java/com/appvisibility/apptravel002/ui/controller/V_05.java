@@ -10,7 +10,6 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -63,22 +62,22 @@ public class V_05 extends Fragment {
     private String mParam2;
 
     //TODO:los campos de xml
-    private Button v05_boton_confirmar, v05_boton_volver;
+    private Button v05_confirmar, v05_volver;
     private TextView v05_titulo_eve;
-    private ImageView v05_imageView;
-    private TextView v05_textView_info_completa;
-    private Spinner v05_spinner_lista_personas;
-    private Switch v05_swich_llevas_el_coche;
-    private Spinner v05_spinner_nesesito_coche;
-    private Spinner v05_spinner_ofresco_coche;
-    private Spinner v05_spinner_tipo_alojamiento;
-    private Spinner v05_spinner_restricciones_allimentarias;
+    private ImageView v05_foto_eve;
+    private TextView v05_info_completa;
+    private Spinner v05_lista_personas;
+    private Switch v05_llevas_coche;
+    private Spinner v05_necesito_coche;
+    private Spinner v05_ofrezco_coche;
+    private Spinner v05_tipo_alojamiento;
+    private Spinner v05_restricciones_allimentarias;
    // private Spinner v05_spinner_estado_de_pago;
     private RecyclerView act_Recicler;
     private RecyclerView val_Recicler;
 
     //TODO:acceso a datos
-    FirebaseFirestore bbdd = FirebaseFirestore.getInstance();
+    FirebaseFirestore fbf = FirebaseFirestore.getInstance();
 
     //TODO:entities
     private Evento_eve evento;
@@ -136,15 +135,15 @@ public class V_05 extends Fragment {
 
 
         v05_titulo_eve = view.findViewById(R.id.v05_txv_titulo_eve);
-        v05_imageView = view.findViewById(R.id.v05_imv_foto_eve);
-        v05_textView_info_completa = view.findViewById(R.id.v05_txv_info_completa);
-        v05_swich_llevas_el_coche = (Switch) view.findViewById(R.id.v05_swc_llevas_el_coche);
-        v05_spinner_lista_personas = view.findViewById(R.id.v05_spinner_lista_personas);
-        v05_spinner_nesesito_coche = view.findViewById(R.id.v05_spn_necesito_coche);
-        v05_spinner_ofresco_coche = view.findViewById(R.id.v05_spn_ofrezco_coche);
-        v05_spinner_ofresco_coche.setEnabled(false);
-        v05_spinner_tipo_alojamiento = view.findViewById(R.id.v05_spn_tipo_alojamiento);
-        v05_spinner_restricciones_allimentarias = view.findViewById(R.id.v05_spn_restricciones_allimentarias);
+        v05_foto_eve = view.findViewById(R.id.v05_imv_foto_eve);
+        v05_info_completa = view.findViewById(R.id.v05_txv_info_completa);
+        v05_llevas_coche = (Switch) view.findViewById(R.id.v05_swc_llevas_el_coche);
+        v05_lista_personas = view.findViewById(R.id.v05_spn_lista_personas);
+        v05_necesito_coche = view.findViewById(R.id.v05_spn_necesito_coche);
+        v05_ofrezco_coche = view.findViewById(R.id.v05_spn_ofrezco_coche);
+        v05_ofrezco_coche.setEnabled(false);
+        v05_tipo_alojamiento = view.findViewById(R.id.v05_spn_tipo_alojamiento);
+        v05_restricciones_allimentarias = view.findViewById(R.id.v05_spn_restricciones_allimentarias);
 
         // TODO: carga de Evento
         eventosChangeListener(1);
@@ -170,14 +169,14 @@ public class V_05 extends Fragment {
         this.act_Recicler.setAdapter(act_Adapter);*/
 
         // TODO: swich ¿llevas el coche?
-        v05_swich_llevas_el_coche.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        v05_llevas_coche.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    v05_spinner_ofresco_coche.setEnabled(true);
-                    v05_spinner_nesesito_coche.setEnabled(false);
+                    v05_ofrezco_coche.setEnabled(true);
+                    v05_necesito_coche.setEnabled(false);
                 } else {
-                    v05_spinner_nesesito_coche.setEnabled(true);
-                    v05_spinner_ofresco_coche.setEnabled(false);
+                    v05_necesito_coche.setEnabled(true);
+                    v05_ofrezco_coche.setEnabled(false);
                 }
             }
         });
@@ -196,15 +195,15 @@ public class V_05 extends Fragment {
 
 
         // TODO: los botones
-        v05_boton_confirmar = view.findViewById(R.id.v05_btn_confirmar);
-        v05_boton_confirmar.setOnClickListener(new View.OnClickListener() {
+        v05_confirmar = view.findViewById(R.id.v05_btn_confirmar);
+        v05_confirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_nav_v05_to_nav_v06);
             }
         });
-        v05_boton_volver = view.findViewById(R.id.v05_btn_volver);
-        v05_boton_volver.setOnClickListener(new View.OnClickListener() {
+        v05_volver = view.findViewById(R.id.v05_btn_volver);
+        v05_volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_nav_v05_to_nav_v02);
@@ -216,7 +215,7 @@ public class V_05 extends Fragment {
 
 
     public void eventosChangeListener(int id_eve) { // bien hecho
-        bbdd.collection("evento_eve")
+        fbf.collection("evento_eve")
                 .whereEqualTo("id_eve", id_eve)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @SuppressLint("SetTextI18n")
@@ -237,10 +236,10 @@ public class V_05 extends Fragment {
                             storageRef.child("Eventos/1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    Picasso.get().load(uri).into(v05_imageView);
+                                    Picasso.get().load(uri).into(v05_foto_eve);
                                 }
                             }).addOnFailureListener(exception -> Toast.makeText(getActivity(), "GET IMAGE FAILED", Toast.LENGTH_LONG).show());
-                            v05_textView_info_completa.setText(
+                            v05_info_completa.setText(
                                     "Nivel de dificultad: " + evento.getNivel_eve() + "\n"
                                             + "Distancia ida: " + evento.getDistanciaidatru_eve() + " "
                                             + "Distancia vuelta: " + evento.getDistanciavueltatru_eve() + "\n"
@@ -257,7 +256,7 @@ public class V_05 extends Fragment {
     }
 
     public void valientesChangeListener(int noSeQue) {
-        bbdd.collection("valiente_val").whereIn("id_val", Arrays.asList(1, 2, 3, 4, 5, 6))
+        fbf.collection("valiente_val").whereIn("id_val", Arrays.asList(1, 2, 3, 4, 5, 6))
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value,
@@ -276,7 +275,7 @@ public class V_05 extends Fragment {
                 });
         ArrayAdapter<Valiente_val> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, valientes);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        v05_spinner_lista_personas.setAdapter(arrayAdapter);
+        v05_lista_personas.setAdapter(arrayAdapter);
         /*v05_spinner_lista_personas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -290,7 +289,7 @@ public class V_05 extends Fragment {
     }
 
     public void actividadesChangeListener(int id_eve) {
-        bbdd.collection("actividad_act").whereEqualTo("id_eve", id_eve)
+        fbf.collection("actividad_act").whereEqualTo("id_eve", id_eve)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value,
@@ -310,8 +309,8 @@ public class V_05 extends Fragment {
     }
 
     private void necesitoElCocheChangeListener() {
-        // bbdd.collection("inscribir_evevalcoltpr").whereEqualTo("id_eve", 1)
-        bbdd.collection("valiente_val").whereIn("id_val", Arrays.asList(1, 2, 3, 4, 5, 6))
+        // fbf.collection("inscribir_evevalcoltpr").whereEqualTo("id_eve", 1)
+        fbf.collection("valiente_val").whereIn("id_val", Arrays.asList(1, 2, 3, 4, 5, 6))
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value,
@@ -330,7 +329,7 @@ public class V_05 extends Fragment {
 
         ArrayAdapter<Valiente_val> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, valientesConCoches);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        v05_spinner_nesesito_coche.setAdapter(arrayAdapter);
+        v05_necesito_coche.setAdapter(arrayAdapter);
         /*v05_spinner_lista_personas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -352,7 +351,7 @@ public class V_05 extends Fragment {
         arrayList.add("Ofresco 4 asientos");
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, arrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        v05_spinner_ofresco_coche.setAdapter(arrayAdapter);
+        v05_ofrezco_coche.setAdapter(arrayAdapter);
         /*v05_spinner_lista_personas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -373,7 +372,7 @@ public class V_05 extends Fragment {
         arrayList.add("Autocar");
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, arrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        v05_spinner_tipo_alojamiento.setAdapter(arrayAdapter);
+        v05_tipo_alojamiento.setAdapter(arrayAdapter);
         /*v05_spinner_lista_personas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -407,7 +406,7 @@ public class V_05 extends Fragment {
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, arrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        v05_spinner_restricciones_allimentarias.setAdapter(arrayAdapter);
+        v05_restricciones_allimentarias.setAdapter(arrayAdapter);
         /*v05_spinner_lista_personas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

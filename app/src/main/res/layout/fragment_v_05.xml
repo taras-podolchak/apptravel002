@@ -59,7 +59,7 @@
                     android:layout_weight="10" />
 
                 <Spinner
-                    android:id="@+id/v05_spinner_lista_personas"
+                    android:id="@+id/v05_spn_lista_personas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

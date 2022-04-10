@@ -41,9 +41,9 @@ public class V_04 extends Fragment {
     private String mParam2;
 
     //TODO:los campos de xml
-    private Button v04_button_iniciar_sesion, v04_button_registrarse;
-    private EditText v04_editTextTextEmailAddress;
-    private EditText v04_editTextTextPassword;
+    private Button v04_iniciar_sesion, v04_registrarse;
+    private EditText v04_1_email_val;
+    private EditText v04_1_contrasenna_val;
 
     //TODO:acceso a datos
     private FirebaseAuth firebaseAuth;
@@ -99,20 +99,20 @@ public class V_04 extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
 
         //Referenciamos los views
-        v04_editTextTextEmailAddress = view.findViewById(R.id.v04_etx_email_val);
-        v04_editTextTextPassword = view.findViewById(R.id.v04_etx_contrasenna_val);
-        v04_button_iniciar_sesion = view.findViewById(R.id.v04_btn_iniciar_sesion);
-        v04_button_registrarse = view.findViewById(R.id.v04_btn_registrarse);
+        v04_1_email_val = view.findViewById(R.id.v04_etx_email_val);
+        v04_1_contrasenna_val = view.findViewById(R.id.v04_etx_contrasenna_val);
+        v04_iniciar_sesion = view.findViewById(R.id.v04_btn_iniciar_sesion);
+        v04_registrarse = view.findViewById(R.id.v04_btn_registrarse);
 
         progressDialog = new ProgressDialog(mContext);
 
-        v04_button_iniciar_sesion.setOnClickListener(new View.OnClickListener() {
+        v04_iniciar_sesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 registrarUsuario(view);
             }
         });
-        v04_button_registrarse.setOnClickListener(new View.OnClickListener() {
+        v04_registrarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v04_1);
@@ -123,27 +123,27 @@ public class V_04 extends Fragment {
 
     private void registrarUsuario(View view) {
 
-        //Obtenemos el email y la contraseña desde las cajas de texto
-        String email = v04_editTextTextEmailAddress.getText().toString().trim();
-        String password = v04_editTextTextPassword.getText().toString().trim();
+        //Obtenemos el email_val y la contraseña desde las cajas de texto
+        String email_val = v04_1_email_val.getText().toString().trim();
+        String contrasenna_val = v04_1_contrasenna_val.getText().toString().trim();
 
         //Verificamos que las cajas de texto no estén vacías
-        if (TextUtils.isEmpty(email)) {
-            Toast.makeText(getActivity(), "Se debe ingresar un email", Toast.LENGTH_LONG).show();
+        if (TextUtils.isEmpty(email_val)) {
+            Toast.makeText(getActivity(), "Se debe ingresar un email_val", Toast.LENGTH_LONG).show();
             return;
         }
 
-        if (TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(contrasenna_val)) {
             Toast.makeText(getActivity(), "Falta ingresar la contraseña", Toast.LENGTH_LONG).show();
             return;
         }
-        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword(email_val, contrasenna_val).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v05);
                 } else {
-                    Toast.makeText(getActivity(), "El email o la contraseña es incorrecta", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "El email_val o la contraseña es incorrecta", Toast.LENGTH_LONG).show();
                 }
                 progressDialog.dismiss();
             }

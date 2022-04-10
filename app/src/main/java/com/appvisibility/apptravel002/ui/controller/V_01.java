@@ -26,7 +26,7 @@ public class V_01 extends Fragment {
     private String mParam2;
 
     //TODO:los campos de xml
-    private Button v01_boton_buscaar_actividades;
+    private Button v01_buscar_actividades;
 
     //TODO:servise
     private static int resultado;       //se usa en setResultado. obtiene resultado desde mainActivity.onRadioButtonClicked()
@@ -50,17 +50,17 @@ public class V_01 extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_01,
                 container, false);
-        v01_boton_buscaar_actividades = view.findViewById(R.id.v01_btn_buscar_actividades);
-        v01_boton_buscaar_actividades.setOnClickListener(new View.OnClickListener() {
+        v01_buscar_actividades = view.findViewById(R.id.v01_btn_buscar_actividades);
+        v01_buscar_actividades.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if (resultado == 0) {
-                    Toast.makeText(getActivity(), "Elije por favor la actividad", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Por favor elige la actividad", Toast.LENGTH_SHORT).show();
                 }
                 if (resultado == 1) {
                     Navigation.findNavController(view).navigate(R.id.action_nav_inicio_v01_to_nav_v02);
-                    Toast.makeText(getActivity(), "Excurciones de un dia", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Excursiones de un día", Toast.LENGTH_SHORT).show();
                 }
                 if (resultado == 2) {
                     Navigation.findNavController(view).navigate(R.id.action_nav_inicio_v01_to_nav_v02);

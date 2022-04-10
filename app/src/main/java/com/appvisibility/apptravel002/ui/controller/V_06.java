@@ -31,7 +31,7 @@ public class V_06 extends Fragment {
     private String mParam2;
 
     //TODO:los campos de xml
-    private Button v06_boton_activar_aviso, v06_boton_buscar_mas_actividades;
+    private Button v06_activar_aviso, v06_mas_actividades;
 
 
     public V_06() {
@@ -70,15 +70,15 @@ public class V_06 extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_06,
                 container, false);
-        v06_boton_activar_aviso = view.findViewById(R.id.v06_btn_activar_aviso);    //button v01_boton_buscaar_actividades
-        v06_boton_activar_aviso.setOnClickListener(new View.OnClickListener() {
+        v06_activar_aviso = view.findViewById(R.id.v06_btn_activar_aviso);    //button v01_boton_buscaar_actividades
+        v06_activar_aviso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "Se activará aviso", Toast.LENGTH_SHORT).show();
             }
         });
-        v06_boton_buscar_mas_actividades = view.findViewById(R.id.v06_btn_buscar_mas_actividades);
-        v06_boton_buscar_mas_actividades.setOnClickListener(new View.OnClickListener() {
+        v06_mas_actividades = view.findViewById(R.id.v06_btn_buscar_mas_actividades);
+        v06_mas_actividades.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_nav_v06_to_nav_inicio_v01);

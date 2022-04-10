@@ -66,18 +66,18 @@ public class V_03 extends Fragment {
     private String mParam2;
 
     //TODO:los campos de xml
-    private Button v03_boton_me_interesaa, v03_boton_volver;
+    private Button v03_me_interesa, v03_volver;
     private TextView titulo_eve;
     private ImageView foto_eve;
     private TextView fechaidatru_eve;
     private TextView fechavueltatru_eve;
     private TextView transportetipo_eve;
     private TextView nparticipantes_eve;
-    private RecyclerView act_Recicler;
-    private RecyclerView val_Recicler;
+    private RecyclerView recycler_act;
+    private RecyclerView recycler_val;
 
     //TODO:acceso a datos
-    FirebaseFirestore bbdd = FirebaseFirestore.getInstance();
+    FirebaseFirestore fbf = FirebaseFirestore.getInstance();
 
     //TODO:entities
     private Evento_eve evento;
@@ -86,9 +86,9 @@ public class V_03 extends Fragment {
     private Context mContext;
 
     //TODO:servise
-    private v02_00_eve_Adapter eve_Adapter;
-    private v03_00_val_Adapter val_Adapter;
-    private v03_00_act_Adapter act_Adapter;
+    private v02_00_eve_Adapter adapter_eve;
+    private v03_00_val_Adapter adapter_val;
+    private v03_00_act_Adapter adapter_act;
 
     public V_03() {
         // Required empty public constructor
@@ -149,28 +149,28 @@ public class V_03 extends Fragment {
         eventosChangeListener(1);
 
         // TODO: carga de Inscritos (valientes)
-        this.val_Recicler = (RecyclerView) view.findViewById(R.id.v03_rcv_valientes);
-        this.val_Recicler.setHasFixedSize(true);
-        this.val_Recicler.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
+        this.recycler_val = (RecyclerView) view.findViewById(R.id.v03_rcv_valientes);
+        this.recycler_val.setHasFixedSize(true);
+        this.recycler_val.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
 
         valientesChangeListener(1);
 
-        this.val_Adapter = new v03_00_val_Adapter(valientes, mContext);
-        this.val_Recicler.setAdapter(val_Adapter);
+        this.adapter_val = new v03_00_val_Adapter(valientes, mContext);
+        this.recycler_val.setAdapter(adapter_val);
 
         // TODO: carga de Actividades
-        this.act_Recicler = (RecyclerView) view.findViewById(R.id.v03_rcv_actividades);
-        this.act_Recicler.setHasFixedSize(true);
-        this.act_Recicler.setLayoutManager(new LinearLayoutManager(mContext));
+        this.recycler_act = (RecyclerView) view.findViewById(R.id.v03_rcv_actividades);
+        this.recycler_act.setHasFixedSize(true);
+        this.recycler_act.setLayoutManager(new LinearLayoutManager(mContext));
 
         actividadesChangeListener(1);
 
-        this.act_Adapter = new v03_00_act_Adapter(actividades, mContext);
-        this.act_Recicler.setAdapter(act_Adapter);
+        this.adapter_act = new v03_00_act_Adapter(actividades, mContext);
+        this.recycler_act.setAdapter(adapter_act);
 
         // TODO: los botones
-        v03_boton_me_interesaa = view.findViewById(R.id.v03_btn_me_interesa);
-        v03_boton_me_interesaa.setOnClickListener(new View.OnClickListener() {
+        v03_me_interesa = view.findViewById(R.id.v03_btn_me_interesa);
+        v03_me_interesa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!sesionIniciada) {
@@ -180,68 +180,68 @@ public class V_03 extends Fragment {
                 }
             }
         });
-        v03_boton_volver = view.findViewById(R.id.v03_btn_volver);
-        v03_boton_volver.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_nav_v03_to_nav_v02));//lamda.. java8+
+        v03_volver = view.findViewById(R.id.v03_btn_volver);
+        v03_volver.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_nav_v03_to_nav_v02));//lamda.. java8+
         return view;
     }//fin de constructor
 
 
     public void eventosChangeListener(int id_eve) { // bien hecho
-        bbdd.collection("evento_eve")
-                .whereEqualTo("id_eve", id_eve)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value,
-                                        @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Log.w(TAG, "Listen failed.", e);
-                            return;
-                        }
-                        for (QueryDocumentSnapshot doc : value) {
-                            evento = doc.toObject(Evento_eve.class);
-
-                            titulo_eve.setText(evento.getTitulo_eve());
-                            //cargamos la imagen
-                            FirebaseStorage storage = FirebaseStorage.getInstance();
-                            StorageReference storageRef = storage.getReference();
-                            storageRef.child("Eventos/1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    Picasso.get().load(uri).into(foto_eve);
-                                }
-                            }).addOnFailureListener(exception -> Toast.makeText(getActivity(), "GET IMAGE FAILED", Toast.LENGTH_LONG).show());
-                            fechaidatru_eve.setText(evento.getFechaidatru_eve());
-                            fechavueltatru_eve.setText(evento.getFechavueltatru_eve());
-                            transportetipo_eve.setText(evento.getTransportetipo_eve());
-                        }
-                        Log.d(TAG, "Current cites in CA: ");
+        fbf.collection("evento_eve")
+            .whereEqualTo("id_eve", id_eve)
+            .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value,
+                                    @Nullable FirebaseFirestoreException e) {
+                    if (e != null) {
+                        Log.w(TAG, "Listen failed.", e);
+                        return;
                     }
-                });
+                    for (QueryDocumentSnapshot doc : value) {
+                        evento = doc.toObject(Evento_eve.class);
+
+                        titulo_eve.setText(evento.getTitulo_eve());
+                        //cargamos la imagen
+                        FirebaseStorage storage = FirebaseStorage.getInstance();
+                        StorageReference storageRef = storage.getReference();
+                        storageRef.child("Eventos/1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                Picasso.get().load(uri).into(foto_eve);
+                            }
+                        }).addOnFailureListener(exception -> Toast.makeText(getActivity(), "GET IMAGE FAILED", Toast.LENGTH_LONG).show());
+                        fechaidatru_eve.setText(evento.getFechaidatru_eve());
+                        fechavueltatru_eve.setText(evento.getFechavueltatru_eve());
+                        transportetipo_eve.setText(evento.getTransportetipo_eve());
+                    }
+                    Log.d(TAG, "Current cites in CA: ");
+                }
+            });
     }
 
     public void valientesChangeListener(int noSeQue) {
-        bbdd.collection("valiente_val").whereIn("id_val", Arrays.asList(1, 2, 3, 4, 5, 6))
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value,
-                                        @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Log.w(TAG, "Listen failed.", e);
-                            return;
-                        }
-                        valientes.clear();
-                        for (QueryDocumentSnapshot doc : value) {
-                            valientes.add(doc.toObject(Valiente_val.class));
-                        }
-                        act_Adapter.notifyDataSetChanged();
-                        Log.d(TAG, "Current cites in CA: ");
+        fbf.collection("valiente_val").whereIn("id_val", Arrays.asList(1, 2, 3, 4, 5, 6))
+            .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value,
+                                    @Nullable FirebaseFirestoreException e) {
+                    if (e != null) {
+                        Log.w(TAG, "Listen failed.", e);
+                        return;
                     }
-                });
+                    valientes.clear();
+                    for (QueryDocumentSnapshot doc : value) {
+                        valientes.add(doc.toObject(Valiente_val.class));
+                    }
+                    adapter_act.notifyDataSetChanged();
+                    Log.d(TAG, "Current cites in CA: ");
+                }
+            });
     }
 
     public void valientesChangeListener() {//prueba
-        FirebaseFirestore bbdd = FirebaseFirestore.getInstance();
-        DocumentReference docRef = bbdd.collection("evento_eve_test").document("1");
+        FirebaseFirestore fbf = FirebaseFirestore.getInstance();
+        DocumentReference docRef = fbf.collection("evento_eve_test").document("1");
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -259,22 +259,22 @@ public class V_03 extends Fragment {
     }
 
     public void actividadesChangeListener(int id_eve) {
-        bbdd.collection("actividad_act").whereEqualTo("id_eve", id_eve)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value,
-                                        @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Log.w(TAG, "Listen failed.", e);
-                            return;
-                        }
-                        actividades.clear();
-                        for (QueryDocumentSnapshot doc : value) {
-                            actividades.add(doc.toObject((Actividad_act.class)));
-                        }
-                        act_Adapter.notifyDataSetChanged();
-                        Log.d(TAG, "Current cites in CA: ");
+        fbf.collection("actividad_act").whereEqualTo("id_eve", id_eve)
+            .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value,
+                                    @Nullable FirebaseFirestoreException e) {
+                    if (e != null) {
+                        Log.w(TAG, "Listen failed.", e);
+                        return;
                     }
-                });
+                    actividades.clear();
+                    for (QueryDocumentSnapshot doc : value) {
+                        actividades.add(doc.toObject((Actividad_act.class)));
+                    }
+                    adapter_act.notifyDataSetChanged();
+                    Log.d(TAG, "Current cites in CA: ");
+                }
+            });
     }
 }

@@ -47,17 +47,17 @@ public class V_02 extends Fragment {
     private String mParam2;
 
     //TODO:los campos de xml
-    private RecyclerView miRecicler;
+    private RecyclerView recycler_eve;
 
     //TODO:acceso a datos
-    FirebaseFirestore bbdd = FirebaseFirestore.getInstance();
+    FirebaseFirestore fbf = FirebaseFirestore.getInstance();
 
     // TODO: Entities
     List<Evento_eve> eventos = new ArrayList<>();
     private Context mContext;
 
     //TODO:servise
-    private v02_00_eve_Adapter eve_Adapter;
+    private v02_00_eve_Adapter adapter_eve;
 
     public V_02() {
         // Required empty public constructor
@@ -103,34 +103,34 @@ public class V_02 extends Fragment {
         View view = inflater.inflate(R.layout.fragment_v_02,
                 container, false);
 
-        this.miRecicler = (RecyclerView) view.findViewById(R.id.v02_rcv_eventos);
-        this.miRecicler.setHasFixedSize(true);
-        this.miRecicler.setLayoutManager(new LinearLayoutManager(mContext));
+        this.recycler_eve = (RecyclerView) view.findViewById(R.id.v02_rcv_eventos);
+        this.recycler_eve.setHasFixedSize(true);
+        this.recycler_eve.setLayoutManager(new LinearLayoutManager(mContext));
 
         eventosChangeListener("evento_eve", "id_eve");
 
-        this.eve_Adapter = new v02_00_eve_Adapter(eventos, mContext);
-        this.miRecicler.setAdapter(eve_Adapter);
+        this.adapter_eve = new v02_00_eve_Adapter(eventos, mContext);
+        this.recycler_eve.setAdapter(adapter_eve);
         return view;
     }//Fin de cinstructor
 
     public void eventosChangeListener(String coleccion, String orden) {
-        bbdd.collection(coleccion).orderBy(orden, Query.Direction.ASCENDING)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value,
-                                        @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Log.w(TAG, "Listen failed.", e);
-                            return;
-                        }
-                        eventos.clear();
-                        for (QueryDocumentSnapshot doc : value) {
-                            eventos.add(doc.toObject(Evento_eve.class));
-                        }
-                        eve_Adapter.notifyDataSetChanged();
-                        Log.d(TAG, "Current cites in CA: ");
+        fbf.collection(coleccion).orderBy(orden, Query.Direction.ASCENDING)
+            .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value,
+                                    @Nullable FirebaseFirestoreException e) {
+                    if (e != null) {
+                        Log.w(TAG, "Listen failed.", e);
+                        return;
                     }
-                });
+                    eventos.clear();
+                    for (QueryDocumentSnapshot doc : value) {
+                        eventos.add(doc.toObject(Evento_eve.class));
+                    }
+                    adapter_eve.notifyDataSetChanged();
+                    Log.d(TAG, "Current cites in CA: ");
+                }
+            });
     }
 }
