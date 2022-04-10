@@ -42,8 +42,8 @@ public class V_04 extends Fragment {
 
     //TODO:los campos de xml
     private Button v04_iniciar_sesion, v04_registrarse;
-    private EditText v04_1_email_val;
-    private EditText v04_1_contrasenna_val;
+    private EditText v04_email_val;
+    private EditText v04_contrasenna_val;
 
     //TODO:acceso a datos
     private FirebaseAuth firebaseAuth;
@@ -89,18 +89,17 @@ public class V_04 extends Fragment {
         super.onAttach(context);
         mContext = context;
     }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_v_04,
-                container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_v_04, container, false);
 
         //inicializamos el objeto firebaseAuth
         firebaseAuth = FirebaseAuth.getInstance();
 
         //Referenciamos los views
-        v04_1_email_val = view.findViewById(R.id.v04_etx_email_val);
-        v04_1_contrasenna_val = view.findViewById(R.id.v04_etx_contrasenna_val);
+        v04_email_val = view.findViewById(R.id.v04_etx_email_val);
+        v04_contrasenna_val = view.findViewById(R.id.v04_etx_contrasenna_val);
         v04_iniciar_sesion = view.findViewById(R.id.v04_btn_iniciar_sesion);
         v04_registrarse = view.findViewById(R.id.v04_btn_registrarse);
 
@@ -122,10 +121,9 @@ public class V_04 extends Fragment {
     }
 
     private void registrarUsuario(View view) {
-
         //Obtenemos el email_val y la contraseña desde las cajas de texto
-        String email_val = v04_1_email_val.getText().toString().trim();
-        String contrasenna_val = v04_1_contrasenna_val.getText().toString().trim();
+        String email_val = v04_email_val.getText().toString().trim();
+        String contrasenna_val = v04_contrasenna_val.getText().toString().trim();
 
         //Verificamos que las cajas de texto no estén vacías
         if (TextUtils.isEmpty(email_val)) {
@@ -137,7 +135,8 @@ public class V_04 extends Fragment {
             Toast.makeText(getActivity(), "Falta ingresar la contraseña", Toast.LENGTH_LONG).show();
             return;
         }
-        firebaseAuth.signInWithEmailAndPassword(email_val, contrasenna_val).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword(email_val, contrasenna_val)
+            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
@@ -148,10 +147,7 @@ public class V_04 extends Fragment {
                 progressDialog.dismiss();
             }
         });
-
         progressDialog.setMessage("Realizando registro en linea...");
         progressDialog.show();
-
-
     }
 }

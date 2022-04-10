@@ -67,14 +67,14 @@ public class V_03 extends Fragment {
 
     //TODO:los campos de xml
     private Button v03_me_interesa, v03_volver;
-    private TextView titulo_eve;
-    private ImageView foto_eve;
-    private TextView fechaidatru_eve;
-    private TextView fechavueltatru_eve;
-    private TextView transportetipo_eve;
-    private TextView nparticipantes_eve;
-    private RecyclerView recycler_act;
-    private RecyclerView recycler_val;
+    private TextView v03_titulo_eve;
+    private ImageView v03_foto_eve;
+    private TextView v03_fechaidatru_eve;
+    private TextView v03_fechavueltatru_eve;
+    private TextView v03_transportetipo_eve;
+    private TextView v03_nparticipantes_eve;
+    private RecyclerView v03_recycler_act;
+    private RecyclerView v03_recycler_val;
 
     //TODO:acceso a datos
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
@@ -87,7 +87,7 @@ public class V_03 extends Fragment {
 
     //TODO:servise
     private v02_00_eve_Adapter adapter_eve;
-    private v03_00_val_Adapter adapter_val;
+    private v03_00_val_Adapter v03_adapter_val;
     private v03_00_act_Adapter adapter_act;
 
     public V_03() {
@@ -128,45 +128,43 @@ public class V_03 extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_v_03,
-                container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_v_03, container, false);
 
         Bundle bundle = getArguments();
         //this.evento = (Evento_eve) bundle.getSerializable("evento");
         //int posicion = (int) bundle.getInt("evento");
         // posicion++;
 
-        this.titulo_eve = view.findViewById(R.id.v03_txv_titulo_eve);
-        this.foto_eve = view.findViewById(R.id.v03_imv_foto_eve);
-        this.fechaidatru_eve = view.findViewById(R.id.v03_txv_fechaidatru_eve);
-        this.fechavueltatru_eve = view.findViewById(R.id.v03_txv_fechavueltatru_eve);
-        this.transportetipo_eve = view.findViewById(R.id.v03_txv_transportetipo_eve);
-        this.nparticipantes_eve = view.findViewById(R.id.v02_crd_txv_nparticipantes_eve);
+        this.v03_titulo_eve = view.findViewById(R.id.v03_txv_titulo_eve);
+        this.v03_foto_eve = view.findViewById(R.id.v03_imv_foto_eve);
+        this.v03_fechaidatru_eve = view.findViewById(R.id.v03_txv_fechaidatru_eve);
+        this.v03_fechavueltatru_eve = view.findViewById(R.id.v03_txv_fechavueltatru_eve);
+        this.v03_transportetipo_eve = view.findViewById(R.id.v03_txv_transportetipo_eve);
+        this.v03_nparticipantes_eve = view.findViewById(R.id.v02_crd_txv_nparticipantes_eve);
 
         // TODO: carga de Evento_eve
         eventosChangeListener(1);
 
         // TODO: carga de Inscritos (valientes)
-        this.recycler_val = (RecyclerView) view.findViewById(R.id.v03_rcv_valientes);
-        this.recycler_val.setHasFixedSize(true);
-        this.recycler_val.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
+        this.v03_recycler_val = (RecyclerView) view.findViewById(R.id.v03_rcv_valientes);
+        this.v03_recycler_val.setHasFixedSize(true);
+        this.v03_recycler_val.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
 
         valientesChangeListener(1);
 
-        this.adapter_val = new v03_00_val_Adapter(valientes, mContext);
-        this.recycler_val.setAdapter(adapter_val);
+        this.v03_adapter_val = new v03_00_val_Adapter(valientes, mContext);
+        this.v03_recycler_val.setAdapter(v03_adapter_val);
 
         // TODO: carga de Actividades
-        this.recycler_act = (RecyclerView) view.findViewById(R.id.v03_rcv_actividades);
-        this.recycler_act.setHasFixedSize(true);
-        this.recycler_act.setLayoutManager(new LinearLayoutManager(mContext));
+        this.v03_recycler_act = (RecyclerView) view.findViewById(R.id.v03_rcv_actividades);
+        this.v03_recycler_act.setHasFixedSize(true);
+        this.v03_recycler_act.setLayoutManager(new LinearLayoutManager(mContext));
 
         actividadesChangeListener(1);
 
         this.adapter_act = new v03_00_act_Adapter(actividades, mContext);
-        this.recycler_act.setAdapter(adapter_act);
+        this.v03_recycler_act.setAdapter(adapter_act);
 
         // TODO: los botones
         v03_me_interesa = view.findViewById(R.id.v03_btn_me_interesa);
@@ -185,7 +183,6 @@ public class V_03 extends Fragment {
         return view;
     }//fin de constructor
 
-
     public void eventosChangeListener(int id_eve) { // bien hecho
         fbf.collection("evento_eve")
             .whereEqualTo("id_eve", id_eve)
@@ -200,19 +197,19 @@ public class V_03 extends Fragment {
                     for (QueryDocumentSnapshot doc : value) {
                         evento = doc.toObject(Evento_eve.class);
 
-                        titulo_eve.setText(evento.getTitulo_eve());
+                        v03_titulo_eve.setText(evento.getTitulo_eve());
                         //cargamos la imagen
                         FirebaseStorage storage = FirebaseStorage.getInstance();
                         StorageReference storageRef = storage.getReference();
                         storageRef.child("Eventos/1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                Picasso.get().load(uri).into(foto_eve);
+                                Picasso.get().load(uri).into(v03_foto_eve);
                             }
                         }).addOnFailureListener(exception -> Toast.makeText(getActivity(), "GET IMAGE FAILED", Toast.LENGTH_LONG).show());
-                        fechaidatru_eve.setText(evento.getFechaidatru_eve());
-                        fechavueltatru_eve.setText(evento.getFechavueltatru_eve());
-                        transportetipo_eve.setText(evento.getTransportetipo_eve());
+                        v03_fechaidatru_eve.setText(evento.getFechaidatru_eve());
+                        v03_fechavueltatru_eve.setText(evento.getFechavueltatru_eve());
+                        v03_transportetipo_eve.setText(evento.getTransportetipo_eve());
                     }
                     Log.d(TAG, "Current cites in CA: ");
                 }
@@ -241,16 +238,14 @@ public class V_03 extends Fragment {
 
     public void valientesChangeListener() {//prueba
         FirebaseFirestore fbf = FirebaseFirestore.getInstance();
-        DocumentReference docRef = fbf.collection("evento_eve_test").document("1");
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        DocumentReference drf = fbf.collection("evento_eve_test").document("1");
+        drf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     valientes = (List<Valiente_val>) document.get("array_inscritos");
                     //Evento_eve even = group.get(0);
-
-
                 } else {
 //                    Log.d(TAG, "get failed with ", task.getException());
                 }

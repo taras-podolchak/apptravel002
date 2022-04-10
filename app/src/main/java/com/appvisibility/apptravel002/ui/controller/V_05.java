@@ -71,10 +71,10 @@ public class V_05 extends Fragment {
     private Spinner v05_necesito_coche;
     private Spinner v05_ofrezco_coche;
     private Spinner v05_tipo_alojamiento;
-    private Spinner v05_restricciones_allimentarias;
+    private Spinner v05_restricciones_alimentarias;
    // private Spinner v05_spinner_estado_de_pago;
-    private RecyclerView act_Recicler;
-    private RecyclerView val_Recicler;
+    private RecyclerView v05_recycler_act;
+    private RecyclerView v05_recycler_val;
 
     //TODO:acceso a datos
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
@@ -128,11 +128,8 @@ public class V_05 extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_v_05,
-                container, false);
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_v_05, container, false);
 
         v05_titulo_eve = view.findViewById(R.id.v05_txv_titulo_eve);
         v05_foto_eve = view.findViewById(R.id.v05_imv_foto_eve);
@@ -143,30 +140,30 @@ public class V_05 extends Fragment {
         v05_ofrezco_coche = view.findViewById(R.id.v05_spn_ofrezco_coche);
         v05_ofrezco_coche.setEnabled(false);
         v05_tipo_alojamiento = view.findViewById(R.id.v05_spn_tipo_alojamiento);
-        v05_restricciones_allimentarias = view.findViewById(R.id.v05_spn_restricciones_allimentarias);
+        v05_restricciones_alimentarias = view.findViewById(R.id.v05_spn_restricciones_allimentarias);
 
         // TODO: carga de Evento
         eventosChangeListener(1);
 
         // TODO: carga de Inscritos (valientes)
-        /*this.val_Recicler = (RecyclerView) view.findViewById(R.id.v05_rcv_valientes);
-        this.val_Recicler.setHasFixedSize(true);
-        this.val_Recicler.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
+        /*this.v05_recycler_val = (RecyclerView) view.findViewById(R.id.v05_rcv_valientes);
+        this.v05_recycler_val.setHasFixedSize(true);
+        this.v05_recycler_val.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
 */
         valientesChangeListener(1);
 
- /*       this.val_Adapter = new v03_00_val_Adapter(valientes, mContext);
-        this.val_Recicler.setAdapter(val_Adapter);
+ /*       this.v05_adapter_val = new v03_00_val_Adapter(valientes, mContext);
+        this.v05_recycler_val.setAdapter(val_Adapter);
 
         // TODO: carga de Actividades
-        this.act_Recicler = (RecyclerView) view.findViewById(R.id.v05_rcv_actividades);
-        this.act_Recicler.setHasFixedSize(true);
-        this.act_Recicler.setLayoutManager(new LinearLayoutManager(mContext));
+        this.v05_recycler_act = (RecyclerView) view.findViewById(R.id.v05_rcv_actividades);
+        this.v05_recycler_act.setHasFixedSize(true);
+        this.v05_recycler_act.setLayoutManager(new LinearLayoutManager(mContext));
 
         actividadesChangeListener(1);
 
-        this.act_Adapter = new v03_00_act_Adapter(actividades, mContext);
-        this.act_Recicler.setAdapter(act_Adapter);*/
+        this.v05_adapter_act = new v03_00_act_Adapter(actividades, mContext);
+        this.v05_recycler_act.setAdapter(act_Adapter);*/
 
         // TODO: swich ¿llevas el coche?
         v05_llevas_coche.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -213,66 +210,65 @@ public class V_05 extends Fragment {
     }//fin de constructor
 
 
-
     public void eventosChangeListener(int id_eve) { // bien hecho
         fbf.collection("evento_eve")
-                .whereEqualTo("id_eve", id_eve)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value,
-                                        @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Log.w(TAG, "Listen failed.", e);
-                            return;
-                        }
-                        for (QueryDocumentSnapshot doc : value) {
-                            evento = doc.toObject(Evento_eve.class);
-
-                            v05_titulo_eve.setText(evento.getTitulo_eve());
-                            //cargamos la imagen
-                            FirebaseStorage storage = FirebaseStorage.getInstance();
-                            StorageReference storageRef = storage.getReference();
-                            storageRef.child("Eventos/1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    Picasso.get().load(uri).into(v05_foto_eve);
-                                }
-                            }).addOnFailureListener(exception -> Toast.makeText(getActivity(), "GET IMAGE FAILED", Toast.LENGTH_LONG).show());
-                            v05_info_completa.setText(
-                                    "Nivel de dificultad: " + evento.getNivel_eve() + "\n"
-                                            + "Distancia ida: " + evento.getDistanciaidatru_eve() + " "
-                                            + "Distancia vuelta: " + evento.getDistanciavueltatru_eve() + "\n"
-                                            + "Fecha ida: " + evento.getFechaidatru_eve() + "\n"
-                                            + "Fecha vuelta: " + evento.getFechavueltatru_eve() + "\n"
-                                           // + "Coordenadas de salida: " + evento.getSalidacoordenadastru_eve() + "\n"
-                                           // + "Coordenadas de llegada: " + evento.getLlegadacoordenadastru_eve() + "\n"
-                                          //  + evento.getDescgeneral_eve() + " "
-                                            + "Precio: " + evento.getPrecio_eve() + "€");
-                        }
-                        Log.d(TAG, "Current cites in CA: ");
+            .whereEqualTo("id_eve", id_eve)
+            .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value,
+                                    @Nullable FirebaseFirestoreException e) {
+                    if (e != null) {
+                        Log.w(TAG, "Listen failed.", e);
+                        return;
                     }
-                });
+                    for (QueryDocumentSnapshot doc : value) {
+                        evento = doc.toObject(Evento_eve.class);
+
+                        v05_titulo_eve.setText(evento.getTitulo_eve());
+                        //cargamos la imagen
+                        FirebaseStorage fbs = FirebaseStorage.getInstance();
+                        StorageReference str = fbs.getReference();
+                        str.child("Eventos/1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                Picasso.get().load(uri).into(v05_foto_eve);
+                            }
+                        }).addOnFailureListener(exception -> Toast.makeText(getActivity(), "GET IMAGE FAILED", Toast.LENGTH_LONG).show());
+                        v05_info_completa.setText(
+                            "Nivel de dificultad: " + evento.getNivel_eve() + "\n"
+                                    + "Distancia ida: " + evento.getDistanciaidatru_eve() + " "
+                                    + "Distancia vuelta: " + evento.getDistanciavueltatru_eve() + "\n"
+                                    + "Fecha ida: " + evento.getFechaidatru_eve() + "\n"
+                                    + "Fecha vuelta: " + evento.getFechavueltatru_eve() + "\n"
+                                   // + "Coordenadas de salida: " + evento.getSalidacoordenadastru_eve() + "\n"
+                                   // + "Coordenadas de llegada: " + evento.getLlegadacoordenadastru_eve() + "\n"
+                                  //  + evento.getDescgeneral_eve() + " "
+                                    + "Precio: " + evento.getPrecio_eve() + "€");
+                    }
+                    Log.d(TAG, "Current cites in CA: ");
+                }
+            });
     }
 
     public void valientesChangeListener(int noSeQue) {
         fbf.collection("valiente_val").whereIn("id_val", Arrays.asList(1, 2, 3, 4, 5, 6))
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value,
-                                        @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Log.w(TAG, "Listen failed.", e);
-                            return;
-                        }
-                        valientes.clear();
-                        for (QueryDocumentSnapshot doc : value) {
-                            valientes.add(doc.toObject(Valiente_val.class));
-                        }
-                        //act_Adapter.notifyDataSetChanged();
-                        Log.d(TAG, "Current cites in CA: ");
+            .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value,
+                                    @Nullable FirebaseFirestoreException e) {
+                    if (e != null) {
+                        Log.w(TAG, "Listen failed.", e);
+                        return;
                     }
-                });
+                    valientes.clear();
+                    for (QueryDocumentSnapshot doc : value) {
+                        valientes.add(doc.toObject(Valiente_val.class));
+                    }
+                    //act_Adapter.notifyDataSetChanged();
+                    Log.d(TAG, "Current cites in CA: ");
+                }
+            });
         ArrayAdapter<Valiente_val> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, valientes);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         v05_lista_personas.setAdapter(arrayAdapter);
@@ -290,42 +286,42 @@ public class V_05 extends Fragment {
 
     public void actividadesChangeListener(int id_eve) {
         fbf.collection("actividad_act").whereEqualTo("id_eve", id_eve)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value,
-                                        @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Log.w(TAG, "Listen failed.", e);
-                            return;
-                        }
-                        actividades.clear();
-                        for (QueryDocumentSnapshot doc : value) {
-                            actividades.add(doc.toObject((Actividad_act.class)));
-                        }
-                        act_Adapter.notifyDataSetChanged();
-                        Log.d(TAG, "Current cites in CA: ");
+            .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value,
+                                    @Nullable FirebaseFirestoreException e) {
+                    if (e != null) {
+                        Log.w(TAG, "Listen failed.", e);
+                        return;
                     }
-                });
+                    actividades.clear();
+                    for (QueryDocumentSnapshot doc : value) {
+                        actividades.add(doc.toObject((Actividad_act.class)));
+                    }
+                    act_Adapter.notifyDataSetChanged();
+                    Log.d(TAG, "Current cites in CA: ");
+                }
+            });
     }
 
     private void necesitoElCocheChangeListener() {
         // fbf.collection("inscribir_evevalcoltpr").whereEqualTo("id_eve", 1)
         fbf.collection("valiente_val").whereIn("id_val", Arrays.asList(1, 2, 3, 4, 5, 6))
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value,
-                                        @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Log.w(TAG, "Listen failed.", e);
-                            return;
-                        }
-                        valientesConCoches.clear();
-                        for (QueryDocumentSnapshot doc : value) {
-                            valientesConCoches.add(doc.toObject(Valiente_val.class));
-                        }
-                        Log.d(TAG, "Current cites in CA: ");
+            .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value,
+                                    @Nullable FirebaseFirestoreException e) {
+                    if (e != null) {
+                        Log.w(TAG, "Listen failed.", e);
+                        return;
                     }
-                });
+                    valientesConCoches.clear();
+                    for (QueryDocumentSnapshot doc : value) {
+                        valientesConCoches.add(doc.toObject(Valiente_val.class));
+                    }
+                    Log.d(TAG, "Current cites in CA: ");
+                }
+            });
 
         ArrayAdapter<Valiente_val> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, valientesConCoches);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -385,7 +381,6 @@ public class V_05 extends Fragment {
         });*/
     }
 
-
     private void restriccionesAllimentariasChangeListener() {
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Restricciones alimentarias:");
@@ -406,7 +401,7 @@ public class V_05 extends Fragment {
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, arrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        v05_restricciones_allimentarias.setAdapter(arrayAdapter);
+        v05_restricciones_alimentarias.setAdapter(arrayAdapter);
         /*v05_spinner_lista_personas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -418,6 +413,4 @@ public class V_05 extends Fragment {
             }
         });*/
     }
-
-
 }

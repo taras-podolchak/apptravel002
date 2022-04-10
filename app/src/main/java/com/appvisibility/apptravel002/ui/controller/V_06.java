@@ -33,7 +33,6 @@ public class V_06 extends Fragment {
     //TODO:los campos de xml
     private Button v06_activar_aviso, v06_mas_actividades;
 
-
     public V_06() {
         // Required empty public constructor
     }
@@ -66,10 +65,8 @@ public class V_06 extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_v_06,
-                container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_v_06, container, false);
         v06_activar_aviso = view.findViewById(R.id.v06_btn_activar_aviso);    //button v01_boton_buscaar_actividades
         v06_activar_aviso.setOnClickListener(new View.OnClickListener() {
             @Override

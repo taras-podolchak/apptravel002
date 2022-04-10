@@ -17,7 +17,6 @@ import java.util.List;
 
 public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.ViewHolder> {
 
-
     private final List<Actividad_act> actividades;
     Context context;
 
@@ -33,14 +32,12 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
         return viewHolder;
     }
 
-
     @NonNull
     @Override
 /**
  * Proporciona los datos: Se encarga de establecer los objetos en el ViewHolder y la posición.
  */
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
         String nombre_act = actividades.get(position).getNombre_act();
         String actividadtipo_act = actividades.get(position).getActividadtipo_act();
         String fecha_act = actividades.get(position).getFecha_act();
@@ -49,13 +46,13 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
         String desnivel_act = String.valueOf(actividades.get(position).getDesnivel_act());
         String horas_act = String.valueOf(actividades.get(position).getHoras_act());
 
-        holder.txvNombreAct.setText(nombre_act);
-        holder.txvActividadTipoAct.setText(actividadtipo_act);
-        holder.txvFechaAct.setText(fecha_act);
-        holder.txvNivelAct.setText("Nivel: " + nivel_act);
-        holder.txvDistanciaAct.setText("Distancia: " + String.valueOf(distancia_act));
-        holder.txvDesnivelAct.setText("Desnivel: " + String.valueOf(desnivel_act));
-        holder.txvHorasAct.setText("Horas de marcha: " + String.valueOf(horas_act));
+        holder.v03_nombre_act.setText(nombre_act);
+        holder.v03_actividadtipo_act.setText(actividadtipo_act);
+        holder.v03_fecha_act.setText(fecha_act);
+        holder.v03_nivel_act.setText("Nivel: " + nivel_act);
+        holder.v03_distancia_act.setText("Distancia: " + String.valueOf(distancia_act));
+        holder.v03_desnivel_act.setText("Desnivel: " + String.valueOf(desnivel_act));
+        holder.v03_horas_act.setText("Horas de marcha: " + String.valueOf(horas_act));
     }
 
     @Override
@@ -64,28 +61,23 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView txvNombreAct;
-        private TextView txvActividadTipoAct;
-        private TextView txvFechaAct;
-        private TextView txvNivelAct;
-        private TextView txvDistanciaAct;
-        private TextView txvDesnivelAct;
-        private TextView txvHorasAct;
+        private TextView v03_nombre_act;
+        private TextView v03_actividadtipo_act;
+        private TextView v03_fecha_act;
+        private TextView v03_nivel_act;
+        private TextView v03_distancia_act;
+        private TextView v03_desnivel_act;
+        private TextView v03_horas_act;
 
         public ViewHolder(View v) {
             super(v);
-
-            this.txvDistanciaAct = v.findViewById(R.id.v03_cdv_txv_distancia_act);
-            this.txvDesnivelAct = v.findViewById(R.id.v03_cdv_txv_desnivel_act);
-            this.txvHorasAct = v.findViewById(R.id.v03_cdv_txv_horas_act);
-            this. txvNombreAct = v.findViewById(R.id.v03_cdv_txv_nombre_act);
-            this.txvActividadTipoAct = v.findViewById(R.id.v03_cdv_txv_actividadtipo_act);
-            this. txvFechaAct = v.findViewById(R.id.v03_cdv_txv_fecha_act);
-            this. txvNivelAct = v.findViewById(R.id.v03_cdv_txv_nivel_act);
-            this. txvDistanciaAct = v.findViewById(R.id.v03_cdv_txv_distancia_act);
-            this. txvDesnivelAct = v.findViewById(R.id.v03_cdv_txv_desnivel_act);
-            this. txvHorasAct = v.findViewById(R.id.v03_cdv_txv_horas_act);
+            this.v03_distancia_act = v.findViewById(R.id.v03_cdv_txv_distancia_act);
+            this.v03_desnivel_act = v.findViewById(R.id.v03_cdv_txv_desnivel_act);
+            this.v03_horas_act = v.findViewById(R.id.v03_cdv_txv_horas_act);
+            this.v03_nombre_act = v.findViewById(R.id.v03_cdv_txv_nombre_act);
+            this.v03_actividadtipo_act = v.findViewById(R.id.v03_cdv_txv_actividadtipo_act);
+            this.v03_fecha_act = v.findViewById(R.id.v03_cdv_txv_fecha_act);
+            this.v03_nivel_act = v.findViewById(R.id.v03_cdv_txv_nivel_act);
         }
     }
 }

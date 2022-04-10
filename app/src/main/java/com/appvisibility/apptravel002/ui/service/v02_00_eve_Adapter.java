@@ -26,7 +26,6 @@ import java.util.List;
 
 public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.ViewHolder> {
 
-
     private final List<Evento_eve> eventos;
     Context context;
 
@@ -62,7 +61,6 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
         String fechaidatru_eve = eventos.get(position).getFechaidatru_eve();
         String fechavueltatru_eve = eventos.get(position).getFechavueltatru_eve();
 
-
 /*
 Descomentar cuando se resuelva el problema de id empezando en 0 (debería empezar en 1) en tablas evento_eve y actividad_act Firestore
         String distancia_act = String.valueOf(actividades.get(id_eve).getDistancia_act());
@@ -72,14 +70,14 @@ Descomentar cuando se resuelva el problema de id empezando en 0 (debería empeza
         String transportetipo_eve = eventos.get(position).getTransportetipo_eve();
         String nparticipantes_eve = String.valueOf(eventos.get(position).getNparticipantes_eve());
 
-        holder.txvTituloEve.setText(titulo_eve);
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
-        storageRef.child("Eventos/" + foto_eve).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        holder.v02_titulo_eve.setText(titulo_eve);
+        FirebaseStorage fbs = FirebaseStorage.getInstance();
+        StorageReference str = fbs.getReference();
+        str.child("Eventos/" + foto_eve).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
 
-                Picasso.get().load(uri).into(holder.imvFotoEve);
+                Picasso.get().load(uri).into(holder.v02_foto_eve);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -88,23 +86,20 @@ Descomentar cuando se resuelva el problema de id empezando en 0 (debería empeza
                 // Handle any errors
             }
         });
-        holder.txvFechaIdaEve.setText(fechaidatru_eve);
-        holder.txvFechaVueltaEve.setText(fechavueltatru_eve);
-        holder.txvNivelEve.setText("Nivel: " + nivel_eve);
-        holder.txvDistanciaAct_txvDesnivelAct.setText("Ida: " + distanciaidatru_eve + " - Vuelta: " + distanciavueltatru_eve);
-        holder.txvTransporteEve.setText(transportetipo_eve);
-        holder.txvNParticipantesEve.setText("Participantes: " + nparticipantes_eve);
+        holder.v02_fechaidatru_eve.setText(fechaidatru_eve);
+        holder.v02_fechavueltatru_eve.setText(fechavueltatru_eve);
+        holder.v02_nivel_eve.setText("Nivel: " + nivel_eve);
+        holder.v02_distancia_act_desnivel_act.setText("Ida: " + distanciaidatru_eve + " - Vuelta: " + distanciavueltatru_eve);
+        holder.v02_transportetipo_eve.setText(transportetipo_eve);
+        holder.v02_nparticipantes_eve.setText("Participantes: " + nparticipantes_eve);
 
-        holder.cardEve.setOnClickListener(new View.OnClickListener() {
+        holder.v02_cdv_eventos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Evento_eve evento = eventos.get(position);
-
                 Bundle bundle = new Bundle();
                 bundle.putInt("evento", position);
                 Navigation.findNavController(v).navigate(R.id.nav_v03);
-
-
                 /*
                  * Notificamos cambios para que el contenedor se entere y refresque los datos
                  * La siguiente instruccion está a la escucha de posible cambios y los refresca. ATENCION: consume mucha memoria porque está permanentemente a la escucha
@@ -131,29 +126,29 @@ Descomentar cuando se resuelva el problema de id empezando en 0 (debería empeza
      * Declara y asigna los campos de la Vista
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView txvTituloEve;
-        private ImageView imvFotoEve;
-        private TextView txvFechaIdaEve;
-        private TextView txvFechaVueltaEve;
-        private TextView txvNivelEve;
-        private TextView txvDistanciaAct_txvDesnivelAct;
-        private TextView txvTransporteEve;
-        private TextView txvNParticipantesEve;
-        private CardView cardEve;
+        private TextView v02_titulo_eve;
+        private ImageView v02_foto_eve;
+        private TextView v02_fechaidatru_eve;
+        private TextView v02_fechavueltatru_eve;
+        private TextView v02_nivel_eve;
+        private TextView v02_distancia_act_desnivel_act;
+        private TextView v02_transportetipo_eve;
+        private TextView v02_nparticipantes_eve;
+        private CardView v02_cdv_eventos;
 
         public ViewHolder(View v) {
             super(v);
-            this.txvTituloEve = v.findViewById(R.id.v02_crd_txv_titulo_eve);
+            this.v02_titulo_eve = v.findViewById(R.id.v02_crd_txv_titulo_eve);
 //            this.imvFotoEve = v.findViewById(R.id.imvFotoEve);
-            this.imvFotoEve = (ImageView) v.findViewById(R.id.v02_crd_imv_foto_eve);
-            this.txvFechaIdaEve = v.findViewById(R.id.v02_crd_txv_fechaidatru_eve);
-            this.txvFechaVueltaEve = v.findViewById(R.id.v02_crd_txv_fechavueltatru_eve);
-            this.txvNivelEve = v.findViewById(R.id.v02_crd_txv_nivel_eve);
-            this.txvDistanciaAct_txvDesnivelAct = v.findViewById(R.id.v02_crd_txv_distancia_act_desnivel_act);
-            this.txvTransporteEve = v.findViewById(R.id.v02_crd_txv_transportetipo_eve);
-            this.txvNParticipantesEve = v.findViewById(R.id.v02_crd_txv_nparticipantes_eve);
+            this.v02_foto_eve = (ImageView) v.findViewById(R.id.v02_crd_imv_foto_eve);
+            this.v02_fechaidatru_eve = v.findViewById(R.id.v02_crd_txv_fechaidatru_eve);
+            this.v02_fechavueltatru_eve = v.findViewById(R.id.v02_crd_txv_fechavueltatru_eve);
+            this.v02_nivel_eve = v.findViewById(R.id.v02_crd_txv_nivel_eve);
+            this.v02_distancia_act_desnivel_act = v.findViewById(R.id.v02_crd_txv_distancia_act_desnivel_act);
+            this.v02_transportetipo_eve = v.findViewById(R.id.v02_crd_txv_transportetipo_eve);
+            this.v02_nparticipantes_eve = v.findViewById(R.id.v02_crd_txv_nparticipantes_eve);
 
-            this.cardEve = v.findViewById(R.id.v02_crd_eventos);
+            this.v02_cdv_eventos = v.findViewById(R.id.v02_cdv_eventos);
         }
     }
 }

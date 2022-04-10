@@ -47,7 +47,7 @@ public class V_02 extends Fragment {
     private String mParam2;
 
     //TODO:los campos de xml
-    private RecyclerView recycler_eve;
+    private RecyclerView v02_recycler_eve;
 
     //TODO:acceso a datos
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
@@ -57,7 +57,7 @@ public class V_02 extends Fragment {
     private Context mContext;
 
     //TODO:servise
-    private v02_00_eve_Adapter adapter_eve;
+    private v02_00_eve_Adapter v02_adapter_eve;
 
     public V_02() {
         // Required empty public constructor
@@ -88,7 +88,6 @@ public class V_02 extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
@@ -98,19 +97,16 @@ public class V_02 extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_v_02,
-                container, false);
-
-        this.recycler_eve = (RecyclerView) view.findViewById(R.id.v02_rcv_eventos);
-        this.recycler_eve.setHasFixedSize(true);
-        this.recycler_eve.setLayoutManager(new LinearLayoutManager(mContext));
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_v_02, container, false);
+        this.v02_recycler_eve = (RecyclerView) view.findViewById(R.id.v02_rcv_eventos);
+        this.v02_recycler_eve.setHasFixedSize(true);
+        this.v02_recycler_eve.setLayoutManager(new LinearLayoutManager(mContext));
 
         eventosChangeListener("evento_eve", "id_eve");
 
-        this.adapter_eve = new v02_00_eve_Adapter(eventos, mContext);
-        this.recycler_eve.setAdapter(adapter_eve);
+        this.v02_adapter_eve = new v02_00_eve_Adapter(eventos, mContext);
+        this.v02_recycler_eve.setAdapter(v02_adapter_eve);
         return view;
     }//Fin de cinstructor
 
@@ -128,7 +124,7 @@ public class V_02 extends Fragment {
                     for (QueryDocumentSnapshot doc : value) {
                         eventos.add(doc.toObject(Evento_eve.class));
                     }
-                    adapter_eve.notifyDataSetChanged();
+                    v02_adapter_eve.notifyDataSetChanged();
                     Log.d(TAG, "Current cites in CA: ");
                 }
             });

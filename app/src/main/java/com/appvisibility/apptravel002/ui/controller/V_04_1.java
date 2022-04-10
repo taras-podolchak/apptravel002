@@ -58,8 +58,8 @@ public class V_04_1 extends Fragment {
     private CheckBox v04_1_condicioneslegales_val;
 
     //TODO:acceso a datos
-    private FirebaseAuth firebaseAuth;
-    private FirebaseFirestore firebaseFirestore;
+    private FirebaseAuth fba;
+    private FirebaseFirestore fbf;
     // private DatabaseReference mDatabase; //no necesitamos esa bbdd
 
     //TODO:entities
@@ -94,21 +94,20 @@ public class V_04_1 extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
     }
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_v_04_1,
-                container, false);
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_v_04_1, container, false);
         //2ºREGISTROFB
         //inicializamos el objeto firebaseAuth
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseFirestore = FirebaseFirestore.getInstance();
+        fba = FirebaseAuth.getInstance();
+        fbf = FirebaseFirestore.getInstance();
         //mDatabase = FirebaseDatabase.getInstance().getReference();  //no necesitamos  esa bbdd
         //Referenciamos los views
         v04_1_nombre_val = view.findViewById(R.id.v04_1_etx_nombre_val);
@@ -163,10 +162,8 @@ public class V_04_1 extends Fragment {
         return view;
     }
 
-
     //2º MÉTODOS REGISTROFB
     private void registrarUsuario(View view) {
-
         if (!v04_1_condicioneslegales_val.isChecked() /*|| !cbTerminos.isChecked()*/) {
             Toast.makeText(getActivity(), "Debes aceptar los términos y condiciones", Toast.LENGTH_LONG).show();
             return;
@@ -231,23 +228,23 @@ public class V_04_1 extends Fragment {
         user.put("movil_val", movil_val);
         user.put("usuariotipo_val","Valiente");
 
-        firebaseAuth.createUserWithEmailAndPassword(email_val, contrasenna_val)
-                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        //comprobando el éxito
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getActivity(), "Se ha registrado el usuario: " + nombre_val + " " + apellido1_val, Toast.LENGTH_LONG).show();
-                            //añadomos el usuario a FirebaseFirestore
-                            firebaseFirestore.collection("valiente_val").document(firebaseAuth.getUid()).set(user);
-                            Navigation.findNavController(view).navigate(R.id.action_nav_v04_1_to_nav_v05);
-                        } else {
+        fba.createUserWithEmailAndPassword(email_val, contrasenna_val)
+            .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    //comprobando el éxito
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getActivity(), "Se ha registrado el usuario: " + nombre_val + " " + apellido1_val, Toast.LENGTH_LONG).show();
+                        //añadomos el usuario a FirebaseFirestore
+                        fbf.collection("valiente_val").document(fba.getUid()).set(user);
+                        Navigation.findNavController(view).navigate(R.id.action_nav_v04_1_to_nav_v05);
+                    } else {
 
-                            Toast.makeText(getActivity(), "Ya existe el usuario con el mismo mail", Toast.LENGTH_LONG).show();
-                        }
-                        progressDialog.dismiss();
+                        Toast.makeText(getActivity(), "Ya existe el usuario con el mismo mail", Toast.LENGTH_LONG).show();
                     }
-                });
+                    progressDialog.dismiss();
+                }
+            });
         progressDialog.setMessage("Realizando registro en linea...");
         progressDialog.show();
 
@@ -260,6 +257,4 @@ public class V_04_1 extends Fragment {
         ;
 
     }
-
-
 }
