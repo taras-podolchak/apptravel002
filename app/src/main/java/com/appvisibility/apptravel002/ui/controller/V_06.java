@@ -19,7 +19,6 @@ import com.appvisibility.apptravel002.R;
  * create an instance of this fragment.
  */
 
-//el mensaje ha sido creado para comprobar e eliminarlo
 public class V_06 extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match

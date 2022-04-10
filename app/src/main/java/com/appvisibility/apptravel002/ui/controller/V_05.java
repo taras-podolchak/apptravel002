@@ -67,7 +67,7 @@ public class V_05 extends Fragment {
     private TextView v05_titulo_eve;
     private ImageView v05_imageView;
     private TextView v05_textView_info_completa;
-    //private Spinner v05_spinner_lista_personas;
+    private Spinner v05_spinner_lista_personas;
     private Switch v05_swich_llevas_el_coche;
     private Spinner v05_spinner_nesesito_coche;
     private Spinner v05_spinner_ofresco_coche;
@@ -139,23 +139,24 @@ public class V_05 extends Fragment {
         v05_imageView = view.findViewById(R.id.v05_imv_foto_eve);
         v05_textView_info_completa = view.findViewById(R.id.v05_txv_info_completa);
         v05_swich_llevas_el_coche = (Switch) view.findViewById(R.id.v05_swc_llevas_el_coche);
+        v05_spinner_lista_personas = view.findViewById(R.id.v05_spinner_lista_personas);
         v05_spinner_nesesito_coche = view.findViewById(R.id.v05_spn_necesito_coche);
         v05_spinner_ofresco_coche = view.findViewById(R.id.v05_spn_ofrezco_coche);
         v05_spinner_ofresco_coche.setEnabled(false);
         v05_spinner_tipo_alojamiento = view.findViewById(R.id.v05_spn_tipo_alojamiento);
         v05_spinner_restricciones_allimentarias = view.findViewById(R.id.v05_spn_restricciones_allimentarias);
 
-        // TODO: carga de Evento_eve
+        // TODO: carga de Evento
         eventosChangeListener(1);
 
         // TODO: carga de Inscritos (valientes)
-        this.val_Recicler = (RecyclerView) view.findViewById(R.id.v05_rcv_valientes);
+        /*this.val_Recicler = (RecyclerView) view.findViewById(R.id.v05_rcv_valientes);
         this.val_Recicler.setHasFixedSize(true);
         this.val_Recicler.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
-
+*/
         valientesChangeListener(1);
 
-        this.val_Adapter = new v03_00_val_Adapter(valientes, mContext);
+ /*       this.val_Adapter = new v03_00_val_Adapter(valientes, mContext);
         this.val_Recicler.setAdapter(val_Adapter);
 
         // TODO: carga de Actividades
@@ -166,7 +167,7 @@ public class V_05 extends Fragment {
         actividadesChangeListener(1);
 
         this.act_Adapter = new v03_00_act_Adapter(actividades, mContext);
-        this.act_Recicler.setAdapter(act_Adapter);
+        this.act_Recicler.setAdapter(act_Adapter);*/
 
         // TODO: swich ¿llevas el coche?
         v05_swich_llevas_el_coche.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -245,9 +246,9 @@ public class V_05 extends Fragment {
                                             + "Distancia vuelta: " + evento.getDistanciavueltatru_eve() + "\n"
                                             + "Fecha ida: " + evento.getFechaidatru_eve() + "\n"
                                             + "Fecha vuelta: " + evento.getFechavueltatru_eve() + "\n"
-                                            + "Coordenadas de salida: " + evento.getSalidacoordenadastru_eve() + "\n"
-                                            + "Coordenadas de llegada: " + evento.getLlegadacoordenadastru_eve() + "\n"
-                                            + evento.getDescgeneral_eve() + " "
+                                           // + "Coordenadas de salida: " + evento.getSalidacoordenadastru_eve() + "\n"
+                                           // + "Coordenadas de llegada: " + evento.getLlegadacoordenadastru_eve() + "\n"
+                                          //  + evento.getDescgeneral_eve() + " "
                                             + "Precio: " + evento.getPrecio_eve() + "€");
                         }
                         Log.d(TAG, "Current cites in CA: ");
@@ -269,10 +270,23 @@ public class V_05 extends Fragment {
                         for (QueryDocumentSnapshot doc : value) {
                             valientes.add(doc.toObject(Valiente_val.class));
                         }
-                        act_Adapter.notifyDataSetChanged();
+                        //act_Adapter.notifyDataSetChanged();
                         Log.d(TAG, "Current cites in CA: ");
                     }
                 });
+        ArrayAdapter<Valiente_val> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, valientes);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        v05_spinner_lista_personas.setAdapter(arrayAdapter);
+        /*v05_spinner_lista_personas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String tutorialsName = parent.getItemAtPosition(position).toString();
+                Toast.makeText(parent.getContext(), "Selected: " + tutorialsName, Toast.LENGTH_LONG).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });*/
     }
 
     public void actividadesChangeListener(int id_eve) {
