@@ -1,18 +1,14 @@
 package com.appvisibility.apptravel002.ui.controller;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.appvisibility.apptravel002.R;
@@ -54,7 +50,7 @@ public class V_01 extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_01,
                 container, false);
-        v01_boton_buscaar_actividades = view.findViewById(R.id.v01_boton_buscaar_actividades);
+        v01_boton_buscaar_actividades = view.findViewById(R.id.v01_btn_buscar_actividades);
         v01_boton_buscaar_actividades.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

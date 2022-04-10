@@ -31,16 +31,13 @@ import com.appvisibility.apptravel002.ui.service.v02_00_eve_Adapter;
 import com.appvisibility.apptravel002.ui.service.v03_00_act_Adapter;
 import com.appvisibility.apptravel002.ui.service.v03_00_val_Adapter;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -49,10 +46,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -144,18 +138,18 @@ public class V_03 extends Fragment {
         //int posicion = (int) bundle.getInt("evento");
         // posicion++;
 
-        this.titulo_eve = view.findViewById(R.id.txvTituloEve);
-        this.foto_eve = view.findViewById(R.id.imvFotoEve);
-        this.fechaidatru_eve = view.findViewById(R.id.txvFechaIdaTruEve);
-        this.fechavueltatru_eve = view.findViewById(R.id.txvFechaVueltaTruEve);
-        this.transportetipo_eve = view.findViewById(R.id.txvTransporteTipoEve);
-        this.nparticipantes_eve = view.findViewById(R.id.txvNParticipantesEve);
+        this.titulo_eve = view.findViewById(R.id.v03_txv_titulo_eve);
+        this.foto_eve = view.findViewById(R.id.v03_imv_foto_eve);
+        this.fechaidatru_eve = view.findViewById(R.id.v03_txv_fechaidatru_eve);
+        this.fechavueltatru_eve = view.findViewById(R.id.v03_txv_fechavueltatru_eve);
+        this.transportetipo_eve = view.findViewById(R.id.v03_txv_transportetipo_eve);
+        this.nparticipantes_eve = view.findViewById(R.id.v02_crd_txv_nparticipantes_eve);
 
         // TODO: carga de Evento_eve
         eventosChangeListener(1);
 
         // TODO: carga de Inscritos (valientes)
-        this.val_Recicler = (RecyclerView) view.findViewById(R.id.v03_00_val);
+        this.val_Recicler = (RecyclerView) view.findViewById(R.id.v03_rcv_valientes);
         this.val_Recicler.setHasFixedSize(true);
         this.val_Recicler.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
 
@@ -165,7 +159,7 @@ public class V_03 extends Fragment {
         this.val_Recicler.setAdapter(val_Adapter);
 
         // TODO: carga de Actividades
-        this.act_Recicler = (RecyclerView) view.findViewById(R.id.v03_00_act);
+        this.act_Recicler = (RecyclerView) view.findViewById(R.id.v03_rcv_actividades);
         this.act_Recicler.setHasFixedSize(true);
         this.act_Recicler.setLayoutManager(new LinearLayoutManager(mContext));
 
@@ -175,7 +169,7 @@ public class V_03 extends Fragment {
         this.act_Recicler.setAdapter(act_Adapter);
 
         // TODO: los botones
-        v03_boton_me_interesaa = view.findViewById(R.id.v03_boton_me_interesa);
+        v03_boton_me_interesaa = view.findViewById(R.id.v03_btn_me_interesa);
         v03_boton_me_interesaa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -186,7 +180,7 @@ public class V_03 extends Fragment {
                 }
             }
         });
-        v03_boton_volver = view.findViewById(R.id.v03_boton_volver);
+        v03_boton_volver = view.findViewById(R.id.v03_btn_volver);
         v03_boton_volver.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_nav_v03_to_nav_v02));//lamda.. java8+
         return view;
     }//fin de constructor

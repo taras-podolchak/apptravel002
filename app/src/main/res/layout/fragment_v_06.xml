@@ -16,7 +16,7 @@
         android:background="@drawable/logo_amigos_montana" />
 
     <LinearLayout
-        android:id="@+id/v05_LinearLayout"
+        android:id="@+id/v06_LinearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -42,7 +42,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/v06_boton_activar_aviso"
+            android:id="@+id/v06_btn_activar_aviso"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -51,7 +51,7 @@
             android:text="Activar aviso" />
 
         <Button
-            android:id="@+id/v06_boton_buscar_mas_actividades"
+            android:id="@+id/v06_btn_buscar_mas_actividades"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"

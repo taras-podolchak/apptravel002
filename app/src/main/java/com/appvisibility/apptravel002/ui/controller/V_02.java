@@ -103,7 +103,7 @@ public class V_02 extends Fragment {
         View view = inflater.inflate(R.layout.fragment_v_02,
                 container, false);
 
-        this.miRecicler = (RecyclerView) view.findViewById(R.id.v02_00_eve);
+        this.miRecicler = (RecyclerView) view.findViewById(R.id.v02_rcv_eventos);
         this.miRecicler.setHasFixedSize(true);
         this.miRecicler.setLayoutManager(new LinearLayoutManager(mContext));
 

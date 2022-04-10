@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/v02_eve_card_LinearLayout_evento"
+    android:id="@+id/v02_LinearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".ui.controller.V_02">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardEve"
+        android:id="@+id/v02_crd_eventos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
        android:layout_margin="5dp">
@@ -29,7 +29,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/imvFotoEve"
+                        android:id="@+id/v02_crd_imv_foto_eve"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         tools:srcCompat="@tools:sample/avatars" />
@@ -44,7 +44,7 @@
                     android:textAlignment="center">
 
                     <TextView
-                        android:id="@+id/txvTituloEve"
+                        android:id="@+id/v02_crd_txv_titulo_eve"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
@@ -56,7 +56,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/txvFechaIdaTruEve"
+                            android:id="@+id/v02_crd_txv_fechaidatru_eve"
                             android:layout_width="120dp"
                             android:layout_height="match_parent"
                             android:textAlignment="textEnd"
@@ -70,7 +70,7 @@
                             android:textSize="14sp" />
 
                         <TextView
-                            android:id="@+id/txvFechaVueltaTruEve"
+                            android:id="@+id/v02_crd_txv_fechavueltatru_eve"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:textAlignment="textStart"
@@ -78,14 +78,14 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/txvNivelEve"
+                        android:id="@+id/v02_crd_txv_nivel_eve"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal" />
 
 
                     <TextView
-                        android:id="@+id/txvDistanciaAct_txvDesnivelAct"
+                        android:id="@+id/v02_crd_txv_distancia_act_desnivel_act"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:textAlignment="center"/>
@@ -98,13 +98,13 @@
                         android:gravity="center_horizontal" />
                 -->
                     <TextView
-                        android:id="@+id/txvTransporteTipoEve"
+                        android:id="@+id/v02_crd_txv_transportetipo_eve"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal" />
 
                     <TextView
-                        android:id="@+id/txvNParticipantesEve"
+                        android:id="@+id/v02_crd_txv_nparticipantes_eve"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal" />

@@ -99,10 +99,10 @@ public class V_04 extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
 
         //Referenciamos los views
-        v04_editTextTextEmailAddress = view.findViewById(R.id.v04_editTextTextEmailAddress);
-        v04_editTextTextPassword = view.findViewById(R.id.v04_editTextTextPassword);
-        v04_button_iniciar_sesion = view.findViewById(R.id.v04_button_iniciar_sesion);
-        v04_button_registrarse = view.findViewById(R.id.v04_button_registrarse);
+        v04_editTextTextEmailAddress = view.findViewById(R.id.v04_etx_email_val);
+        v04_editTextTextPassword = view.findViewById(R.id.v04_etx_contrasenna_val);
+        v04_button_iniciar_sesion = view.findViewById(R.id.v04_btn_iniciar_sesion);
+        v04_button_registrarse = view.findViewById(R.id.v04_btn_registrarse);
 
         progressDialog = new ProgressDialog(mContext);
 

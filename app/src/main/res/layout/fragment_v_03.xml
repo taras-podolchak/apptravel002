@@ -6,19 +6,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:id="@+id/V03_Layout"
+    android:id="@+id/LinearLayout"
     android:background="@drawable/fondo_para_valiente"
     tools:context=".ui.controller.V_03">
 
     <LinearLayout
+        android:id="@+id/v03_LinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/v01_contenedor_blanco"
         android:layout_weight="1"
+        android:background="@drawable/v01_contenedor_blanco"
         android:orientation="vertical">
 
         <ScrollView
@@ -32,7 +33,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/txvTituloEve"
+                    android:id="@+id/v03_txv_titulo_eve"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="40dp"
@@ -41,7 +42,7 @@
                     android:textSize="20sp" />
 
                 <ImageView
-                    android:id="@+id/imvFotoEve"
+                    android:id="@+id/v03_imv_foto_eve"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
@@ -52,7 +53,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/txvFechaIdaTruEve"
+                        android:id="@+id/v03_txv_fechaidatru_eve"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView"
@@ -67,7 +68,7 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/txvFechaVueltaTruEve"
+                        android:id="@+id/v03_txv_fechavueltatru_eve"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView"
@@ -76,14 +77,13 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/txvTransporteTipoEve"
+                    android:id="@+id/v03_txv_transportetipo_eve"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:text="TextView" />
 
                 <TextView
-                    android:id="@+id/txvNParticipantesEve"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="INSCRITOS"
@@ -92,7 +92,7 @@
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/v03_00_val"
+                    android:id="@+id/v03_rcv_valientes"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="5dp"
@@ -101,7 +101,6 @@
                 </androidx.recyclerview.widget.RecyclerView>
 
                 <TextView
-                    android:id="@+id/txvTituloAct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="ACTIVIDADES"
@@ -110,7 +109,7 @@
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/v03_00_act"
+                    android:id="@+id/v03_rcv_actividades"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scrollbars="vertical">
@@ -126,7 +125,7 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/v03_boton_volver"
+                android:id="@+id/v03_btn_volver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -135,7 +134,7 @@
                 android:text="Volver" />
 
             <Button
-                android:id="@+id/v03_boton_me_interesa"
+                android:id="@+id/v03_btn_me_interesa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"

@@ -36,7 +36,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/v05_titulo_eve"
+                    android:id="@+id/v05_txv_titulo_eve"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="10"
@@ -44,7 +44,7 @@
                     android:textSize="20sp"/>
 
                 <ImageView
-                    android:id="@+id/v05_imageView"
+                    android:id="@+id/v05_imv_foto_eve"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="10"
@@ -52,7 +52,7 @@
                     tools:src="" />
 
                 <TextView
-                    android:id="@+id/v05_textView_info_completa"
+                    android:id="@+id/v05_txv_info_completa"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textAlignment="center"
@@ -66,7 +66,6 @@
                     android:minHeight="48dp"/>
 -->
                 <TextView
-                    android:id="@+id/txvNParticipantesEve"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="INSCRITOS"
@@ -76,7 +75,7 @@
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/v05_00_val"
+                    android:id="@+id/v05_rcv_valientes"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="5dp"
@@ -86,7 +85,6 @@
                 </androidx.recyclerview.widget.RecyclerView>
 
                 <TextView
-                    android:id="@+id/txvTituloAct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="ACTIVIDADES"
@@ -96,7 +94,7 @@
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/v05_00_act"
+                    android:id="@+id/v05_rcv_actividades"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="10"
@@ -118,7 +116,7 @@
                         android:text="¿LLevas el coche?" />
 
                     <Switch
-                        android:id="@+id/v05_swich_llevas_el_coche"
+                        android:id="@+id/v05_swc_llevas_el_coche"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -131,14 +129,14 @@
                     android:layout_weight="10">
 
                     <Spinner
-                        android:id="@+id/v05_spinner_nesesito_coche"
+                        android:id="@+id/v05_spn_necesito_coche"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:minHeight="48dp" />
 
                     <Spinner
-                        android:id="@+id/v05_spinner_ofresco_coche"
+                        android:id="@+id/v05_spn_ofrezco_coche"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -148,7 +146,7 @@
 
 
                 <Spinner
-                    android:id="@+id/v05_spinner_tipo_alojamiento"
+                    android:id="@+id/v05_spn_tipo_alojamiento"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="10"
@@ -156,7 +154,7 @@
                     android:minHeight="48dp" />
 
                 <Spinner
-                    android:id="@+id/v05_spinner_restricciones_allimentarias"
+                    android:id="@+id/v05_spn_restricciones_allimentarias"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="10"
@@ -196,7 +194,7 @@
             android:layout_weight="20">
 
             <Button
-                android:id="@+id/v05_boton_volver"
+                android:id="@+id/v05_btn_volver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -205,7 +203,7 @@
                 android:text="Volver" />
 
             <Button
-                android:id="@+id/v05_boton_confirmar"
+                android:id="@+id/v05_btn_confirmar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"

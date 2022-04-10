@@ -76,16 +76,16 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
         public ViewHolder(View v) {
             super(v);
 
-            this.txvDistanciaAct = v.findViewById(R.id.txvDistanciaAct);
-            this.txvDesnivelAct = v.findViewById(R.id.txvDesnivelAct);
-            this.txvHorasAct = v.findViewById(R.id.txvHorasAct);
-            this. txvNombreAct = v.findViewById(R.id.txvNombreAct);
-            this.txvActividadTipoAct = v.findViewById(R.id.txvActividadTipoAct);
-            this. txvFechaAct = v.findViewById(R.id.txvFechaAct);
-            this. txvNivelAct = v.findViewById(R.id.txvNivelAct);
-            this. txvDistanciaAct = v.findViewById(R.id.txvDistanciaAct);
-            this. txvDesnivelAct = v.findViewById(R.id.txvDesnivelAct);
-            this. txvHorasAct = v.findViewById(R.id.txvHorasAct);
+            this.txvDistanciaAct = v.findViewById(R.id.v03_cdv_txv_distancia_act);
+            this.txvDesnivelAct = v.findViewById(R.id.v03_cdv_txv_desnivel_act);
+            this.txvHorasAct = v.findViewById(R.id.v03_cdv_txv_horas_act);
+            this. txvNombreAct = v.findViewById(R.id.v03_cdv_txv_nombre_act);
+            this.txvActividadTipoAct = v.findViewById(R.id.v03_cdv_txv_actividadtipo_act);
+            this. txvFechaAct = v.findViewById(R.id.v03_cdv_txv_fecha_act);
+            this. txvNivelAct = v.findViewById(R.id.v03_cdv_txv_nivel_act);
+            this. txvDistanciaAct = v.findViewById(R.id.v03_cdv_txv_distancia_act);
+            this. txvDesnivelAct = v.findViewById(R.id.v03_cdv_txv_desnivel_act);
+            this. txvHorasAct = v.findViewById(R.id.v03_cdv_txv_horas_act);
         }
     }
 }

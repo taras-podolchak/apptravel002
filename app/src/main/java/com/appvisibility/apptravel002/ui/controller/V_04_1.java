@@ -111,18 +111,18 @@ public class V_04_1 extends Fragment {
         firebaseFirestore = FirebaseFirestore.getInstance();
         //mDatabase = FirebaseDatabase.getInstance().getReference();  //no necesitamos  esa bbdd
         //Referenciamos los views
-        v04_1_editTextTextPersonName_nombre = view.findViewById(R.id.v04_1_editTextTextPersonName_nombre);
-        v04_1_editTextTextPersonName_apellido = view.findViewById(R.id.v04_1_editTextTextPersonName_apellido);
-        v04_1_editTextTextPersonName_apellido2 = view.findViewById(R.id.v04_1_editTextTextPersonName_apellido2);
-        v04_1_editTextTextPersonName_email = view.findViewById(R.id.v04_1_editTextTextPersonName_email);
-        v04_1_editTextTextPersonName_password1 = view.findViewById(R.id.v04_1_editTextTextPersonName_password1);
-        v04_1_editTextTextPersonName_password2 = view.findViewById(R.id.v04_1_editTextTextPersonName_password2);
-        v04_1_editTextTextPersonName_dni = view.findViewById(R.id.v04_1_editTextTextPersonName_dni);
-        v04_1_editTextTextPersonName_telefono = view.findViewById(R.id.v04_1_editTextTextPersonName_telefono);
+        v04_1_editTextTextPersonName_nombre = view.findViewById(R.id.v04_1_etx_nombre_val);
+        v04_1_editTextTextPersonName_apellido = view.findViewById(R.id.v04_1_etx_apellido1_val);
+        v04_1_editTextTextPersonName_apellido2 = view.findViewById(R.id.v04_1_etx_apellido2_val);
+        v04_1_editTextTextPersonName_email = view.findViewById(R.id.v04_1_etx_email_val);
+        v04_1_editTextTextPersonName_password1 = view.findViewById(R.id.v04_1_etx_contrasenna1_val);
+        v04_1_editTextTextPersonName_password2 = view.findViewById(R.id.v04_1_etx_contrasenna2_val);
+        v04_1_editTextTextPersonName_dni = view.findViewById(R.id.v04_1_etx_dni_val);
+        v04_1_editTextTextPersonName_telefono = view.findViewById(R.id.v04_1_etx_movil_val);
         //v04_1_spinner_valiente_colaborador = view.findViewById(R.id.v04_1_spinner_valiente_colaborador);
-        v04_1_checkBox_aceptacion_condiciones = view.findViewById(R.id.v04_1_checkBox_aceptacion_condiciones);
-        v04_1_boton_aceptar = view.findViewById(R.id.v04_1_boton_aceptar);
-        v04_1_boton_volver = view.findViewById(R.id.v04_1_boton_volver);
+        v04_1_checkBox_aceptacion_condiciones = view.findViewById(R.id.v04_1_ckb_condicioneslegales_val);
+        v04_1_boton_aceptar = view.findViewById(R.id.v04_1_btn_aceptar);
+        v04_1_boton_volver = view.findViewById(R.id.v04_1_btn_volver);
 
         //el spinner para el futuro
         /*String[] arraySpinner = new String[]{

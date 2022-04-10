@@ -13,7 +13,7 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:id="@+id/LinearLayout"
+        android:id="@+id/v01_LinearLayout"
         android:background="@drawable/v01_contenedor_blanco"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
             android:gravity="center">
 
             <RadioButton
-                android:id="@+id/v01_radioButton_exurciones_de_un_dia"
+                android:id="@+id/v01_rbt_excursiones_un_dia"
                 android:layout_marginHorizontal="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
@@ -37,7 +37,7 @@
                 android:onClick="onRadioButtonClicked"/>
 
             <RadioButton
-                android:id="@+id/v01_radioButton_fin_de_semana"
+                android:id="@+id/v01_rbt_fin_semana"
                 android:layout_marginHorizontal="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
@@ -45,7 +45,7 @@
                 android:onClick="onRadioButtonClicked"/>
 
             <RadioButton
-                android:id="@+id/v01_radioButton_aventuras_mas_largas"
+                android:id="@+id/v01_rbt_aventuras_largas"
                 android:layout_marginHorizontal="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
@@ -55,7 +55,7 @@
         </RadioGroup>
 
         <Button
-            android:id="@+id/v01_boton_buscaar_actividades"
+            android:id="@+id/v01_btn_buscar_actividades"
             android:background="@drawable/v01_boton_formato_l"
             android:layout_width="match_parent"
             android:layout_height="50dp"

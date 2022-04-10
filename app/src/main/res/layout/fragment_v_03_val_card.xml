@@ -9,7 +9,7 @@
     tools:context=".ui.controller.V_03">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardVal"
+        android:id="@+id/v03_cdv_valiente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp">
@@ -26,14 +26,14 @@
 
 
                 <ImageView
-                    android:id="@+id/imvFotopropiaVal"
+                    android:id="@+id/v03_cdv_imv_fotopropia_val"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     tools:srcCompat="@tools:sample/avatars" />
 
 
                 <TextView
-                    android:id="@+id/txvNombreVal_txvApellido1Val"
+                    android:id="@+id/v03_cdv_txv_nombre_val_apellido1_val"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textAlignment="center"
@@ -41,19 +41,19 @@
 
 
                 <TextView
-                    android:id="@+id/txvMovilVal"
+                    android:id="@+id/v03_cdv_txv_movil_val"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal" />
 
                 <TextView
-                    android:id="@+id/txvCocheVal"
+                    android:id="@+id/v03_cdv_txv_coche_val"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal" />
 
                 <TextView
-                    android:id="@+id/txvEmailVal"
+                    android:id="@+id/v03_cdv_txv_email_val"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal" />

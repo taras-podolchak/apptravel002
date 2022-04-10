@@ -135,21 +135,21 @@ public class V_05 extends Fragment {
                 container, false);
 
 
-        v05_titulo_eve = view.findViewById(R.id.v05_titulo_eve);
-        v05_imageView = view.findViewById(R.id.v05_imageView);
-        v05_textView_info_completa = view.findViewById(R.id.v05_textView_info_completa);
-        v05_swich_llevas_el_coche = (Switch) view.findViewById(R.id.v05_swich_llevas_el_coche);
-        v05_spinner_nesesito_coche = view.findViewById(R.id.v05_spinner_nesesito_coche);
-        v05_spinner_ofresco_coche = view.findViewById(R.id.v05_spinner_ofresco_coche);
+        v05_titulo_eve = view.findViewById(R.id.v05_txv_titulo_eve);
+        v05_imageView = view.findViewById(R.id.v05_imv_foto_eve);
+        v05_textView_info_completa = view.findViewById(R.id.v05_txv_info_completa);
+        v05_swich_llevas_el_coche = (Switch) view.findViewById(R.id.v05_swc_llevas_el_coche);
+        v05_spinner_nesesito_coche = view.findViewById(R.id.v05_spn_necesito_coche);
+        v05_spinner_ofresco_coche = view.findViewById(R.id.v05_spn_ofrezco_coche);
         v05_spinner_ofresco_coche.setEnabled(false);
-        v05_spinner_tipo_alojamiento = view.findViewById(R.id.v05_spinner_tipo_alojamiento);
-        v05_spinner_restricciones_allimentarias = view.findViewById(R.id.v05_spinner_restricciones_allimentarias);
+        v05_spinner_tipo_alojamiento = view.findViewById(R.id.v05_spn_tipo_alojamiento);
+        v05_spinner_restricciones_allimentarias = view.findViewById(R.id.v05_spn_restricciones_allimentarias);
 
         // TODO: carga de Evento_eve
         eventosChangeListener(1);
 
         // TODO: carga de Inscritos (valientes)
-        this.val_Recicler = (RecyclerView) view.findViewById(R.id.v05_00_val);
+        this.val_Recicler = (RecyclerView) view.findViewById(R.id.v05_rcv_valientes);
         this.val_Recicler.setHasFixedSize(true);
         this.val_Recicler.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
 
@@ -159,7 +159,7 @@ public class V_05 extends Fragment {
         this.val_Recicler.setAdapter(val_Adapter);
 
         // TODO: carga de Actividades
-        this.act_Recicler = (RecyclerView) view.findViewById(R.id.v05_00_act);
+        this.act_Recicler = (RecyclerView) view.findViewById(R.id.v05_rcv_actividades);
         this.act_Recicler.setHasFixedSize(true);
         this.act_Recicler.setLayoutManager(new LinearLayoutManager(mContext));
 
@@ -195,14 +195,14 @@ public class V_05 extends Fragment {
 
 
         // TODO: los botones
-        v05_boton_confirmar = view.findViewById(R.id.v05_boton_confirmar);
+        v05_boton_confirmar = view.findViewById(R.id.v05_btn_confirmar);
         v05_boton_confirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_nav_v05_to_nav_v06);
             }
         });
-        v05_boton_volver = view.findViewById(R.id.v05_boton_volver);
+        v05_boton_volver = view.findViewById(R.id.v05_btn_volver);
         v05_boton_volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

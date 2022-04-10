@@ -100,13 +100,13 @@ public class v03_00_val_Adapter extends RecyclerView.Adapter<v03_00_val_Adapter.
         public ViewHolder(View v) {
             super(v);
 
-            imvFotopropiaVal = v.findViewById(R.id.imvFotopropiaVal);
-            txvNombreVal_txvApellido1Val = v.findViewById(R.id.txvNombreVal_txvApellido1Val);
-            txvMovilVal = v.findViewById(R.id.txvMovilVal);
-            txvCocheVal = v.findViewById(R.id.txvCocheVal);
-            txvEmailVal = v.findViewById(R.id.txvEmailVal);
+            imvFotopropiaVal = v.findViewById(R.id.v03_cdv_imv_fotopropia_val);
+            txvNombreVal_txvApellido1Val = v.findViewById(R.id.v03_cdv_txv_nombre_val_apellido1_val);
+            txvMovilVal = v.findViewById(R.id.v03_cdv_txv_movil_val);
+            txvCocheVal = v.findViewById(R.id.v03_cdv_txv_coche_val);
+            txvEmailVal = v.findViewById(R.id.v03_cdv_txv_email_val);
 
-            cardVal = (CardView) v.findViewById(R.id.cardVal);
+            cardVal = (CardView) v.findViewById(R.id.v03_cdv_valiente);
         }
     }
 }

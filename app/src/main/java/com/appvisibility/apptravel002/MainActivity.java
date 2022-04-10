@@ -89,17 +89,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         boolean checked = ((RadioButton) view).isChecked();
         // Check which radio button was clicked
         switch (view.getId()) {
-            case R.id.v01_radioButton_exurciones_de_un_dia:
+            case R.id.v01_rbt_excursiones_un_dia:
                 if (checked)
                     Toast.makeText(getApplicationContext(), "v01_radioButton_exurciones_de_un_dia", Toast.LENGTH_SHORT).show();
                 V_01.setResultado(1);
                 break;
-            case R.id.v01_radioButton_fin_de_semana:
+            case R.id.v01_rbt_fin_semana:
                 if (checked)
                     Toast.makeText(getApplicationContext(), "v01_radioButton_fin_de_semana", Toast.LENGTH_SHORT).show();
                 V_01.setResultado(2);
                 break;
-            case R.id.v01_radioButton_aventuras_mas_largas:
+            case R.id.v01_rbt_aventuras_largas:
                 if (checked)
                     Toast.makeText(getApplicationContext(), "v01_radioButton_aventuras_mas_largas", Toast.LENGTH_SHORT).show();
                 V_01.setResultado(3);

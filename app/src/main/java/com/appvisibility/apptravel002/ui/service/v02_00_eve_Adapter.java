@@ -143,17 +143,17 @@ Descomentar cuando se resuelva el problema de id empezando en 0 (debería empeza
 
         public ViewHolder(View v) {
             super(v);
-            this.txvTituloEve = v.findViewById(R.id.txvTituloEve);
+            this.txvTituloEve = v.findViewById(R.id.v02_crd_txv_titulo_eve);
 //            this.imvFotoEve = v.findViewById(R.id.imvFotoEve);
-            this.imvFotoEve = (ImageView) v.findViewById(R.id.imvFotoEve);
-            this.txvFechaIdaEve = v.findViewById(R.id.txvFechaIdaTruEve);
-            this.txvFechaVueltaEve = v.findViewById(R.id.txvFechaVueltaTruEve);
-            this.txvNivelEve = v.findViewById(R.id.txvNivelEve);
-            this.txvDistanciaAct_txvDesnivelAct = v.findViewById(R.id.txvDistanciaAct_txvDesnivelAct);
-            this.txvTransporteEve = v.findViewById(R.id.txvTransporteTipoEve);
-            this.txvNParticipantesEve = v.findViewById(R.id.txvNParticipantesEve);
+            this.imvFotoEve = (ImageView) v.findViewById(R.id.v02_crd_imv_foto_eve);
+            this.txvFechaIdaEve = v.findViewById(R.id.v02_crd_txv_fechaidatru_eve);
+            this.txvFechaVueltaEve = v.findViewById(R.id.v02_crd_txv_fechavueltatru_eve);
+            this.txvNivelEve = v.findViewById(R.id.v02_crd_txv_nivel_eve);
+            this.txvDistanciaAct_txvDesnivelAct = v.findViewById(R.id.v02_crd_txv_distancia_act_desnivel_act);
+            this.txvTransporteEve = v.findViewById(R.id.v02_crd_txv_transportetipo_eve);
+            this.txvNParticipantesEve = v.findViewById(R.id.v02_crd_txv_nparticipantes_eve);
 
-            this.cardEve = v.findViewById(R.id.cardEve);
+            this.cardEve = v.findViewById(R.id.v02_crd_eventos);
         }
     }
 }
