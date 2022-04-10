@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_inicio_v01, R.id.nav_v02, R.id.nav_v03, R.id.nav_v04, R.id.nav_v05, R.id.nav_v05_2, R.id.nav_v06)
+                R.id.nav_inicio_v01, R.id.nav_v02, R.id.nav_v03, R.id.nav_v04, R.id.nav_v05, R.id.nav_v06)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -136,23 +136,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected( MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
        /* if (id == R.id.nav_camara) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-
         } else if (id == R.id.nav_slideshow) {
-
         } else if (id == R.id.nav_manage) {
-
         } else *//*if (id == R.id.paguina_web) {
             Toast.makeText(this, "Se abrira la pagina WEB", Toast.LENGTH_LONG).show();
             Log.d(TAG, "Se abrira la pagina WEB" );
         } else if (id == R.id.cerrar_session) {
             Toast.makeText(getApplicationContext(), "La sesion se ha cerrado correctamente", Toast.LENGTH_SHORT).show();
-
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -164,23 +158,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
        /* if (id == R.id.nav_camara) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-
         } else if (id == R.id.nav_slideshow) {
-
         } else if (id == R.id.nav_manage) {
-
         } else *//*if (id == R.id.paguina_web) {
             Toast.makeText(this, "Se abrira la pagina WEB", Toast.LENGTH_LONG).show();
             Log.d(TAG, "Se abrira la pagina WEB" );
         } else if (id == R.id.cerrar_session) {
             Toast.makeText(getApplicationContext(), "La sesion se ha cerrado correctamente", Toast.LENGTH_SHORT).show();
-
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;*/
@@ -190,14 +178,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.cerrar_session) {
             //   Intent intent1 = new Intent(this,MyActivity.class);
             //  this.startActivity(intent1);
-
             // firebaseAuth.signOut();     //ceramos la sesion
             Toast.makeText(getApplicationContext(), "La sesion se ha cerrado correctamente", Toast.LENGTH_SHORT).show();
             // mGraverLayout.closeDrawer(GravityCompat.START);
             //finish();
             return true;
         }
-
         if (id == R.id.paguina_web) {
             Toast.makeText(this, "Se abrira la pagina WEB", Toast.LENGTH_LONG).show();
             return true;
