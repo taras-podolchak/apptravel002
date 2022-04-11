@@ -58,12 +58,13 @@ public class V_04_1 extends Fragment {
     private CheckBox v04_1_condicioneslegales_val;
 
     //TODO:acceso a datos
-    private FirebaseAuth fba;
-    private FirebaseFirestore fbf;
+    private FirebaseAuth fba = FirebaseAuth.getInstance();
+    private FirebaseFirestore fbf = FirebaseFirestore.getInstance();
     // private DatabaseReference mDatabase; //no necesitamos esa bbdd
 
     //TODO:entities
     private Context mContext;
+    private Bundle result;
 
     //TODO:servise
     private ProgressDialog pdg;
@@ -104,10 +105,14 @@ public class V_04_1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_04_1, container, false);
+
+        int posicion = getArguments().getInt("eventoParaV_04_1");
+
+        result = new Bundle();
+        result.putInt("eventoParaV_05", posicion);
+
         //2ºREGISTROFB
-        //inicializamos el objeto firebaseAuth
-        fba = FirebaseAuth.getInstance();
-        fbf = FirebaseFirestore.getInstance();
+
         //mDatabase = FirebaseDatabase.getInstance().getReference();  //no necesitamos  esa bbdd
         //Referenciamos los views
         v04_1_nombre_val = view.findViewById(R.id.v04_1_etx_nombre_val);
@@ -226,25 +231,25 @@ public class V_04_1 extends Fragment {
         user.put("email_val", email_val);
         user.put("dni_val", dni_val);
         user.put("movil_val", movil_val);
-        user.put("usuariotipo_val","Valiente");
+        user.put("usuariotipo_val", "Valiente");
 
         fba.createUserWithEmailAndPassword(email_val, contrasenna_val)
-            .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    //comprobando el éxito
-                    if (task.isSuccessful()) {
-                        Toast.makeText(getActivity(), "Se ha registrado el usuario: " + nombre_val + " " + apellido1_val, Toast.LENGTH_LONG).show();
-                        //añadomos el usuario a FirebaseFirestore
-                        fbf.collection("valiente_val").document(fba.getUid()).set(user);
-                        Navigation.findNavController(view).navigate(R.id.action_nav_v04_1_to_nav_v05);
-                    } else {
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        //comprobando el éxito
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getActivity(), "Se ha registrado el usuario: " + nombre_val + " " + apellido1_val, Toast.LENGTH_LONG).show();
+                            //añadomos el usuario a FirebaseFirestore
+                            fbf.collection("valiente_val").document(fba.getUid()).set(user);
+                            Navigation.findNavController(view).navigate(R.id.action_nav_v04_1_to_nav_v05, result);
+                        } else {
 
-                        Toast.makeText(getActivity(), "Ya existe el usuario con el mismo mail", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Ya existe el usuario con el mismo mail", Toast.LENGTH_LONG).show();
+                        }
+                        pdg.dismiss();
                     }
-                    pdg.dismiss();
-                }
-            });
+                });
         pdg.setMessage("Realizando registro en linea...");
         pdg.show();
 

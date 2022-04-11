@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<!--<FrameLayout-->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:background="@drawable/fondo_para_valiente"
-    tools:context=".MainActivity">
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ui.controller.V_01">
 
     <LinearLayout
         android:id="@+id/v01_LinearLayout"
-        android:background="@drawable/v01_contenedor_blanco"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="25dp"
         android:layout_marginBottom="120dp"
+        android:background="@drawable/v01_contenedor_blanco"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="25dp">
 
         <RadioGroup
             android:id="@+id/v01_RadioGroup"
@@ -30,40 +27,36 @@
 
             <RadioButton
                 android:id="@+id/v01_rbt_excursiones_un_dia"
-                android:layout_marginHorizontal="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:text="Excurciones de un dia"
-                android:onClick="onRadioButtonClicked"/>
+                android:layout_marginHorizontal="50dp"
+                android:text="Excurciones de un dia" />
 
             <RadioButton
                 android:id="@+id/v01_rbt_fin_semana"
-                android:layout_marginHorizontal="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:text="Fin de semana"
-                android:onClick="onRadioButtonClicked"/>
+                android:layout_marginHorizontal="50dp"
+                android:text="Fin de semana" />
 
             <RadioButton
                 android:id="@+id/v01_rbt_aventuras_largas"
-                android:layout_marginHorizontal="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:text="Aventuras más largas"
-                android:onClick="onRadioButtonClicked"/>
+                android:layout_marginHorizontal="50dp"
+                android:text="Aventuras más largas" />
 
         </RadioGroup>
 
         <Button
             android:id="@+id/v01_btn_buscar_actividades"
-            android:background="@drawable/v01_boton_formato_l"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="50dp"
             android:layout_marginTop="80dp"
             android:layout_marginEnd="50dp"
-            android:text="Buscar actividades"
-            android:layout_below="@+id/radioGroup"/>
+            android:background="@drawable/v01_boton_formato_l"
+            android:text="Buscar actividades" />
     </LinearLayout>
 
 </LinearLayout>

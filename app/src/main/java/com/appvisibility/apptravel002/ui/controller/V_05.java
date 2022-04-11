@@ -1,5 +1,6 @@
 package com.appvisibility.apptravel002.ui.controller;
 
+import static com.appvisibility.apptravel002.MainActivity.sesionIniciada;
 import static android.content.ContentValues.TAG;
 import android.content.Context;
 import android.net.Uri;
@@ -126,7 +127,7 @@ public class V_05 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_05, container, false);
-
+        sesionIniciada=true;
         posicion = getArguments().getInt("eventoParaV_05");
 
         v05_titulo_eve = view.findViewById(R.id.v05_txv_titulo_eve);

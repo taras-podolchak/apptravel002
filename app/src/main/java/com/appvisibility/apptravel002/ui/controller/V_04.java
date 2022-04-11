@@ -44,10 +44,12 @@ public class V_04 extends Fragment {
     private EditText v04_contrasenna_val;
 
     //TODO:acceso a datos
-    private FirebaseAuth fba;
+    private FirebaseAuth fba = FirebaseAuth.getInstance();
+    ;
 
     //TODO:entities
     private Context mContext;
+    private Bundle result;
 
     //TODO:servise
     private ProgressDialog pdg;
@@ -93,8 +95,14 @@ public class V_04 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_04, container, false);
 
+        int posicion = getArguments().getInt("eventoParaV_04");
+
+        result = new Bundle();
+        result.putInt("eventoParaV_04_1", posicion);
+        result.putInt("eventoParaV_05", posicion);
+
         //inicializamos el objeto firebaseAuth
-        fba = FirebaseAuth.getInstance();
+
 
         //Referenciamos los views
         v04_email_val = view.findViewById(R.id.v04_etx_email_val);
@@ -113,7 +121,7 @@ public class V_04 extends Fragment {
         v04_registrarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v04_1);
+                Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v04_1, result);
             }
         });
         return view;
@@ -135,17 +143,17 @@ public class V_04 extends Fragment {
             return;
         }
         fba.signInWithEmailAndPassword(email_val, contrasenna_val)
-            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v05);
-                } else {
-                    Toast.makeText(getActivity(), "El email_val o la contraseña es incorrecta", Toast.LENGTH_LONG).show();
-                }
-                pdg.dismiss();
-            }
-        });
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v05, result);
+                        } else {
+                            Toast.makeText(getActivity(), "El email_val o la contraseña es incorrecta", Toast.LENGTH_LONG).show();
+                        }
+                        pdg.dismiss();
+                    }
+                });
         pdg.setMessage("Realizando registro en linea...");
         pdg.show();
     }

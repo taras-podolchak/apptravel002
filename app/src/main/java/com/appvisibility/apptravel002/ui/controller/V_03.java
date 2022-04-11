@@ -74,6 +74,7 @@ public class V_03 extends Fragment implements IDAO<Evento_eve, Valiente_val, Act
     private TextView v03_fechavueltatru_eve;
     private TextView v03_transportetipo_eve;
     private TextView v03_nparticipantes_eve;
+    private TextView v03_txv_iscritos_eve;
     private RecyclerView v03_recycler_act;
     private RecyclerView v03_recycler_val;
 
@@ -137,6 +138,7 @@ public class V_03 extends Fragment implements IDAO<Evento_eve, Valiente_val, Act
         posicion = getArguments().getInt("eventoParaV_03");
 
         Bundle result = new Bundle();
+        result.putInt("eventoParaV_04", posicion);
         result.putInt("eventoParaV_05", posicion);
 
 
@@ -146,21 +148,26 @@ public class V_03 extends Fragment implements IDAO<Evento_eve, Valiente_val, Act
         this.v03_fechavueltatru_eve = view.findViewById(R.id.v03_txv_fechavueltatru_eve);
         this.v03_transportetipo_eve = view.findViewById(R.id.v03_txv_transportetipo_eve);
         this.v03_nparticipantes_eve = view.findViewById(R.id.v02_crd_txv_nparticipantes_eve);
+        this.v03_txv_iscritos_eve = view.findViewById(R.id.v03_txv_iscritos_eve);
 
         // TODO: carga de Evento_eve
         Query query1 = fbf.collection("evento_eve").whereEqualTo("id_eve", posicion);
         tabla1ChangeListener(query1, eventos, Evento_eve.class, v03_adapter_eve);
 
-        // TODO: carga de Inscritos (valientes)
-        this.v03_recycler_val = view.findViewById(R.id.v03_rcv_valientes);
-        this.v03_recycler_val.setHasFixedSize(true);
-        this.v03_recycler_val.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
-        this.v03_adapter_val = new v03_00_val_Adapter(valientes, mContext);
+        if (sesionIniciada) {
+            // TODO: carga de Inscritos (valientes)
+            this.v03_recycler_val = view.findViewById(R.id.v03_rcv_valientes);
+            this.v03_recycler_val.setHasFixedSize(true);
+            this.v03_recycler_val.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
+            this.v03_adapter_val = new v03_00_val_Adapter(valientes, mContext);
 
-        Query query2 = fbf.collection("valiente_val").whereIn("id_val", Arrays.asList(1, 2, 3, 4, 5, 6));
-        tabla2ChangeListener(query2, valientes, Valiente_val.class, v03_adapter_val);
+            Query query2 = fbf.collection("valiente_val").whereIn("id_val", Arrays.asList(1, 2, 3, 4, 5, 6));
+            tabla2ChangeListener(query2, valientes, Valiente_val.class, v03_adapter_val);
 
-        this.v03_recycler_val.setAdapter(v03_adapter_val);
+            this.v03_recycler_val.setAdapter(v03_adapter_val);
+        } else {
+            v03_txv_iscritos_eve.setVisibility(View.INVISIBLE);
+        }
 
         // TODO: carga de Actividades
         this.v03_recycler_act = view.findViewById(R.id.v03_rcv_actividades);
@@ -179,7 +186,7 @@ public class V_03 extends Fragment implements IDAO<Evento_eve, Valiente_val, Act
             @Override
             public void onClick(View view) {
                 if (!sesionIniciada) {
-                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v04);
+                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v04, result);
                 } else {
                     Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v05, result);
                 }

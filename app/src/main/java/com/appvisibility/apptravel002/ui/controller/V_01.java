@@ -1,5 +1,6 @@
 package com.appvisibility.apptravel002.ui.controller;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,12 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.appvisibility.apptravel002.R;
 
 
-public class V_01 extends Fragment {
+public class V_01 extends Fragment implements RadioButton.OnCheckedChangeListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,7 +33,7 @@ public class V_01 extends Fragment {
     private Button v01_buscar_actividades;
 
     //TODO:servise
-    private static int resultado;       //se usa en setResultado. obtiene resultado desde mainActivity.onRadioButtonClicked()
+    private int resultado;
 
     public V_01() {
         // Required empty public constructor
@@ -47,6 +51,11 @@ public class V_01 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_01, container, false);
+
+        ((RadioButton) view.findViewById(R.id.v01_rbt_excursiones_un_dia)).setOnCheckedChangeListener(this);
+        ((RadioButton) view.findViewById(R.id.v01_rbt_aventuras_largas)).setOnCheckedChangeListener(this);
+        ((RadioButton) view.findViewById(R.id.v01_rbt_fin_semana)).setOnCheckedChangeListener(this);
+
         v01_buscar_actividades = view.findViewById(R.id.v01_btn_buscar_actividades);
         v01_buscar_actividades.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +82,25 @@ public class V_01 extends Fragment {
         return view;
     }
 
-    public static void setResultado(int mainActivity_resultado) {
-        resultado = mainActivity_resultado;
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        // Check which radio button was clicked
+        switch (buttonView.getId()) {
+            case R.id.v01_rbt_excursiones_un_dia:
+                if (isChecked)
+                    Toast.makeText(getActivity(), "v01_radioButton_exurciones_de_un_dia", Toast.LENGTH_SHORT).show();
+                resultado = 1;
+                break;
+            case R.id.v01_rbt_fin_semana:
+                if (isChecked)
+                    Toast.makeText(getActivity(), "v01_radioButton_fin_de_semana", Toast.LENGTH_SHORT).show();
+                resultado = 2;
+                break;
+            case R.id.v01_rbt_aventuras_largas:
+                if (isChecked)
+                    Toast.makeText(getActivity(), "v01_radioButton_aventuras_mas_largas", Toast.LENGTH_SHORT).show();
+                resultado = 3;
+                break;
+        }
     }
 }

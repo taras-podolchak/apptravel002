@@ -5,15 +5,14 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
-import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.appvisibility.apptravel002.databinding.ActivityMainBinding;
-import com.appvisibility.apptravel002.ui.controller.V_01;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -25,7 +24,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-    private FirebaseAuth firebaseAuth; //de momento solo para cerrar sesion
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    ;
     public static boolean sesionIniciada;
 
     @Override
@@ -63,7 +63,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        NavigationView mNavigationView = findViewById(R.id.nav_view);
+        if (mNavigationView != null) {
+            mNavigationView.setNavigationItemSelectedListener(this);
+        }
 
 
     }   //fin de constructor
@@ -82,33 +85,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 || super.onSupportNavigateUp();
     }
 
-    //V_01
-
-    public void onRadioButtonClicked(View view) {   // metodo para v_01 chequear el contenedor
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
-        // Check which radio button was clicked
-        switch (view.getId()) {
-            case R.id.v01_rbt_excursiones_un_dia:
-                if (checked)
-                    Toast.makeText(getApplicationContext(), "v01_radioButton_exurciones_de_un_dia", Toast.LENGTH_SHORT).show();
-                V_01.setResultado(1);
-                break;
-            case R.id.v01_rbt_fin_semana:
-                if (checked)
-                    Toast.makeText(getApplicationContext(), "v01_radioButton_fin_de_semana", Toast.LENGTH_SHORT).show();
-                V_01.setResultado(2);
-                break;
-            case R.id.v01_rbt_aventuras_largas:
-                if (checked)
-                    Toast.makeText(getApplicationContext(), "v01_radioButton_aventuras_mas_largas", Toast.LENGTH_SHORT).show();
-                V_01.setResultado(3);
-                break;
-        }
-    }
-
-// si el usuario ha iniciado la sesion debera saltar la v_04 y v_04_1, pero todavia no lo he hecho
-
+    //TODO para tener la cesion abierta
     @Override
     protected void onStart() {
         super.onStart();
@@ -117,82 +94,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void serrarSecion() {
-        sesionIniciada = false;
-        Toast.makeText(getApplicationContext(), "Sesion cerrada", Toast.LENGTH_SHORT).show();
-    }
-
-
+    //TODO el menuImems onClicListener
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.cerrar_session) {
+            Toast.makeText(getApplicationContext(), "Funciona", Toast.LENGTH_SHORT).show();
             sesionIniciada = false;
         }
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-   /* @Override
-    public boolean onNavigationItemSelected( MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-       /* if (id == R.id.nav_camara) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-        } else if (id == R.id.nav_slideshow) {
-        } else if (id == R.id.nav_manage) {
-        } else *//*if (id == R.id.paguina_web) {
-            Toast.makeText(this, "Se abrira la pagina WEB", Toast.LENGTH_LONG).show();
-            Log.d(TAG, "Se abrira la pagina WEB" );
-        } else if (id == R.id.cerrar_session) {
-            Toast.makeText(getApplicationContext(), "La sesion se ha cerrado correctamente", Toast.LENGTH_SHORT).show();
-        }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }*/
-
-
-  /*  @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-       /* if (id == R.id.nav_camara) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-        } else if (id == R.id.nav_slideshow) {
-        } else if (id == R.id.nav_manage) {
-        } else *//*if (id == R.id.paguina_web) {
-            Toast.makeText(this, "Se abrira la pagina WEB", Toast.LENGTH_LONG).show();
-            Log.d(TAG, "Se abrira la pagina WEB" );
-        } else if (id == R.id.cerrar_session) {
-            Toast.makeText(getApplicationContext(), "La sesion se ha cerrado correctamente", Toast.LENGTH_SHORT).show();
-        }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;*/
-
-
-        /* int id = item.getItemId();
-        if (id == R.id.cerrar_session) {
-            //   Intent intent1 = new Intent(this,MyActivity.class);
-            //  this.startActivity(intent1);
-            // firebaseAuth.signOut();     //ceramos la sesion
-            Toast.makeText(getApplicationContext(), "La sesion se ha cerrado correctamente", Toast.LENGTH_SHORT).show();
-            // mGraverLayout.closeDrawer(GravityCompat.START);
-            //finish();
-            return true;
-        }
-        if (id == R.id.paguina_web) {
-            Toast.makeText(this, "Se abrira la pagina WEB", Toast.LENGTH_LONG).show();
-            return true;
-        }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-        // return super.onNavigationItemSelected(item);
-    */
-
-
 }
