@@ -2,12 +2,14 @@ package com.appvisibility.apptravel002.ui.controller;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -35,7 +37,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 
-public class V_02 extends Fragment {
+public class V_02 extends Fragment implements IDAO <Evento_eve, Object, Object> {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -51,6 +53,7 @@ public class V_02 extends Fragment {
 
     //TODO:acceso a datos
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
+    ProgressDialog pdg;
 
     // TODO: Entities
     List<Evento_eve> eventos = new ArrayList<>();
@@ -102,31 +105,49 @@ public class V_02 extends Fragment {
         this.v02_recycler_eve = (RecyclerView) view.findViewById(R.id.v02_rcv_eventos);
         this.v02_recycler_eve.setHasFixedSize(true);
         this.v02_recycler_eve.setLayoutManager(new LinearLayoutManager(mContext));
-
-        eventosChangeListener("evento_eve", "id_eve");
-
         this.v02_adapter_eve = new v02_00_eve_Adapter(eventos, mContext);
+
+        Query query1 = fbf.collection("evento_eve").orderBy("id_eve", Query.Direction.ASCENDING);
+        tabla1ChangeListener (query1, eventos, Evento_eve.class, v02_adapter_eve);
+
         this.v02_recycler_eve.setAdapter(v02_adapter_eve);
         return view;
     }//Fin de cinstructor
 
-    public void eventosChangeListener(String coleccion, String criterio) {
-        fbf.collection(coleccion).orderBy(criterio, Query.Direction.ASCENDING)
-            .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                @Override
-                public void onEvent(@Nullable QuerySnapshot value,
-                                    @Nullable FirebaseFirestoreException e) {
-                    if (e != null) {
-                        Log.w(TAG, "Listen failed.", e);
-                        return;
-                    }
-                    eventos.clear();
-                    for (QueryDocumentSnapshot doc : value) {
-                        eventos.add(doc.toObject(Evento_eve.class));
-                    }
-                    v02_adapter_eve.notifyDataSetChanged();
-                    Log.d(TAG, "Current cites in CA: ");
+    @Override
+    public <T> void tabla1ChangeListener(Query query, List<T> lista, Class<T> tipoObjeto, RecyclerView.Adapter miAdapter) {
+        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
+                T enProceso;
+                if (error != null) {
+                    Log.e("Error en Firestore", error.getMessage());
+                    return;
                 }
-            });
+                lista.clear();
+                for (QueryDocumentSnapshot qds : snapshots) {
+                    enProceso = (T) qds.toObject(tipoObjeto);
+                    lista.add(enProceso);
+                }
+                miAdapter.notifyDataSetChanged();
+/*
+                if (pdg.isShowing()){
+                    pdg.dismiss();
+                }
+ */
+                Log.d(TAG, "Datos recibidos!");
+                Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    @Override
+    public <S> void tabla2ChangeListener(Query query, List<S> lista, Class<S> tipoObjeto, RecyclerView.Adapter miAdapter) {
+
+    }
+
+    @Override
+    public <O> void tabla3ChangeListener(Query query, List<O> lista, Class<O> tipoObjeto, RecyclerView.Adapter miAdapter) {
+
     }
 }
