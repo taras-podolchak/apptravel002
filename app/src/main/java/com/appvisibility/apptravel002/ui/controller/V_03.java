@@ -31,6 +31,7 @@ import com.appvisibility.apptravel002.ui.service.v02_00_eve_Adapter;
 import com.appvisibility.apptravel002.ui.service.v03_00_act_Adapter;
 import com.appvisibility.apptravel002.ui.service.v03_00_val_Adapter;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -198,6 +199,13 @@ public class V_03 extends Fragment implements IDAO <Evento_eve, Valiente_val, Ac
                     Log.e("Error en Firestore", error.getMessage());
                     return;
                 }
+/*
+                lista.clear();
+                for (QueryDocumentSnapshot qds : snapshots) {
+                    enProceso = (S) qds.toObject(tipoObjeto);
+                    lista.add(enProceso);
+                }
+ */
                 lista.clear();
                 for (QueryDocumentSnapshot qds : snapshots) {
                     evento = (Evento_eve) qds.toObject(tipoObjeto);
@@ -207,12 +215,18 @@ public class V_03 extends Fragment implements IDAO <Evento_eve, Valiente_val, Ac
                     //cargamos la imagen
                     FirebaseStorage fbs = FirebaseStorage.getInstance();
                     StorageReference str = fbs.getReference();
-                    str.child("Eventos/1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    str.child("Eventos/"+evento.getFoto_eve()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
                             Picasso.get().load(uri).into(v03_foto_eve);
                         }
-                    }).addOnFailureListener(exception -> Toast.makeText(getActivity(), "GET IMAGE FAILED", Toast.LENGTH_LONG).show());
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+//                Toast.makeText(getActivity(), "GET IMAGE FAILED", Toast.LENGTH_LONG).show();
+                            // Handle any errors
+                        }
+                    });
                     v03_fechaidatru_eve.setText(evento.getFechaidatru_eve());
                     v03_fechavueltatru_eve.setText(evento.getFechavueltatru_eve());
                     v03_transportetipo_eve.setText(evento.getTransportetipo_eve());
