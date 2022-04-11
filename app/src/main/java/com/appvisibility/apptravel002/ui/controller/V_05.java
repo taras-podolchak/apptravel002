@@ -148,14 +148,11 @@ public class V_05 extends Fragment implements IDAO <Evento_eve, Valiente_val, Ac
 
         // TODO: carga de Evento
         // EOB: Intentar pasar este método a changeNoListener y eliminar las dos líneas siguientes
-
-        Query query1 = fbf.collection("evento_eve").whereEqualTo("id_eve", 1);
         List<Evento_eve> eventos = new ArrayList<>();
         v02_00_eve_Adapter v02_adapter_eve = null;
-/*
+
+        Query query1 = fbf.collection("evento_eve").whereEqualTo("id_eve", 1);
         tabla1ChangeListener (query1, eventos, Evento_eve.class, v02_adapter_eve);
- */
-        eventosChangeListener(query1, eventos, Evento_eve.class, v02_adapter_eve);
 
         // TODO: carga de Inscritos (valientes)
         /*this.v05_recycler_val = (RecyclerView) view.findViewById(R.id.v05_rcv_valientes);
@@ -224,46 +221,9 @@ public class V_05 extends Fragment implements IDAO <Evento_eve, Valiente_val, Ac
         return view;
     }//fin de constructor
 
-    public <T> void eventosChangeListener(Query query, List<T> lista, Class<T> tipoObjeto, RecyclerView.Adapter miAdapter) { // bien hecho
-        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
-                @Override
-                public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
-                    T enProceso;
-                    if (error != null) {
-                        Log.e("Error en Firestore", error.getMessage());
-                        return;
-                    }
-                    for (QueryDocumentSnapshot qds : snapshots) {
-                        evento = (Evento_eve) qds.toObject(Evento_eve.class);
-
-                        v05_titulo_eve.setText(evento.getTitulo_eve());
-                        //cargamos la imagen
-                        FirebaseStorage fbs = FirebaseStorage.getInstance();
-                        StorageReference str = fbs.getReference();
-                        str.child("Eventos/"+evento.getFoto_eve()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                Picasso.get().load(uri).into(v05_foto_eve);
-                            }
-                        }).addOnFailureListener(exception -> Toast.makeText(getActivity(), "GET IMAGE FAILED", Toast.LENGTH_LONG).show());
-                        v05_info_completa.setText(
-                            "Nivel de dificultad: " + evento.getNivel_eve() + "\n"
-                                    + "Distancia ida: " + evento.getDistanciaidatru_eve() + " "
-                                    + "Distancia vuelta: " + evento.getDistanciavueltatru_eve() + "\n"
-                                    + "Fecha ida: " + evento.getFechaidatru_eve() + "\n"
-                                    + "Fecha vuelta: " + evento.getFechavueltatru_eve() + "\n"
-                                   // + "Coordenadas de salida: " + evento.getSalidacoordenadastru_eve() + "\n"
-                                   // + "Coordenadas de llegada: " + evento.getLlegadacoordenadastru_eve() + "\n"
-                                  //  + evento.getDescgeneral_eve() + " "
-                                    + "Precio: " + evento.getPrecio_eve() + "€");
-                    }
-                    Log.d(TAG, "Current cites in CA: ");
-                }
-            });
-    }
     @Override
     public <T> void tabla1ChangeListener(Query query, List<T> lista, Class<T> tipoObjeto, RecyclerView.Adapter miAdapter) {
-/*
+
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
@@ -274,7 +234,7 @@ public class V_05 extends Fragment implements IDAO <Evento_eve, Valiente_val, Ac
                 }
                 lista.clear();
                 for (QueryDocumentSnapshot qds : snapshots) {
-                    enProceso = (T) qds.toObject(tipoObjeto);
+                    evento = (Evento_eve) qds.toObject(tipoObjeto);
 //                    lista.add(enProceso);
 //                miAdapter.notifyDataSetChanged();
 
@@ -282,7 +242,7 @@ public class V_05 extends Fragment implements IDAO <Evento_eve, Valiente_val, Ac
                 //cargamos la imagen
                 FirebaseStorage fbs = FirebaseStorage.getInstance();
                 StorageReference str = fbs.getReference();
-                str.child("Eventos/"+enProceso.getFoto_eve()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                str.child("Eventos/"+evento.getFoto_eve()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
                         Picasso.get().load(uri).into(v05_foto_eve);
@@ -295,15 +255,15 @@ public class V_05 extends Fragment implements IDAO <Evento_eve, Valiente_val, Ac
                     }
                 });
                 v05_info_completa.setText(
-                        "Nivel de dificultad: " + enProceso.getNivel_eve() + "\n"
-                                + "Distancia ida: " + enProceso.getDistanciaidatru_eve() + " "
-                                + "Distancia vuelta: " + enProceso.getDistanciavueltatru_eve() + "\n"
-                                + "Fecha ida: " + enProceso.getFechaidatru_eve() + "\n"
-                                + "Fecha vuelta: " + enProceso.getFechavueltatru_eve() + "\n"
+                        "Nivel de dificultad: " + evento.getNivel_eve() + "\n"
+                                + "Distancia ida: " + evento.getDistanciaidatru_eve() + " "
+                                + "Distancia vuelta: " + evento.getDistanciavueltatru_eve() + "\n"
+                                + "Fecha ida: " + evento.getFechaidatru_eve() + "\n"
+                                + "Fecha vuelta: " + evento.getFechavueltatru_eve() + "\n"
                                 // + "Coordenadas de salida: " + evento.getSalidacoordenadastru_eve() + "\n"
                                 // + "Coordenadas de llegada: " + evento.getLlegadacoordenadastru_eve() + "\n"
                                 //  + evento.getDescgeneral_eve() + " "
-                                + "Precio: " + enProceso.getPrecio_eve() + "€");
+                                + "Precio: " + evento.getPrecio_eve() + "€");
                 }
 
 //                if (pdg.isShowing()){
@@ -314,8 +274,6 @@ public class V_05 extends Fragment implements IDAO <Evento_eve, Valiente_val, Ac
                 Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
             }
         });
-
- */
     }
 
     @Override

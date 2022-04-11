@@ -210,6 +210,7 @@ public class V_03 extends Fragment implements IDAO <Evento_eve, Valiente_val, Ac
                 for (QueryDocumentSnapshot qds : snapshots) {
                     evento = (Evento_eve) qds.toObject(tipoObjeto);
 //                    lista.add(enProceso);
+//                miAdapter.notifyDataSetChanged();
 
                     v03_titulo_eve.setText(evento.getTitulo_eve());
                     //cargamos la imagen
