@@ -1,18 +1,14 @@
 package com.appvisibility.apptravel002.ui.controller;
 
 import static android.content.ContentValues.TAG;
-
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +21,6 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.entities.Actividad_act;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
@@ -44,7 +39,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -54,7 +48,7 @@ import java.util.List;
  * Use the {@link V_05#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class V_05 extends Fragment implements IDAO <Evento_eve, Valiente_val, Actividad_act> {
+public class V_05 extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -76,9 +70,6 @@ public class V_05 extends Fragment implements IDAO <Evento_eve, Valiente_val, Ac
     private Spinner v05_ofrezco_coche;
     private Spinner v05_tipo_alojamiento;
     private Spinner v05_restricciones_alimentarias;
-   // private Spinner v05_spinner_estado_de_pago;
-    private RecyclerView v05_recycler_act;
-    private RecyclerView v05_recycler_val;
 
     //TODO:acceso a datos
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
@@ -93,6 +84,7 @@ public class V_05 extends Fragment implements IDAO <Evento_eve, Valiente_val, Ac
     //TODO:servise
     private v03_00_act_Adapter v03_adapter_act;
     private v03_00_val_Adapter v03_adapter_val;
+    private int posicion;
 
     public V_05() {
         // Required empty public constructor
@@ -135,10 +127,12 @@ public class V_05 extends Fragment implements IDAO <Evento_eve, Valiente_val, Ac
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_05, container, false);
 
+        posicion = getArguments().getInt("eventoParaV_05");
+
         v05_titulo_eve = view.findViewById(R.id.v05_txv_titulo_eve);
         v05_foto_eve = view.findViewById(R.id.v05_imv_foto_eve);
         v05_info_completa = view.findViewById(R.id.v05_txv_info_completa);
-        v05_llevas_coche = (Switch) view.findViewById(R.id.v05_swc_llevas_el_coche);
+        v05_llevas_coche = view.findViewById(R.id.v05_swc_llevas_el_coche);
         v05_lista_personas = view.findViewById(R.id.v05_spn_lista_personas);
         v05_necesito_coche = view.findViewById(R.id.v05_spn_necesito_coche);
         v05_ofrezco_coche = view.findViewById(R.id.v05_spn_ofrezco_coche);
@@ -151,7 +145,7 @@ public class V_05 extends Fragment implements IDAO <Evento_eve, Valiente_val, Ac
         List<Evento_eve> eventos = new ArrayList<>();
         v02_00_eve_Adapter v02_adapter_eve = null;
 
-        Query query1 = fbf.collection("evento_eve").whereEqualTo("id_eve", 1);
+        Query query1 = fbf.collection("evento_eve").whereEqualTo("id_eve", posicion);
         tabla1ChangeListener (query1, eventos, Evento_eve.class, v02_adapter_eve);
 
         // TODO: carga de Inscritos (valientes)
@@ -221,7 +215,7 @@ public class V_05 extends Fragment implements IDAO <Evento_eve, Valiente_val, Ac
         return view;
     }//fin de constructor
 
-    @Override
+
     public <T> void tabla1ChangeListener(Query query, List<T> lista, Class<T> tipoObjeto, RecyclerView.Adapter miAdapter) {
 
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -276,7 +270,6 @@ public class V_05 extends Fragment implements IDAO <Evento_eve, Valiente_val, Ac
         });
     }
 
-    @Override
     public <S> void tabla2ChangeListener(Query query, List<S> lista, Class<S> tipoObjeto, RecyclerView.Adapter miAdapter) {
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -316,7 +309,6 @@ public class V_05 extends Fragment implements IDAO <Evento_eve, Valiente_val, Ac
         });
     }
 
-    @Override
     public <O> void tabla3ChangeListener(Query query, List<O> lista, Class<O> tipoObjeto, RecyclerView.Adapter miAdapter) {
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -452,5 +444,4 @@ public class V_05 extends Fragment implements IDAO <Evento_eve, Valiente_val, Ac
             }
         });*/
     }
-
 }

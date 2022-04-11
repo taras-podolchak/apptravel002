@@ -96,10 +96,9 @@ Descomentar cuando se resuelva el problema de id empezando en 0 (debería empeza
         holder.v02_cdv_eventos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Evento_eve evento = eventos.get(position);
-                Bundle bundle = new Bundle();
-                bundle.putInt("evento", position);
-                Navigation.findNavController(v).navigate(R.id.nav_v03);
+                Bundle result = new Bundle();
+                result.putInt("eventoParaV_03", 1 + position);
+                Navigation.findNavController(v).navigate(R.id.nav_v03, result);
                 /*
                  * Notificamos cambios para que el contenedor se entere y refresque los datos
                  * La siguiente instruccion está a la escucha de posible cambios y los refresca. ATENCION: consume mucha memoria porque está permanentemente a la escucha
