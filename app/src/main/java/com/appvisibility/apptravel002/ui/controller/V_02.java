@@ -102,6 +102,12 @@ public class V_02 extends Fragment implements IDAO <Evento_eve, Object, Object> 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_02, container, false);
+
+        pdg = new ProgressDialog(mContext);
+        pdg.setCancelable(true);
+        pdg.setMessage("Recuperando datos...");
+        pdg.show();
+
         this.v02_recycler_eve = (RecyclerView) view.findViewById(R.id.v02_rcv_eventos);
         this.v02_recycler_eve.setHasFixedSize(true);
         this.v02_recycler_eve.setLayoutManager(new LinearLayoutManager(mContext));
@@ -130,11 +136,11 @@ public class V_02 extends Fragment implements IDAO <Evento_eve, Object, Object> 
                     lista.add(enProceso);
                 }
                 miAdapter.notifyDataSetChanged();
-/*
-                if (pdg.isShowing()){
-                    pdg.dismiss();
-                }
- */
+
+//                if (pdg.isShowing()){
+//                    pdg.dismiss();
+//                }
+
                 Log.d(TAG, "Datos recibidos!");
                 Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
             }

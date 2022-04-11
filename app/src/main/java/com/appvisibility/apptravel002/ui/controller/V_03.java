@@ -218,11 +218,11 @@ public class V_03 extends Fragment implements IDAO <Evento_eve, Valiente_val, Ac
                     v03_transportetipo_eve.setText(evento.getTransportetipo_eve());
                 }
 //                miAdapter.notifyDataSetChanged();
-/*
-                if (pdg.isShowing()){
-                    pdg.dismiss();
-                }
-*/
+
+//                if (pdg.isShowing()){
+//                    pdg.dismiss();
+//                }
+
                 Log.d(TAG, "Datos recibidos!");
                 Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
             }
@@ -245,11 +245,11 @@ public class V_03 extends Fragment implements IDAO <Evento_eve, Valiente_val, Ac
                     lista.add(enProceso);
                 }
                 miAdapter.notifyDataSetChanged();
-/*
-        if (pdg.isShowing()){
-            pdg.dismiss();
-        }
-*/
+
+//                if (pdg.isShowing()){
+//                    pdg.dismiss();
+//                }
+
                 Log.d(TAG, "Datos recibidos!");
                 Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
             }
@@ -289,11 +289,11 @@ public class V_03 extends Fragment implements IDAO <Evento_eve, Valiente_val, Ac
                     lista.add(enProceso);
                 }
                 miAdapter.notifyDataSetChanged();
-    /*
-                if (pdg.isShowing()){
-                    pdg.dismiss();
-                }
-    */
+
+//                if (pdg.isShowing()){
+//                    pdg.dismiss();
+//                }
+
                 Log.d(TAG, "Datos recibidos!");
                 Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
             }
