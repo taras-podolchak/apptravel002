@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
@@ -49,7 +50,7 @@ import java.util.List;
  * Use the {@link V_05#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class V_05 extends Fragment {
+public class V_05 extends Fragment implements IDAO<Evento_eve, Valiente_val, Actividad_act> {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -130,6 +131,9 @@ public class V_05 extends Fragment {
         sesionIniciada=true;
         posicion = getArguments().getInt("eventoParaV_05");
 
+        Bundle result = new Bundle();
+        result.putInt("eventoParaV_05_1", posicion);
+
         v05_titulo_eve = view.findViewById(R.id.v05_txv_titulo_eve);
         v05_foto_eve = view.findViewById(R.id.v05_imv_foto_eve);
         v05_info_completa = view.findViewById(R.id.v05_txv_info_completa);
@@ -199,6 +203,14 @@ public class V_05 extends Fragment {
 
 
         // TODO: los botones
+        v05_foto_eve = view.findViewById(R.id.v05_imv_foto_eve);
+        v05_foto_eve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_nav_v05_to_nav_v05_1, result);
+            }
+        });
+
         v05_confirmar = view.findViewById(R.id.v05_btn_confirmar);
         v05_confirmar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,6 +218,7 @@ public class V_05 extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.action_nav_v05_to_nav_v06);
             }
         });
+
         v05_volver = view.findViewById(R.id.v05_btn_volver);
         v05_volver.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,12 +226,12 @@ public class V_05 extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.action_nav_v05_to_nav_v02);
             }
         });
+
         return view;
     }//fin de constructor
 
 
     public <T> void tabla1ChangeListener(Query query, List<T> lista, Class<T> tipoObjeto, RecyclerView.Adapter miAdapter) {
-
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
