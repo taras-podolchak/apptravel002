@@ -85,7 +85,7 @@
 
 
                     <TextView
-                        android:id="@+id/v02_crd_txv_distancia_act_desnivel_act"
+                        android:id="@+id/v02_crd_txv_estado_eve"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:textAlignment="center"/>

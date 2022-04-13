@@ -77,7 +77,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/v03_txv_transportetipo_eve"
+                    android:id="@+id/v03_txv_estado_eve"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"

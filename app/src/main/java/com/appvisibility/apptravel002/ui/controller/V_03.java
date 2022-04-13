@@ -57,7 +57,7 @@ public class V_03 extends Fragment {
     private ImageView v03_foto_eve;
     private TextView v03_fechaidatru_eve;
     private TextView v03_fechavueltatru_eve;
-    private TextView v03_transportetipo_eve;
+    private TextView v03_estado_eve;
     private TextView v03_nparticipantes_eve;
     private TextView v03_txv_iscritos_eve;
     private RecyclerView v03_recycler_act;
@@ -123,13 +123,13 @@ public class V_03 extends Fragment {
         Bundle result = new Bundle();
         result.putInt("eventoParaV_04", posicion);
         result.putInt("eventoParaV_05", posicion);
-
+        result.putInt("eventoParaV_05_1", posicion);
 
         this.v03_titulo_eve = view.findViewById(R.id.v03_txv_titulo_eve);
         this.v03_foto_eve = view.findViewById(R.id.v03_imv_foto_eve);
         this.v03_fechaidatru_eve = view.findViewById(R.id.v03_txv_fechaidatru_eve);
         this.v03_fechavueltatru_eve = view.findViewById(R.id.v03_txv_fechavueltatru_eve);
-        this.v03_transportetipo_eve = view.findViewById(R.id.v03_txv_transportetipo_eve);
+        this.v03_estado_eve = view.findViewById(R.id.v03_txv_estado_eve);
         this.v03_nparticipantes_eve = view.findViewById(R.id.v02_crd_txv_nparticipantes_eve);
         this.v03_txv_iscritos_eve = view.findViewById(R.id.v03_txv_iscritos_eve);
         this.v03_recycler_val = (RecyclerView) view.findViewById(R.id.v03_rcv_valientes);
@@ -138,6 +138,14 @@ public class V_03 extends Fragment {
         dataV_03ChangeListener(posicion);
 
         // TODO: los botones
+        v03_foto_eve = view.findViewById(R.id.v03_imv_foto_eve);
+        v03_foto_eve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v05_1, result);
+            }
+        });
+
         v03_me_interesa = view.findViewById(R.id.v03_btn_me_interesa);
         v03_me_interesa.setOnClickListener(view12 -> {
             if (!sesionIniciada) {
@@ -171,7 +179,7 @@ public class V_03 extends Fragment {
                             Toast.makeText(getActivity(), "Error de cargar la imagen", Toast.LENGTH_LONG).show());
                     v03_fechaidatru_eve.setText(evento_eve_test.getFechaidatru_eve());
                     v03_fechavueltatru_eve.setText(evento_eve_test.getFechavueltatru_eve());
-                    v03_transportetipo_eve.setText(evento_eve_test.getTransportetipo_eve());
+                    v03_estado_eve.setText("Estado: " + evento_eve_test.getEstado_eve());
 
                     //cargamos los inscritos
                     v03_recycler_val.setHasFixedSize(true);

@@ -57,7 +57,9 @@ public class V_05_1 extends Fragment implements IDAO <Evento_eve, Object, Object
     private TextView v05_1_fechapagosennal_eve;
     private TextView v05_1_fechapagototal_eve;
     private LinearLayout v05_1_salidacoordenadastru_eve;
+    private String salidacoordenadastru_eve;
     private TextView v05_1_salidaidatru_eve;
+    private String llegadacoordenadastru_eve;
     private LinearLayout v05_1_llegadacoordenadastru_eve;
     private TextView v05_1_llegadaidatru_eve;
     private TextView v05_1_descgeneral_eve;
@@ -104,37 +106,21 @@ public class V_05_1 extends Fragment implements IDAO <Evento_eve, Object, Object
 //        DocumentChangeListener(drf);
 
         // TODO: los botones
+// https://stackoverflow.com/questions/2662531/launching-google-maps-directions-via-an-intent-on-android/2663565#2663565
         v05_1_salidacoordenadastru_eve.setOnClickListener(new View.OnClickListener() {
-//            double ajusteCoordenadas = 0.0001; //Para corregir el desajuste de coordenadas
-//            String coordenadas = evento.getSalidacoordenadastru_eve();
-            String coordenadas = "40.40718436893571, -3.66983325701532";
-//            double longitud = Double.parseDouble(evento.getSalidacoordenadastru_eve()) - ajusteCoordenadas;
-//            String latlon = latitud + "," + longitud; //Coordenadas
-            String zoom = "z=15"; //Zoom del mapa
-            String tipoMapa = "t=m"; //Establece el tipo de mapa normal
-            String salida = "output=embed"; //Salida del mapa embebido
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/?ll=" + coordenadas + "&" + zoom + "&" + tipoMapa + "&" + salida));
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/place/" + salidacoordenadastru_eve));
+//                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q=" + salidacoordenadastru_eve));
                 startActivity(intent);
-//                webView.loadUrl("https://amigosmontanawo.eboe62.com/preguntas-frecuentes-faq/");
             }
         });
 
         v05_1_llegadacoordenadastru_eve.setOnClickListener(new View.OnClickListener() {
-//            double ajusteCoordenadas = 0.0001; //Para corregir el desajuste de coordenadas
-//            String coordenadas = evento.getLlegadacoordenadastru_eve();
-            String coordenadas = "40.40718436893571, -3.66983325701532";
-//            double longitud = Double.parseDouble(evento.getSalidacoordenadastru_eve()) - ajusteCoordenadas;
-//            String latlon = latitud + "," + longitud; //Coordenadas
-            String zoom = "z=15"; //Zoom del mapa
-            String tipoMapa = "t=m"; //Establece el tipo de mapa normal
-            String salida = "output=embed"; //Salida del mapa embebido
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/?ll=" + coordenadas + "&" + zoom + "&" + tipoMapa + "&" + salida));
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/dir/" + salidacoordenadastru_eve + "/" + llegadacoordenadastru_eve));
                 startActivity(intent);
-//                webView.loadUrl("https://amigosmontanawo.eboe62.com/preguntas-frecuentes-faq/");
             }
         });
 
@@ -177,7 +163,9 @@ public class V_05_1 extends Fragment implements IDAO <Evento_eve, Object, Object
                     v05_1_titulo_eve.setText(evento.getTitulo_eve());
                     v05_1_fechapagosennal_eve.setText(evento.getFechapagosennal_eve());
                     v05_1_fechapagototal_eve.setText(evento.getFechapagototal_eve());
+                    salidacoordenadastru_eve = evento.getSalidacoordenadastru_eve();
                     v05_1_salidaidatru_eve.setText(evento.getSalidaidatru_eve());
+                    llegadacoordenadastru_eve = evento.getLlegadacoordenadastru_eve();
                     v05_1_llegadaidatru_eve.setText(evento.getLlegadaidatru_eve());
                     v05_1_descgeneral_eve.setText(evento.getDescgeneral_eve());
 

@@ -56,7 +56,7 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
         String titulo_eve = eventos.get(position).getTitulo_eve();
         String foto_eve = eventos.get(position).getFoto_eve();
         String nivel_eve = eventos.get(position).getNivel_eve();
-        int distanciaidatru_eve = eventos.get(position).getDistanciaidatru_eve();
+        String estado_eve = eventos.get(position).getEstado_eve();
         int distanciavueltatru_eve = eventos.get(position).getDistanciavueltatru_eve();
         String fechaidatru_eve = eventos.get(position).getFechaidatru_eve();
         String fechavueltatru_eve = eventos.get(position).getFechavueltatru_eve();
@@ -89,7 +89,7 @@ Descomentar cuando se resuelva el problema de id empezando en 0 (debería empeza
         holder.v02_fechaidatru_eve.setText(fechaidatru_eve);
         holder.v02_fechavueltatru_eve.setText(fechavueltatru_eve);
         holder.v02_nivel_eve.setText("Nivel: " + nivel_eve);
-        holder.v02_distancia_act_desnivel_act.setText("Ida: " + distanciaidatru_eve + " - Vuelta: " + distanciavueltatru_eve);
+        holder.v02_estado_eve.setText("Estado: " + estado_eve);
         holder.v02_transportetipo_eve.setText(transportetipo_eve);
         holder.v02_nparticipantes_eve.setText("Participantes: " + nparticipantes_eve);
 
@@ -130,7 +130,7 @@ Descomentar cuando se resuelva el problema de id empezando en 0 (debería empeza
         private TextView v02_fechaidatru_eve;
         private TextView v02_fechavueltatru_eve;
         private TextView v02_nivel_eve;
-        private TextView v02_distancia_act_desnivel_act;
+        private TextView v02_estado_eve;
         private TextView v02_transportetipo_eve;
         private TextView v02_nparticipantes_eve;
         private CardView v02_cdv_eventos;
@@ -143,7 +143,7 @@ Descomentar cuando se resuelva el problema de id empezando en 0 (debería empeza
             this.v02_fechaidatru_eve = v.findViewById(R.id.v02_crd_txv_fechaidatru_eve);
             this.v02_fechavueltatru_eve = v.findViewById(R.id.v02_crd_txv_fechavueltatru_eve);
             this.v02_nivel_eve = v.findViewById(R.id.v02_crd_txv_nivel_eve);
-            this.v02_distancia_act_desnivel_act = v.findViewById(R.id.v02_crd_txv_distancia_act_desnivel_act);
+            this.v02_estado_eve = v.findViewById(R.id.v02_crd_txv_estado_eve);
             this.v02_transportetipo_eve = v.findViewById(R.id.v02_crd_txv_transportetipo_eve);
             this.v02_nparticipantes_eve = v.findViewById(R.id.v02_crd_txv_nparticipantes_eve);
 

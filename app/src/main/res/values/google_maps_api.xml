@@ -2,9 +2,4 @@
 <resources>
         <string name="google_maps_key" templateMergeStrategy="preserve"
             translatable="false">AIzaSyDchp8aiML5Coi50fk6asG9nUF06Cmj69g</string>
-<!--
-
-            translatable="false">AIzaSyArHL0y1cNuDEG_2n3nngjtV4fwNm4u-jY</string>
-            translatable="false">AIzaSyCKS5Gg3UpqNsnbprP8z9SDGqqRk4ZNRQU</string>
--->
 </resources>
