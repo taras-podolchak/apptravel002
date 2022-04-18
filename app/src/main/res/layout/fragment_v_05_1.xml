@@ -107,16 +107,6 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/txv_salida"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="2dp"
-                    android:layout_weight="10"
-                    android:gravity="start"
-                    android:text="Punto Encuentro: Salida"
-                    android:textSize="20sp" />
-
                 <LinearLayout
                     android:id="@+id/v05_1_lly_salidacoordenadastru_eve"
                     android:layout_width="match_parent"
@@ -142,16 +132,6 @@
                         android:textSize="20sp" />
 
                 </LinearLayout>
-                <TextView
-                    android:id="@+id/txv_llegada"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="10"
-                    android:layout_margin="2dp"
-                    android:gravity="start"
-                    android:textSize="20sp"
-                    android:text="Punto Encuentro: Destino" />
-
                 <LinearLayout
                     android:id="@+id/v05_1_lly_llegadacoordenadastru_eve"
                     android:layout_width="match_parent"
