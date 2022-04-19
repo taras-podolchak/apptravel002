@@ -46,7 +46,7 @@
                 <ImageView
                     android:id="@+id/v05_imv_foto_eve"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="250dp"
                     android:layout_weight="10"
                     android:background="@drawable/v03_imagen_formato"
                     tools:src="" />

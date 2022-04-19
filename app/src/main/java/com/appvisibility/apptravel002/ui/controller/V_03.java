@@ -191,6 +191,7 @@ public class V_03 extends Fragment {
                     } else {
                         v03_txv_iscritos_eve.setVisibility(View.INVISIBLE);
                     }
+
                     //cargamos los actividades
                     v03_recycler_act.setHasFixedSize(true);
                     v03_recycler_act.setLayoutManager(new LinearLayoutManager(mContext));

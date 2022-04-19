@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.cerrar_session) {
-            Toast.makeText(getApplicationContext(), "Funciona", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "La sesión cerrada", Toast.LENGTH_SHORT).show();
             sesionIniciada = false;
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
