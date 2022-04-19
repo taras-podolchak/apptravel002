@@ -132,19 +132,19 @@ public class V_03 extends Fragment {
         this.v03_estado_eve = view.findViewById(R.id.v03_txv_estado_eve);
         this.v03_nparticipantes_eve = view.findViewById(R.id.v02_crd_txv_nparticipantes_eve);
         this.v03_txv_iscritos_eve = view.findViewById(R.id.v03_txv_iscritos_eve);
-        this.v03_recycler_val = (RecyclerView) view.findViewById(R.id.v03_rcv_valientes);
-        this.v03_recycler_act = (RecyclerView) view.findViewById(R.id.v03_rcv_actividades);
+        this.v03_recycler_val = view.findViewById(R.id.v03_rcv_valientes);
+        this.v03_recycler_act = view.findViewById(R.id.v03_rcv_actividades);
 
         dataV_03ChangeListener(posicion);
 
         // TODO: los botones
-        v03_foto_eve = view.findViewById(R.id.v03_imv_foto_eve);
+      /*  v03_foto_eve = view.findViewById(R.id.v03_imv_foto_eve);
         v03_foto_eve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v05_1, result);
             }
-        });
+        });*/
 
         v03_me_interesa = view.findViewById(R.id.v03_btn_me_interesa);
         v03_me_interesa.setOnClickListener(view12 -> {
@@ -182,12 +182,15 @@ public class V_03 extends Fragment {
                     v03_estado_eve.setText("Estado: " + evento_eve_test.getEstado_eve());
 
                     //cargamos los inscritos
+                    if (sesionIniciada) {
                     v03_recycler_val.setHasFixedSize(true);
                     v03_recycler_val.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
                     valientes = evento_eve_test.getListValiente();
                     v03_adapter_val = new v03_00_val_Adapter(valientes, mContext);
                     v03_recycler_val.setAdapter(v03_adapter_val);
-
+                    } else {
+                        v03_txv_iscritos_eve.setVisibility(View.INVISIBLE);
+                    }
                     //cargamos los actividades
                     v03_recycler_act.setHasFixedSize(true);
                     v03_recycler_act.setLayoutManager(new LinearLayoutManager(mContext));

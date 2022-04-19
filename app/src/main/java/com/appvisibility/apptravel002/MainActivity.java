@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    ;
     public static boolean sesionIniciada;
 
     @Override
