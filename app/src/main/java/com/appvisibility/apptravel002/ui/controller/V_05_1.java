@@ -81,8 +81,8 @@ public class V_05_1 extends Fragment implements IDAO <Evento_eve, Object, Object
 
         posicion = getArguments().getInt("eventoParaV_05_1");
 
-        Bundle result = new Bundle();
-        result.putInt("eventoParaV_05", posicion);
+        Bundle bundle = new Bundle();
+        bundle.putInt("eventoParaV_05", posicion);
 
         this.v05_1_titulo_eve = view.findViewById(R.id.v05_1_txv_titulo_eve);
         this.v05_1_fechapagosennal_eve = view.findViewById(R.id.v05_1_txv_fechapagosennal_eve);
@@ -137,7 +137,7 @@ public class V_05_1 extends Fragment implements IDAO <Evento_eve, Object, Object
         v05_1_descgeneral_eve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_nav_v05_1_to_nav_v05, result);
+                Navigation.findNavController(view).navigate(R.id.action_nav_v05_1_to_nav_v05, bundle);
             }
         });
 
@@ -164,9 +164,9 @@ public class V_05_1 extends Fragment implements IDAO <Evento_eve, Object, Object
                     v05_1_fechapagosennal_eve.setText(evento.getFechapagosennal_eve());
                     v05_1_fechapagototal_eve.setText(evento.getFechapagototal_eve());
                     salidacoordenadastru_eve = evento.getSalidacoordenadastru_eve();
-                    v05_1_salidaidatru_eve.setText(evento.getSalidaidatru_eve());
+                    v05_1_salidaidatru_eve.setText("Salida: " + evento.getSalidaidatru_eve());
                     llegadacoordenadastru_eve = evento.getLlegadacoordenadastru_eve();
-                    v05_1_llegadaidatru_eve.setText(evento.getLlegadaidatru_eve());
+                    v05_1_llegadaidatru_eve.setText("Destino: " + evento.getLlegadaidatru_eve());
                     v05_1_descgeneral_eve.setText(evento.getDescgeneral_eve());
 
 //                if (pdg.isShowing()){

@@ -1,12 +1,17 @@
 package com.appvisibility.apptravel002.ui.service;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appvisibility.apptravel002.R;
@@ -45,6 +50,7 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
         String distancia_act = String.valueOf(actividades.get(position).getDistancia_act());
         String desnivel_act = String.valueOf(actividades.get(position).getDesnivel_act());
         String horas_act = String.valueOf(actividades.get(position).getHoras_act());
+        String wikiloc_act = String.valueOf(actividades.get(position).getWikiloc_act());
 
         holder.v03_nombre_act.setText(nombre_act);
         holder.v03_actividadtipo_act.setText(actividadtipo_act);
@@ -53,6 +59,14 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
         holder.v03_distancia_act.setText("Distancia: " + String.valueOf(distancia_act));
         holder.v03_desnivel_act.setText("Desnivel: " + String.valueOf(desnivel_act));
         holder.v03_horas_act.setText("Horas de marcha: " + String.valueOf(horas_act));
+
+        holder.v03_cdv_actividad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(wikiloc_act));
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -68,6 +82,7 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
         private TextView v03_distancia_act;
         private TextView v03_desnivel_act;
         private TextView v03_horas_act;
+        private CardView v03_cdv_actividad;
 
         public ViewHolder(View v) {
             super(v);
@@ -78,6 +93,8 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
             this.v03_actividadtipo_act = v.findViewById(R.id.v03_cdv_txv_actividadtipo_act);
             this.v03_fecha_act = v.findViewById(R.id.v03_cdv_txv_fecha_act);
             this.v03_nivel_act = v.findViewById(R.id.v03_cdv_txv_nivel_act);
+
+            this.v03_cdv_actividad = v.findViewById(R.id.v03_cdv_actividad);
         }
     }
 }

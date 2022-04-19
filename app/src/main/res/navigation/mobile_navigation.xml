@@ -50,6 +50,9 @@
         <action
             android:id="@+id/action_nav_v03_to_nav_v05_1"
             app:destination="@id/nav_v05_1" />
+        <action
+            android:id="@+id/action_nav_v03_to_nav_c05"
+            app:destination="@id/nav_c05" />
     </fragment>
     <fragment
         android:id="@+id/nav_v04"
@@ -111,6 +114,15 @@
         <action
             android:id="@+id/action_nav_v06_to_nav_inicio_v01"
             app:destination="@id/nav_inicio_v01" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_c05"
+        android:name="com.appvisibility.apptravel002.ui.controller.C_05"
+        android:label="c05"
+        tools:layout="@layout/fragment_c_05" >
+        <action
+            android:id="@+id/action_nav_c05_to_nav_v03"
+            app:destination="@id/nav_v03" />
     </fragment>
 
 </navigation>

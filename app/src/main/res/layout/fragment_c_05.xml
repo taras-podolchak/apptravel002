@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:id="@+id/LinearLayout"
+    android:background="@drawable/fondo_para_valiente"
+    tools:context=".ui.controller.C_05">
+
+    <LinearLayout
+        android:id="@+id/c05_LinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="1"
+        android:background="@drawable/v01_contenedor_blanco"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="VALIENTE"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/c05_txv_apodo_val"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/c05_txv_nombre_val"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:textAlignment="textEnd"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text=" / "
+                android:textAlignment="center"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/c05_txv_apellido1_val"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:textAlignment="textStart"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text=" / "
+                android:textAlignment="center"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/c05_txv_apellido2_val"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="textStart"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="70dp"
+                    android:layout_height="70dp">
+
+                    <ImageView
+                        android:id="@+id/c05_imv_fotopropia_val"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:textAlignment="center">
+
+                    <TextView
+                        android:id="@+id/c05_txv_direccion_col"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/c05_txv_cpostal_col"
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:gravity="right" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text=" / " />
+
+                        <TextView
+                            android:id="@+id/c05_txv_localidad_col"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="left" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/c05_txv_movil_val"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal" />
+
+                    <TextView
+                        android:id="@+id/c05_txv_coche_val"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal" />
+
+                    <TextView
+                        android:id="@+id/c05_txv_email_val"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PREFERENCIA"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:textAlignment="center">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/c05_txv_antiguedadpre_val"
+                            android:layout_width="170dp"
+                            android:layout_height="match_parent"
+                            android:gravity="right" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text=" / " />
+
+                        <TextView
+                            android:id="@+id/c05_txv_cochepre_val"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="left" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/c05_txv_fiabilidadpre_val"
+                            android:layout_width="170dp"
+                            android:layout_height="match_parent"
+                            android:gravity="right" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text=" / " />
+
+                        <TextView
+                            android:id="@+id/c05_txv_valoracionorgpre_val"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="left" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/c05_txv_volumencomprapre_val"
+                            android:layout_width="170dp"
+                            android:layout_height="match_parent"
+                            android:gravity="right" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text=" / " />
+
+                        <TextView
+                            android:id="@+id/c05_txv_nrelacionespre_val"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="left" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DATOS EMERGENCIA"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:textAlignment="center">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/c05_txv_emergencia1relacion_val"
+                            android:layout_width="150dp"
+                            android:layout_height="match_parent"
+                            android:gravity="right" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text=" / " />
+
+                        <TextView
+                            android:id="@+id/c05_txv_emergencia1telefono_val"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="left" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/c05_txv_emergencia2relacion_val"
+                            android:layout_width="150dp"
+                            android:layout_height="match_parent"
+                            android:gravity="right" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text=" / " />
+
+                        <TextView
+                            android:id="@+id/c05_txv_emergencia2telefono_val"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="left" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DATOS FILIACION"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:textAlignment="center">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/c05_txv_fechaalta_val"
+                            android:layout_width="150dp"
+                            android:layout_height="match_parent"
+                            android:gravity="right" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text=" / " />
+
+                        <TextView
+                            android:id="@+id/c05_txv_fechabaja_val"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="left" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/c05_txv_dni_val"
+                            android:layout_width="150dp"
+                            android:layout_height="match_parent"
+                            android:gravity="right" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text=" / " />
+
+                        <TextView
+                            android:id="@+id/c05_txv_condicioneslegales_val"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="left" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CALIDAD"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:textAlignment="center">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/c05_txv_nps01fecha_val"
+                            android:layout_width="150dp"
+                            android:layout_height="match_parent"
+                            android:gravity="right" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text=" / " />
+
+                        <TextView
+                            android:id="@+id/c05_txv_nps01_val"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="left" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/c05_txv_nps02fecha_val"
+                            android:layout_width="150dp"
+                            android:layout_height="match_parent"
+                            android:gravity="right" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text=" / " />
+
+                        <TextView
+                            android:id="@+id/c05_txv_nps02_val"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="left" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/c05_txv_nps03fecha_val"
+                            android:layout_width="150dp"
+                            android:layout_height="match_parent"
+                            android:gravity="right" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text=" / " />
+
+                        <TextView
+                            android:id="@+id/c05_txv_nps03_val"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="left" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/c05_btn_volver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/v01_boton_formato_l"
+                android:text="Volver" />
+
+            <Button
+                android:id="@+id/c05_btn_me_interesa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/v01_boton_formato_r"
+                android:text="Me interesa" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,7 +1,9 @@
 package com.appvisibility.apptravel002.ui.service;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appvisibility.apptravel002.R;
@@ -69,6 +72,22 @@ public class v03_00_val_Adapter extends RecyclerView.Adapter<v03_00_val_Adapter.
         holder.v03_movil_val.setText("Tel: "+movil_val);
         holder.v03_coche_val.setText("Coche: " +coche_val);
         holder.v03_email_val.setText("Email: "+email_val);
+
+        int finalPosition = position;
+        holder.v03_cdv_valiente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("valienteParaC_05", 1 + finalPosition);
+                Navigation.findNavController(view).navigate(R.id.nav_v03, bundle);
+                /*
+                 * Notificamos cambios para que el contenedor se entere y refresque los datos
+                 * La siguiente instruccion está a la escucha de posible cambios y los refresca. ATENCION: consume mucha memoria porque está permanentemente a la escucha
+                 */
+                notifyDataSetChanged();
+            }
+        });
+
     }
 
     @Override
