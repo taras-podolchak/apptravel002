@@ -59,7 +59,7 @@ public class V_03 extends Fragment {
     private TextView v03_fechavueltatru_eve;
     private TextView v03_estado_eve;
     private TextView v03_nparticipantes_eve;
-    private TextView v03_txv_iscritos_eve;
+    private TextView v03_inscritos_eve;
     private RecyclerView v03_recycler_act;
     private RecyclerView v03_recycler_val;
 
@@ -75,7 +75,7 @@ public class V_03 extends Fragment {
     //TODO:servise
     private v03_00_val_Adapter v03_adapter_val;
     private v03_00_act_Adapter v03_adapter_act;
-    int posicion;
+    int id_eve_bundle;
 
     public V_03() {
         // Required empty public constructor
@@ -118,12 +118,12 @@ public class V_03 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_03, container, false);
 
-        posicion = getArguments().getInt("eventoParaV_03");
+        id_eve_bundle = getArguments().getInt("eventoParaV_03");
 
         Bundle result = new Bundle();
-        result.putInt("eventoParaV_04", posicion);
-        result.putInt("eventoParaV_05", posicion);
-        result.putInt("eventoParaV_05_1", posicion);
+        result.putInt("eventoParaV_04", id_eve_bundle);
+        result.putInt("eventoParaV_05", id_eve_bundle);
+        result.putInt("eventoParaV_05_1", id_eve_bundle);
 
         this.v03_titulo_eve = view.findViewById(R.id.v03_txv_titulo_eve);
         this.v03_foto_eve = view.findViewById(R.id.v03_imv_foto_eve);
@@ -131,11 +131,11 @@ public class V_03 extends Fragment {
         this.v03_fechavueltatru_eve = view.findViewById(R.id.v03_txv_fechavueltatru_eve);
         this.v03_estado_eve = view.findViewById(R.id.v03_txv_estado_eve);
         this.v03_nparticipantes_eve = view.findViewById(R.id.v02_crd_txv_nparticipantes_eve);
-        this.v03_txv_iscritos_eve = view.findViewById(R.id.v03_txv_iscritos_eve);
+        this.v03_inscritos_eve = view.findViewById(R.id.v03_txv_inscritos_eve);
         this.v03_recycler_val = view.findViewById(R.id.v03_rcv_valientes);
         this.v03_recycler_act = view.findViewById(R.id.v03_rcv_actividades);
 
-        dataV_03ChangeListener(posicion);
+        dataV_03ChangeListener(id_eve_bundle);
 
         // TODO: los botones
         v03_foto_eve = view.findViewById(R.id.v03_imv_foto_eve);
@@ -159,9 +159,9 @@ public class V_03 extends Fragment {
         return view;
     }//fin de constructor
 
-    public void dataV_03ChangeListener(int posicion) {//prueba
+    public void dataV_03ChangeListener(int id_enProceso) {//prueba
         fbf.collection("evento_eve_test")
-                .whereEqualTo("id_eve", posicion)
+                .whereEqualTo("id_eve", id_enProceso)
                 .addSnapshotListener((value, e) -> {
                     if (e != null) {
                         Log.w(TAG, "Listen failed.", e);
@@ -189,7 +189,7 @@ public class V_03 extends Fragment {
                     v03_adapter_val = new v03_00_val_Adapter(valientes, mContext);
                     v03_recycler_val.setAdapter(v03_adapter_val);
                     } else {
-                        v03_txv_iscritos_eve.setVisibility(View.INVISIBLE);
+                        v03_inscritos_eve.setVisibility(View.INVISIBLE);
                     }
 
                     //cargamos los actividades

@@ -6,13 +6,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,21 +27,12 @@ import com.appvisibility.apptravel002.ui.service.v02_00_eve_Adapter;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,16 +60,16 @@ public class V_05_1 extends Fragment implements IDAO <Evento_eve, Object, Object
     private Evento_eve evento;
 
     //service
-    private int posicion;
+    private int id_eve_bundle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_05_1, container, false);
 
-        posicion = getArguments().getInt("eventoParaV_05_1");
+        id_eve_bundle = getArguments().getInt("eventoParaV_05_1");
 
         Bundle bundle = new Bundle();
-        bundle.putInt("eventoParaV_05", posicion);
+        bundle.putInt("eventoParaV_05", id_eve_bundle);
 
         this.v05_1_titulo_eve = view.findViewById(R.id.v05_1_txv_titulo_eve);
         this.v05_1_fechapagosennal_eve = view.findViewById(R.id.v05_1_txv_fechapagosennal_eve);
@@ -99,10 +86,10 @@ public class V_05_1 extends Fragment implements IDAO <Evento_eve, Object, Object
         List<Evento_eve> eventos = new ArrayList<>();
         v02_00_eve_Adapter v02_adapter_eve = null;
 
-        Query query1 = fbf.collection("evento_eve").whereEqualTo("id_eve", posicion);
+        Query query1 = fbf.collection("evento_eve").whereEqualTo("id_eve", id_eve_bundle);
         tabla1ChangeListener (query1, eventos, Evento_eve.class, v02_adapter_eve);
 
-//        DocumentReference drf = fbf.collection("evento_eve").document(String.valueOf(posicion));
+//        DocumentReference drf = fbf.collection("evento_eve").document(String.valueOf(id_eve_bundle));
 //        DocumentChangeListener(drf);
 
         // TODO: los botones

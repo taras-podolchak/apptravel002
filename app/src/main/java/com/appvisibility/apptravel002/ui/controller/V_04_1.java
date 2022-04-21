@@ -106,10 +106,10 @@ public class V_04_1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_04_1, container, false);
 
-        int posicion = getArguments().getInt("eventoParaV_04_1");
+        int id_eve_bundle = getArguments().getInt("eventoParaV_04_1");
 
         result = new Bundle();
-        result.putInt("eventoParaV_05", posicion);
+        result.putInt("eventoParaV_05", id_eve_bundle);
 
         //2ºREGISTROFB
 

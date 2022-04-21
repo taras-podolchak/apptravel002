@@ -8,7 +8,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
@@ -86,7 +85,6 @@ public class V_05 extends Fragment implements IDAO<Evento_eve, Valiente_val, Act
     //TODO:servise
     private v03_00_act_Adapter v03_adapter_act;
     private v03_00_val_Adapter v03_adapter_val;
-    private int posicion;
 
     public V_05() {
         // Required empty public constructor
@@ -129,10 +127,10 @@ public class V_05 extends Fragment implements IDAO<Evento_eve, Valiente_val, Act
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_05, container, false);
         sesionIniciada=true;
-        posicion = getArguments().getInt("eventoParaV_05");
+        int id_eve_bundle = getArguments().getInt("eventoParaV_05");
 
         Bundle result = new Bundle();
-        result.putInt("eventoParaV_05_1", posicion);
+        result.putInt("eventoParaV_05_1", id_eve_bundle);
 
         v05_titulo_eve = view.findViewById(R.id.v05_txv_titulo_eve);
         v05_foto_eve = view.findViewById(R.id.v05_imv_foto_eve);
@@ -150,7 +148,7 @@ public class V_05 extends Fragment implements IDAO<Evento_eve, Valiente_val, Act
         List<Evento_eve> eventos = new ArrayList<>();
         v02_00_eve_Adapter v02_adapter_eve = null;
 
-        Query query1 = fbf.collection("evento_eve").whereEqualTo("id_eve", posicion);
+        Query query1 = fbf.collection("evento_eve").whereEqualTo("id_eve", id_eve_bundle);
         tabla1ChangeListener (query1, eventos, Evento_eve.class, v02_adapter_eve);
 
         // TODO: carga de Inscritos (valientes)

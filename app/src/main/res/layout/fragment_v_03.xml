@@ -84,7 +84,7 @@
                     android:text="TextView" />
 
                 <TextView
-                    android:id="@+id/v03_txv_iscritos_eve"
+                    android:id="@+id/v03_txv_inscritos_eve"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="INSCRITOS"

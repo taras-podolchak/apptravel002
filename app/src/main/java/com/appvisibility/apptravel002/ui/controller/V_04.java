@@ -95,11 +95,11 @@ public class V_04 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_04, container, false);
 
-        int posicion = getArguments().getInt("eventoParaV_04");
+        int id_eve_bundle = getArguments().getInt("eventoParaV_04");
 
         result = new Bundle();
-        result.putInt("eventoParaV_04_1", posicion);
-        result.putInt("eventoParaV_05", posicion);
+        result.putInt("eventoParaV_04_1", id_eve_bundle);
+        result.putInt("eventoParaV_05", id_eve_bundle);
 
         //inicializamos el objeto firebaseAuth
 

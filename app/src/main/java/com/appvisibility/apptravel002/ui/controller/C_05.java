@@ -48,7 +48,7 @@ public class C_05 extends Fragment implements IDAO <Valiente_val, Object, Object
 
     //TODO:los campos de xml
     private Button c05_me_interesa, c05_volver;
-    private int id_val;
+    private int id_val_enProceso;
     private TextView c05_apodo_val;
     private TextView c05_nombre_val;
     private TextView c05_apellido1_val;
@@ -89,14 +89,14 @@ public class C_05 extends Fragment implements IDAO <Valiente_val, Object, Object
     private Colaborador_col colaborador;
 
     //service
-    private int id_val_enProceso;
+    private int id_val_bundle;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_c_05, container, false);
 
         Bundle bundle = this.getArguments();
 
-        this.id_val = bundle.getInt("valienteParaC_05", id_val_enProceso);
+        this.id_val_enProceso = bundle.getInt("valienteParaC_05", id_val_bundle);
 //        this.id_val_enProceso = bundle.getInt("id_val", posicion + 1);
         this.c05_apodo_val = view.findViewById(R.id.c05_txv_apodo_val);
         this.c05_nombre_val = view.findViewById(R.id.c05_txv_nombre_val);
@@ -135,10 +135,10 @@ public class C_05 extends Fragment implements IDAO <Valiente_val, Object, Object
         List<Valiente_val> valientes = new ArrayList<>();
         v03_00_val_Adapter v03_adapter_val = null;
 
-        Query query1 = fbf.collection("valiente_val").whereEqualTo("id_val", id_val);
+        Query query1 = fbf.collection("valiente_val").whereEqualTo("id_val", id_val_enProceso);
         tabla1ChangeListener (query1, valientes, Valiente_val.class, v03_adapter_val);
 
-//        DocumentReference drf = fbf.collection("evento_eve").document(String.valueOf(posicion));
+//        DocumentReference drf = fbf.collection("evento_eve").document(String.valueOf(id_eve));
 //        DocumentChangeListener(drf);
 /*
         // TODO: los botones
