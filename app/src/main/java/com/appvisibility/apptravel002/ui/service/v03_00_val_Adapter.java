@@ -1,5 +1,7 @@
 package com.appvisibility.apptravel002.ui.service;
 
+import static com.appvisibility.apptravel002.MainActivity.sesionIniciada;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -48,6 +50,7 @@ public class v03_00_val_Adapter extends RecyclerView.Adapter<v03_00_val_Adapter.
  * Proporciona los datos: Se encarga de establecer los objetos en el ViewHolder y la posición.
  */
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        int id_val_enProceso = valientes.get(position).getId_val();
         String nombre_val = valientes.get(position).getNombre_val();
         String apellido1_val = valientes.get(position).getApellido1_val();
         String movil_val = valientes.get(position).getMovil_val();
@@ -73,13 +76,18 @@ public class v03_00_val_Adapter extends RecyclerView.Adapter<v03_00_val_Adapter.
         holder.v03_coche_val.setText("Coche: " +coche_val);
         holder.v03_email_val.setText("Email: "+email_val);
 
-        int finalPosition = position;
+//        int finalPosition = position;
         holder.v03_cdv_valiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("valienteParaC_05", 1 + finalPosition);
-                Navigation.findNavController(view).navigate(R.id.nav_v03, bundle);
+                bundle.putInt("valienteParaC_05", id_val_enProceso);
+                // TODO EOB: Sustituir condicion del if por "roll == colaborador"
+                if (!sesionIniciada) {
+                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundle);
+                } else {
+                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundle);
+                }
                 /*
                  * Notificamos cambios para que el contenedor se entere y refresque los datos
                  * La siguiente instruccion está a la escucha de posible cambios y los refresca. ATENCION: consume mucha memoria porque está permanentemente a la escucha

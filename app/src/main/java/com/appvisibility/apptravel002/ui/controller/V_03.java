@@ -138,13 +138,13 @@ public class V_03 extends Fragment {
         dataV_03ChangeListener(posicion);
 
         // TODO: los botones
-      /*  v03_foto_eve = view.findViewById(R.id.v03_imv_foto_eve);
+        v03_foto_eve = view.findViewById(R.id.v03_imv_foto_eve);
         v03_foto_eve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v05_1, result);
             }
-        });*/
+        });
 
         v03_me_interesa = view.findViewById(R.id.v03_btn_me_interesa);
         v03_me_interesa.setOnClickListener(view12 -> {
