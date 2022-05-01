@@ -15,7 +15,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appvisibility.apptravel002.R;
-import com.appvisibility.apptravel002.ui.entities.Evento_eve;
+import com.appvisibility.apptravel002.ui.entities.Evento_eve_test;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -26,11 +26,11 @@ import java.util.List;
 
 public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.ViewHolder> {
 
-    private final List<Evento_eve> eventos;
+    private final List<Evento_eve_test> eventos_list;
     Context context;
 
-    public v02_00_eve_Adapter(List<Evento_eve> eventos, Context context) {
-        this.eventos = eventos;
+    public v02_00_eve_Adapter(List<Evento_eve_test> eventos, Context context) {
+        this.eventos_list = eventos;
         this.context = context;
     }
 
@@ -52,14 +52,14 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
      */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        int id_eve = eventos.get(position).getId_eve();
-        String titulo_eve = eventos.get(position).getTitulo_eve();
-        String foto_eve = eventos.get(position).getFoto_eve();
-        String nivel_eve = eventos.get(position).getNivel_eve();
-        String estado_eve = eventos.get(position).getEstado_eve();
-        int distanciavueltatru_eve = eventos.get(position).getDistanciavueltatru_eve();
-        String fechaidatru_eve = eventos.get(position).getFechaidatru_eve();
-        String fechavueltatru_eve = eventos.get(position).getFechavueltatru_eve();
+        int id_eve = eventos_list.get(position).getId_eve();
+        String titulo_eve = eventos_list.get(position).getTitulo_eve();
+        String foto_eve = eventos_list.get(position).getFoto_eve();
+        String nivel_eve = eventos_list.get(position).getNivel_eve();
+        String estado_eve = eventos_list.get(position).getEstado_eve();
+        int distanciavueltatru_eve = eventos_list.get(position).getDistanciavueltatru_eve();
+        String fechaidatru_eve = eventos_list.get(position).getFechaidatru_eve();
+        String fechavueltatru_eve = eventos_list.get(position).getFechavueltatru_eve();
 
 /*
 Descomentar cuando se resuelva el problema de id empezando en 0 (debería empezar en 1) en tablas evento_eve y actividad_act Firestore
@@ -67,19 +67,13 @@ Descomentar cuando se resuelva el problema de id empezando en 0 (debería empeza
         String desnivel_act = String.valueOf(actividades.get(id_eve).getDesnivel_act());
         String horas_act = String.valueOf(actividades.get(id_eve).getHoras_act());
 */
-        String transportetipo_eve = eventos.get(position).getTransportetipo_eve();
-        String nparticipantes_eve = String.valueOf(eventos.get(position).getNparticipantes_eve());
+        String transportetipo_eve = eventos_list.get(position).getTransportetipo_eve();
+        String nparticipantes_eve = String.valueOf(eventos_list.get(position).getNparticipantes_eve());
 
         holder.v02_titulo_eve.setText(titulo_eve);
         FirebaseStorage fbs = FirebaseStorage.getInstance();
         StorageReference str = fbs.getReference();
-        str.child("Eventos/" + foto_eve).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-
-                Picasso.get().load(uri).into(holder.v02_foto_eve);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
+        str.child("Eventos/" + foto_eve).getDownloadUrl().addOnSuccessListener(uri -> Picasso.get().load(uri).into(holder.v02_foto_eve)).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
 //                Toast.makeText(getActivity(), "GET IMAGE FAILED", Toast.LENGTH_LONG).show();
@@ -118,7 +112,7 @@ Descomentar cuando se resuelva el problema de id empezando en 0 (debería empeza
 
     @Override
     public int getItemCount() {
-        return eventos.size();
+        return eventos_list.size();
     }
 
     /**

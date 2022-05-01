@@ -3,7 +3,6 @@ package com.appvisibility.apptravel002.ui.service;
 import static com.appvisibility.apptravel002.MainActivity.sesionIniciada;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,7 +17,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appvisibility.apptravel002.R;
-import com.appvisibility.apptravel002.ui.entities.Valiente_val;
+import com.appvisibility.apptravel002.ui.entities.Persona_per_test;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -29,11 +28,11 @@ import java.util.List;
 
 public class v03_00_val_Adapter extends RecyclerView.Adapter<v03_00_val_Adapter.ViewHolder> {
 
-    private final List<Valiente_val> valientes;
+    private final List<Persona_per_test> personas;
     Context context;
 
-    public v03_00_val_Adapter(List<Valiente_val> valientes, Context context) {
-        this.valientes = valientes;
+    public v03_00_val_Adapter(List<Persona_per_test> personas, Context context) {
+        this.personas = personas;
         this.context = context;
     }
 
@@ -50,12 +49,12 @@ public class v03_00_val_Adapter extends RecyclerView.Adapter<v03_00_val_Adapter.
  * Proporciona los datos: Se encarga de establecer los objetos en el ViewHolder y la posición.
  */
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        int id_val_enProceso = valientes.get(position).getId_val();
-        String nombre_val = valientes.get(position).getNombre_val();
-        String apellido1_val = valientes.get(position).getApellido1_val();
-        String movil_val = valientes.get(position).getMovil_val();
-        String coche_val = valientes.get(position).getCoche_val();
-        String email_val = valientes.get(position).getEmail_val();
+        int id_val_enProceso = personas.get(position).getId_per();
+        String nombre_val = personas.get(position).getNombre_per();
+        String apellido1_val = personas.get(position).getApellido1_per();
+        String movil_val = personas.get(position).getMovil_per();
+        String coche_val = personas.get(position).getCoche_per();
+        String email_val = personas.get(position).getEmail_per();
 
         FirebaseStorage fbs = FirebaseStorage.getInstance();
         StorageReference str = fbs.getReference();
@@ -71,10 +70,10 @@ public class v03_00_val_Adapter extends RecyclerView.Adapter<v03_00_val_Adapter.
                 // Handle any errors
             }
         });
-        holder.v03_nombre_val_apellido1_val.setText(nombre_val+" "+apellido1_val);
-        holder.v03_movil_val.setText("Tel: "+movil_val);
-        holder.v03_coche_val.setText("Coche: " +coche_val);
-        holder.v03_email_val.setText("Email: "+email_val);
+        holder.v03_nombre_val_apellido1_val.setText(nombre_val + " " + apellido1_val);
+        holder.v03_movil_val.setText("Tel: " + movil_val);
+        holder.v03_coche_val.setText("Coche: " + coche_val);
+        holder.v03_email_val.setText("Email: " + email_val);
 
 //        int finalPosition = position;
         holder.v03_cdv_valiente.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +99,7 @@ public class v03_00_val_Adapter extends RecyclerView.Adapter<v03_00_val_Adapter.
 
     @Override
     public int getItemCount() {
-        return valientes.size();
+        return personas.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

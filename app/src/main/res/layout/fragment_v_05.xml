@@ -25,50 +25,43 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="17dp"
-            android:layout_weight="2">
+            android:layout_weight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
+                android:padding="10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/v05_txv_titulo_eve"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="10"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
                     android:gravity="center"
                     android:textSize="20sp" />
 
                 <ImageView
                     android:id="@+id/v05_imv_foto_eve"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_weight="10"
-                    android:background="@drawable/v03_imagen_formato"
-                    tools:src="" />
+                    android:layout_height="match_parent"
+                    android:background="@drawable/v03_imagen_formato" />
 
                 <TextView
                     android:id="@+id/v05_txv_info_completa"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="10"
+                    android:layout_height="wrap_content"
                     android:textAlignment="center" />
 
                 <Spinner
                     android:id="@+id/v05_spn_lista_personas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:minHeight="48dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="10"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <TextView
@@ -80,15 +73,15 @@
 
                     <Switch
                         android:id="@+id/v05_swc_llevas_el_coche"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="10"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <Spinner
@@ -112,7 +105,6 @@
                     android:id="@+id/v05_spn_tipo_alojamiento"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="10"
                     android:minHeight="48dp"
                     android:textAlignment="center" />
 
@@ -120,43 +112,38 @@
                     android:id="@+id/v05_spn_restricciones_allimentarias"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="10"
                     android:minHeight="48dp"
                     android:textAlignment="center" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="10"
                     android:gravity="center"
                     android:text="Pago ausente" />
-
             </LinearLayout>
         </ScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="20">
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/v05_btn_volver"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:background="@drawable/v01_boton_formato_l"
                 android:text="Volver" />
 
             <Button
                 android:id="@+id/v05_btn_confirmar"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:background="@drawable/v01_boton_formato_r"
                 android:text="Confirmar" />
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

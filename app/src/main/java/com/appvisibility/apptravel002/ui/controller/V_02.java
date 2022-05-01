@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appvisibility.apptravel002.R;
-import com.appvisibility.apptravel002.ui.entities.Evento_eve;
+import com.appvisibility.apptravel002.ui.entities.Evento_eve_test;
 import com.appvisibility.apptravel002.ui.service.v02_00_eve_Adapter;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -28,8 +28,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-//import com.appvisibility.apptravel002.ui.valiente.v_02.entities.Actividad_act_data;
-//import com.appvisibility.apptravel002.ui.valiente.v_02.entities.Evento_eve_data;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,7 +35,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 
-public class V_02 extends Fragment implements IDAO <Evento_eve, Object, Object> {
+public class V_02 extends Fragment implements IDAO <Evento_eve_test, Object, Object> {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,7 +54,7 @@ public class V_02 extends Fragment implements IDAO <Evento_eve, Object, Object> 
     ProgressDialog pdg;
 
     // TODO: Entities
-    List<Evento_eve> eventos = new ArrayList<>();
+    List<Evento_eve_test> eventos_list = new ArrayList<>();
     private Context mContext;
 
     //TODO:servise
@@ -111,10 +109,10 @@ public class V_02 extends Fragment implements IDAO <Evento_eve, Object, Object> 
         this.v02_recycler_eve = (RecyclerView) view.findViewById(R.id.v02_rcv_eventos);
         this.v02_recycler_eve.setHasFixedSize(true);
         this.v02_recycler_eve.setLayoutManager(new LinearLayoutManager(mContext));
-        this.v02_adapter_eve = new v02_00_eve_Adapter(eventos, mContext);
+        this.v02_adapter_eve = new v02_00_eve_Adapter(eventos_list, mContext);
 
-        Query query1 = fbf.collection("evento_eve").orderBy("id_eve", Query.Direction.ASCENDING);
-        tabla1ChangeListener (query1, eventos, Evento_eve.class, v02_adapter_eve);
+        Query query1 = fbf.collection("evento_eve_test").orderBy("id_eve", Query.Direction.ASCENDING);
+        tabla1ChangeListener (query1, eventos_list, Evento_eve_test.class, v02_adapter_eve);
 
         this.v02_recycler_eve.setAdapter(v02_adapter_eve);
         return view;

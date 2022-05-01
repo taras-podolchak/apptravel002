@@ -3,7 +3,6 @@ package com.appvisibility.apptravel002.ui.service;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +10,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appvisibility.apptravel002.R;
-//import com.appvisibility.apptravel002.ui.valiente.v_02.entities.Actividad_act;
 import com.appvisibility.apptravel002.ui.entities.Actividad_act;
 
 import java.util.List;
@@ -25,7 +22,7 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
     private final List<Actividad_act> actividades;
     Context context;
 
-    public v03_00_act_Adapter( List<Actividad_act> actividades, Context context) {
+    public v03_00_act_Adapter(List<Actividad_act> actividades, Context context) {
         this.actividades = actividades;
         this.context = context;
     }

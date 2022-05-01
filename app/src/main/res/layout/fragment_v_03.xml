@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:id="@+id/LinearLayout"
     android:background="@drawable/fondo_para_valiente"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".ui.controller.V_03">
 
     <LinearLayout
@@ -36,7 +36,7 @@
                     android:id="@+id/v03_txv_titulo_eve"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="40dp"
+                    android:layout_margin="10dp"
                     android:gravity="center_horizontal"
                     android:text="TextView"
                     android:textSize="20sp" />
@@ -44,7 +44,7 @@
                 <ImageView
                     android:id="@+id/v03_imv_foto_eve"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp" />
+                    android:layout_height="match_parent" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -80,13 +80,13 @@
                     android:id="@+id/v03_txv_estado_eve"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="TextView" />
+                    android:textAlignment="center" />
 
                 <TextView
                     android:id="@+id/v03_txv_inscritos_eve"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:text="INSCRITOS"
                     android:textAlignment="center"
                     android:textSize="20sp"
@@ -104,6 +104,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:text="ACTIVIDADES"
                     android:textAlignment="center"
                     android:textSize="20sp"
@@ -113,10 +114,7 @@
                     android:id="@+id/v03_rcv_actividades"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scrollbars="vertical">
-
-                </androidx.recyclerview.widget.RecyclerView>
-
+                    android:scrollbars="vertical"></androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
         </ScrollView>
 

@@ -22,8 +22,9 @@ import android.widget.Toast;
 
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.entities.Actividad_act;
+import com.appvisibility.apptravel002.ui.entities.Alojamiento_alo;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve_test;
-import com.appvisibility.apptravel002.ui.entities.Valiente_val;
+import com.appvisibility.apptravel002.ui.entities.Persona_per_test;
 import com.appvisibility.apptravel002.ui.service.v03_00_act_Adapter;
 import com.appvisibility.apptravel002.ui.service.v03_00_val_Adapter;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -68,8 +69,9 @@ public class V_03 extends Fragment {
 
     //TODO:entities
     private Evento_eve_test evento_eve_test;
-    private List<Valiente_val> valientes = new ArrayList<>();
-    private List<Actividad_act> actividades = new ArrayList<>();
+    private List<Persona_per_test> valientes_list = new ArrayList<>();
+    private List<Actividad_act> actividades_list = new ArrayList<>();
+    private List<Alojamiento_alo> listAlojamiento = new ArrayList<>();
     private Context mContext;
 
     //TODO:servise
@@ -185,8 +187,8 @@ public class V_03 extends Fragment {
                     if (sesionIniciada) {
                     v03_recycler_val.setHasFixedSize(true);
                     v03_recycler_val.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
-                    valientes = evento_eve_test.getListValiente();
-                    v03_adapter_val = new v03_00_val_Adapter(valientes, mContext);
+                    valientes_list = evento_eve_test.getListValiente();
+                    v03_adapter_val = new v03_00_val_Adapter(valientes_list, mContext);
                     v03_recycler_val.setAdapter(v03_adapter_val);
                     } else {
                         v03_inscritos_eve.setVisibility(View.INVISIBLE);
@@ -195,10 +197,12 @@ public class V_03 extends Fragment {
                     //cargamos los actividades
                     v03_recycler_act.setHasFixedSize(true);
                     v03_recycler_act.setLayoutManager(new LinearLayoutManager(mContext));
-                    actividades = evento_eve_test.getListActividad();
-                    v03_adapter_act = new v03_00_act_Adapter(actividades, mContext);
+                    actividades_list = evento_eve_test.getListActividad();
+                    v03_adapter_act = new v03_00_act_Adapter(actividades_list, mContext);
                     v03_recycler_act.setAdapter(v03_adapter_act);
 
+                    //prueba cargar Alojamiento_alo
+                    listAlojamiento= evento_eve_test.getListAlojamiento();
                 });
     }
 }

@@ -2,14 +2,17 @@ package com.appvisibility.apptravel002.ui.controller;
 
 import static com.appvisibility.apptravel002.MainActivity.sesionIniciada;
 import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +25,12 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.entities.Actividad_act;
-import com.appvisibility.apptravel002.ui.entities.Evento_eve;
-import com.appvisibility.apptravel002.ui.entities.Valiente_val;
+import com.appvisibility.apptravel002.ui.entities.Alojamiento_alo;
+import com.appvisibility.apptravel002.ui.entities.Evento_eve_test;
+import com.appvisibility.apptravel002.ui.entities.Persona_per_test;
 import com.appvisibility.apptravel002.ui.service.v02_00_eve_Adapter;
 import com.appvisibility.apptravel002.ui.service.v03_00_act_Adapter;
 import com.appvisibility.apptravel002.ui.service.v03_00_val_Adapter;
@@ -40,6 +45,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -49,7 +55,7 @@ import java.util.List;
  * Use the {@link V_05#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class V_05 extends Fragment implements IDAO<Evento_eve, Valiente_val, Actividad_act> {
+public class V_05 extends Fragment implements IDAO<Evento_eve_test, Persona_per_test, Actividad_act> {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -76,10 +82,11 @@ public class V_05 extends Fragment implements IDAO<Evento_eve, Valiente_val, Act
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
 
     //TODO:entities
-    private Evento_eve evento;
+    private Evento_eve_test evento;
     private List<Actividad_act> actividades = new ArrayList<>();
-    private List<Valiente_val> valientes = new ArrayList<>();
-    private List<Valiente_val> valientesConCoches = new ArrayList<>();
+    private List<Persona_per_test> valientes = new ArrayList<>();
+    private List<Persona_per_test> valientesConCoches = new ArrayList<>();
+    private List<Alojamiento_alo> listAlojamiento = new ArrayList<>();
     private Context mContext;
 
     //TODO:servise
@@ -126,7 +133,7 @@ public class V_05 extends Fragment implements IDAO<Evento_eve, Valiente_val, Act
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_05, container, false);
-        sesionIniciada=true;
+        sesionIniciada = true;
         int id_eve_bundle = getArguments().getInt("eventoParaV_05");
 
         Bundle result = new Bundle();
@@ -145,11 +152,11 @@ public class V_05 extends Fragment implements IDAO<Evento_eve, Valiente_val, Act
 
         // TODO: carga de Evento
         // EOB: Intentar pasar este método a changeNoListener y eliminar las dos líneas siguientes
-        List<Evento_eve> eventos = new ArrayList<>();
+        List<Evento_eve_test> eventos_list = new ArrayList<>();
         v02_00_eve_Adapter v02_adapter_eve = null;
 
-        Query query1 = fbf.collection("evento_eve").whereEqualTo("id_eve", id_eve_bundle);
-        tabla1ChangeListener (query1, eventos, Evento_eve.class, v02_adapter_eve);
+        Query query1 = fbf.collection("evento_eve_test").whereEqualTo("id_eve", id_eve_bundle);
+        tabla1ChangeListener(query1, eventos_list, Evento_eve_test.class, v02_adapter_eve);
 
         // TODO: carga de Inscritos (valientes)
         /*this.v05_recycler_val = (RecyclerView) view.findViewById(R.id.v05_rcv_valientes);
@@ -157,7 +164,7 @@ public class V_05 extends Fragment implements IDAO<Evento_eve, Valiente_val, Act
         this.v05_recycler_val.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
 */
         Query query2 = fbf.collection("valiente_val").whereIn("id_val", Arrays.asList(1, 2, 3, 4, 5, 6));
-        tabla2ChangeListener (query2, valientes, Valiente_val.class, v03_adapter_val);
+        tabla2ChangeListener(query2, valientes, Persona_per_test.class, v03_adapter_val);
 //        valientesChangeListener(1);
 
  /*       this.v05_adapter_val = new v03_00_val_Adapter(valientes, mContext);
@@ -240,36 +247,36 @@ public class V_05 extends Fragment implements IDAO<Evento_eve, Valiente_val, Act
                 }
                 lista.clear();
                 for (QueryDocumentSnapshot qds : snapshots) {
-                    evento = (Evento_eve) qds.toObject(tipoObjeto);
+                    evento = (Evento_eve_test) qds.toObject(tipoObjeto);
 //                    lista.add(enProceso);
 //                miAdapter.notifyDataSetChanged();
 
-                v05_titulo_eve.setText(evento.getTitulo_eve());
-                //cargamos la imagen
-                FirebaseStorage fbs = FirebaseStorage.getInstance();
-                StorageReference str = fbs.getReference();
-                str.child("Eventos/"+evento.getFoto_eve()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Picasso.get().load(uri).into(v05_foto_eve);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
+                    v05_titulo_eve.setText(evento.getTitulo_eve());
+                    //cargamos la imagen
+                    FirebaseStorage fbs = FirebaseStorage.getInstance();
+                    StorageReference str = fbs.getReference();
+                    str.child("Eventos/" + evento.getFoto_eve()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Picasso.get().load(uri).into(v05_foto_eve);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
 //                Toast.makeText(getActivity(), "GET IMAGE FAILED", Toast.LENGTH_LONG).show();
-                        // Handle any errors
-                    }
-                });
-                v05_info_completa.setText(
-                        "Nivel de dificultad: " + evento.getNivel_eve() + "\n"
-                                + "Distancia ida: " + evento.getDistanciaidatru_eve() + " "
-                                + "Distancia vuelta: " + evento.getDistanciavueltatru_eve() + "\n"
-                                + "Fecha ida: " + evento.getFechaidatru_eve() + "\n"
-                                + "Fecha vuelta: " + evento.getFechavueltatru_eve() + "\n"
-                                // + "Coordenadas de salida: " + evento.getSalidacoordenadastru_eve() + "\n"
-                                // + "Coordenadas de llegada: " + evento.getLlegadacoordenadastru_eve() + "\n"
-                                //  + evento.getDescgeneral_eve() + " "
-                                + "Precio: " + evento.getPrecio_eve() + "€");
+                            // Handle any errors
+                        }
+                    });
+                    v05_info_completa.setText(
+                            "Nivel de dificultad: " + evento.getNivel_eve() + "\n"
+                                    + "Distancia ida: " + evento.getDistanciaidatru_eve() + " "
+                                    + "Distancia vuelta: " + evento.getDistanciavueltatru_eve() + "\n"
+                                    + "Fecha ida: " + evento.getFechaidatru_eve() + "\n"
+                                    + "Fecha vuelta: " + evento.getFechavueltatru_eve() + "\n"
+                                    // + "Coordenadas de salida: " + evento.getSalidacoordenadastru_eve() + "\n"
+                                    // + "Coordenadas de llegada: " + evento.getLlegadacoordenadastru_eve() + "\n"
+                                    //  + evento.getDescgeneral_eve() + " "
+                                    + "Precio: " + evento.getPrecio_eve() + "€");
                 }
 
 //                if (pdg.isShowing()){
@@ -297,7 +304,7 @@ public class V_05 extends Fragment implements IDAO<Evento_eve, Valiente_val, Act
                     lista.add(enProceso);
                 }
 //                miAdapter.notifyDataSetChanged();
-                ArrayAdapter<Valiente_val> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, valientes);
+                ArrayAdapter<Persona_per_test> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, valientes);
                 arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 v05_lista_personas.setAdapter(arrayAdapter);
         /*v05_spinner_lista_personas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -350,23 +357,23 @@ public class V_05 extends Fragment implements IDAO<Evento_eve, Valiente_val, Act
     private void necesitoElCocheChangeListener() {
         // fbf.collection("inscribir_evevalcoltpr").whereEqualTo("id_eve", 1)
         fbf.collection("valiente_val").whereIn("id_val", Arrays.asList(1, 2, 3, 4, 5, 6))
-            .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                @Override
-                public void onEvent(@Nullable QuerySnapshot value,
-                                    @Nullable FirebaseFirestoreException e) {
-                    if (e != null) {
-                        Log.w(TAG, "Listen failed.", e);
-                        return;
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w(TAG, "Listen failed.", e);
+                            return;
+                        }
+                        valientesConCoches.clear();
+                        for (QueryDocumentSnapshot doc : value) {
+                            valientesConCoches.add(doc.toObject(Persona_per_test.class));
+                        }
+                        Log.d(TAG, "Current cites in CA: ");
                     }
-                    valientesConCoches.clear();
-                    for (QueryDocumentSnapshot doc : value) {
-                        valientesConCoches.add(doc.toObject(Valiente_val.class));
-                    }
-                    Log.d(TAG, "Current cites in CA: ");
-                }
-            });
+                });
 
-        ArrayAdapter<Valiente_val> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, valientesConCoches);
+        ArrayAdapter<Persona_per_test> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, valientesConCoches);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         v05_necesito_coche.setAdapter(arrayAdapter);
         /*v05_spinner_lista_personas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -382,7 +389,7 @@ public class V_05 extends Fragment implements IDAO<Evento_eve, Valiente_val, Act
     }
 
     private void ofrescoElCocheChangeListener() {
-        ArrayList<String> arrayList= new ArrayList<>();
+        ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Ofrescer asientos:");
         arrayList.add("Ofresco 1 asiento");
         arrayList.add("Ofresco 2 asientos");
