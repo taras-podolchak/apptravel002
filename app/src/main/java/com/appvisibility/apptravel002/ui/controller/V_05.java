@@ -133,7 +133,6 @@ public class V_05 extends Fragment implements IDAO<Evento_eve_test, Persona_per_
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_05, container, false);
-        sesionIniciada = true;
         int id_eve_bundle = getArguments().getInt("eventoParaV_05");
 
         Bundle result = new Bundle();

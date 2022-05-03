@@ -132,7 +132,30 @@
                     android:inputType="phone"
                     android:minHeight="48dp" />
 
+                <RadioGroup
+                    android:id="@+id/v04_1_RadioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
+
+                    <RadioButton
+                        android:id="@+id/v04_1_rbt_soy_valiente"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:text="Soy valiente" />
+
+                    <RadioButton
+                        android:id="@+id/v04_1_rbt_soy_colaborador"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Soy colaborador" />
+
+
+                </RadioGroup>
 
                 <CheckBox
                     android:id="@+id/v04_1_ckb_condicioneslegales_val"
@@ -153,7 +176,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/v01_boton_formato_l"
+                android:background="@drawable/btn_formato_left_val"
                 android:text="Volver" />
 
             <Button
@@ -162,7 +185,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/v01_boton_formato_r"
+                android:background="@drawable/btn_formato_right_val"
                 android:text="Aceptar" />
         </LinearLayout>
 

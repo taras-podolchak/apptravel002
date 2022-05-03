@@ -54,7 +54,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:elevation="120dp">
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -113,8 +114,7 @@
                         <TextView
                             android:id="@+id/c05_txv_email_val"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:clickable="true"/>
+                            android:layout_height="wrap_content"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -134,7 +134,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:background="@drawable/v01_contenedor_blanco"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:elevation="20dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -201,7 +202,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:background="@drawable/v01_contenedor_blanco"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:elevation="20dp">
 
                     <TextView
                         android:id="@+id/c05_txt_emergencia1relacion_emergencia1telefono_val"
@@ -233,7 +235,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:background="@drawable/v01_contenedor_blanco"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:elevation="20dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -286,7 +289,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:background="@drawable/v01_contenedor_blanco"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:elevation="20dp">
 
                     <TextView
                         android:id="@+id/c05_txv_nps01fecha_nps01_val"

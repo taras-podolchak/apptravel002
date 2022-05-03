@@ -82,7 +82,7 @@ public class v03_00_val_Adapter extends RecyclerView.Adapter<v03_00_val_Adapter.
                 Bundle bundle = new Bundle();
                 bundle.putInt("valienteParaC_05", id_val_enProceso);
                 // TODO EOB: Sustituir condicion del if por "roll == colaborador"
-                if (!sesionIniciada) {
+                if (sesionIniciada==0) { //0 sesion cerrada / 1 valiente / 2 colaborador / 3 administrador
                     Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundle);
                 } else {
                     Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundle);

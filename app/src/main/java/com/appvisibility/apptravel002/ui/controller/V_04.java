@@ -1,33 +1,55 @@
 package com.appvisibility.apptravel002.ui.controller;
 
+import static android.content.ContentValues.TAG;
+
+import static com.appvisibility.apptravel002.MainActivity.sesionIniciada;
+
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
+import androidx.activity.result.ActivityResultCaller;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.appvisibility.apptravel002.MainActivity_col;
 import com.appvisibility.apptravel002.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.appvisibility.apptravel002.ui.entities.Persona_per_test;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.installations.Utils;
+
+import java.util.zip.Inflater;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link V_04#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class V_04 extends Fragment {
+public class V_04 extends Fragment  {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,11 +67,13 @@ public class V_04 extends Fragment {
 
     //TODO:acceso a datos
     private FirebaseAuth fba = FirebaseAuth.getInstance();
-    ;
+    private FirebaseFirestore fbf = FirebaseFirestore.getInstance();
 
     //TODO:entities
     private Context mContext;
     private Bundle result;
+    private Persona_per_test persona;
+    int id_eve_bundle = 0;
 
     //TODO:servise
     private ProgressDialog pdg;
@@ -95,14 +119,11 @@ public class V_04 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_04, container, false);
 
-        int id_eve_bundle = getArguments().getInt("eventoParaV_04");
+            id_eve_bundle = getArguments().getInt("eventoParaV_04", 0);
 
         result = new Bundle();
         result.putInt("eventoParaV_04_1", id_eve_bundle);
         result.putInt("eventoParaV_05", id_eve_bundle);
-
-        //inicializamos el objeto firebaseAuth
-
 
         //Referenciamos los views
         v04_email_val = view.findViewById(R.id.v04_etx_email_val);
@@ -112,22 +133,13 @@ public class V_04 extends Fragment {
 
         pdg = new ProgressDialog(mContext);
 
-        v04_iniciar_sesion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                registrarUsuario(view);
-            }
-        });
-        v04_registrarse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v04_1, result);
-            }
-        });
+        //TODO: los botones
+        v04_iniciar_sesion.setOnClickListener(view1 -> iniciarSesion(view1));
+        v04_registrarse.setOnClickListener(view12 -> Navigation.findNavController(view12).navigate(R.id.action_nav_v04_to_nav_v04_1, result));
         return view;
     }
 
-    private void registrarUsuario(View view) {
+    private void iniciarSesion(View view) {
         //Obtenemos el email_val y la contraseña desde las cajas de texto
         String email_val = v04_email_val.getText().toString().trim();
         String contrasenna_val = v04_contrasenna_val.getText().toString().trim();
@@ -142,17 +154,62 @@ public class V_04 extends Fragment {
             Toast.makeText(getActivity(), "Falta ingresar la contraseña", Toast.LENGTH_LONG).show();
             return;
         }
+
         fba.signInWithEmailAndPassword(email_val, contrasenna_val)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v05, result);
-                        } else {
-                            Toast.makeText(getActivity(), "El email_val o la contraseña es incorrecta", Toast.LENGTH_LONG).show();
-                        }
-                        pdg.dismiss();
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+
+                        //obtenemos la Uid del registro de la bbdd FirebaseAuth
+                        FirebaseUser user = fba.getCurrentUser();
+                        String uid = user.getUid();
+
+                        //buscamos en FirebaseFirestore el documento con esa Uid
+                        DocumentReference docRef = fbf.collection("persona_per_test").document(uid);
+                        docRef.get().addOnCompleteListener(task1 -> {
+                            if (task1.isSuccessful()) {
+                                DocumentSnapshot document = task1.getResult();
+                                if (document.exists()) {
+                                    //recuperamos la persona
+                                    persona = (Persona_per_test) document.toObject(Persona_per_test.class);
+                                    Toast.makeText(getActivity(), "Bien venido " + persona.getNombre_per(), Toast.LENGTH_LONG).show();
+                                    //si es valiente
+                                    if (persona.getId_val_col_per() == 1) {
+                                        sesionIniciada = persona.getId_val_col_per();
+                                        Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v05, result);
+                                    }
+                                    //si es colaborador
+                                    if (persona.getId_val_col_per() == 2) {
+                                        sesionIniciada = persona.getId_val_col_per();
+                                       //comprobamos si entra desde Menu o desde V_03 (si entra desde V_3 el id_eve_bundle dibiria ser > 0)
+                                        if (id_eve_bundle == 0) {
+                                            // ir de MainActivity a MainActivity_col -> V_01
+                                           // Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_01_de_MainActivity_col);
+                                        }else{
+
+                                            // ir de MainActivity a MainActivity_col -> V_05
+
+                                            //ActionBar supportActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+                                            //supportActionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#864d2d")));
+
+                                            //Navigation.findNavController(view).navigate(R.id.);
+                                        /*Intent intent = new Intent(getActivity(), MainActivity_col.class);
+                                        startActivityForResult(intent,2);*/
+                                            //startActivityForResult();
+
+                                        }
+                                    }
+                                } else {
+                                    Log.d(TAG, "No such document");
+                                }
+                            } else {
+                                Log.d(TAG, "get failed with ", task1.getException());
+                            }
+                        });
+
+                    } else {
+                        Toast.makeText(getActivity(), "El email_val o la contraseña es incorrecta", Toast.LENGTH_LONG).show();
                     }
+                    pdg.dismiss();
                 });
         pdg.setMessage("Realizando registro en linea...");
         pdg.show();

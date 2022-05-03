@@ -3,9 +3,18 @@ package com.appvisibility.apptravel002.ui.controller;
 import static android.content.ContentValues.TAG;
 import static com.appvisibility.apptravel002.MainActivity.sesionIniciada;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,11 +24,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.appvisibility.apptravel002.MainActivity;
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.entities.Actividad_act;
 import com.appvisibility.apptravel002.ui.entities.Alojamiento_alo;
@@ -103,10 +114,12 @@ public class V_03 extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        //getContext().getTheme().applyStyle(R.style.Theme_Apptravel002_col_NoActionBar, true);
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
@@ -116,9 +129,13 @@ public class V_03 extends Fragment {
         mContext = context;
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_03, container, false);
+
+        /*ActionBar supportActionBar= ((AppCompatActivity) getActivity()).getSupportActionBar();
+        supportActionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#864d2d")));*/
 
         id_eve_bundle = getArguments().getInt("eventoParaV_03");
 
@@ -141,16 +158,11 @@ public class V_03 extends Fragment {
 
         // TODO: los botones
         v03_foto_eve = view.findViewById(R.id.v03_imv_foto_eve);
-        v03_foto_eve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v05_1, result);
-            }
-        });
+        v03_foto_eve.setOnClickListener(view13 -> Navigation.findNavController(view13).navigate(R.id.action_nav_v03_to_nav_v05_1, result));
 
         v03_me_interesa = view.findViewById(R.id.v03_btn_me_interesa);
         v03_me_interesa.setOnClickListener(view12 -> {
-            if (!sesionIniciada) {
+            if (sesionIniciada == 0) {
                 Navigation.findNavController(view12).navigate(R.id.action_nav_v03_to_nav_v04, result);
             } else {
                 Navigation.findNavController(view12).navigate(R.id.action_nav_v03_to_nav_v05, result);
@@ -184,12 +196,12 @@ public class V_03 extends Fragment {
                     v03_estado_eve.setText("Estado: " + evento_eve_test.getEstado_eve());
 
                     //cargamos los inscritos
-                    if (sesionIniciada) {
-                    v03_recycler_val.setHasFixedSize(true);
-                    v03_recycler_val.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
-                    valientes_list = evento_eve_test.getListValiente();
-                    v03_adapter_val = new v03_00_val_Adapter(valientes_list, mContext);
-                    v03_recycler_val.setAdapter(v03_adapter_val);
+                    if (sesionIniciada != 0) {
+                        v03_recycler_val.setHasFixedSize(true);
+                        v03_recycler_val.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
+                        valientes_list = evento_eve_test.getListValiente();
+                        v03_adapter_val = new v03_00_val_Adapter(valientes_list, mContext);
+                        v03_recycler_val.setAdapter(v03_adapter_val);
                     } else {
                         v03_inscritos_eve.setVisibility(View.INVISIBLE);
                     }
@@ -202,7 +214,8 @@ public class V_03 extends Fragment {
                     v03_recycler_act.setAdapter(v03_adapter_act);
 
                     //prueba cargar Alojamiento_alo
-                    listAlojamiento= evento_eve_test.getListAlojamiento();
+                    listAlojamiento = evento_eve_test.getListAlojamiento();
                 });
     }
+
 }
