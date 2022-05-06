@@ -38,10 +38,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FirebaseFirestore fbf = FirebaseFirestore.getInstance();
     private Persona_per_test persona;
     public static int sesionIniciada = 0;
+    static final int ASK_QUESTION_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -132,11 +135,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.colaborador) {
 
             if (sesionIniciada == 0) {
-                /*getApplication().setTheme(R.style.Theme_Apptravel002_col_NoActionBar);
-                Fragment v_04 = new V_04();
-                show(v_04);*/
+
                 Intent intent = new Intent(this, MainActivity_col.class);
+                intent.putExtra("abrirEnMainActivity_col", 4);
                 startActivity(intent);
+
                 Toast.makeText(MainActivity.this, "Inicie la sesion por favor", Toast.LENGTH_LONG).show();
             } else if (sesionIniciada == 2) {
                 getApplication().setTheme(R.style.Theme_Apptravel002_col);
@@ -166,4 +169,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .commit();
         drawerLayout.closeDrawer(GravityCompat.START);
     }
+
 }

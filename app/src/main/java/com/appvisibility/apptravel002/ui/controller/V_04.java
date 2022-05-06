@@ -1,5 +1,6 @@
 package com.appvisibility.apptravel002.ui.controller;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
 import static com.appvisibility.apptravel002.MainActivity.sesionIniciada;
@@ -32,6 +33,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.appvisibility.apptravel002.MainActivity;
 import com.appvisibility.apptravel002.MainActivity_col;
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.entities.Persona_per_test;
@@ -49,7 +51,7 @@ import java.util.zip.Inflater;
  * Use the {@link V_04#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class V_04 extends Fragment  {
+public class V_04 extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -119,11 +121,12 @@ public class V_04 extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_04, container, false);
 
-            id_eve_bundle = getArguments().getInt("eventoParaV_04", 0);
+        // id_eve_bundle = getArguments().getInt("eventoParaV_04", 0);
 
         result = new Bundle();
         result.putInt("eventoParaV_04_1", id_eve_bundle);
         result.putInt("eventoParaV_05", id_eve_bundle);
+        //result.putInt("palaMainActivity_col", 6);
 
         //Referenciamos los views
         v04_email_val = view.findViewById(R.id.v04_etx_email_val);
@@ -180,23 +183,10 @@ public class V_04 extends Fragment  {
                                     //si es colaborador
                                     if (persona.getId_val_col_per() == 2) {
                                         sesionIniciada = persona.getId_val_col_per();
-                                       //comprobamos si entra desde Menu o desde V_03 (si entra desde V_3 el id_eve_bundle dibiria ser > 0)
-                                        if (id_eve_bundle == 0) {
-                                            // ir de MainActivity a MainActivity_col -> V_01
-                                           // Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_01_de_MainActivity_col);
-                                        }else{
 
-                                            // ir de MainActivity a MainActivity_col -> V_05
-
-                                            //ActionBar supportActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-                                            //supportActionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#864d2d")));
-
-                                            //Navigation.findNavController(view).navigate(R.id.);
-                                        /*Intent intent = new Intent(getActivity(), MainActivity_col.class);
-                                        startActivityForResult(intent,2);*/
-                                            //startActivityForResult();
-
-                                        }
+                                        Intent intent = new Intent(getActivity(), MainActivity_col.class);
+                                        intent.putExtra("abrirEnMainActivity_col", 1);
+                                        startActivity(intent);
                                     }
                                 } else {
                                     Log.d(TAG, "No such document");

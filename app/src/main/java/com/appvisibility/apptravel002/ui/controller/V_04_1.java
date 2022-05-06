@@ -127,7 +127,7 @@ public class V_04_1 extends Fragment {
         v04_1_condicioneslegales_val = view.findViewById(R.id.v04_1_ckb_condicioneslegales_val);
         v04_1_aceptar = view.findViewById(R.id.v04_1_btn_aceptar);
         v04_1_volver = view.findViewById(R.id.v04_1_btn_volver);
-        RadioGroup radioGroup = (RadioGroup)view.findViewById(R.id.v04_1_RadioGroup);
+        RadioGroup radioGroup = view.findViewById(R.id.v04_1_RadioGroup);
 
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
