@@ -55,6 +55,7 @@ public class v03_00_val_Adapter extends RecyclerView.Adapter<v03_00_val_Adapter.
         String movil_val = personas.get(position).getMovil_per();
         String coche_val = personas.get(position).getCoche_per();
         String email_val = personas.get(position).getEmail_per();
+        int plazas_libres_val = personas.get(position).getPlazaslibres_per();
 
         FirebaseStorage fbs = FirebaseStorage.getInstance();
         StorageReference str = fbs.getReference();
@@ -74,6 +75,7 @@ public class v03_00_val_Adapter extends RecyclerView.Adapter<v03_00_val_Adapter.
         holder.v03_movil_val.setText("Tel: " + movil_val);
         holder.v03_coche_val.setText("Coche: " + coche_val);
         holder.v03_email_val.setText("Email: " + email_val);
+        holder.v03_plazas_libres_val.setText("Plazas libres: " + plazas_libres_val);
 
 //        int finalPosition = position;
         holder.v03_cdv_valiente.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +110,7 @@ public class v03_00_val_Adapter extends RecyclerView.Adapter<v03_00_val_Adapter.
         private TextView v03_movil_val;
         private TextView v03_coche_val;
         private TextView v03_email_val;
+        private TextView v03_plazas_libres_val;
 
         private CardView v03_cdv_valiente;
 
@@ -118,6 +121,7 @@ public class v03_00_val_Adapter extends RecyclerView.Adapter<v03_00_val_Adapter.
             this.v03_movil_val = v.findViewById(R.id.v03_cdv_txv_movil_val);
             this.v03_coche_val = v.findViewById(R.id.v03_cdv_txv_coche_val);
             this.v03_email_val = v.findViewById(R.id.v03_cdv_txv_email_val);
+            this.v03_plazas_libres_val = v.findViewById(R.id.v03_cdv_txv_plazas_libres_val);
 
             this.v03_cdv_valiente = (CardView) v.findViewById(R.id.v03_cdv_valiente);
         }

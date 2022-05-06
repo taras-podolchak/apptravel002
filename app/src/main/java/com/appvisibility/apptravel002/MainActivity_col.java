@@ -38,9 +38,10 @@ public class MainActivity_col extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Intent intent = getIntent();
-        //Bundle bundle = new Bundle();
         int num = intent.getIntExtra("abrirEnMainActivity_col", 0);
+
         if (num == 1) {
             getSupportFragmentManager().beginTransaction()
                     .add(android.R.id.content, new V_01()).commit();
@@ -68,13 +69,9 @@ public class MainActivity_col extends AppCompatActivity {
             Toast.makeText(this, "Bundle llega vacio", Toast.LENGTH_LONG).show();
         }
 
-
         binding = ActivityMainColBinding.inflate(
-
                 getLayoutInflater());
-
         setContentView(binding.getRoot());
-
         setSupportActionBar(binding.appBarMainActivityCol.toolbar);
         binding.appBarMainActivityCol.fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,11 +85,7 @@ public class MainActivity_col extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_v01, R.id.nav_v02, R.id.nav_v03, R.id.nav_v04, R.id.nav_v05, R.id.nav_v06)
-                .
-
-                        build();
-
+                R.id.nav_v01, R.id.nav_v02, R.id.nav_v03, R.id.nav_v04, R.id.nav_v05, R.id.nav_v06).build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main_activity_col);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
@@ -111,65 +104,5 @@ public class MainActivity_col extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
-    /*
-        @Override
-        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
-            // Comprobamos si el resultado es cancelado
-            if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(this, "Resultado cancelado", Toast.LENGTH_LONG).show();
-            } else {
-                // En caso de ser OK
-                //inicializar con un fragmento
-                V_04 taskFragment = new V_04();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.add(R.id.nav_v04, taskFragment);
-                transaction.commit();
-            }
-        }*/
-/*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        try {
-            super.onActivityResult(requestCode, resultCode, data);
-
-            if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-                V_04 taskFragment = new V_04();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.add(R.id.nav_v04, taskFragment);
-                transaction.commit();
-            }
-        } catch (Exception ex) {
-            Toast.makeText(this, ex.toString(), Toast.LENGTH_SHORT).show();
-        }
-
-    }*/
-   /* @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // check if the request code is same as what is passed  here it is 1
-        if (requestCode == ASK_QUESTION_REQUEST) {
-            // Make sure the request was successful
-            if (resultCode == RESULT_OK) {
-                V_04 taskFragment = new V_04();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.add(R.id.nav_v04, taskFragment);
-                transaction.commit();
-            }
-        }
-    }*/
-
-    /*public void openSomeActivityForResult() {
-        Intent intent = new Intent(this, SomeActivity.class);
-        activityLauncher.launch(intent, result -> {
-            if (result.getResultCode() == Activity.RESULT_OK) {
-                // There are no request codes
-                Intent data = result.getData();
-                doSomeOperations();
-            }
-        });
-    }*/
 }
 

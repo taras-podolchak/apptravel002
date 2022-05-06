@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
 
 
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -117,6 +116,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
                         if (persona.getId_val_col_per() == 2) {
                             sesionIniciada = persona.getId_val_col_per();
+                            Intent intent = new Intent(this, MainActivity_col.class);
+                            intent.putExtra("abrirEnMainActivity_col", 1);
+                            startActivity(intent);
                         }
                     } else {
                         Log.d(TAG, "No such document");

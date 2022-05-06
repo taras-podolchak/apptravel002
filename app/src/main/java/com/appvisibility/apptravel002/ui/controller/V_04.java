@@ -121,12 +121,12 @@ public class V_04 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_04, container, false);
 
-        // id_eve_bundle = getArguments().getInt("eventoParaV_04", 0);
+
+       // id_eve_bundle = getArguments().getInt("eventoParaV_04", 0);
 
         result = new Bundle();
         result.putInt("eventoParaV_04_1", id_eve_bundle);
         result.putInt("eventoParaV_05", id_eve_bundle);
-        //result.putInt("palaMainActivity_col", 6);
 
         //Referenciamos los views
         v04_email_val = view.findViewById(R.id.v04_etx_email_val);
@@ -195,7 +195,6 @@ public class V_04 extends Fragment {
                                 Log.d(TAG, "get failed with ", task1.getException());
                             }
                         });
-
                     } else {
                         Toast.makeText(getActivity(), "El email_val o la contraseña es incorrecta", Toast.LENGTH_LONG).show();
                     }
