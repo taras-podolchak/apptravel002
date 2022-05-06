@@ -18,10 +18,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
+import com.appvisibility.apptravel002.ui.entities.Valiente_val;
 import com.appvisibility.apptravel002.ui.service.v02_00_eve_Adapter;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -56,7 +58,7 @@ public class V_02 extends Fragment implements IDAO <Evento_eve, Object, Object> 
     ProgressDialog pdg;
 
     // TODO: Entities
-    List<Evento_eve> eventos = new ArrayList<>();
+    private List<Evento_eve> eventos = new ArrayList<>();
     private Context mContext;
 
     //TODO:servise
@@ -115,6 +117,17 @@ public class V_02 extends Fragment implements IDAO <Evento_eve, Object, Object> 
 
         Query query1 = fbf.collection("evento_eve").orderBy("id_eve", Query.Direction.ASCENDING);
         tabla1ChangeListener (query1, eventos, Evento_eve.class, v02_adapter_eve);
+
+// Detenemos la escucha sobre la colección con la que vamos a trabajar para evitar consumo de ancho de banda
+// https://firebase.google.com/docs/firestore/query-data/listen
+        Query query = fbf.collection("evento_eve");
+        ListenerRegistration registration = query.addSnapshotListener(
+            new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
+                }
+            });
+        registration.remove();
 
         this.v02_recycler_eve.setAdapter(v02_adapter_eve);
         return view;
