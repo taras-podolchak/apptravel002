@@ -78,24 +78,28 @@ public class v03_00_val_Adapter extends RecyclerView.Adapter<v03_00_val_Adapter.
         holder.v03_plazas_libres_val.setText("Plazas libres: " + plazas_libres_val);
 
 //        int finalPosition = position;
-        holder.v03_cdv_valiente.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("valienteParaC_05", id_val_enProceso);
-                // TODO EOB: Sustituir condicion del if por "roll == colaborador"
-                if (sesionIniciada==0) { //0 sesion cerrada / 1 valiente / 2 colaborador / 3 administrador
-                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundle);
-                } else {
-                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundle);
+        if(sesionIniciada!=1) {
+            holder.v03_cdv_valiente.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("valienteParaC_05", id_val_enProceso);
+                    // TODO EOB: Sustituir condicion del if por "roll == colaborador"
+                    if (sesionIniciada == 0) { //0 sesion cerrada / 1 valiente / 2 colaborador / 3 administrador
+                        Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundle);
+                    } else {
+                        Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundle);
+                    }
+                    /*
+                     * Notificamos cambios para que el contenedor se entere y refresque los datos
+                     * La siguiente instruccion está a la escucha de posible cambios y los refresca. ATENCION: consume mucha memoria porque está permanentemente a la escucha
+                     */
+                    notifyDataSetChanged();
                 }
-                /*
-                 * Notificamos cambios para que el contenedor se entere y refresque los datos
-                 * La siguiente instruccion está a la escucha de posible cambios y los refresca. ATENCION: consume mucha memoria porque está permanentemente a la escucha
-                 */
-                notifyDataSetChanged();
-            }
-        });
+            });
+        }else{
+            holder.v03_cdv_valiente.setClickable(false);
+        }
 
     }
 

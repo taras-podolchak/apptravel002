@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Persona_per_test implements Serializable {
-    private int id_val_col_per;
+
     private int id_per;
     private String coche_per;
     private int nps01_per;
@@ -29,7 +29,7 @@ public class Persona_per_test implements Serializable {
     private String pais_per;
     private String movil_per;
     private String email_per;
-    private String usuariotipo_per;
+    private int usuariotipo_per;
     private String fotopropia_per;
     private String fotoorg_per;
     private int federado_per;
@@ -56,13 +56,12 @@ public class Persona_per_test implements Serializable {
     private int valoracionorgpre_per;
     private int nrelacionespre_per;
     private String numerocta_per;
-    private List<String> listAlimentacion = new ArrayList<>();
+    private List<String> alimentacions = new ArrayList<>();
 
     public Persona_per_test() {
     }
 
-    public Persona_per_test(int id_val_col_per, int id_per, String coche_per, int nps01_per, String nps01fecha_per, int nps02_per, String nps02fecha_per, int nps03_per, String nps03fecha_per, String apodo_per, String contrasenna_per, boolean recordarcontrasenna_per, String actividadtipo_per, String documentotipo_per, String nombre_per, String apellido1_per, String apellido2_per, String dni_per, String direccion_per, String localidad_per, String cpostal_per, String pais_per, String movil_per, String email_per, String usuariotipo_per, String fotopropia_per, String fotoorg_per, int federado_per, String federacionfoto_per, boolean seguro_per, String segurocompannia_per, String seguropoliza_per, String fechacaducidadseguro_per, String fechaalta_per, String fechabaja_per, int antiguedad_per, boolean solicitabaja_per, boolean condicioneslegales_per, String emergencia1telefono_per, String emergencia1relacion_per, String emergencia2telefono_per, String emergencia2relacion_per, double preferencia_per, int antiguedadpre_per, int fiabilidadpre_per, int volumencomprapre_per, int cochepre_per, int plazaslibres_per, int valoracionorgpre_per, int nrelacionespre_per, String numerocta_per, List<String> listAlimentacion) {
-        this.id_val_col_per = id_val_col_per;
+    public Persona_per_test(int id_per, String coche_per, int nps01_per, String nps01fecha_per, int nps02_per, String nps02fecha_per, int nps03_per, String nps03fecha_per, String apodo_per, String contrasenna_per, boolean recordarcontrasenna_per, String actividadtipo_per, String documentotipo_per, String nombre_per, String apellido1_per, String apellido2_per, String dni_per, String direccion_per, String localidad_per, String cpostal_per, String pais_per, String movil_per, String email_per, int usuariotipo_per, String fotopropia_per, String fotoorg_per, int federado_per, String federacionfoto_per, boolean seguro_per, String segurocompannia_per, String seguropoliza_per, String fechacaducidadseguro_per, String fechaalta_per, String fechabaja_per, int antiguedad_per, boolean solicitabaja_per, boolean condicioneslegales_per, String emergencia1telefono_per, String emergencia1relacion_per, String emergencia2telefono_per, String emergencia2relacion_per, double preferencia_per, int antiguedadpre_per, int fiabilidadpre_per, int volumencomprapre_per, int cochepre_per, int plazaslibres_per, int valoracionorgpre_per, int nrelacionespre_per, String numerocta_per, List<String> listAlimentacion) {
         this.id_per = id_per;
         this.coche_per = coche_per;
         this.nps01_per = nps01_per;
@@ -113,15 +112,7 @@ public class Persona_per_test implements Serializable {
         this.valoracionorgpre_per = valoracionorgpre_per;
         this.nrelacionespre_per = nrelacionespre_per;
         this.numerocta_per = numerocta_per;
-        this.listAlimentacion = listAlimentacion;
-    }
-
-    public int getId_val_col_per() {
-        return id_val_col_per;
-    }
-
-    public void setId_val_col_per(int id_val_col_per) {
-        this.id_val_col_per = id_val_col_per;
+        this.alimentacions = listAlimentacion;
     }
 
     public int getId_per() {
@@ -308,11 +299,11 @@ public class Persona_per_test implements Serializable {
         this.email_per = email_per;
     }
 
-    public String getUsuariotipo_per() {
+    public int getUsuariotipo_per() {
         return usuariotipo_per;
     }
 
-    public void setUsuariotipo_per(String usuariotipo_per) {
+    public void setUsuariotipo_per(int usuariotipo_per) {
         this.usuariotipo_per = usuariotipo_per;
     }
 
@@ -524,11 +515,11 @@ public class Persona_per_test implements Serializable {
         this.numerocta_per = numerocta_per;
     }
 
-    public List<String> getListAlimentacion() {
-        return listAlimentacion;
+    public List<String> getAlimentacions() {
+        return alimentacions;
     }
 
-    public void setListAlimentacion(List<String> listAlimentacion) {
-        this.listAlimentacion = listAlimentacion;
+    public void setAlimentacions(List<String> alimentacions) {
+        this.alimentacions = alimentacions;
     }
 }

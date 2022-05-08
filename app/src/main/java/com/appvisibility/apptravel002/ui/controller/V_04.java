@@ -122,7 +122,7 @@ public class V_04 extends Fragment {
         View view = inflater.inflate(R.layout.fragment_v_04, container, false);
 
 
-       // id_eve_bundle = getArguments().getInt("eventoParaV_04", 0);
+        //id_eve_bundle = getArguments().getInt("eventoParaV_04", 0);
 
         result = new Bundle();
         result.putInt("eventoParaV_04_1", id_eve_bundle);
@@ -176,13 +176,13 @@ public class V_04 extends Fragment {
                                     persona = (Persona_per_test) document.toObject(Persona_per_test.class);
                                     Toast.makeText(getActivity(), "Bien venido " + persona.getNombre_per(), Toast.LENGTH_LONG).show();
                                     //si es valiente
-                                    if (persona.getId_val_col_per() == 1) {
-                                        sesionIniciada = persona.getId_val_col_per();
+                                    if (persona.getUsuariotipo_per() == 1) {
+                                        sesionIniciada = persona.getUsuariotipo_per();
                                         Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v05, result);
                                     }
                                     //si es colaborador
-                                    if (persona.getId_val_col_per() == 2) {
-                                        sesionIniciada = persona.getId_val_col_per();
+                                    if (persona.getUsuariotipo_per() == 2) {
+                                        sesionIniciada = persona.getUsuariotipo_per();
 
                                         Intent intent = new Intent(getActivity(), MainActivity_col.class);
                                         intent.putExtra("abrirEnMainActivity_col", 1);

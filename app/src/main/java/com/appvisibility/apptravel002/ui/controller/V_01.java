@@ -30,7 +30,7 @@ public class V_01 extends Fragment {
     private Button v01_buscar_actividades;
 
     //TODO:servise
-    private int resultado = 1;
+    private int usuariotipo = 1;
 
     public V_01() {
         // Required empty public constructor
@@ -54,13 +54,13 @@ public class V_01 extends Fragment {
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
                 case R.id.v01_rbt_excursiones_un_dia:
-                    resultado = 1;
+                    usuariotipo = 1;
                     break;
                 case R.id.v01_rbt_fin_semana:
-                    resultado = 2;
+                    usuariotipo = 2;
                     break;
                 case R.id.v01_rbt_aventuras_largas:
-                    resultado = 3;
+                    usuariotipo = 3;
                     break;
             }
         });
@@ -68,15 +68,15 @@ public class V_01 extends Fragment {
         v01_buscar_actividades = view.findViewById(R.id.v01_btn_buscar_actividades);
         v01_buscar_actividades.setOnClickListener(view1 -> {
 
-            if (resultado == 1) {
-                Navigation.findNavController(view1).navigate(R.id.action_nav_inicio_v01_to_nav_v02);
+            if (usuariotipo == 1) {
+                Navigation.findNavController(view1).navigate(R.id.col_action_nav_inicio_v01_to_nav_v02);
                 Toast.makeText(getActivity(), "Excursiones de un día", Toast.LENGTH_SHORT).show();
             }
-            if (resultado == 2) {
+            if (usuariotipo == 2) {
                 Navigation.findNavController(view1).navigate(R.id.action_nav_inicio_v01_to_nav_v02);
                 Toast.makeText(getActivity(), "Fin de semana", Toast.LENGTH_SHORT).show();
             }
-            if (resultado == 3) {
+            if (usuariotipo == 3) {
                 Navigation.findNavController(view1).navigate(R.id.action_nav_inicio_v01_to_nav_v02);
                 Toast.makeText(getActivity(), "Aventuras mas largas", Toast.LENGTH_SHORT).show();
             }

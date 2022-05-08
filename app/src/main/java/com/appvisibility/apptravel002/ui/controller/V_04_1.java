@@ -16,11 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.appvisibility.apptravel002.R;
@@ -71,7 +68,7 @@ public class V_04_1 extends Fragment {
 
     //TODO:servise
     private ProgressDialog pdg;
-    private int resultado = 1;
+    private int usuariotipo = 1;
 
 
     /**
@@ -133,11 +130,11 @@ public class V_04_1 extends Fragment {
             switch (checkedId) {
                 case R.id.v04_1_rbt_soy_valiente:
                     Toast.makeText(getActivity(), "Me registro como valiente", Toast.LENGTH_SHORT).show();
-                    resultado = 1;
+                    usuariotipo = 1;
                     break;
                 case R.id.v04_1_rbt_soy_colaborador:
                     Toast.makeText(getActivity(), "Me registro como colaborador", Toast.LENGTH_SHORT).show();
-                    resultado = 2;
+                    usuariotipo = 2;
                     break;
             }
         });
@@ -216,7 +213,7 @@ public class V_04_1 extends Fragment {
         user.put("email_per", email_val);
         user.put("dni_per", dni_val);
         user.put("movil_per", movil_val);
-        user.put("id_val_col_per", resultado);
+        user.put("id_val_col_per", usuariotipo);
 
         fba.createUserWithEmailAndPassword(email_val, contrasenna_val)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
@@ -229,7 +226,7 @@ public class V_04_1 extends Fragment {
 
                             //añadomos el usuario a FirebaseFirestore
                             fbf.collection("persona_per_test").document(fba.getUid()).set(user);
-                            sesionIniciada = resultado;
+                            sesionIniciada = usuariotipo;
                             Navigation.findNavController(view).navigate(R.id.action_nav_v04_1_to_nav_v05, result);
                         } else {
                             Toast.makeText(getActivity(), "Ya existe el usuario con el mismo mail", Toast.LENGTH_LONG).show();

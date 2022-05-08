@@ -111,13 +111,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     if (document.exists()) {
                         //recuperamos la persona
                         persona = (Persona_per_test) document.toObject(Persona_per_test.class);
-                        if (persona.getId_val_col_per() == 1) {
-                            sesionIniciada = persona.getId_val_col_per();
+                        if (persona.getUsuariotipo_per() == 1) {
+                            sesionIniciada = persona.getUsuariotipo_per();
                         }
-                        if (persona.getId_val_col_per() == 2) {
-                            sesionIniciada = persona.getId_val_col_per();
+                        if (persona.getUsuariotipo_per() == 2) {
+                            sesionIniciada = persona.getUsuariotipo_per();
                             Intent intent = new Intent(this, MainActivity_col.class);
                             intent.putExtra("abrirEnMainActivity_col", 1);
+                            intent.putExtra("eventoParaV_04", 1);
                             startActivity(intent);
                         }
                     } else {
@@ -135,20 +136,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.colaborador) {
-
             if (sesionIniciada == 0) {
-
                 Intent intent = new Intent(this, MainActivity_col.class);
                 intent.putExtra("abrirEnMainActivity_col", 4);
                 startActivity(intent);
-
                 Toast.makeText(MainActivity.this, "Inicie la sesion por favor", Toast.LENGTH_LONG).show();
             } else if (sesionIniciada == 2) {
                 getApplication().setTheme(R.style.Theme_Apptravel002_col);
                 Fragment v_02 = new V_02();
                 show(v_02);
             } else {
-                Toast.makeText(MainActivity.this, "No eres colaborador", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "No tienes permisos", Toast.LENGTH_LONG).show();
+            }
+        }
+        if (id == R.id.administrador) {
+            if (sesionIniciada == 0) {
+                Intent intent = new Intent(this, MainActivity_adm.class);
+                intent.putExtra("abrirEnMainActivity_adm", 4);
+                startActivity(intent);
+                Toast.makeText(MainActivity.this, "Inicie la sesion por favor", Toast.LENGTH_LONG).show();
+            } else if (sesionIniciada == 3) {
+                getApplication().setTheme(R.style.Theme_Apptravel002_adm);
+                Fragment v_02 = new V_02();
+                show(v_02);
+            } else {
+                Toast.makeText(MainActivity.this, "No tienes permisos", Toast.LENGTH_LONG).show();
             }
         }
         if (id == R.id.cerrar_session) {

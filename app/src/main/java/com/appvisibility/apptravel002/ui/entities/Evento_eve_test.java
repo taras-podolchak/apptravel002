@@ -32,9 +32,9 @@ public class Evento_eve_test implements Serializable {
     private int plazaslibrestransportecolectivo_eve;
     private String estado_eve;
     private String descestado_eve;
-    private List<Persona_per_test> listValiente = new ArrayList<>();
-    private List<Actividad_act> listActividad = new ArrayList<>();
-    private List<Alojamiento_alo> listAlojamiento = new ArrayList<>();
+    private List<Persona_per_test> personas = new ArrayList<>();
+    private List<Actividad_act> actividades = new ArrayList<>();
+    private List<Alojamiento_alo> alojamientos = new ArrayList<>();
 
     public Evento_eve_test() {
         super();
@@ -49,9 +49,9 @@ public class Evento_eve_test implements Serializable {
             String transportetipo_eve,
             String fechaidatru_eve,
             String fechavueltatru_eve,
-            List<Persona_per_test> listValiente,
-            List<Actividad_act> listActividad,
-            List<Alojamiento_alo> listAlojamiento
+            List<Persona_per_test> personas,
+            List<Actividad_act> actividades,
+            List<Alojamiento_alo> alojamientos
     ) {
         super();
         this.id_eve = id_eve;
@@ -62,9 +62,9 @@ public class Evento_eve_test implements Serializable {
         this.transportetipo_eve = transportetipo_eve;
         this.fechaidatru_eve = fechaidatru_eve;
         this.fechavueltatru_eve = fechavueltatru_eve;
-        this.listValiente = listValiente;
-        this.listActividad = listActividad;
-        this.listAlojamiento = listAlojamiento;
+        this.personas = personas;
+        this.actividades = actividades;
+        this.alojamientos = alojamientos;
     }
 
     public Evento_eve_test(
@@ -94,9 +94,9 @@ public class Evento_eve_test implements Serializable {
             int distanciavueltatru_eve,
             String estado_eve,
             String descestado_eve,
-            List<Persona_per_test> listValiente,
-            List<Actividad_act> listActividad,
-            List<Alojamiento_alo> listAlojamiento
+            List<Persona_per_test> personas,
+            List<Actividad_act> actividades,
+            List<Alojamiento_alo> alojamientos
     ) {
         super();
         this.id_eve = id_eve;
@@ -125,9 +125,9 @@ public class Evento_eve_test implements Serializable {
         this.distanciavueltatru_eve = distanciavueltatru_eve;
         this.estado_eve = estado_eve;
         this.descestado_eve = descestado_eve;
-        this.listValiente = listValiente;
-        this.listActividad = listActividad;
-        this.listAlojamiento = listAlojamiento;
+        this.personas = personas;
+        this.actividades = actividades;
+        this.alojamientos = alojamientos;
     }
 
     public int getId_eve() {
@@ -339,28 +339,28 @@ public class Evento_eve_test implements Serializable {
     }
 
 
-    public List<Persona_per_test> getListValiente() {
-        return listValiente;
+    public List<Persona_per_test> getPersonas() {
+        return personas;
     }
 
-    public void setListValiente(List<Persona_per_test> listValiente) {
-        this.listValiente = listValiente;
+    public void setPersonas(List<Persona_per_test> personas) {
+        this.personas = personas;
     }
 
-    public List<Actividad_act> getListActividad() {
-        return listActividad;
+    public List<Actividad_act> getActividades() {
+        return actividades;
     }
 
-    public void setListActividad(List<Actividad_act> listActividad) {
-        this.listActividad = listActividad;
+    public void setActividades(List<Actividad_act> actividades) {
+        this.actividades = actividades;
     }
 
-    public List<Alojamiento_alo> getListAlojamiento() {
-        return listAlojamiento;
+    public List<Alojamiento_alo> getAlojamientos() {
+        return alojamientos;
     }
 
-    public void setListAlojamiento(List<Alojamiento_alo> listAlojamiento) {
-        this.listAlojamiento = listAlojamiento;
+    public void setAlojamientos(List<Alojamiento_alo> alojamientos) {
+        this.alojamientos = alojamientos;
     }
 
     @Override

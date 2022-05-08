@@ -35,7 +35,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 
-public class V_02 extends Fragment implements IDAO <Evento_eve_test, Object, Object> {
+public class V_02 extends Fragment implements IDAO<Evento_eve_test, Object, Object> {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -112,7 +112,7 @@ public class V_02 extends Fragment implements IDAO <Evento_eve_test, Object, Obj
         this.v02_adapter_eve = new v02_00_eve_Adapter(eventos_list, mContext);
 
         Query query1 = fbf.collection("evento_eve_test").orderBy("id_eve", Query.Direction.ASCENDING);
-        tabla1ChangeListener (query1, eventos_list, Evento_eve_test.class, v02_adapter_eve);
+        tabla1ChangeListener(query1, eventos_list, Evento_eve_test.class, v02_adapter_eve);
 
         this.v02_recycler_eve.setAdapter(v02_adapter_eve);
         return view;

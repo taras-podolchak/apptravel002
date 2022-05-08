@@ -1,13 +1,11 @@
 package com.appvisibility.apptravel002;
 
 import android.content.Intent;
-
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
 
-import com.appvisibility.apptravel002.databinding.ActivityMainColBinding;
 import com.appvisibility.apptravel002.ui.controller.V_01;
 import com.appvisibility.apptravel002.ui.controller.V_02;
 import com.appvisibility.apptravel002.ui.controller.V_03;
@@ -24,18 +22,19 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity_col extends AppCompatActivity {
+import com.appvisibility.apptravel002.databinding.ActivityMainAdmBinding;
+
+public class MainActivity_adm extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private ActivityMainColBinding binding;
-
+    private ActivityMainAdmBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        int num = intent.getIntExtra("abrirEnMainActivity_col", 0);
+        int num = intent.getIntExtra("abrirEnMainActivity_adm", 0);
         int id_eve_bundle = intent.getIntExtra("eventoParaV_03", 0);
 
         Bundle result = new Bundle();
@@ -54,12 +53,12 @@ public class MainActivity_col extends AppCompatActivity {
                     .add(android.R.id.content, new V_03()).commit();
         }
         if (num == 4) {
-           /* V_04 v_04 = new V_04();
+            V_04 v_04 = new V_04();
             v_04.setArguments(result);
-            getSupportFragmentManager().beginTransaction().replace(R.id.content, v_04).commit();*/
+            getSupportFragmentManager().beginTransaction().replace(R.id.content, v_04).commit();
 
-            getSupportFragmentManager().beginTransaction()
-                    .add(android.R.id.content, new V_04()).commit();
+            /*getSupportFragmentManager().beginTransaction()
+                    .add(android.R.id.content,( new V_04().setArguments(result))).commit();*/
         }
         if (num == 5) {
             getSupportFragmentManager().beginTransaction()
@@ -72,23 +71,26 @@ public class MainActivity_col extends AppCompatActivity {
             Toast.makeText(this, "Bundle llega vacio", Toast.LENGTH_LONG).show();
         }
 
-        binding = ActivityMainColBinding.inflate(getLayoutInflater());
+        binding = ActivityMainAdmBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setSupportActionBar(binding.appBarMainActivityCol.toolbar);
-        binding.appBarMainActivityCol.fab.setOnClickListener(new View.OnClickListener() {
+
+        setSupportActionBar(binding.appBarMainActivityAdm.toolbar);
+        binding.appBarMainActivityAdm.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-        DrawerLayout drawer = binding.drawerLayoutCol.findViewById(R.id.drawer_layout_col);
-        NavigationView navigationView = binding.navViewCol.findViewById(R.id.nav_view_col);
+        DrawerLayout drawer = binding.drawerLayout;
+        NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_v01, R.id.nav_v02, R.id.nav_v03, R.id.nav_v04, R.id.nav_v05, R.id.nav_v06).build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main_activity_col);
+                R.id.nav_v01_inicio, R.id.nav_v02, R.id.nav_v03, R.id.nav_v04, R.id.nav_v05, R.id.nav_v06)
+                .setOpenableLayout(drawer)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main_activity_adm);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
@@ -96,15 +98,14 @@ public class MainActivity_col extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_col, menu);
+        getMenuInflater().inflate(R.menu.main_adm, menu);
         return true;
     }
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main_activity_col);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main_activity_adm);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
 }
-

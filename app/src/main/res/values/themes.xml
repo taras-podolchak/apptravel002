@@ -62,4 +62,27 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="Theme.Apptravel002_adm.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Apptravel002_adm.AppBarOverlay" parent="Theme.Apptravel002_adm" />
+
+    <style name="Theme.Apptravel002_adm.PopupOverlay" parent="Theme.Apptravel002_adm" />
+
+    <style name="Theme.Apptravel002_adm" parent="Theme.MaterialComponents.DayNight">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#21b04b</item>
+        <item name="colorPrimaryVariant">#21b04b</item>
+        <item name="colorOnPrimary">@color/corp_blanco</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#62e379</item>
+        <item name="colorSecondaryVariant">#62e379</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
 </resources>

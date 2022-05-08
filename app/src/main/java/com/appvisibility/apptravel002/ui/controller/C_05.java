@@ -165,7 +165,6 @@ public class C_05 extends Fragment implements IDAO<Persona_per_test, Object, Obj
                 }
                 lista.clear();
                 for (QueryDocumentSnapshot qds : snapshots) {
-                    //valiente = (Valiente_val) qds.toObject(tipoObjeto);
                     valiente = (Persona_per_test) qds.toObject(tipoObjeto);
 //                    lista.add(enProceso);
 //                miAdapter.notifyDataSetChanged();
