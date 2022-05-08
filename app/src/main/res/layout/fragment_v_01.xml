@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="120dp"
         android:background="@drawable/v01_contenedor_blanco"
+        android:elevation="20dp"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="25dp">
@@ -30,6 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginHorizontal="50dp"
+                android:checked="true"
                 android:text="Excurciones de un dia" />
 
             <RadioButton
@@ -55,8 +57,9 @@
             android:layout_marginStart="50dp"
             android:layout_marginTop="80dp"
             android:layout_marginEnd="50dp"
-            android:background="@drawable/v01_boton_formato_l"
-            android:text="Buscar actividades" />
+            android:background="@drawable/btn_formato_left_val"
+            android:text="Buscar actividades"
+            />
     </LinearLayout>
 
 </LinearLayout>

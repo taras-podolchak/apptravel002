@@ -29,10 +29,12 @@ public class Evento_eve_test implements Serializable {
     private String salidavueltatru_eve;
     private String llegadavueltatru_eve;
     private int distanciavueltatru_eve;
+    private int plazaslibrestransportecolectivo_eve;
     private String estado_eve;
     private String descestado_eve;
-    private List<Valiente_val> listValiente = new ArrayList<>();
-    private List<Actividad_act> listActividad = new ArrayList<>();
+    private List<Persona_per_test> personas = new ArrayList<>();
+    private List<Actividad_act> actividades = new ArrayList<>();
+    private List<Alojamiento_alo> alojamientos = new ArrayList<>();
 
     public Evento_eve_test() {
         super();
@@ -47,8 +49,9 @@ public class Evento_eve_test implements Serializable {
             String transportetipo_eve,
             String fechaidatru_eve,
             String fechavueltatru_eve,
-            List<Valiente_val> listValiente,
-            List<Actividad_act> listActividad
+            List<Persona_per_test> personas,
+            List<Actividad_act> actividades,
+            List<Alojamiento_alo> alojamientos
     ) {
         super();
         this.id_eve = id_eve;
@@ -59,8 +62,9 @@ public class Evento_eve_test implements Serializable {
         this.transportetipo_eve = transportetipo_eve;
         this.fechaidatru_eve = fechaidatru_eve;
         this.fechavueltatru_eve = fechavueltatru_eve;
-        this.listValiente = listValiente;
-        this.listActividad = listActividad;
+        this.personas = personas;
+        this.actividades = actividades;
+        this.alojamientos = alojamientos;
     }
 
     public Evento_eve_test(
@@ -83,14 +87,16 @@ public class Evento_eve_test implements Serializable {
             String llegadaidatru_eve,
             String llegadacoordenadastru_eve,
             int distanciaidatru_eve,
+            int plazaslibrestransportecolectivo_eve,
             String fechavueltatru_eve,
             String salidavueltatru_eve,
             String llegadavueltatru_eve,
             int distanciavueltatru_eve,
             String estado_eve,
             String descestado_eve,
-            List<Valiente_val> listValiente,
-            List<Actividad_act> listActividad
+            List<Persona_per_test> personas,
+            List<Actividad_act> actividades,
+            List<Alojamiento_alo> alojamientos
     ) {
         super();
         this.id_eve = id_eve;
@@ -112,14 +118,16 @@ public class Evento_eve_test implements Serializable {
         this.llegadaidatru_eve = llegadaidatru_eve;
         this.llegadacoordenadastru_eve = llegadacoordenadastru_eve;
         this.distanciaidatru_eve = distanciaidatru_eve;
+        this.plazaslibrestransportecolectivo_eve = plazaslibrestransportecolectivo_eve;
         this.fechavueltatru_eve = fechavueltatru_eve;
         this.salidavueltatru_eve = salidavueltatru_eve;
         this.llegadavueltatru_eve = llegadavueltatru_eve;
         this.distanciavueltatru_eve = distanciavueltatru_eve;
         this.estado_eve = estado_eve;
         this.descestado_eve = descestado_eve;
-        this.listValiente = listValiente;
-        this.listActividad = listActividad;
+        this.personas = personas;
+        this.actividades = actividades;
+        this.alojamientos = alojamientos;
     }
 
     public int getId_eve() {
@@ -274,6 +282,14 @@ public class Evento_eve_test implements Serializable {
         this.distanciaidatru_eve = distanciaidatru_eve;
     }
 
+    public int getPlazaslibrestransportecolectivo_eve() {
+        return plazaslibrestransportecolectivo_eve;
+    }
+
+    public void setPlazaslibrestransportecolectivo_eve(int plazaslibrestransportecolectivo_eve) {
+        this.plazaslibrestransportecolectivo_eve = plazaslibrestransportecolectivo_eve;
+    }
+
     public String getFechavueltatru_eve() {
         return fechavueltatru_eve;
     }
@@ -323,20 +339,28 @@ public class Evento_eve_test implements Serializable {
     }
 
 
-    public List<Valiente_val> getListValiente() {
-        return listValiente;
+    public List<Persona_per_test> getPersonas() {
+        return personas;
     }
 
-    public void setListValiente(List<Valiente_val> listValiente) {
-        this.listValiente = listValiente;
+    public void setPersonas(List<Persona_per_test> personas) {
+        this.personas = personas;
     }
 
-    public List<Actividad_act> getListActividad() {
-        return listActividad;
+    public List<Actividad_act> getActividades() {
+        return actividades;
     }
 
-    public void setListActividad(List<Actividad_act> listActividad) {
-        this.listActividad = listActividad;
+    public void setActividades(List<Actividad_act> actividades) {
+        this.actividades = actividades;
+    }
+
+    public List<Alojamiento_alo> getAlojamientos() {
+        return alojamientos;
+    }
+
+    public void setAlojamientos(List<Alojamiento_alo> alojamientos) {
+        this.alojamientos = alojamientos;
     }
 
     @Override

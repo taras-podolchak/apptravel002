@@ -22,7 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appvisibility.apptravel002.R;
-import com.appvisibility.apptravel002.ui.entities.Evento_eve;
+import com.appvisibility.apptravel002.ui.entities.Evento_eve_test;
 import com.appvisibility.apptravel002.ui.service.v02_00_eve_Adapter;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -37,7 +37,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class V_05_1 extends Fragment implements IDAO <Evento_eve, Object, Object>, OnMapReadyCallback {
+public class V_05_1 extends Fragment implements IDAO<Evento_eve_test, Object, Object>, OnMapReadyCallback {
 
     //TODO:los campos de xml
     private TextView v05_1_titulo_eve;
@@ -57,7 +57,7 @@ public class V_05_1 extends Fragment implements IDAO <Evento_eve, Object, Object
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
 
     //TODO:entities
-    private Evento_eve evento;
+    private Evento_eve_test evento;
 
     //service
     private int id_eve_bundle;
@@ -83,11 +83,11 @@ public class V_05_1 extends Fragment implements IDAO <Evento_eve, Object, Object
 
         // TODO: carga de Evento
         // EOB: Intentar pasar este método a changeNoListener y eliminar las dos líneas siguientes
-        List<Evento_eve> eventos = new ArrayList<>();
+        List<Evento_eve_test> eventos_list = new ArrayList<>();
         v02_00_eve_Adapter v02_adapter_eve = null;
 
-        Query query1 = fbf.collection("evento_eve").whereEqualTo("id_eve", id_eve_bundle);
-        tabla1ChangeListener (query1, eventos, Evento_eve.class, v02_adapter_eve);
+        Query query1 = fbf.collection("evento_eve_test").whereEqualTo("id_eve", id_eve_bundle);
+        tabla1ChangeListener(query1, eventos_list, Evento_eve_test.class, v02_adapter_eve);
 
 //        DocumentReference drf = fbf.collection("evento_eve").document(String.valueOf(id_eve_bundle));
 //        DocumentChangeListener(drf);
@@ -114,8 +114,8 @@ public class V_05_1 extends Fragment implements IDAO <Evento_eve, Object, Object
         v05_1_recomendaciones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://amigosmontanawo.eboe62.com/preguntas-frecuentes-faq/"));
-               startActivity(intent);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://amigosmontanawo.eboe62.com/preguntas-frecuentes-faq/"));
+                startActivity(intent);
 //                webView.loadUrl("https://amigosmontanawo.eboe62.com/preguntas-frecuentes-faq/");
             }
         });
@@ -143,7 +143,7 @@ public class V_05_1 extends Fragment implements IDAO <Evento_eve, Object, Object
                 }
                 lista.clear();
                 for (QueryDocumentSnapshot qds : snapshots) {
-                    evento = (Evento_eve) qds.toObject(tipoObjeto);
+                    evento = (Evento_eve_test) qds.toObject(tipoObjeto);
 //                    lista.add(enProceso);
 //                miAdapter.notifyDataSetChanged();
 
@@ -200,7 +200,7 @@ public class V_05_1 extends Fragment implements IDAO <Evento_eve, Object, Object
 
     }
 
-// https://stackoverflow.com/questions/27425547/cannot-resolve-method-getsupportfragmentmanager-inside-fragment
+    // https://stackoverflow.com/questions/27425547/cannot-resolve-method-getsupportfragmentmanager-inside-fragment
     public void cargarMapa() {
         // Buscamos el Fragment
         SupportMapFragment mapaFrag = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.fragmentMap);

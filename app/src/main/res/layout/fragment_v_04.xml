@@ -69,7 +69,7 @@
             android:layout_marginHorizontal="50dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/v01_boton_formato_l"
+            android:background="@drawable/btn_formato_left_val"
             android:text="Iniciar sesion" />
     </LinearLayout>
 
@@ -79,6 +79,6 @@
         android:layout_marginHorizontal="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/v01_boton_formato_l"
+        android:background="@drawable/btn_formato_left_val"
         android:text="Registrarse" />
 </LinearLayout>

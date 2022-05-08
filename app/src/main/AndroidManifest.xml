@@ -4,8 +4,11 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <application
         android:allowBackup="true"
@@ -14,6 +17,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Apptravel002">
+        <activity
+            android:name=".MainActivity_adm"
+            android:exported="false"
+            android:label="@string/title_activity_main_adm"
+            android:theme="@style/Theme.Apptravel002_adm.NoActionBar" />
+        <activity
+            android:name=".MainActivity_col"
+            android:exported="false"
+            android:label="@string/title_activity_main_col"
+            android:theme="@style/Theme.Apptravel002_col.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -24,8 +37,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-<!-- Configuracion acceso a Google maps  -->
+        </activity> <!-- Configuracion acceso a Google maps -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />

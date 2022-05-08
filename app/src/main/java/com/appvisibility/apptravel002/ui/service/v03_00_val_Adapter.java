@@ -140,7 +140,7 @@ public class v03_00_val_Adapter extends RecyclerView.Adapter<v03_00_val_Adapter.
                 Bundle bundle = new Bundle();
                 bundle.putInt("valienteParaC_05", id_val_enProceso);
                 // TODO EOB: Sustituir condicion del if por "roll == colaborador"
-                if (!sesionIniciada) {
+                if (sesionIniciada==1) {
                     Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundle);
                 } else {
                     Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundle);
@@ -162,7 +162,7 @@ public class v03_00_val_Adapter extends RecyclerView.Adapter<v03_00_val_Adapter.
                 Bundle bundle = new Bundle();
                 bundle.putInt("valienteParaC_05_tpr", id_val_enProceso);
                 // TODO EOB: Sustituir condicion del if por "roll == colaborador"
-                if (!sesionIniciada) {
+                if (sesionIniciada==1) {
                     Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundle);
                 } else {
                     Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundle);
@@ -186,6 +186,7 @@ public class v03_00_val_Adapter extends RecyclerView.Adapter<v03_00_val_Adapter.
         private ImageView v03_fotopropia_val;
         private TextView v03_apodo_val;
         private TextView v03_movil_val;
+        private TextView v03_coche_val;
         private TextView v03_email_val;
         private TextView v03_id_tpr;
         private ImageView v03_ico_coche;
@@ -199,8 +200,8 @@ public class v03_00_val_Adapter extends RecyclerView.Adapter<v03_00_val_Adapter.
             this.v03_fotopropia_val = v.findViewById(R.id.v03_cdv_imv_fotopropia_val);
             this.v03_apodo_val = v.findViewById(R.id.v03_cdv_txv_apodo_val);
             this.v03_movil_val = v.findViewById(R.id.v03_cdv_txv_movil_val);
-            this.v03_email_val = v.findViewById(R.id.v03_cdv_txv_id_tpr);
-            this.v03_id_tpr = v.findViewById(R.id.v03_cdv_txv_email_val);
+            this.v03_email_val = v.findViewById(R.id.v03_cdv_txv_email_val);
+            this.v03_id_tpr = v.findViewById(R.id.v03_cdv_txv_id_tpr);
             this.v03_ico_coche = v.findViewById(R.id.v03_cdv_imv_ico_coche);
             if (String.valueOf(v03_plazaslibres_tpr).equals("Plazas libres: -1")){
                 this.v03_ico_coche.setImageResource(R.drawable.ico_coche_rojo);

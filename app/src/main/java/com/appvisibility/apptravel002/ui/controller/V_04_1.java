@@ -1,5 +1,7 @@
 package com.appvisibility.apptravel002.ui.controller;
 
+import static com.appvisibility.apptravel002.MainActivity.sesionIniciada;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -15,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.appvisibility.apptravel002.R;
@@ -54,13 +56,11 @@ public class V_04_1 extends Fragment {
     private EditText v04_1_contrasenna2_val;
     private EditText v04_1_dni_val;
     private EditText v04_1_movil_val;
-    private Spinner v04_1_spinner_valiente_colaborador;
     private CheckBox v04_1_condicioneslegales_val;
 
     //TODO:acceso a datos
     private FirebaseAuth fba = FirebaseAuth.getInstance();
     private FirebaseFirestore fbf = FirebaseFirestore.getInstance();
-    // private DatabaseReference mDatabase; //no necesitamos esa bbdd
 
     //TODO:entities
     private Context mContext;
@@ -68,6 +68,8 @@ public class V_04_1 extends Fragment {
 
     //TODO:servise
     private ProgressDialog pdg;
+    private int usuariotipo = 1;
+
 
     /**
      * Use this factory method to create a new instance of
@@ -111,10 +113,6 @@ public class V_04_1 extends Fragment {
         result = new Bundle();
         result.putInt("eventoParaV_05", id_eve_bundle);
 
-        //2ºREGISTROFB
-
-        //mDatabase = FirebaseDatabase.getInstance().getReference();  //no necesitamos  esa bbdd
-        //Referenciamos los views
         v04_1_nombre_val = view.findViewById(R.id.v04_1_etx_nombre_val);
         v04_1_apellido1_val = view.findViewById(R.id.v04_1_etx_apellido1_val);
         v04_1_apellido2_val = view.findViewById(R.id.v04_1_etx_apellido2_val);
@@ -123,47 +121,31 @@ public class V_04_1 extends Fragment {
         v04_1_contrasenna2_val = view.findViewById(R.id.v04_1_etx_contrasenna2_val);
         v04_1_dni_val = view.findViewById(R.id.v04_1_etx_dni_val);
         v04_1_movil_val = view.findViewById(R.id.v04_1_etx_movil_val);
-        //v04_1_spinner_valiente_colaborador = view.findViewById(R.id.v04_1_spinner_valiente_colaborador);
         v04_1_condicioneslegales_val = view.findViewById(R.id.v04_1_ckb_condicioneslegales_val);
         v04_1_aceptar = view.findViewById(R.id.v04_1_btn_aceptar);
         v04_1_volver = view.findViewById(R.id.v04_1_btn_volver);
+        RadioGroup radioGroup = view.findViewById(R.id.v04_1_RadioGroup);
 
-        //el spinner para el futuro
-        /*String[] arraySpinner = new String[]{
-                "Valiente", "Colaborador"
-        };
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, arraySpinner);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        v04_1_spinner_valiente_colaborador.setAdapter(adapter);
-        v04_1_spinner_valiente_colaborador.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
-                // TODO Auto-generated method stub
-                 v04_1_resultado_spinner_valiente_colaborador = v04_1_spinner_valiente_colaborador.getSelectedItem().toString();
-                //Toast.makeText(getActivity(), resultado, Toast.LENGTH_SHORT).show();
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            switch (checkedId) {
+                case R.id.v04_1_rbt_soy_valiente:
+                    Toast.makeText(getActivity(), "Me registro como valiente", Toast.LENGTH_SHORT).show();
+                    usuariotipo = 1;
+                    break;
+                case R.id.v04_1_rbt_soy_colaborador:
+                    Toast.makeText(getActivity(), "Me registro como colaborador", Toast.LENGTH_SHORT).show();
+                    usuariotipo = 2;
+                    break;
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                // TODO Auto-generated method stub
-            }
-        });*/
+        });
 
         pdg = new ProgressDialog(mContext);
-        v04_1_aceptar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //la navegacion se hace en registrarUsuario despues de que todos datos tienen exito
-                registrarUsuario(view);
-            }
+        v04_1_aceptar.setOnClickListener(view12 -> {
+            //la navegacion se hace en registrarUsuario despues de que todos datos tienen exito
+            registrarUsuario(view12);
         });
 
-        v04_1_volver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_nav_v04_1_to_nav_v04);
-            }
-        });
+        v04_1_volver.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_nav_v04_1_to_nav_v04));
         return view;
     }
 
@@ -225,26 +207,28 @@ public class V_04_1 extends Fragment {
 
         //creamos el objeto del usuario
         Map<String, Object> user = new HashMap<>();
-        user.put("nombre_val", nombre_val);
-        user.put("apellido1_val", apellido1_val);
-        user.put("apellido2_val", apellido2_val);
-        user.put("email_val", email_val);
-        user.put("dni_val", dni_val);
-        user.put("movil_val", movil_val);
-        user.put("usuariotipo_val", "Valiente");
+        user.put("nombre_per", nombre_val);
+        user.put("apellido1_per", apellido1_val);
+        user.put("apellido2_per", apellido2_val);
+        user.put("email_per", email_val);
+        user.put("dni_per", dni_val);
+        user.put("movil_per", movil_val);
+        user.put("id_val_col_per", usuariotipo);
 
         fba.createUserWithEmailAndPassword(email_val, contrasenna_val)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+
                         //comprobando el éxito
                         if (task.isSuccessful()) {
                             Toast.makeText(getActivity(), "Se ha registrado el usuario: " + nombre_val + " " + apellido1_val, Toast.LENGTH_LONG).show();
+
                             //añadomos el usuario a FirebaseFirestore
-                            fbf.collection("valiente_val").document(fba.getUid()).set(user);
+                            fbf.collection("persona_per_test").document(fba.getUid()).set(user);
+                            sesionIniciada = usuariotipo;
                             Navigation.findNavController(view).navigate(R.id.action_nav_v04_1_to_nav_v05, result);
                         } else {
-
                             Toast.makeText(getActivity(), "Ya existe el usuario con el mismo mail", Toast.LENGTH_LONG).show();
                         }
                         pdg.dismiss();
@@ -252,13 +236,5 @@ public class V_04_1 extends Fragment {
                 });
         pdg.setMessage("Realizando registro en linea...");
         pdg.show();
-
-        //es un ejemplo como trabajar con DatabaseReference //no necesitamos  esa bbdd
-        /*mDatabase.child("16").child("data").child("30").child("nombre_val").setValue(nombre_val);
-        mDatabase.child("16").child("data").child("30").child("apellido1_va").setValue(apellido1_val);
-        mDatabase.child("16").child("data").child("30").child("email_val").setValue(email_val);
-        mDatabase.child("16").child("data").child("30").child("dni_val").setValue(dni_val);
-       // mDatabase.child("16").child("data").add/*child("30").child("movil_val").setValue(movil_val)*/
-        ;
     }
 }

@@ -74,6 +74,7 @@ public class V_03 extends Fragment {
     private TextView v03_inscritos_eve;
     private RecyclerView v03_recycler_val;
     private RecyclerView v03_recycler_act;
+    //private RecyclerView v03_recycler_val;
 
     //TODO:acceso a datos
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
@@ -120,6 +121,7 @@ public class V_03 extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
@@ -129,17 +131,20 @@ public class V_03 extends Fragment {
         mContext = context;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_03, container, false);
 
+        /*ActionBar supportActionBar= ((AppCompatActivity) getActivity()).getSupportActionBar();
+        supportActionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#864d2d")));*/
+
         id_eve_bundle = getArguments().getInt("eventoParaV_03");
 
-        Bundle bundle = new Bundle();
-        bundle.putInt("eventoParaV_04", id_eve_bundle);
-        bundle.putInt("eventoParaV_05", id_eve_bundle);
-        bundle.putInt("eventoParaV_05_1", id_eve_bundle);
+        Bundle result = new Bundle();
+        result.putInt("eventoParaV_04", id_eve_bundle);
+        result.putInt("eventoParaV_05", id_eve_bundle);
+        result.putInt("eventoParaV_05_1", id_eve_bundle);
 
         this.v03_titulo_eve = view.findViewById(R.id.v03_txv_titulo_eve);
         this.v03_foto_eve = view.findViewById(R.id.v03_imv_foto_eve);
@@ -225,16 +230,16 @@ public class V_03 extends Fragment {
         v03_foto_eve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v05_1, bundle);
+                Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v05_1, result);
             }
         });
 
         v03_me_interesa = view.findViewById(R.id.v03_btn_me_interesa);
         v03_me_interesa.setOnClickListener(view12 -> {
-            if (!sesionIniciada) {
-                Navigation.findNavController(view12).navigate(R.id.action_nav_v03_to_nav_v04, bundle);
+            if (sesionIniciada == 0) {
+                Navigation.findNavController(view12).navigate(R.id.action_nav_v03_to_nav_v04, result);
             } else {
-                Navigation.findNavController(view12).navigate(R.id.action_nav_v03_to_nav_v05, bundle);
+                Navigation.findNavController(view12).navigate(R.id.action_nav_v03_to_nav_v05, result);
             }
         });
         v03_volver = view.findViewById(R.id.v03_btn_volver);

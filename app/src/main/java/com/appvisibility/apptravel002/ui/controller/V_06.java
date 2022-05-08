@@ -1,10 +1,15 @@
 package com.appvisibility.apptravel002.ui.controller;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.provider.CalendarContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +17,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.appvisibility.apptravel002.R;
+
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,20 +74,26 @@ public class V_06 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_06, container, false);
-        v06_activar_aviso = view.findViewById(R.id.v06_btn_activar_aviso);    //button v01_boton_buscaar_actividades
-        v06_activar_aviso.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(), "Se activará aviso", Toast.LENGTH_SHORT).show();
-            }
+        v06_activar_aviso = view.findViewById(R.id.v06_btn_activar_aviso);
+        v06_activar_aviso.setOnClickListener(view1 -> {
+            Calendar beginTime = Calendar.getInstance();
+            beginTime.set(2012, 0, 19, 7, 30);
+            Calendar endTime = Calendar.getInstance();
+            endTime.set(2012, 0, 19, 8, 30);
+            Intent intent = new Intent(Intent.ACTION_INSERT)
+                    .setData(CalendarContract.Events.CONTENT_URI)
+                    .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis())
+                    .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())
+                    .putExtra(CalendarContract.Events.TITLE, "Yoga")
+                    .putExtra(CalendarContract.Events.DESCRIPTION, "Group class")
+                    .putExtra(CalendarContract.Events.EVENT_LOCATION, "The gym")
+                    .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY)
+                    .putExtra(Intent.EXTRA_EMAIL, "rowan@example.com,trevor@example.com");
+            startActivity(intent);
         });
+
         v06_mas_actividades = view.findViewById(R.id.v06_btn_buscar_mas_actividades);
-        v06_mas_actividades.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_nav_v06_to_nav_inicio_v01);
-            }
-        });
+        v06_mas_actividades.setOnClickListener(view12 -> Navigation.findNavController(view12).navigate(R.id.action_nav_v06_to_nav_inicio_v01));
         return view;
     }
 }
