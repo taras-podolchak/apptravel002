@@ -48,15 +48,15 @@ public class V_04_1 extends Fragment {
 
     //TODO:los campos de xml
     private Button v04_1_aceptar, v04_1_volver;
-    private EditText v04_1_nombre_val;
-    private EditText v04_1_apellido1_val;
-    private EditText v04_1_apellido2_val;
-    private EditText v04_1_email_val;
-    private EditText v04_1_contrasenna1_val;
-    private EditText v04_1_contrasenna2_val;
-    private EditText v04_1_dni_val;
-    private EditText v04_1_movil_val;
-    private CheckBox v04_1_condicioneslegales_val;
+    private EditText v04_1_nombre_prs;
+    private EditText v04_1_apellido1_prs;
+    private EditText v04_1_apellido2_prs;
+    private EditText v04_1_email_prs;
+    private EditText v04_1_contrasenna1_prs;
+    private EditText v04_1_contrasenna2_prs;
+    private EditText v04_1_dni_prs;
+    private EditText v04_1_movil_prs;
+    private CheckBox v04_1_condicioneslegales_prs;
 
     //TODO:acceso a datos
     private FirebaseAuth fba = FirebaseAuth.getInstance();
@@ -113,22 +113,22 @@ public class V_04_1 extends Fragment {
         result = new Bundle();
         result.putInt("eventoParaV_05", id_eve_bundle);
 
-        v04_1_nombre_val = view.findViewById(R.id.v04_1_etx_nombre_val);
-        v04_1_apellido1_val = view.findViewById(R.id.v04_1_etx_apellido1_val);
-        v04_1_apellido2_val = view.findViewById(R.id.v04_1_etx_apellido2_val);
-        v04_1_email_val = view.findViewById(R.id.v04_1_etx_email_val);
-        v04_1_contrasenna1_val = view.findViewById(R.id.v04_1_etx_contrasenna1_val);
-        v04_1_contrasenna2_val = view.findViewById(R.id.v04_1_etx_contrasenna2_val);
-        v04_1_dni_val = view.findViewById(R.id.v04_1_etx_dni_val);
-        v04_1_movil_val = view.findViewById(R.id.v04_1_etx_movil_val);
-        v04_1_condicioneslegales_val = view.findViewById(R.id.v04_1_ckb_condicioneslegales_val);
+        v04_1_nombre_prs = view.findViewById(R.id.v04_1_etx_nombre_prs);
+        v04_1_apellido1_prs = view.findViewById(R.id.v04_1_etx_apellido1_prs);
+        v04_1_apellido2_prs = view.findViewById(R.id.v04_1_etx_apellido2_prs);
+        v04_1_email_prs = view.findViewById(R.id.v04_1_etx_email_prs);
+        v04_1_contrasenna1_prs = view.findViewById(R.id.v04_1_etx_contrasenna1_prs);
+        v04_1_contrasenna2_prs = view.findViewById(R.id.v04_1_etx_contrasenna2_prs);
+        v04_1_dni_prs = view.findViewById(R.id.v04_1_etx_dni_prs);
+        v04_1_movil_prs = view.findViewById(R.id.v04_1_etx_movil_prs);
+        v04_1_condicioneslegales_prs = view.findViewById(R.id.v04_1_ckb_condicioneslegales_prs);
         v04_1_aceptar = view.findViewById(R.id.v04_1_btn_aceptar);
         v04_1_volver = view.findViewById(R.id.v04_1_btn_volver);
         RadioGroup radioGroup = view.findViewById(R.id.v04_1_RadioGroup);
 
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
-                case R.id.v04_1_rbt_soy_valiente:
+                case R.id.v04_1_rbt_soy_persona:
                     Toast.makeText(getActivity(), "Me registro como valiente", Toast.LENGTH_SHORT).show();
                     usuariotipo = 1;
                     break;
@@ -151,55 +151,55 @@ public class V_04_1 extends Fragment {
 
     //2º MÉTODOS REGISTROFB
     private void registrarUsuario(View view) {
-        if (!v04_1_condicioneslegales_val.isChecked() /*|| !cbTerminos.isChecked()*/) {
+        if (!v04_1_condicioneslegales_prs.isChecked() /*|| !cbTerminos.isChecked()*/) {
             Toast.makeText(getActivity(), "Debes aceptar los términos y condiciones", Toast.LENGTH_LONG).show();
             return;
         }
 
-        //Obtenemos el email_val y la contraseña desde las cajas de texto
-        String nombre_val = v04_1_nombre_val.getText().toString().trim();
-        String apellido1_val = v04_1_apellido1_val.getText().toString().trim();
-        String apellido2_val = v04_1_apellido2_val.getText().toString().trim();
-        String email_val = v04_1_email_val.getText().toString().trim();
-        String contrasenna1_val = v04_1_contrasenna1_val.getText().toString().trim();
-        String contrasenna2_val = v04_1_contrasenna2_val.getText().toString().trim();
-        String contrasenna_val = null;
-        String dni_val = v04_1_dni_val.getText().toString().trim();
-        String movil_val = v04_1_movil_val.getText().toString().trim();
+        //Obtenemos el email_prs y la contraseña desde las cajas de texto
+        String nombre_prs = v04_1_nombre_prs.getText().toString().trim();
+        String apellido1_prs = v04_1_apellido1_prs.getText().toString().trim();
+        String apellido2_prs = v04_1_apellido2_prs.getText().toString().trim();
+        String email_prs = v04_1_email_prs.getText().toString().trim();
+        String contrasenna1_prs = v04_1_contrasenna1_prs.getText().toString().trim();
+        String contrasenna2_prs = v04_1_contrasenna2_prs.getText().toString().trim();
+        String contrasenna_prs = null;
+        String dni_prs = v04_1_dni_prs.getText().toString().trim();
+        String movil_prs = v04_1_movil_prs.getText().toString().trim();
 
         //Verificamos que las cajas de texto no estén vacías
-        if (TextUtils.isEmpty(nombre_val)) {
-            Toast.makeText(getActivity(), "Se debe ingresar el nombre_val", Toast.LENGTH_LONG).show();
+        if (TextUtils.isEmpty(nombre_prs)) {
+            Toast.makeText(getActivity(), "Se debe ingresar el nombre_prs", Toast.LENGTH_LONG).show();
             return;
         }
-        if (TextUtils.isEmpty(apellido1_val)) {
-            Toast.makeText(getActivity(), "Se debe ingresar el apellido1_val", Toast.LENGTH_LONG).show();
+        if (TextUtils.isEmpty(apellido1_prs)) {
+            Toast.makeText(getActivity(), "Se debe ingresar el apellido1_prs", Toast.LENGTH_LONG).show();
             return;
         }
-        if (TextUtils.isEmpty(email_val)) {
-            Toast.makeText(getActivity(), "Se debe ingresar el email_val", Toast.LENGTH_LONG).show();
+        if (TextUtils.isEmpty(email_prs)) {
+            Toast.makeText(getActivity(), "Se debe ingresar el email_prs", Toast.LENGTH_LONG).show();
             return;
         }
-        if (TextUtils.isEmpty(contrasenna1_val)) {
+        if (TextUtils.isEmpty(contrasenna1_prs)) {
             Toast.makeText(getActivity(), "Se debe ingresar la contraseña", Toast.LENGTH_LONG).show();
             return;
         }
-        if (TextUtils.isEmpty(contrasenna2_val)) {
+        if (TextUtils.isEmpty(contrasenna2_prs)) {
             Toast.makeText(getActivity(), "Se debe confirmar la contraseña", Toast.LENGTH_LONG).show();
             return;
         }
-        if (TextUtils.isEmpty(dni_val)) {
+        if (TextUtils.isEmpty(dni_prs)) {
             Toast.makeText(getActivity(), "Se debe ingresar el DNI", Toast.LENGTH_LONG).show();
             return;
         }
-        if (TextUtils.isEmpty(movil_val)) {
-            Toast.makeText(getActivity(), "Se debe ingresar un movil_val", Toast.LENGTH_LONG).show();
+        if (TextUtils.isEmpty(movil_prs)) {
+            Toast.makeText(getActivity(), "Se debe ingresar un movil_prs", Toast.LENGTH_LONG).show();
             return;
         }
 
         //Verificamos que las contraseñas coinciden
-        if (contrasenna1_val.equals(contrasenna2_val)) {
-            contrasenna_val = contrasenna1_val;
+        if (contrasenna1_prs.equals(contrasenna2_prs)) {
+            contrasenna_prs = contrasenna1_prs;
         } else {
             Toast.makeText(getActivity(), "Las contraseñas no coinciden", Toast.LENGTH_LONG).show();
             return;
@@ -207,25 +207,25 @@ public class V_04_1 extends Fragment {
 
         //creamos el objeto del usuario
         Map<String, Object> user = new HashMap<>();
-        user.put("nombre_per", nombre_val);
-        user.put("apellido1_per", apellido1_val);
-        user.put("apellido2_per", apellido2_val);
-        user.put("email_per", email_val);
-        user.put("dni_per", dni_val);
-        user.put("movil_per", movil_val);
-        user.put("id_val_col_per", usuariotipo);
+        user.put("nombre_prs", nombre_prs);
+        user.put("apellido1_prs", apellido1_prs);
+        user.put("apellido2_prs", apellido2_prs);
+        user.put("email_prs", email_prs);
+        user.put("dni_prs", dni_prs);
+        user.put("movil_prs", movil_prs);
+        user.put("id_val_col_prs", usuariotipo);
 
-        fba.createUserWithEmailAndPassword(email_val, contrasenna_val)
+        fba.createUserWithEmailAndPassword(email_prs, contrasenna_prs)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         //comprobando el éxito
                         if (task.isSuccessful()) {
-                            Toast.makeText(getActivity(), "Se ha registrado el usuario: " + nombre_val + " " + apellido1_val, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Se ha registrado el usuario: " + nombre_prs + " " + apellido1_prs, Toast.LENGTH_LONG).show();
 
                             //añadomos el usuario a FirebaseFirestore
-                            fbf.collection("persona_per_test").document(fba.getUid()).set(user);
+                            fbf.collection("persona_prs").document(fba.getUid()).set(user);
                             sesionIniciada = usuariotipo;
                             Navigation.findNavController(view).navigate(R.id.action_nav_v04_1_to_nav_v05, result);
                         } else {

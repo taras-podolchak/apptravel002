@@ -30,10 +30,10 @@ import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.entities.Actividad_act;
 import com.appvisibility.apptravel002.ui.entities.Alojamiento_alo;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve_test;
-import com.appvisibility.apptravel002.ui.entities.Persona_per_test;
+import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 import com.appvisibility.apptravel002.ui.service.v02_00_eve_Adapter;
 import com.appvisibility.apptravel002.ui.service.v03_00_act_Adapter;
-import com.appvisibility.apptravel002.ui.service.v03_00_val_Adapter;
+import com.appvisibility.apptravel002.ui.service.v03_00_prs_Adapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.EventListener;
@@ -55,7 +55,7 @@ import java.util.List;
  * Use the {@link V_05#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class V_05 extends Fragment implements IDAO<Evento_eve_test, Persona_per_test, Actividad_act> {
+public class V_05 extends Fragment implements IDAO<Evento_eve_test, Persona_prs, Actividad_act> {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -84,14 +84,14 @@ public class V_05 extends Fragment implements IDAO<Evento_eve_test, Persona_per_
     //TODO:entities
     private Evento_eve_test evento;
     private List<Actividad_act> actividades = new ArrayList<>();
-    private List<Persona_per_test> valientes = new ArrayList<>();
-    private List<Persona_per_test> valientesConCoches = new ArrayList<>();
+    private List<Persona_prs> personas = new ArrayList<>();
+    private List<Persona_prs> personasConCoches = new ArrayList<>();
     private List<Alojamiento_alo> listAlojamiento = new ArrayList<>();
     private Context mContext;
 
     //TODO:servise
     private v03_00_act_Adapter v03_adapter_act;
-    private v03_00_val_Adapter v03_adapter_val;
+    private v03_00_prs_Adapter v03_adapter_prs;
 
     public V_05() {
         // Required empty public constructor
@@ -157,17 +157,17 @@ public class V_05 extends Fragment implements IDAO<Evento_eve_test, Persona_per_
         Query query1 = fbf.collection("evento_eve_test").whereEqualTo("id_eve", id_eve_bundle);
         tabla1ChangeListener(query1, eventos_list, Evento_eve_test.class, v02_adapter_eve);
 
-        // TODO: carga de Inscritos (valientes)
-        /*this.v05_recycler_val = (RecyclerView) view.findViewById(R.id.v05_rcv_valientes);
-        this.v05_recycler_val.setHasFixedSize(true);
-        this.v05_recycler_val.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
+        // TODO: carga de Inscritos (personas)
+        /*this.v05_recycler_prs = (RecyclerView) view.findViewById(R.id.v05_rcv_personas);
+        this.v05_recycler_prs.setHasFixedSize(true);
+        this.v05_recycler_prs.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
 */
-        Query query2 = fbf.collection("valiente_val").whereIn("id_val", Arrays.asList(1, 2, 3, 4, 5, 6));
-        tabla2ChangeListener(query2, valientes, Persona_per_test.class, v03_adapter_val);
-//        valientesChangeListener(1);
+        Query query2 = fbf.collection("persona_prs").whereIn("id_prs", Arrays.asList(1, 2, 3, 4, 5, 6));
+        tabla2ChangeListener(query2, personas, Persona_prs.class, v03_adapter_prs);
+//        personasChangeListener(1);
 
- /*       this.v05_adapter_val = new v03_00_val_Adapter(valientes, mContext);
-        this.v05_recycler_val.setAdapter(v03_adapter_val);
+ /*       this.v05_adapter_prs = new v03_00_prs_Adapter(personas, mContext);
+        this.v05_recycler_prs.setAdapter(v03_adapter_prs);
 
         // TODO: carga de Actividades
         this.v05_recycler_act = (RecyclerView) view.findViewById(R.id.v05_rcv_actividades);
@@ -303,7 +303,7 @@ public class V_05 extends Fragment implements IDAO<Evento_eve_test, Persona_per_
                     lista.add(enProceso);
                 }
 //                miAdapter.notifyDataSetChanged();
-                ArrayAdapter<Persona_per_test> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, valientes);
+                ArrayAdapter<Persona_prs> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, personas);
                 arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 v05_lista_personas.setAdapter(arrayAdapter);
         /*v05_spinner_lista_personas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -355,7 +355,7 @@ public class V_05 extends Fragment implements IDAO<Evento_eve_test, Persona_per_
 
     private void necesitoElCocheChangeListener() {
         // fbf.collection("inscribir_evevalcoltpr").whereEqualTo("id_eve", 1)
-        fbf.collection("valiente_val").whereIn("id_val", Arrays.asList(1, 2, 3, 4, 5, 6))
+        fbf.collection("persona_prs").whereIn("id_prs", Arrays.asList(1, 2, 3, 4, 5, 6))
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value,
@@ -364,15 +364,15 @@ public class V_05 extends Fragment implements IDAO<Evento_eve_test, Persona_per_
                             Log.w(TAG, "Listen failed.", e);
                             return;
                         }
-                        valientesConCoches.clear();
+                        personasConCoches.clear();
                         for (QueryDocumentSnapshot doc : value) {
-                            valientesConCoches.add(doc.toObject(Persona_per_test.class));
+                            personasConCoches.add(doc.toObject(Persona_prs.class));
                         }
                         Log.d(TAG, "Current cites in CA: ");
                     }
                 });
 
-        ArrayAdapter<Persona_per_test> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, valientesConCoches);
+        ArrayAdapter<Persona_prs> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, personasConCoches);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         v05_necesito_coche.setAdapter(arrayAdapter);
         /*v05_spinner_lista_personas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

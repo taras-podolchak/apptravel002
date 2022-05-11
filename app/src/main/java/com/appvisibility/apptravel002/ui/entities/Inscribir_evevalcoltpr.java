@@ -5,8 +5,7 @@ import java.io.Serializable;
 public class Inscribir_evevalcoltpr implements Serializable {
     int id_evevalcoltpr;
     int id_eve;
-    int id_val;
-    int id_col;
+    int id_prs;
     int id_tpr;
     int preferenciaval_evevalcoltpr;
     int preferenciacol_evevalcoltpr;
@@ -18,12 +17,11 @@ public class Inscribir_evevalcoltpr implements Serializable {
         super();
     }
 
-    public Inscribir_evevalcoltpr(int id_evevalcoltpr, int id_eve, int id_val, int id_col, int id_tpr, int preferenciaval_evevalcoltpr, int preferenciacol_evevalcoltpr, boolean noasistio_evevalcoltpr, String estado_evevalcoltpr, String descestado_evevalcoltpr) {
+    public Inscribir_evevalcoltpr(int id_evevalcoltpr, int id_eve, int id_prs, int id_tpr, int preferenciaval_evevalcoltpr, int preferenciacol_evevalcoltpr, boolean noasistio_evevalcoltpr, String estado_evevalcoltpr, String descestado_evevalcoltpr) {
         super();
         this.id_evevalcoltpr = id_evevalcoltpr;
         this.id_eve = id_eve;
-        this.id_val = id_val;
-        this.id_col = id_col;
+        this.id_prs = id_prs;
         this.id_tpr = id_tpr;
         this.preferenciaval_evevalcoltpr = preferenciaval_evevalcoltpr;
         this.preferenciacol_evevalcoltpr = preferenciacol_evevalcoltpr;
@@ -48,20 +46,12 @@ public class Inscribir_evevalcoltpr implements Serializable {
         this.id_eve = id_eve;
     }
 
-    public int getId_val() {
-        return id_val;
+    public int getId_prs() {
+        return id_prs;
     }
 
-    public void setId_val(int id_val) {
-        this.id_val = id_val;
-    }
-
-    public int getId_col() {
-        return id_col;
-    }
-
-    public void setId_col(int id_col) {
-        this.id_col = id_col;
+    public void setId_prs(int id_prs) {
+        this.id_prs = id_prs;
     }
 
     public int getId_tpr() {
@@ -116,8 +106,7 @@ public class Inscribir_evevalcoltpr implements Serializable {
     public String toString() {
         return "Inscribir_evevalcoltpr{" +
                 "id_eve=" + id_eve +
-                ", id_val=" + id_val +
-                ", id_col=" + id_col +
+                ", id_prs=" + id_prs +
                 ", estado_evevalcoltpr='" + estado_evevalcoltpr + '\'' +
                 '}';
     }

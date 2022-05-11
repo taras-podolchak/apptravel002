@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo_para_valiente"
+    android:background="@drawable/fondo_para_persona"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".ui.controller.V_06">
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="@drawable/btn_formato_left_val"
+            android:background="@drawable/btn_formato_left_prs"
             android:text="Activar aviso" />
 
         <Button
@@ -57,7 +57,7 @@
             android:layout_gravity="right"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="@drawable/btn_formato_right_val"
+            android:background="@drawable/btn_formato_right_prs"
             android:text="Buscar mas actividades" />
     </LinearLayout>
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo_para_valiente"
+    android:background="@drawable/fondo_para_persona"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".ui.controller.V_01">
@@ -57,7 +57,7 @@
             android:layout_marginStart="50dp"
             android:layout_marginTop="80dp"
             android:layout_marginEnd="50dp"
-            android:background="@drawable/btn_formato_left_val"
+            android:background="@drawable/btn_formato_left_prs"
             android:text="Buscar actividades"
             />
     </LinearLayout>

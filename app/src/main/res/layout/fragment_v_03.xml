@@ -5,7 +5,7 @@
     android:id="@+id/LinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo_para_valiente"
+    android:background="@drawable/fondo_para_persona"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".ui.controller.V_03">
@@ -93,7 +93,7 @@
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/v03_rcv_valientes"
+                    android:id="@+id/v03_rcv_personas"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="5dp"
@@ -138,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/btn_formato_left_val"
+                android:background="@drawable/btn_formato_left_prs"
                 android:text="Volver" />
 
             <Button
@@ -147,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/btn_formato_right_val"
+                android:background="@drawable/btn_formato_right_prs"
                 android:text="Me interesa" />
         </LinearLayout>
     </LinearLayout>

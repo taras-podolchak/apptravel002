@@ -30,9 +30,9 @@ import com.appvisibility.apptravel002.ui.entities.Actividad_act;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve_test;
 import com.appvisibility.apptravel002.ui.entities.Inscribir_evevalcoltpr;
-import com.appvisibility.apptravel002.ui.entities.Valiente_val;
+import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 import com.appvisibility.apptravel002.ui.service.v03_00_act_Adapter;
-import com.appvisibility.apptravel002.ui.service.v03_00_val_Adapter;
+import com.appvisibility.apptravel002.ui.service.v03_00_prs_Adapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -72,9 +72,9 @@ public class V_03 extends Fragment {
     private TextView v03_estado_eve;
     private TextView v03_nparticipantes_eve;
     private TextView v03_inscritos_eve;
-    private RecyclerView v03_recycler_val;
+    private RecyclerView v03_recycler_prs;
     private RecyclerView v03_recycler_act;
-    //private RecyclerView v03_recycler_val;
+    //private RecyclerView v03_recycler_prs;
 
     //TODO:acceso a datos
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
@@ -82,14 +82,14 @@ public class V_03 extends Fragment {
     //TODO:entities
     private Evento_eve_test evento_eve_test;
     private Evento_eve eventoEnProceso;
-    private List<Valiente_val> valientes = new ArrayList<>();
+    private List<Persona_prs> personas = new ArrayList<>();
     private List<Actividad_act> actividades = new ArrayList<>();
     private List<Inscribir_evevalcoltpr> inscritos = new ArrayList<>();
-    private List<Valiente_val> valientesFiltrados = new ArrayList<>();
+    private List<Persona_prs> personasFiltrados = new ArrayList<>();
     private Context mContext;
 
     //TODO:servise
-    private v03_00_val_Adapter v03_adapter_val;
+    private v03_00_prs_Adapter v03_adapter_prs;
     private v03_00_act_Adapter v03_adapter_act;
     int id_eve_bundle;
 
@@ -154,9 +154,9 @@ public class V_03 extends Fragment {
 
         this.v03_inscritos_eve = view.findViewById(R.id.v03_txv_inscritos_eve);
 
-        this.v03_recycler_val = (RecyclerView) view.findViewById(R.id.v03_rcv_valientes);
-        this.v03_recycler_val.setHasFixedSize(true);
-        this.v03_recycler_val.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
+        this.v03_recycler_prs = (RecyclerView) view.findViewById(R.id.v03_rcv_personas);
+        this.v03_recycler_prs.setHasFixedSize(true);
+        this.v03_recycler_prs.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
 
         this.v03_recycler_act = (RecyclerView) view.findViewById(R.id.v03_rcv_actividades);
         this.v03_recycler_act.setHasFixedSize(true);
@@ -178,34 +178,34 @@ public class V_03 extends Fragment {
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
                 }
-//                v03_adapter_val = new v03_00_val_Adapter((List<Inscribir_evevalcoltpr>) lista, mContext);
-//                v03_recycler_val.setAdapter(v03_adapter_val);
+//                v03_adapter_prs = new v03_00_prs_Adapter((List<Inscribir_evevalcoltpr>) lista, mContext);
+//                v03_recycler_prs.setAdapter(v03_adapter_prs);
             }
         });
 
-        Query query2 = fbf.collection("valiente_val").orderBy("id_val", Query.Direction.ASCENDING);
+        Query query2 = fbf.collection("persona_prs").orderBy("id_prs", Query.Direction.ASCENDING);
         query2.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    valientes.clear();
-                    Valiente_val resultado;
+                    personas.clear();
+                    Persona_prs resultado;
                     QuerySnapshot document = task.getResult();
                     for (QueryDocumentSnapshot qds : document) {
-                        resultado = qds.toObject(Valiente_val.class);
-                        valientes.add(resultado);
+                        resultado = qds.toObject(Persona_prs.class);
+                        personas.add(resultado);
                         Log.d(TAG, "DocumentSnapshot data: " + qds.getData());
                     }
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
                 }
 // https://stackoverflow.com/questions/36246998/stream-filter-of-1-list-based-on-another-list
-                valientesFiltrados = valientes.stream()
-                        .filter(e -> inscritos.stream().map(Inscribir_evevalcoltpr::getId_val).anyMatch(id -> id.equals(e.getId_val())))
+                personasFiltrados = personas.stream()
+                        .filter(e -> inscritos.stream().map(Inscribir_evevalcoltpr::getId_prs).anyMatch(id -> id.equals(e.getId_prs())))
                         .collect(Collectors.toList());
-                v03_adapter_val = new v03_00_val_Adapter(valientesFiltrados, mContext, id_eve_bundle);
-                v03_recycler_val.setAdapter(v03_adapter_val);
+                v03_adapter_prs = new v03_00_prs_Adapter(personasFiltrados, mContext, id_eve_bundle);
+                v03_recycler_prs.setAdapter(v03_adapter_prs);
             }
         });
 
@@ -246,7 +246,7 @@ public class V_03 extends Fragment {
         v03_volver.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_nav_v03_to_nav_v02));
 
 //        filtro();
-        v03_recycler_val.setAdapter(v03_adapter_val);
+        v03_recycler_prs.setAdapter(v03_adapter_prs);
 
         return view;
     }//fin de constructor
@@ -255,8 +255,8 @@ public class V_03 extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void filtro (){
 // https://stackoverflow.com/questions/36246998/stream-filter-of-1-list-based-on-another-list
-        valientesFiltrados = valientes.stream()
-            .filter(e -> inscritos.stream().map(Inscribir_evevalcoltpr::getId_val).anyMatch(id -> id.equals(e.getId_val())))
+        personasFiltrados = personas.stream()
+            .filter(e -> inscritos.stream().map(Inscribir_evevalcoltpr::getId_prs).anyMatch(id -> id.equals(e.getId_prs())))
             .collect(Collectors.toList());
     }
 
@@ -284,11 +284,11 @@ public class V_03 extends Fragment {
             //cargamos los inscritos
 /*
             if (sesionIniciada) {
-                v03_recycler_val.setHasFixedSize(true);
-                v03_recycler_val.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
-                valientes = evento_eve_test.getListValiente();
-                v03_adapter_val = new v03_00_val_Adapter(valientes, mContext);
-                v03_recycler_val.setAdapter(v03_adapter_val);
+                v03_recycler_prs.setHasFixedSize(true);
+                v03_recycler_prs.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
+                personas = evento_eve_test.getListPersona();
+                v03_adapter_prs = new v03_00_prs_Adapter(personas, mContext);
+                v03_recycler_prs.setAdapter(v03_adapter_prs);
             } else {
                 v03_inscritos_eve.setVisibility(View.INVISIBLE);
             }
@@ -362,8 +362,8 @@ public class V_03 extends Fragment {
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
                 }
-//                v03_adapter_val = new v03_00_val_Adapter((List<Inscribir_evevalcoltpr>) lista, mContext);
-                v03_recycler_val.setAdapter(v03_adapter_val);
+//                v03_adapter_prs = new v03_00_prs_Adapter((List<Inscribir_evevalcoltpr>) lista, mContext);
+                v03_recycler_prs.setAdapter(v03_adapter_prs);
             }
         });
     }
@@ -385,8 +385,8 @@ public class V_03 extends Fragment {
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
                 }
-//                v03_adapter_val = new v03_00_val_Adapter((List<Valiente_val>) lista, mContext);
-                v03_recycler_val.setAdapter(v03_adapter_val);
+//                v03_adapter_prs = new v03_00_prs_Adapter((List<Persona_prs>) lista, mContext);
+                v03_recycler_prs.setAdapter(v03_adapter_prs);
             }
         });
     }

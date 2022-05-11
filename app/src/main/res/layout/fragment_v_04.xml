@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/fondo_para_valiente"
+    android:background="@drawable/fondo_para_persona"
     tools:context=".ui.controller.V_04">
 
     <LinearLayout
@@ -22,7 +22,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/v04_etx_email_val"
+            android:id="@+id/v04_etx_email_prs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="50dp"
@@ -32,7 +32,7 @@
             android:inputType="textEmailAddress" />
 
         <EditText
-            android:id="@+id/v04_etx_contrasenna_val"
+            android:id="@+id/v04_etx_contrasenna_prs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="50dp"
@@ -49,7 +49,7 @@
             android:layout_marginEnd="30dp">
 
             <CheckBox
-                android:id="@+id/v04_ckb_recordarcontrasenna_val"
+                android:id="@+id/v04_ckb_recordarcontrasenna_prs"
                 android:layout_width="125dp"
                 android:layout_height="wrap_content"
                 android:text="Recordarme" />
@@ -69,7 +69,7 @@
             android:layout_marginHorizontal="50dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_formato_left_val"
+            android:background="@drawable/btn_formato_left_prs"
             android:text="Iniciar sesion" />
     </LinearLayout>
 
@@ -79,6 +79,6 @@
         android:layout_marginHorizontal="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_formato_left_val"
+        android:background="@drawable/btn_formato_left_prs"
         android:text="Registrarse" />
 </LinearLayout>

@@ -1,6 +1,5 @@
 package com.appvisibility.apptravel002.ui.controller;
 
-import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
 import static com.appvisibility.apptravel002.MainActivity.sesionIniciada;
@@ -8,43 +7,28 @@ import static com.appvisibility.apptravel002.MainActivity.sesionIniciada;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResultCaller;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.appvisibility.apptravel002.MainActivity;
-import com.appvisibility.apptravel002.MainActivity_col;
+import com.appvisibility.apptravel002.MainActivity_prs;
 import com.appvisibility.apptravel002.R;
-import com.appvisibility.apptravel002.ui.entities.Persona_per_test;
+import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.installations.Utils;
-
-import java.util.zip.Inflater;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -64,8 +48,8 @@ public class V_04 extends Fragment {
 
     //TODO:los campos de xml
     private Button v04_iniciar_sesion, v04_registrarse;
-    private EditText v04_email_val;
-    private EditText v04_contrasenna_val;
+    private EditText v04_email_prs;
+    private EditText v04_contrasenna_prs;
 
     //TODO:acceso a datos
     private FirebaseAuth fba = FirebaseAuth.getInstance();
@@ -74,7 +58,7 @@ public class V_04 extends Fragment {
     //TODO:entities
     private Context mContext;
     private Bundle result;
-    private Persona_per_test persona;
+    private Persona_prs persona;
     int id_eve_bundle = 0;
 
     //TODO:servise
@@ -129,8 +113,8 @@ public class V_04 extends Fragment {
         result.putInt("eventoParaV_05", id_eve_bundle);
 
         //Referenciamos los views
-        v04_email_val = view.findViewById(R.id.v04_etx_email_val);
-        v04_contrasenna_val = view.findViewById(R.id.v04_etx_contrasenna_val);
+        v04_email_prs = view.findViewById(R.id.v04_etx_email_prs);
+        v04_contrasenna_prs = view.findViewById(R.id.v04_etx_contrasenna_prs);
         v04_iniciar_sesion = view.findViewById(R.id.v04_btn_iniciar_sesion);
         v04_registrarse = view.findViewById(R.id.v04_btn_registrarse);
 
@@ -143,22 +127,22 @@ public class V_04 extends Fragment {
     }
 
     private void iniciarSesion(View view) {
-        //Obtenemos el email_val y la contraseña desde las cajas de texto
-        String email_val = v04_email_val.getText().toString().trim();
-        String contrasenna_val = v04_contrasenna_val.getText().toString().trim();
+        //Obtenemos el email_prs y la contraseña desde las cajas de texto
+        String email_prs = v04_email_prs.getText().toString().trim();
+        String contrasenna_prs = v04_contrasenna_prs.getText().toString().trim();
 
         //Verificamos que las cajas de texto no estén vacías
-        if (TextUtils.isEmpty(email_val)) {
-            Toast.makeText(getActivity(), "Se debe ingresar un email_val", Toast.LENGTH_LONG).show();
+        if (TextUtils.isEmpty(email_prs)) {
+            Toast.makeText(getActivity(), "Se debe ingresar un email_prs", Toast.LENGTH_LONG).show();
             return;
         }
 
-        if (TextUtils.isEmpty(contrasenna_val)) {
+        if (TextUtils.isEmpty(contrasenna_prs)) {
             Toast.makeText(getActivity(), "Falta ingresar la contraseña", Toast.LENGTH_LONG).show();
             return;
         }
 
-        fba.signInWithEmailAndPassword(email_val, contrasenna_val)
+        fba.signInWithEmailAndPassword(email_prs, contrasenna_prs)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
 
@@ -167,25 +151,25 @@ public class V_04 extends Fragment {
                         String uid = user.getUid();
 
                         //buscamos en FirebaseFirestore el documento con esa Uid
-                        DocumentReference docRef = fbf.collection("persona_per_test").document(uid);
+                        DocumentReference docRef = fbf.collection("persona_prs").document(uid);
                         docRef.get().addOnCompleteListener(task1 -> {
                             if (task1.isSuccessful()) {
                                 DocumentSnapshot document = task1.getResult();
                                 if (document.exists()) {
                                     //recuperamos la persona
-                                    persona = (Persona_per_test) document.toObject(Persona_per_test.class);
-                                    Toast.makeText(getActivity(), "Bien venido " + persona.getNombre_per(), Toast.LENGTH_LONG).show();
+                                    persona = (Persona_prs) document.toObject(Persona_prs.class);
+                                    Toast.makeText(getActivity(), "Bien venido " + persona.getNombre_prs(), Toast.LENGTH_LONG).show();
                                     //si es valiente
-                                    if (persona.getUsuariotipo_per() == 1) {
-                                        sesionIniciada = persona.getUsuariotipo_per();
+                                    if (persona.getUsuariotipo_prs() == 0) {
+                                        sesionIniciada = persona.getUsuariotipo_prs();
                                         Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v05, result);
                                     }
                                     //si es colaborador
-                                    if (persona.getUsuariotipo_per() == 2) {
-                                        sesionIniciada = persona.getUsuariotipo_per();
+                                    if (persona.getUsuariotipo_prs() == 1) {
+                                        sesionIniciada = persona.getUsuariotipo_prs();
 
-                                        Intent intent = new Intent(getActivity(), MainActivity_col.class);
-                                        intent.putExtra("abrirEnMainActivity_col", 1);
+                                        Intent intent = new Intent(getActivity(), MainActivity_prs.class);
+                                        intent.putExtra("abrirEnMainActivity_prs", 1);
                                         startActivity(intent);
                                     }
                                 } else {
@@ -196,7 +180,7 @@ public class V_04 extends Fragment {
                             }
                         });
                     } else {
-                        Toast.makeText(getActivity(), "El email_val o la contraseña es incorrecta", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "El email_prs o la contraseña es incorrecta", Toast.LENGTH_LONG).show();
                     }
                     pdg.dismiss();
                 });

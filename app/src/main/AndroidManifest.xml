@@ -23,7 +23,7 @@
             android:label="@string/title_activity_main_adm"
             android:theme="@style/Theme.Apptravel002_adm.NoActionBar" />
         <activity
-            android:name=".MainActivity_col"
+            android:name=".MainActivity_prs"
             android:exported="false"
             android:label="@string/title_activity_main_col"
             android:theme="@style/Theme.Apptravel002_col.NoActionBar" />

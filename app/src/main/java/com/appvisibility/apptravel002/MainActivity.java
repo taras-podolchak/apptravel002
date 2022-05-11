@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
                         if (persona.getUsuariotipo_per() == 2) {
                             sesionIniciada = persona.getUsuariotipo_per();
-                            Intent intent = new Intent(this, MainActivity_col.class);
+                            Intent intent = new Intent(this, MainActivity_prs.class);
                             intent.putExtra("abrirEnMainActivity_col", 1);
                             intent.putExtra("eventoParaV_04", 1);
                             startActivity(intent);
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         if (id == R.id.colaborador) {
             if (sesionIniciada == 0) {
-                Intent intent = new Intent(this, MainActivity_col.class);
+                Intent intent = new Intent(this, MainActivity_prs.class);
                 intent.putExtra("abrirEnMainActivity_col", 4);
                 startActivity(intent);
                 Toast.makeText(MainActivity.this, "Inicie la sesion por favor", Toast.LENGTH_LONG).show();
