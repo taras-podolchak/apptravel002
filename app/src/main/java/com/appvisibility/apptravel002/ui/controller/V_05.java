@@ -354,7 +354,7 @@ public class V_05 extends Fragment implements IDAO<Evento_eve_test, Persona_prs,
     }
 
     private void necesitoElCocheChangeListener() {
-        // fbf.collection("inscribir_evevalcoltpr").whereEqualTo("id_eve", 1)
+        // fbf.collection("inscribir_eveprstpr").whereEqualTo("id_eve", 1)
         fbf.collection("persona_prs").whereIn("id_prs", Arrays.asList(1, 2, 3, 4, 5, 6))
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override

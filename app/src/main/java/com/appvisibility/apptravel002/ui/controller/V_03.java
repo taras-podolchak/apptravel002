@@ -4,12 +4,10 @@ import static android.content.ContentValues.TAG;
 import static com.appvisibility.apptravel002.MainActivity.sesionIniciada;
 
 import android.content.Context;
-import android.media.metrics.Event;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -29,7 +27,7 @@ import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.entities.Actividad_act;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve_test;
-import com.appvisibility.apptravel002.ui.entities.Inscribir_evevalcoltpr;
+import com.appvisibility.apptravel002.ui.entities.Inscribir_eveprstpr;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 import com.appvisibility.apptravel002.ui.service.v03_00_act_Adapter;
 import com.appvisibility.apptravel002.ui.service.v03_00_prs_Adapter;
@@ -84,7 +82,7 @@ public class V_03 extends Fragment {
     private Evento_eve eventoEnProceso;
     private List<Persona_prs> personas = new ArrayList<>();
     private List<Actividad_act> actividades = new ArrayList<>();
-    private List<Inscribir_evevalcoltpr> inscritos = new ArrayList<>();
+    private List<Inscribir_eveprstpr> inscritos = new ArrayList<>();
     private List<Persona_prs> personasFiltrados = new ArrayList<>();
     private Context mContext;
 
@@ -162,23 +160,23 @@ public class V_03 extends Fragment {
         this.v03_recycler_act.setHasFixedSize(true);
         this.v03_recycler_act.setLayoutManager(new LinearLayoutManager(mContext));
 
-        Query query1 = fbf.collection("inscribir_evevalcoltpr").whereEqualTo("id_eve", id_eve_bundle);
+        Query query1 = fbf.collection("inscribir_eveprstpr").whereEqualTo("id_eve", id_eve_bundle);
         query1.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     inscritos.clear();
-                    Inscribir_evevalcoltpr resultado;
+                    Inscribir_eveprstpr resultado;
                     QuerySnapshot document = task.getResult();
                     for (QueryDocumentSnapshot qds : document) {
-                        resultado = qds.toObject(Inscribir_evevalcoltpr.class);
+                        resultado = qds.toObject(Inscribir_eveprstpr.class);
                         inscritos.add(resultado);
                         Log.d(TAG, "DocumentSnapshot data: " + qds.getData());
                     }
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
                 }
-//                v03_adapter_prs = new v03_00_prs_Adapter((List<Inscribir_evevalcoltpr>) lista, mContext);
+//                v03_adapter_prs = new v03_00_prs_Adapter((List<Inscribir_eveprstpr>) lista, mContext);
 //                v03_recycler_prs.setAdapter(v03_adapter_prs);
             }
         });
@@ -202,7 +200,7 @@ public class V_03 extends Fragment {
                 }
 // https://stackoverflow.com/questions/36246998/stream-filter-of-1-list-based-on-another-list
                 personasFiltrados = personas.stream()
-                        .filter(e -> inscritos.stream().map(Inscribir_evevalcoltpr::getId_prs).anyMatch(id -> id.equals(e.getId_prs())))
+                        .filter(e -> inscritos.stream().map(Inscribir_eveprstpr::getId_prs).anyMatch(id -> id.equals(e.getId_prs())))
                         .collect(Collectors.toList());
                 v03_adapter_prs = new v03_00_prs_Adapter(personasFiltrados, mContext, id_eve_bundle);
                 v03_recycler_prs.setAdapter(v03_adapter_prs);
@@ -256,7 +254,7 @@ public class V_03 extends Fragment {
     public void filtro (){
 // https://stackoverflow.com/questions/36246998/stream-filter-of-1-list-based-on-another-list
         personasFiltrados = personas.stream()
-            .filter(e -> inscritos.stream().map(Inscribir_evevalcoltpr::getId_prs).anyMatch(id -> id.equals(e.getId_prs())))
+            .filter(e -> inscritos.stream().map(Inscribir_eveprstpr::getId_prs).anyMatch(id -> id.equals(e.getId_prs())))
             .collect(Collectors.toList());
     }
 
@@ -362,7 +360,7 @@ public class V_03 extends Fragment {
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
                 }
-//                v03_adapter_prs = new v03_00_prs_Adapter((List<Inscribir_evevalcoltpr>) lista, mContext);
+//                v03_adapter_prs = new v03_00_prs_Adapter((List<Inscribir_eveprstpr>) lista, mContext);
                 v03_recycler_prs.setAdapter(v03_adapter_prs);
             }
         });
