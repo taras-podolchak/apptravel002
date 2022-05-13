@@ -153,14 +153,14 @@ public class C_05 extends Fragment implements IDAO <Persona_prs, Object, Object>
                 for (QueryDocumentSnapshot qds : snapshots) {
                     persona = (Persona_prs) qds.toObject(tipoObjeto);
 //                    lista.add(enProceso);
-                miAdapter.notifyDataSetChanged();
+//                miAdapter.notifyDataSetChanged();
 
                     c05_apodo_prs.setText(persona.getApodo_prs());
                     c05_nombre_prs.setText(persona.getNombre_prs()+" "+persona.getApellido1_prs()+" "+persona.getApellido2_prs());
 
                     FirebaseStorage fbs = FirebaseStorage.getInstance();
                     StorageReference str = fbs.getReference();
-                    str.child("Personas/"+persona.getFotopropia_prs()).getDownloadUrl().addOnSuccessListener(uri ->
+                    str.child("Valientes/"+persona.getFotopropia_prs()).getDownloadUrl().addOnSuccessListener(uri ->
                             Picasso.get().load(uri).into(c05_fotopropia_prs)).addOnFailureListener(exception ->
                             Toast.makeText(getActivity(), "Error de cargar la imagen", Toast.LENGTH_LONG).show());
 /*
@@ -178,10 +178,8 @@ public class C_05 extends Fragment implements IDAO <Persona_prs, Object, Object>
                     c05_valoracionorgpre_prs.setText("Colaboración: " + persona.getValoracionorgpre_prs());
                     c05_volumencomprapre_prs.setText("Volumen: " + persona.getVolumencomprapre_prs());
                     c05_nrelacionespre_prs.setText("Contactos: " + persona.getNrelacionespre_prs());
-                    c05_contacto1cargo_prs.setText(persona.getContacto1Cargo_prs());
-                    c05_contacto1movil_prs.setText(persona.getContacto1Movil_prs());
-                    c05_contacto2cargo_prs.setText(persona.getContacto2Cargo_prs());
-                    c05_contacto2movil_prs.setText(persona.getContacto2Movil_prs());
+                    c05_contacto1cargo_prs.setText(persona.getContacto1Cargo_prs()+" "+persona.getContacto1Movil_prs());
+                    c05_contacto1cargo_prs.setText(persona.getContacto2Cargo_prs()+" "+persona.getContacto2Movil_prs());
                     c05_fechaalta_prs.setText(persona.getFechaalta_prs());
                     c05_fechabaja_prs.setText(persona.getFechabaja_prs());
                     c05_dni_prs.setText("DNI: " + persona.getDni_prs());

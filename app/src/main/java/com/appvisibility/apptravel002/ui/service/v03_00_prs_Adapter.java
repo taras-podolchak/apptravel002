@@ -118,7 +118,7 @@ public class v03_00_prs_Adapter extends RecyclerView.Adapter<v03_00_prs_Adapter.
             }
         }
 
-        str.child("Personas/" + fotopropia_prs).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        str.child("Valientes/" + fotopropia_prs).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri).into(holder.v03_fotopropia_prs);
@@ -160,7 +160,8 @@ public class v03_00_prs_Adapter extends RecyclerView.Adapter<v03_00_prs_Adapter.
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("personaParaC_05_tpr", id_prs_enProceso);
+//                bundle.putInt("personaParaC_05_tpr", id_prs_enProceso);
+                bundle.putInt("personaParaC_05", id_prs_enProceso);
                 // TODO EOB: Sustituir condicion del if por "roll == colaborador"
                 if (sesionIniciada == 0) {
                     Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundle);
@@ -174,7 +175,6 @@ public class v03_00_prs_Adapter extends RecyclerView.Adapter<v03_00_prs_Adapter.
                 notifyDataSetChanged();
             }
         });
-
     }
 
     @Override
