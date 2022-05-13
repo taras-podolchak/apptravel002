@@ -78,19 +78,18 @@ public class C_05 extends Fragment implements IDAO <Persona_prs, Object, Object>
     private Persona_prs persona;
 
     //service
-    private int id_prs_bundle;
+//    private int id_prs_bundle;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_c_05, container, false);
 
-        Bundle bundle = this.getArguments();
+//        Bundle bundle = this.getArguments();
 
-        this.id_prs_enProceso = bundle.getInt("personaParaC_05", id_prs_bundle);
+        this.id_prs_enProceso = getArguments().getInt("personaParaC_05");
+//        this.id_prs_enProceso = bundle.getInt("personaParaC_05", id_prs_bundle);
 //        this.id_prs_enProceso = bundle.getInt("id_prs", posicion + 1);
         this.c05_apodo_prs = view.findViewById(R.id.c05_txv_apodo_prs);
-        this.c05_nombre_prs = view.findViewById(R.id.c05_txv_nombre_prs);
-        this.c05_apellido1_prs = view.findViewById(R.id.c05_txv_apellido1_prs);
-        this.c05_apellido2_prs = view.findViewById(R.id.c05_txv_apellido2_prs);
+        this.c05_nombre_prs = view.findViewById(R.id.c05_txv_nombre_prs_apellido1_prs_apellido2_prs);
         this.c05_fotopropia_prs = view.findViewById(R.id.c05_imv_fotopropia_prs);
         this.c05_direccion_prs = view.findViewById(R.id.c05_txv_direccion_prs);
         this.c05_cpostal_prs = view.findViewById(R.id.c05_txv_cpostal_prs);
@@ -104,20 +103,14 @@ public class C_05 extends Fragment implements IDAO <Persona_prs, Object, Object>
         this.c05_valoracionorgpre_prs = view.findViewById(R.id.c05_txv_valoracionorgpre_prs);
         this.c05_volumencomprapre_prs = view.findViewById(R.id.c05_txv_volumencomprapre_prs);
         this.c05_nrelacionespre_prs = view.findViewById(R.id.c05_txv_nrelacionespre_prs);
-        this.c05_contacto1cargo_prs = view.findViewById(R.id.contacto1cargo_prs);
-        this.c05_contacto1movil_prs = view.findViewById(R.id.contacto1movil_prs);
-        this.c05_contacto2cargo_prs = view.findViewById(R.id.contacto2cargo_prs);
-        this.c05_contacto2movil_prs = view.findViewById(R.id.contacto2movil_prs);
-        this.c05_fechaalta_prs = view.findViewById(R.id.c05_txv_fechaalta_prs);
-        this.c05_fechabaja_prs = view.findViewById(R.id.c05_txv_fechabaja_prs);
+        this.c05_contacto1cargo_prs = view.findViewById(R.id.c05_txt_contacto1cargo_prs_contacto1movil_prs);
+        this.c05_contacto2cargo_prs = view.findViewById(R.id.c05_txt_contacto2cargo_prs_contacto2movil_prs);
+        this.c05_fechaalta_prs = view.findViewById(R.id.c05_txv_fechaalta_prs_fechabaja_prs);
         this.c05_dni_prs = view.findViewById(R.id.c05_txv_dni_prs);
         this.c05_condicioneslegales_prs = view.findViewById(R.id.c05_txv_condicioneslegales_prs);
-        this.c05_nps01fecha_prs = view.findViewById(R.id.c05_txv_nps01fecha_prs);
-        this.c05_nps01_prs = view.findViewById(R.id.c05_txv_nps01_prs);
-        this.c05_nps02fecha_prs = view.findViewById(R.id.c05_txv_nps02fecha_prs);
-        this.c05_nps02_prs = view.findViewById(R.id.c05_txv_nps02_prs);
-        this.c05_nps03fecha_prs = view.findViewById(R.id.c05_txv_nps03fecha_prs);
-        this.c05_nps03_prs = view.findViewById(R.id.c05_txv_nps03_prs);
+        this.c05_nps01fecha_prs = view.findViewById(R.id.c05_txv_nps01_prs_nps01_prs);
+        this.c05_nps02fecha_prs = view.findViewById(R.id.c05_txv_nps02_prs_nps02_prs);
+        this.c05_nps03fecha_prs = view.findViewById(R.id.c05_txv_nps03_prs_nps03_prs);
 
         // TODO: carga de Evento
         // EOB: Intentar pasar este método a changeNoListener y eliminar las dos líneas siguientes
@@ -139,9 +132,10 @@ public class C_05 extends Fragment implements IDAO <Persona_prs, Object, Object>
                 Navigation.findNavController(view12).navigate(R.id.action_nav_c05_to_nav_v03, bundle);
             }
         });
-*/
+
         c05_volver = view.findViewById(R.id.c05_btn_volver);
         c05_volver.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_nav_c05_to_nav_v03));
+*/
         return view;
     }//fin de constructor
 
@@ -159,12 +153,10 @@ public class C_05 extends Fragment implements IDAO <Persona_prs, Object, Object>
                 for (QueryDocumentSnapshot qds : snapshots) {
                     persona = (Persona_prs) qds.toObject(tipoObjeto);
 //                    lista.add(enProceso);
-//                miAdapter.notifyDataSetChanged();
+                miAdapter.notifyDataSetChanged();
 
                     c05_apodo_prs.setText(persona.getApodo_prs());
-                    c05_nombre_prs.setText(persona.getNombre_prs());
-                    c05_apellido1_prs.setText(persona.getApellido1_prs());
-                    c05_apellido2_prs.setText(persona.getApellido2_prs());
+                    c05_nombre_prs.setText(persona.getNombre_prs()+" "+persona.getApellido1_prs()+" "+persona.getApellido2_prs());
 
                     FirebaseStorage fbs = FirebaseStorage.getInstance();
                     StorageReference str = fbs.getReference();
@@ -194,12 +186,9 @@ public class C_05 extends Fragment implements IDAO <Persona_prs, Object, Object>
                     c05_fechabaja_prs.setText(persona.getFechabaja_prs());
                     c05_dni_prs.setText("DNI: " + persona.getDni_prs());
                     c05_condicioneslegales_prs.setText("Condiciones " + (persona.getCondicioneslegales_prs()? "Aceptadas":"Rechazadas"));
-                    c05_nps01fecha_prs.setText(persona.getNps01Fecha_prs());
-                    c05_nps01_prs.setText("NPS1:  " + persona.getNps01_prs());
-                    c05_nps02fecha_prs.setText(persona.getNps02Fecha_prs());
-                    c05_nps02_prs.setText("NPS2:  " + persona.getNps02_prs());
-                    c05_nps03fecha_prs.setText(persona.getNps03Fecha_prs());
-                    c05_nps03_prs.setText("NPS3:  " + persona.getNps03_prs());
+                    c05_nps01fecha_prs.setText(persona.getNps01Fecha_prs()+" - NPS1: " + persona.getNps01_prs());
+                    c05_nps02fecha_prs.setText(persona.getNps02Fecha_prs()+" - NPS2: " + persona.getNps02_prs());
+                    c05_nps03fecha_prs.setText(persona.getNps03Fecha_prs()+" - NPS3: " + persona.getNps03_prs());
 
 //                if (pdg.isShowing()){
 //                    pdg.dismiss();

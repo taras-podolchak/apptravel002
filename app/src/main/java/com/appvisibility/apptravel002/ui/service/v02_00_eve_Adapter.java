@@ -52,7 +52,7 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
      */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        int id_eve = eventos_list.get(position).getId_eve();
+        int id_eve_enProceso = eventos_list.get(position).getId_eve();
         String titulo_eve = eventos_list.get(position).getTitulo_eve();
         String foto_eve = eventos_list.get(position).getFoto_eve();
         String nivel_eve = eventos_list.get(position).getNivel_eve();
@@ -91,7 +91,7 @@ Descomentar cuando se resuelva el problema de id empezando en 0 (debería empeza
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt("eventoParaV_03", 1 + position);
+                result.putInt("eventoParaV_03", id_eve_enProceso);
                 Navigation.findNavController(v).navigate(R.id.nav_v03, result);
                 /*
                  * Notificamos cambios para que el contenedor se entere y refresque los datos
