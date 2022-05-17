@@ -2,8 +2,11 @@ package com.appvisibility.apptravel002.ui.controller;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -21,6 +24,8 @@ import android.widget.Toast;
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 import com.appvisibility.apptravel002.ui.service.v03_00_prs_Adapter;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -41,11 +46,8 @@ public class C_05 extends Fragment implements IDAO <Persona_prs, Object, Object>
     private int id_prs_enProceso;
     private TextView c05_apodo_prs;
     private TextView c05_nombre_prs;
-    private TextView c05_apellido1_prs;
-    private TextView c05_apellido2_prs;
     private ImageView c05_fotopropia_prs;
     private TextView c05_direccion_prs;
-    private TextView c05_cpostal_prs;
     private TextView c05_localidad_prs;
     private TextView c05_movil_prs;
     private TextView c05_coche_prs;
@@ -57,19 +59,13 @@ public class C_05 extends Fragment implements IDAO <Persona_prs, Object, Object>
     private TextView c05_volumencomprapre_prs;
     private TextView c05_nrelacionespre_prs;
     private TextView c05_contacto1cargo_prs;
-    private TextView c05_contacto1movil_prs;
     private TextView c05_contacto2cargo_prs;
-    private TextView c05_contacto2movil_prs;
     private TextView c05_fechaalta_prs;
-    private TextView c05_fechabaja_prs;
     private TextView c05_dni_prs;
     private TextView c05_condicioneslegales_prs;
     private TextView c05_nps01fecha_prs;
-    private TextView c05_nps01_prs;
     private TextView c05_nps02fecha_prs;
-    private TextView c05_nps02_prs;
     private TextView c05_nps03fecha_prs;
-    private TextView c05_nps03_prs;
 
     //TODO:acceso a datos
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
@@ -92,8 +88,7 @@ public class C_05 extends Fragment implements IDAO <Persona_prs, Object, Object>
         this.c05_nombre_prs = view.findViewById(R.id.c05_txv_nombre_prs_apellido1_prs_apellido2_prs);
         this.c05_fotopropia_prs = view.findViewById(R.id.c05_imv_fotopropia_prs);
         this.c05_direccion_prs = view.findViewById(R.id.c05_txv_direccion_prs);
-        this.c05_cpostal_prs = view.findViewById(R.id.c05_txv_cpostal_prs);
-        this.c05_localidad_prs = view.findViewById(R.id.c05_txv_localidad_prs);
+        this.c05_localidad_prs = view.findViewById(R.id.c05_txv_localidad_prs_cpostal_prs);
         this.c05_movil_prs = view.findViewById(R.id.c05_txv_movil_prs);
         this.c05_coche_prs = view.findViewById(R.id.c05_txv_coche_prs);
         this.c05_email_prs = view.findViewById(R.id.c05_txv_email_prs);
@@ -136,6 +131,39 @@ public class C_05 extends Fragment implements IDAO <Persona_prs, Object, Object>
         c05_volver = view.findViewById(R.id.c05_btn_volver);
         c05_volver.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_nav_c05_to_nav_v03));
 */
+/*
+        c05_movil_prs.setOnClickListener(view13 -> {
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", persona.getMovil_prs(), null));
+            startActivity(intent);
+        });
+*/
+        // TODO: llamada por el whatsapp
+        c05_movil_prs.setOnClickListener(view13 -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+
+
+            String texto = "Hola "
+                    + persona.getNombre_prs() + " " + persona.getApellido1_prs() + ",\n Soy "
+                    /* + colaborador.getNombre_col() + colaborador.getApellido1_col() + " me gustaria "*/;
+            String uri = "api.whatsapp.com/send?phone=+34622666299&text=" + texto;
+//            https://api.whatsapp.com/send?phone=+34622666299&text=Quiero%20m%C3%A1s%20infomaci%C3%B3n
+            startActivity(intent);
+        });
+
+        // TODO: envio del correo
+        c05_email_prs.setOnClickListener(view12 -> {
+            Intent Email = new Intent(Intent.ACTION_SEND);
+            Email.setType("text/email");
+
+            Email.putExtra(Intent.EXTRA_EMAIL, new String[]{persona.getEmail_prs()});
+            Email.putExtra(Intent.EXTRA_CC, "hola@gmail.com");
+            Email.putExtra(Intent.EXTRA_SUBJECT, "Amigos de la montaña");
+            Email.putExtra(Intent.EXTRA_TEXT, "Hola "
+                            + persona.getNombre_prs() + " " + persona.getApellido1_prs() + ",\n Soy "
+                    /* + colaborador.getNombre_col() + colaborador.getApellido1_col() + " me gustaria "*/);
+            startActivity(Intent.createChooser(Email, "Send Feedback:"));
+        });
+
         return view;
     }//fin de constructor
 
@@ -160,14 +188,22 @@ public class C_05 extends Fragment implements IDAO <Persona_prs, Object, Object>
 
                     FirebaseStorage fbs = FirebaseStorage.getInstance();
                     StorageReference str = fbs.getReference();
-                    str.child("Valientes/"+persona.getFotopropia_prs()).getDownloadUrl().addOnSuccessListener(uri ->
-                            Picasso.get().load(uri).into(c05_fotopropia_prs)).addOnFailureListener(exception ->
-                            Toast.makeText(getActivity(), "Error de cargar la imagen", Toast.LENGTH_LONG).show());
-/*
+
+                    str.child("Valientes/"+persona.getFotopropia_prs()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Picasso.get().load(uri).into(c05_fotopropia_prs);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            Toast.makeText(getActivity(), "Error de cargar la imagen", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
                     c05_direccion_prs.setText(persona.getDireccion_prs());
-                    c05_cpostal_prs.setText(persona.getCpostal_prs());
-                    c05_localidad_prs.setText(persona.getLocalidad_prs());
-*/
+                    c05_localidad_prs.setText(persona.getLocalidad_prs() +" "+ persona.getCpostal_prs());
+
                     c05_movil_prs.setText(persona.getMovil_prs());
                     c05_coche_prs.setText(persona.getCoche_prs());
                     c05_email_prs.setText(persona.getEmail_prs());
@@ -179,9 +215,8 @@ public class C_05 extends Fragment implements IDAO <Persona_prs, Object, Object>
                     c05_volumencomprapre_prs.setText("Volumen: " + persona.getVolumencomprapre_prs());
                     c05_nrelacionespre_prs.setText("Contactos: " + persona.getNrelacionespre_prs());
                     c05_contacto1cargo_prs.setText(persona.getContacto1Cargo_prs()+" "+persona.getContacto1Movil_prs());
-                    c05_contacto1cargo_prs.setText(persona.getContacto2Cargo_prs()+" "+persona.getContacto2Movil_prs());
-                    c05_fechaalta_prs.setText(persona.getFechaalta_prs());
-                    c05_fechabaja_prs.setText(persona.getFechabaja_prs());
+                    c05_contacto2cargo_prs.setText(persona.getContacto2Cargo_prs()+" "+persona.getContacto2Movil_prs());
+                    c05_fechaalta_prs.setText("Alta: " + persona.getFechaalta_prs()+" / Baja: "+persona.getFechabaja_prs());
                     c05_dni_prs.setText("DNI: " + persona.getDni_prs());
                     c05_condicioneslegales_prs.setText("Condiciones " + (persona.getCondicioneslegales_prs()? "Aceptadas":"Rechazadas"));
                     c05_nps01fecha_prs.setText(persona.getNps01Fecha_prs()+" - NPS1: " + persona.getNps01_prs());
