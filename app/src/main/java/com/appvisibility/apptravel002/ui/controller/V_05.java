@@ -1,6 +1,5 @@
 package com.appvisibility.apptravel002.ui.controller;
 
-import static com.appvisibility.apptravel002.MainActivity.sesionIniciada;
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
@@ -57,17 +56,17 @@ import java.util.List;
  */
 public class V_05 extends Fragment implements IDAO<Evento_eve_test, Persona_prs, Actividad_act> {
 
-    // TODO: Rename parameter arguments, choose names that match
+    // Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+    // Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    //TODO:los campos de xml
-    private Button v05_confirmar, v05_volver;
+    // Campos de xml
+    private Button v05_adelante, v05_atras;
     private TextView v05_titulo_eve;
     private ImageView v05_foto_eve;
     private TextView v05_info_completa;
@@ -78,10 +77,10 @@ public class V_05 extends Fragment implements IDAO<Evento_eve_test, Persona_prs,
     private Spinner v05_tipo_alojamiento;
     private Spinner v05_restricciones_alimentarias;
 
-    //TODO:acceso a datos
+    // Acceso a datos
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
 
-    //TODO:entities
+    // Entities
     private Evento_eve_test evento;
     private List<Actividad_act> actividades = new ArrayList<>();
     private List<Persona_prs> personas = new ArrayList<>();
@@ -89,7 +88,7 @@ public class V_05 extends Fragment implements IDAO<Evento_eve_test, Persona_prs,
     private List<Alojamiento_alo> listAlojamiento = new ArrayList<>();
     private Context mContext;
 
-    //TODO:servise
+    // Service
     private v03_00_act_Adapter v03_adapter_act;
     private v03_00_prs_Adapter v03_adapter_prs;
 
@@ -105,7 +104,7 @@ public class V_05 extends Fragment implements IDAO<Evento_eve_test, Persona_prs,
      * @param param2 Parameter 2.
      * @return A new instance of fragment V_05.
      */
-    // TODO: Rename and change types and number of parameters
+    // Rename and change types and number of parameters
     public static V_05 newInstance(String param1, String param2) {
         V_05 fragment = new V_05();
         Bundle bundle = new Bundle();
@@ -133,10 +132,11 @@ public class V_05 extends Fragment implements IDAO<Evento_eve_test, Persona_prs,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_05, container, false);
+
         int id_eve_bundle = getArguments().getInt("eventoParaV_05");
 
-        Bundle result = new Bundle();
-        result.putInt("eventoParaV_05_1", id_eve_bundle);
+        Bundle bundleEvento = new Bundle();
+        bundleEvento.putInt("eventoParaV_05_1", id_eve_bundle);
 
         v05_titulo_eve = view.findViewById(R.id.v05_txv_titulo_eve);
         v05_foto_eve = view.findViewById(R.id.v05_imv_foto_eve);
@@ -211,20 +211,20 @@ public class V_05 extends Fragment implements IDAO<Evento_eve_test, Persona_prs,
         v05_foto_eve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_nav_v05_to_nav_v05_1, result);
+                Navigation.findNavController(view).navigate(R.id.action_nav_v05_to_nav_v05_1, bundleEvento);
             }
         });
 
-        v05_confirmar = view.findViewById(R.id.v05_btn_confirmar);
-        v05_confirmar.setOnClickListener(new View.OnClickListener() {
+        v05_adelante = view.findViewById(R.id.v05_btn_confirmar);
+        v05_adelante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_nav_v05_to_nav_v06);
             }
         });
 
-        v05_volver = view.findViewById(R.id.v05_btn_volver);
-        v05_volver.setOnClickListener(new View.OnClickListener() {
+        v05_atras = view.findViewById(R.id.v05_btn_volver);
+        v05_atras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_nav_v05_to_nav_v02);

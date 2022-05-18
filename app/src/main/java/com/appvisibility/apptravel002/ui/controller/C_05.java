@@ -9,14 +9,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,8 +39,7 @@ import java.util.List;
 
 public class C_05 extends Fragment implements IDAO <Persona_prs, Object, Object> {
 
-    //TODO:los campos de xml
-    private Button c05_me_interesa, c05_volver;
+    // Campos de xml
     private int id_prs_enProceso;
     private TextView c05_apodo_prs;
     private TextView c05_nombre_prs;
@@ -67,23 +64,18 @@ public class C_05 extends Fragment implements IDAO <Persona_prs, Object, Object>
     private TextView c05_nps02fecha_prs;
     private TextView c05_nps03fecha_prs;
 
-    //TODO:acceso a datos
+    // Acceso a datos
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
 
-    //TODO:entities
-    private Persona_prs persona;
-
-    //service
-//    private int id_prs_bundle;
+    // Entities
+    private Persona_prs personaEnProceso;
+    private List<Persona_prs> personas = new ArrayList<>();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_c_05, container, false);
 
-//        Bundle bundle = this.getArguments();
-
         this.id_prs_enProceso = getArguments().getInt("personaParaC_05");
-//        this.id_prs_enProceso = bundle.getInt("personaParaC_05", id_prs_bundle);
-//        this.id_prs_enProceso = bundle.getInt("id_prs", posicion + 1);
+
         this.c05_apodo_prs = view.findViewById(R.id.c05_txv_apodo_prs);
         this.c05_nombre_prs = view.findViewById(R.id.c05_txv_nombre_prs_apellido1_prs_apellido2_prs);
         this.c05_fotopropia_prs = view.findViewById(R.id.c05_imv_fotopropia_prs);
@@ -107,61 +99,59 @@ public class C_05 extends Fragment implements IDAO <Persona_prs, Object, Object>
         this.c05_nps02fecha_prs = view.findViewById(R.id.c05_txv_nps02_prs_nps02_prs);
         this.c05_nps03fecha_prs = view.findViewById(R.id.c05_txv_nps03_prs_nps03_prs);
 
-        // TODO: carga de Evento
+        //Cargamos el Evento
         // EOB: Intentar pasar este método a changeNoListener y eliminar las dos líneas siguientes
-        List<Persona_prs> personas = new ArrayList<>();
         v03_00_prs_Adapter v03_adapter_prs = null;
 
         Query query1 = fbf.collection("persona_prs").whereEqualTo("id_prs", id_prs_enProceso);
-        tabla1ChangeListener (query1, personas, Persona_prs.class, v03_adapter_prs);
+        tabla1ChangeListener(query1, personas, Persona_prs.class, v03_adapter_prs);
 
-//        DocumentReference drf = fbf.collection("evento_eve").document(String.valueOf(id_eve));
-//        DocumentChangeListener(drf);
-/*
-        // TODO: los botones
-        c05_me_interesa = view.findViewById(R.id.c05_btn_me_interesa);
-        c05_me_interesa.setOnClickListener(view12 -> {
-            if (!sesionIniciada) {
-                Navigation.findNavController(view12).navigate(R.id.action_nav_c05_to_nav_v03, bundle);
-            } else {
-                Navigation.findNavController(view12).navigate(R.id.action_nav_c05_to_nav_v03, bundle);
+        // Botones
+        // Envio de whatsapp
+        c05_movil_prs.setOnClickListener(new View.OnClickListener() {
+            String mensaje = "Hola, necesito más información sobre ...";
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=+34" + personaEnProceso.getMovil_prs() + "&text=" + mensaje));
+                startActivity(intent);
             }
         });
 
-        c05_volver = view.findViewById(R.id.c05_btn_volver);
-        c05_volver.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_nav_c05_to_nav_v03));
-*/
-/*
-        c05_movil_prs.setOnClickListener(view13 -> {
-            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", persona.getMovil_prs(), null));
-            startActivity(intent);
-        });
-*/
-        // TODO: llamada por el whatsapp
-        c05_movil_prs.setOnClickListener(view13 -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
+        // Envio de eMail
+        c05_email_prs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/email");
 
-
-            String texto = "Hola "
-                    + persona.getNombre_prs() + " " + persona.getApellido1_prs() + ",\n Soy "
-                    /* + colaborador.getNombre_col() + colaborador.getApellido1_col() + " me gustaria "*/;
-            String uri = "api.whatsapp.com/send?phone=+34622666299&text=" + texto;
-//            https://api.whatsapp.com/send?phone=+34622666299&text=Quiero%20m%C3%A1s%20infomaci%C3%B3n
-            startActivity(intent);
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{personaEnProceso.getEmail_prs()});
+                intent.putExtra(Intent.EXTRA_CC, "hola@gmail.com");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Amigos de la Montaña");
+                intent.putExtra(Intent.EXTRA_TEXT, "Hola " + personaEnProceso.getNombre_prs() + ",\n\n Soy ");
+                startActivity(Intent.createChooser(intent, "Send Feedback:"));
+            }
         });
 
-        // TODO: envio del correo
-        c05_email_prs.setOnClickListener(view12 -> {
-            Intent Email = new Intent(Intent.ACTION_SEND);
-            Email.setType("text/email");
+        // Llamar por telefono a contacto1
+//https://stackoverflow.com/questions/40125931/how-to-ask-permission-to-make-phone-call-from-android-from-android-version-marsh
+//https://es.stackoverflow.com/questions/105776/android-action-dial-error-no-activity-found-to-handle-intent-act-android-inte
+        c05_contacto1cargo_prs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + personaEnProceso.getContacto1Movil_prs()));
+                startActivity(intent);
+            }
+        });
 
-            Email.putExtra(Intent.EXTRA_EMAIL, new String[]{persona.getEmail_prs()});
-            Email.putExtra(Intent.EXTRA_CC, "hola@gmail.com");
-            Email.putExtra(Intent.EXTRA_SUBJECT, "Amigos de la montaña");
-            Email.putExtra(Intent.EXTRA_TEXT, "Hola "
-                            + persona.getNombre_prs() + " " + persona.getApellido1_prs() + ",\n Soy "
-                    /* + colaborador.getNombre_col() + colaborador.getApellido1_col() + " me gustaria "*/);
-            startActivity(Intent.createChooser(Email, "Send Feedback:"));
+        // Llamar por telefono a contacto2
+        c05_contacto2cargo_prs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + personaEnProceso.getContacto2Movil_prs().toString()));
+                startActivity(intent);
+            }
         });
 
         return view;
@@ -179,17 +169,17 @@ public class C_05 extends Fragment implements IDAO <Persona_prs, Object, Object>
                 }
                 lista.clear();
                 for (QueryDocumentSnapshot qds : snapshots) {
-                    persona = (Persona_prs) qds.toObject(tipoObjeto);
+                    personaEnProceso = (Persona_prs) qds.toObject(tipoObjeto);
 //                    lista.add(enProceso);
 //                miAdapter.notifyDataSetChanged();
 
-                    c05_apodo_prs.setText(persona.getApodo_prs());
-                    c05_nombre_prs.setText(persona.getNombre_prs()+" "+persona.getApellido1_prs()+" "+persona.getApellido2_prs());
+                    c05_apodo_prs.setText(personaEnProceso.getApodo_prs());
+                    c05_nombre_prs.setText(personaEnProceso.getNombre_prs() + " " + personaEnProceso.getApellido1_prs() + " " + personaEnProceso.getApellido2_prs());
 
                     FirebaseStorage fbs = FirebaseStorage.getInstance();
                     StorageReference str = fbs.getReference();
 
-                    str.child("Valientes/"+persona.getFotopropia_prs()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    str.child("Valientes/" + personaEnProceso.getFotopropia_prs()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
                             Picasso.get().load(uri).into(c05_fotopropia_prs);
@@ -201,31 +191,27 @@ public class C_05 extends Fragment implements IDAO <Persona_prs, Object, Object>
                         }
                     });
 
-                    c05_direccion_prs.setText(persona.getDireccion_prs());
-                    c05_localidad_prs.setText(persona.getLocalidad_prs() +" "+ persona.getCpostal_prs());
+                    c05_direccion_prs.setText(personaEnProceso.getDireccion_prs());
+                    c05_localidad_prs.setText(personaEnProceso.getLocalidad_prs() + " " + personaEnProceso.getCpostal_prs());
 
-                    c05_movil_prs.setText(persona.getMovil_prs());
-                    c05_coche_prs.setText(persona.getCoche_prs());
-                    c05_email_prs.setText(persona.getEmail_prs());
+                    c05_movil_prs.setText(personaEnProceso.getMovil_prs());
+                    c05_coche_prs.setText(personaEnProceso.getCoche_prs());
+                    c05_email_prs.setText(personaEnProceso.getEmail_prs());
 
-                    c05_antiguedadpre_prs.setText("Antigüedad: " + persona.getAntiguedadpre_prs());
-                    c05_cochepre_prs.setText("Ofrece coche: " + persona.getCochepre_prs());
-                    c05_fiabilidadpre_prs.setText("Fiabilidad: " + persona.getFiabilidadpre_prs());
-                    c05_valoracionorgpre_prs.setText("Colaboración: " + persona.getValoracionorgpre_prs());
-                    c05_volumencomprapre_prs.setText("Volumen: " + persona.getVolumencomprapre_prs());
-                    c05_nrelacionespre_prs.setText("Contactos: " + persona.getNrelacionespre_prs());
-                    c05_contacto1cargo_prs.setText(persona.getContacto1Cargo_prs()+" "+persona.getContacto1Movil_prs());
-                    c05_contacto2cargo_prs.setText(persona.getContacto2Cargo_prs()+" "+persona.getContacto2Movil_prs());
-                    c05_fechaalta_prs.setText("Alta: " + persona.getFechaalta_prs()+" / Baja: "+persona.getFechabaja_prs());
-                    c05_dni_prs.setText("DNI: " + persona.getDni_prs());
-                    c05_condicioneslegales_prs.setText("Condiciones " + (persona.getCondicioneslegales_prs()? "Aceptadas":"Rechazadas"));
-                    c05_nps01fecha_prs.setText(persona.getNps01Fecha_prs()+" - NPS1: " + persona.getNps01_prs());
-                    c05_nps02fecha_prs.setText(persona.getNps02Fecha_prs()+" - NPS2: " + persona.getNps02_prs());
-                    c05_nps03fecha_prs.setText(persona.getNps03Fecha_prs()+" - NPS3: " + persona.getNps03_prs());
-
-//                if (pdg.isShowing()){
-//                    pdg.dismiss();
-//                }
+                    c05_antiguedadpre_prs.setText("Antigüedad: " + personaEnProceso.getAntiguedadpre_prs());
+                    c05_cochepre_prs.setText("Ofrece coche: " + personaEnProceso.getCochepre_prs());
+                    c05_fiabilidadpre_prs.setText("Fiabilidad: " + personaEnProceso.getFiabilidadpre_prs());
+                    c05_valoracionorgpre_prs.setText("Colaboración: " + personaEnProceso.getValoracionorgpre_prs());
+                    c05_volumencomprapre_prs.setText("Volumen: " + personaEnProceso.getVolumencomprapre_prs());
+                    c05_nrelacionespre_prs.setText("Contactos: " + personaEnProceso.getNrelacionespre_prs());
+                    c05_contacto1cargo_prs.setText(personaEnProceso.getContacto1Cargo_prs() + " " + personaEnProceso.getContacto1Movil_prs());
+                    c05_contacto2cargo_prs.setText(personaEnProceso.getContacto2Cargo_prs() + " " + personaEnProceso.getContacto2Movil_prs());
+                    c05_fechaalta_prs.setText("Alta: " + personaEnProceso.getFechaalta_prs() + " / Baja: " + personaEnProceso.getFechabaja_prs());
+                    c05_dni_prs.setText("DNI: " + personaEnProceso.getDni_prs());
+                    c05_condicioneslegales_prs.setText("Condiciones " + (personaEnProceso.getCondicioneslegales_prs() ? "Aceptadas" : "Rechazadas"));
+                    c05_nps01fecha_prs.setText(personaEnProceso.getNps01Fecha_prs() + " - NPS1: " + personaEnProceso.getNps01_prs());
+                    c05_nps02fecha_prs.setText(personaEnProceso.getNps02Fecha_prs() + " - NPS2: " + personaEnProceso.getNps02_prs());
+                    c05_nps03fecha_prs.setText(personaEnProceso.getNps03Fecha_prs() + " - NPS3: " + personaEnProceso.getNps03_prs());
 
                     Log.d(TAG, "Datos recibidos!");
                     Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
@@ -243,5 +229,4 @@ public class C_05 extends Fragment implements IDAO <Persona_prs, Object, Object>
     public <O> void tabla3ChangeListener(Query query, List<O> lista, Class<O> tipoObjeto, RecyclerView.Adapter miAdapter) {
 
     }
-
 }

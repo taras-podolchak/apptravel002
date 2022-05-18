@@ -3,10 +3,12 @@ package com.appvisibility.apptravel002;
 import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.Menu;
+import android.view.View;
 import android.widget.Toast;
 
 import com.appvisibility.apptravel002.databinding.ActivityMainBinding;
@@ -44,20 +46,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(view -> {
-            Intent Email = new Intent(Intent.ACTION_SEND);
-            Email.setType("text/email");
-            Email.putExtra(Intent.EXTRA_EMAIL,
-                    new String[]{"developeremail@gmail.com"});  //developer 's email
-            Email.putExtra(Intent.EXTRA_SUBJECT,
-                    "Add your Subject"); // Email 's Subject
-            Email.putExtra(Intent.EXTRA_TEXT, "Dear Developer Name," + "");  //Email 's Greeting text
-            startActivity(Intent.createChooser(Email, "Send Feedback:"));
+        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://amigosmontanawo.eboe62.com/preguntas-frecuentes-faq/"));
+                startActivity(intent);
+//                webView.loadUrl("https://amigosmontanawo.eboe62.com/preguntas-frecuentes-faq/");
+            }
         });
 
         DrawerLayout drawer = binding.drawerLayout.findViewById(R.id.drawer_layout);
@@ -76,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (mNavigationView != null) {
             mNavigationView.setNavigationItemSelectedListener(this);
         }
-
 
     }   //fin de constructor
 
@@ -135,6 +133,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
+        if (id == R.id.dudas_sobre_logistica) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://amigosmontanawo.eboe62.com/dudas-sobre-la-logistica/"));
+            startActivity(intent);
+        }
+        if (id == R.id.dudas_sobre_montannismo) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://amigosmontanawo.eboe62.com/dudas-sobre-montanismo/"));
+            startActivity(intent);
+        }
+        if (id == R.id.dudas_sobre_club) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://amigosmontanawo.eboe62.com/dudas-sobre-el-club/"));
+            startActivity(intent);
+        }
+        if (id == R.id.licencia_federativa) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://amigosmontanawo.eboe62.com/2020/10/01/licencia-federativa/"));
+            startActivity(intent);
+        }
+        if (id == R.id.equipamiento) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://amigosmontanawo.eboe62.com/2020/10/05/496/"));
+            startActivity(intent);
+        }
+        if (id == R.id.pagina_web) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://amigosmontanawo.eboe62.com/"));
+            startActivity(intent);
+        }
         if (id == R.id.colaborador) {
             if (sesionIniciada == 0) {
                 Intent intent = new Intent(this, MainActivity_prs.class);

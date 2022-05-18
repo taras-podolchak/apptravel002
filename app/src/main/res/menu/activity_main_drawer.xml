@@ -22,15 +22,15 @@
     <item android:title="Preguntas frecuentes">
     <menu >
         <item
-            android:id="@+id/datos_sobre_logistica"
+            android:id="@+id/dudas_sobre_logistica"
             android:icon="@android:drawable/stat_notify_chat"
             android:title="Datos sobre logistica" />
         <item
-            android:id="@+id/dudas_sobre_mantanismo"
+            android:id="@+id/dudas_sobre_montannismo"
             android:icon="@android:drawable/stat_notify_chat"
             android:title="Dudas sobre montañismo" />
         <item
-            android:id="@+id/dudas_sobre_Club"
+            android:id="@+id/dudas_sobre_club"
             android:icon="@android:drawable/stat_notify_chat"
             android:title="Dudas sobre Club" />
     </menu>
@@ -52,9 +52,9 @@
 
 
         <group
-            android:id="@+id/group1">
+            android:id="@+id/usuario_tipo">
             <item
-                android:id="@+id/paguina_web"
+                android:id="@+id/pagina_web"
                 android:icon="@android:drawable/ic_dialog_email"
                 android:title="Pagina WEB" />
             <item

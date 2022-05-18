@@ -137,13 +137,13 @@ public class v03_00_prs_Adapter extends RecyclerView.Adapter<v03_00_prs_Adapter.
         holder.v03_cdv_persona.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("personaParaC_05", id_prs_enProceso);
+                Bundle bundleEvento = new Bundle();
+                bundleEvento.putInt("personaParaC_05", id_prs_enProceso);
                 // TODO EOB: Sustituir condicion del if por "roll == colaborador"
                 if (sesionIniciada == 0) {
-                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundleEvento);
                 } else {
-                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundleEvento);
                 }
                 /*
                  * Notificamos cambios para que el contenedor se entere y refresque los datos
