@@ -35,7 +35,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 
-public class V_02 extends Fragment implements IDAO<Evento_eve_test, Object, Object> {
+public class V_02 extends Fragment implements IDAO<Evento_eve_test, Object> {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,18 +46,18 @@ public class V_02 extends Fragment implements IDAO<Evento_eve_test, Object, Obje
     private String mParam1;
     private String mParam2;
 
-    //TODO:los campos de xml
+    // Campos de xml
     private RecyclerView v02_recycler_eve;
 
-    //TODO:acceso a datos
+    // Acceso a datos
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
     ProgressDialog pdg;
 
-    // TODO: Entities
-    List<Evento_eve_test> eventos_list = new ArrayList<>();
+    // Entities
+    List<Evento_eve_test> eventos = new ArrayList<>();
     private Context mContext;
 
-    //TODO:servise
+    // Service
     private v02_00_eve_Adapter v02_adapter_eve;
 
     public V_02() {
@@ -98,25 +98,20 @@ public class V_02 extends Fragment implements IDAO<Evento_eve_test, Object, Obje
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_02, container, false);
-/*
-        pdg = new ProgressDialog(mContext);
-        pdg.setCancelable(true);
-        pdg.setMessage("Recuperando datos...");
-        pdg.show();
-*/
+
         this.v02_recycler_eve = (RecyclerView) view.findViewById(R.id.v02_rcv_eventos);
         this.v02_recycler_eve.setHasFixedSize(true);
         this.v02_recycler_eve.setLayoutManager(new LinearLayoutManager(mContext));
-        this.v02_adapter_eve = new v02_00_eve_Adapter(eventos_list, mContext);
+        this.v02_adapter_eve = new v02_00_eve_Adapter(eventos, mContext);
 
         Query query1 = fbf.collection("evento_eve_test").orderBy("id_eve", Query.Direction.ASCENDING);
-        tabla1ChangeListener(query1, eventos_list, Evento_eve_test.class, v02_adapter_eve);
+        tabla1ChangeListener(query1, eventos, Evento_eve_test.class, v02_adapter_eve);
 
         this.v02_recycler_eve.setAdapter(v02_adapter_eve);
         return view;
-    }//Fin de cinstructor
+    }//Fin de constructor
 
     @Override
     public <T> void tabla1ChangeListener(Query query, List<T> lista, Class<T> tipoObjeto, RecyclerView.Adapter miAdapter) {
@@ -135,10 +130,6 @@ public class V_02 extends Fragment implements IDAO<Evento_eve_test, Object, Obje
                 }
                 miAdapter.notifyDataSetChanged();
 
-//                if (pdg.isShowing()){
-//                    pdg.dismiss();
-//                }
-
                 Log.d(TAG, "Datos recibidos!");
                 Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
             }
@@ -150,8 +141,4 @@ public class V_02 extends Fragment implements IDAO<Evento_eve_test, Object, Obje
 
     }
 
-    @Override
-    public <O> void tabla3ChangeListener(Query query, List<O> lista, Class<O> tipoObjeto, RecyclerView.Adapter miAdapter) {
-
-    }
 }

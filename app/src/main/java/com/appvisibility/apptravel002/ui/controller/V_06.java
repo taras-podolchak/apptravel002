@@ -37,7 +37,7 @@ public class V_06 extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    //TODO:los campos de xml
+    // Campos de xml
     private Button v06_activar_aviso, v06_mas_actividades;
 
     public V_06() {

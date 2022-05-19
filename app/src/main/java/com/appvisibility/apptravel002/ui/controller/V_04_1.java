@@ -46,7 +46,7 @@ public class V_04_1 extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    //TODO:los campos de xml
+    // Campos de xml
     private Button v04_1_aceptar, v04_1_volver;
     private EditText v04_1_nombre_prs;
     private EditText v04_1_apellido1_prs;
@@ -58,18 +58,17 @@ public class V_04_1 extends Fragment {
     private EditText v04_1_movil_prs;
     private CheckBox v04_1_condicioneslegales_prs;
 
-    //TODO:acceso a datos
+    // Acceso a datos
     private FirebaseAuth fba = FirebaseAuth.getInstance();
     private FirebaseFirestore fbf = FirebaseFirestore.getInstance();
 
-    //TODO:entities
+    // Entities
     private Context mContext;
     private Bundle result;
 
-    //TODO:servise
+    // Service
     private ProgressDialog pdg;
     private int usuariotipo = 1;
-
 
     /**
      * Use this factory method to create a new instance of

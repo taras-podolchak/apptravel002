@@ -40,6 +40,7 @@ public class Evento_eve implements Serializable {
             int nparticipantes_eve,
             String foto_eve,
             String nivel_eve,
+            String estado_eve,
             String transportetipo_eve,
             String fechaidatru_eve,
             String fechavueltatru_eve
@@ -50,6 +51,7 @@ public class Evento_eve implements Serializable {
         this.nparticipantes_eve = nparticipantes_eve;
         this.foto_eve = foto_eve;
         this.nivel_eve = nivel_eve;
+        this.estado_eve = estado_eve;
         this.transportetipo_eve = transportetipo_eve;
         this.fechaidatru_eve = fechaidatru_eve;
         this.fechavueltatru_eve = fechavueltatru_eve;

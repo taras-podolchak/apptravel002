@@ -37,9 +37,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class V_05_1 extends Fragment implements IDAO <Evento_eve, Object, Object>, OnMapReadyCallback {
+public class V_05_1 extends Fragment implements OnMapReadyCallback {
 
-    //TODO:los campos de xml
+    // Campos de xml
     private TextView v05_1_titulo_eve;
     private TextView v05_1_fechapagosennal_eve;
     private TextView v05_1_fechapagototal_eve;
@@ -53,23 +53,28 @@ public class V_05_1 extends Fragment implements IDAO <Evento_eve, Object, Object
     private Button v05_1_recomendaciones;
     private GoogleMap Mapa;
 
-    //TODO:acceso a datos
+    // Acceso a datos
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
 
-    //TODO:entities
-    private Evento_eve evento;
+    // Entities
+    private Evento_eve eventoEnProceso;
 
-    //service
+    // Service
     private int id_eve_bundle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_05_1, container, false);
 
-        id_eve_bundle = getArguments().getInt("eventoParaV_05_1");
+//        id_eve_bundle = getArguments().getInt("eventoParaV_05_1");
 
-        Bundle bundle = new Bundle();
-        bundle.putInt("eventoParaV_05", id_eve_bundle);
+//        Bundle bundleEvento = new Bundle();
+        Bundle bundleEvento = getArguments();
+        //Cargamos el Evento
+        eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_05_1");
+        int id_eve_bundle = eventoEnProceso.getId_eve();
+//        bundleEvento.putInt("eventoParaV_05", id_eve_bundle);
+        bundleEvento.putSerializable("eventoParaV_05", eventoEnProceso);
 
         this.v05_1_titulo_eve = view.findViewById(R.id.v05_1_txv_titulo_eve);
         this.v05_1_fechapagosennal_eve = view.findViewById(R.id.v05_1_txv_fechapagosennal_eve);
@@ -81,18 +86,27 @@ public class V_05_1 extends Fragment implements IDAO <Evento_eve, Object, Object
         this.v05_1_descgeneral_eve = view.findViewById(R.id.v05_1_txv_descgeneral_eve);
         this.v05_1_recomendaciones = view.findViewById(R.id.v05_1_btn_descrecomendaciones_eve);
 
-        // TODO: carga de Evento
+        //Cargamos el Evento
         // EOB: Intentar pasar este método a changeNoListener y eliminar las dos líneas siguientes
         List<Evento_eve> eventos = new ArrayList<>();
         v02_00_eve_Adapter v02_adapter_eve = null;
-
+/*
         Query query1 = fbf.collection("evento_eve").whereEqualTo("id_eve", id_eve_bundle);
         tabla1ChangeListener (query1, eventos, Evento_eve.class, v02_adapter_eve);
+*/
+        v05_1_titulo_eve.setText(eventoEnProceso.getTitulo_eve());
+        v05_1_fechapagosennal_eve.setText(eventoEnProceso.getFechapagosennal_eve());
+        v05_1_fechapagototal_eve.setText(eventoEnProceso.getFechapagototal_eve());
+        salidacoordenadastru_eve = eventoEnProceso.getSalidacoordenadastru_eve();
+        v05_1_salidaidatru_eve.setText("Salida: " + eventoEnProceso.getSalidaidatru_eve());
+        llegadacoordenadastru_eve = eventoEnProceso.getLlegadacoordenadastru_eve();
+        v05_1_llegadaidatru_eve.setText("Destino: " + eventoEnProceso.getLlegadaidatru_eve());
+        v05_1_descgeneral_eve.setText(eventoEnProceso.getDescgeneral_eve());
 
 //        DocumentReference drf = fbf.collection("evento_eve").document(String.valueOf(id_eve_bundle));
 //        DocumentChangeListener(drf);
 
-        // TODO: los botones
+        // Botones
 // https://stackoverflow.com/questions/2662531/launching-google-maps-directions-via-an-intent-on-android/2663565#2663565
         v05_1_salidacoordenadastru_eve.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,13 +138,13 @@ public class V_05_1 extends Fragment implements IDAO <Evento_eve, Object, Object
         v05_1_descgeneral_eve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_nav_v05_1_to_nav_v05, bundle);
+                Navigation.findNavController(view).navigate(R.id.action_nav_v05_1_to_nav_v05, bundleEvento);
             }
         });
 
         return view;
-    }
-
+    }//Fin de constructor
+/*
     @Override
     public <T> void tabla1ChangeListener(Query query, List<T> lista, Class<T> tipoObjeto, RecyclerView.Adapter miAdapter) {
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -143,18 +157,18 @@ public class V_05_1 extends Fragment implements IDAO <Evento_eve, Object, Object
                 }
                 lista.clear();
                 for (QueryDocumentSnapshot qds : snapshots) {
-                    evento = (Evento_eve) qds.toObject(tipoObjeto);
+                    eventoEnProceso = (Evento_eve) qds.toObject(tipoObjeto);
 //                    lista.add(enProceso);
 //                miAdapter.notifyDataSetChanged();
 
-                    v05_1_titulo_eve.setText(evento.getTitulo_eve());
-                    v05_1_fechapagosennal_eve.setText(evento.getFechapagosennal_eve());
-                    v05_1_fechapagototal_eve.setText(evento.getFechapagototal_eve());
-                    salidacoordenadastru_eve = evento.getSalidacoordenadastru_eve();
-                    v05_1_salidaidatru_eve.setText("Salida: " + evento.getSalidaidatru_eve());
-                    llegadacoordenadastru_eve = evento.getLlegadacoordenadastru_eve();
-                    v05_1_llegadaidatru_eve.setText("Destino: " + evento.getLlegadaidatru_eve());
-                    v05_1_descgeneral_eve.setText(evento.getDescgeneral_eve());
+                    v05_1_titulo_eve.setText(eventoEnProceso.getTitulo_eve());
+                    v05_1_fechapagosennal_eve.setText(eventoEnProceso.getFechapagosennal_eve());
+                    v05_1_fechapagototal_eve.setText(eventoEnProceso.getFechapagototal_eve());
+                    salidacoordenadastru_eve = eventoEnProceso.getSalidacoordenadastru_eve();
+                    v05_1_salidaidatru_eve.setText("Salida: " + eventoEnProceso.getSalidaidatru_eve());
+                    llegadacoordenadastru_eve = eventoEnProceso.getLlegadacoordenadastru_eve();
+                    v05_1_llegadaidatru_eve.setText("Destino: " + eventoEnProceso.getLlegadaidatru_eve());
+                    v05_1_descgeneral_eve.setText(eventoEnProceso.getDescgeneral_eve());
 
 //                if (pdg.isShowing()){
 //                    pdg.dismiss();
@@ -166,7 +180,7 @@ public class V_05_1 extends Fragment implements IDAO <Evento_eve, Object, Object
             }
         });
     }
-
+*/
 /*
     private void DocumentChangeListener(DocumentReference drf) {
         drf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -189,16 +203,6 @@ public class V_05_1 extends Fragment implements IDAO <Evento_eve, Object, Object
         });
     }
 */
-
-    @Override
-    public <S> void tabla2ChangeListener(Query query, List<S> lista, Class<S> tipoObjeto, RecyclerView.Adapter miAdapter) {
-
-    }
-
-    @Override
-    public <O> void tabla3ChangeListener(Query query, List<O> lista, Class<O> tipoObjeto, RecyclerView.Adapter miAdapter) {
-
-    }
 
 // https://stackoverflow.com/questions/27425547/cannot-resolve-method-getsupportfragmentmanager-inside-fragment
     public void cargarMapa() {

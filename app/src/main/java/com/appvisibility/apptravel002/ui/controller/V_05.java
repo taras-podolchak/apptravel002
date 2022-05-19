@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.entities.Actividad_act;
 import com.appvisibility.apptravel002.ui.entities.Alojamiento_alo;
+import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve_test;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 import com.appvisibility.apptravel002.ui.service.v02_00_eve_Adapter;
@@ -54,7 +55,7 @@ import java.util.List;
  * Use the {@link V_05#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class V_05 extends Fragment implements IDAO<Evento_eve_test, Persona_prs, Actividad_act> {
+public class V_05 extends Fragment implements IDAO<Persona_prs, Actividad_act> {
 
     // Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -81,7 +82,8 @@ public class V_05 extends Fragment implements IDAO<Evento_eve_test, Persona_prs,
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
 
     // Entities
-    private Evento_eve_test evento;
+//    private Evento_eve_test evento;
+    private Evento_eve eventoEnProceso;
     private List<Actividad_act> actividades = new ArrayList<>();
     private List<Persona_prs> personas = new ArrayList<>();
     private List<Persona_prs> personasConCoches = new ArrayList<>();
@@ -133,9 +135,13 @@ public class V_05 extends Fragment implements IDAO<Evento_eve_test, Persona_prs,
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_05, container, false);
 
-        int id_eve_bundle = getArguments().getInt("eventoParaV_05");
+//        int id_eve_bundle = getArguments().getInt("eventoParaV_05");
 
-        Bundle bundleEvento = new Bundle();
+//        Bundle bundleEvento = new Bundle();
+        Bundle bundleEvento = getArguments();
+        //Cargamos el Evento
+        eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_05");
+        int id_eve_bundle = eventoEnProceso.getId_eve();
         bundleEvento.putInt("eventoParaV_05_1", id_eve_bundle);
 
         v05_titulo_eve = view.findViewById(R.id.v05_txv_titulo_eve);
@@ -149,13 +155,40 @@ public class V_05 extends Fragment implements IDAO<Evento_eve_test, Persona_prs,
         v05_tipo_alojamiento = view.findViewById(R.id.v05_spn_tipo_alojamiento);
         v05_restricciones_alimentarias = view.findViewById(R.id.v05_spn_restricciones_allimentarias);
 
-        // TODO: carga de Evento
+        //Cargamos el Evento
         // EOB: Intentar pasar este método a changeNoListener y eliminar las dos líneas siguientes
         List<Evento_eve_test> eventos_list = new ArrayList<>();
         v02_00_eve_Adapter v02_adapter_eve = null;
-
+/*
         Query query1 = fbf.collection("evento_eve_test").whereEqualTo("id_eve", id_eve_bundle);
         tabla1ChangeListener(query1, eventos_list, Evento_eve_test.class, v02_adapter_eve);
+*/
+        v05_titulo_eve.setText(eventoEnProceso.getTitulo_eve());
+        //Cargamos la imagen
+        FirebaseStorage fbs = FirebaseStorage.getInstance();
+        StorageReference str = fbs.getReference();
+        str.child("Eventos/" + eventoEnProceso.getFoto_eve()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(v05_foto_eve);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+//                Toast.makeText(getActivity(), "GET IMAGE FAILED", Toast.LENGTH_LONG).show();
+                // Handle any errors
+            }
+        });
+        v05_info_completa.setText(
+                "Nivel de dificultad: " + eventoEnProceso.getNivel_eve() + "\n"
+                        + "Distancia ida: " + eventoEnProceso.getDistanciaidatru_eve() + " "
+                        + "Distancia vuelta: " + eventoEnProceso.getDistanciavueltatru_eve() + "\n"
+                        + "Fecha ida: " + eventoEnProceso.getFechaidatru_eve() + "\n"
+                        + "Fecha vuelta: " + eventoEnProceso.getFechavueltatru_eve() + "\n"
+                        // + "Coordenadas de salida: " + evento.getSalidacoordenadastru_eve() + "\n"
+                        // + "Coordenadas de llegada: " + evento.getLlegadacoordenadastru_eve() + "\n"
+                        //  + evento.getDescgeneral_eve() + " "
+                        + "Precio: " + eventoEnProceso.getPrecio_eve() + "€");
 
         // TODO: carga de Inscritos (personas)
         /*this.v05_recycler_prs = (RecyclerView) view.findViewById(R.id.v05_rcv_personas);
@@ -205,8 +238,7 @@ public class V_05 extends Fragment implements IDAO<Evento_eve_test, Persona_prs,
         // TODO: spinner restricciones allimentarias
         restriccionesAllimentariasChangeListener();
 
-
-        // TODO: los botones
+        // Botones
         v05_foto_eve = view.findViewById(R.id.v05_imv_foto_eve);
         v05_foto_eve.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,60 +264,61 @@ public class V_05 extends Fragment implements IDAO<Evento_eve_test, Persona_prs,
         });
 
         return view;
-    }//fin de constructor
+    }//Fin de constructor
 
+/*
+        public <T> void tabla1ChangeListener(Query query, List<T> lista, Class<T> tipoObjeto, RecyclerView.Adapter miAdapter) {
+            query.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
+                    T enProceso;
+                    if (error != null) {
+                        Log.e("Error en Firestore", error.getMessage());
+                        return;
+                    }
+                    lista.clear();
+                    for (QueryDocumentSnapshot qds : snapshots) {
+                        evento = (Evento_eve_test) qds.toObject(tipoObjeto);
+    //                    lista.add(enProceso);
+    //                miAdapter.notifyDataSetChanged();
 
+                        v05_titulo_eve.setText(evento.getTitulo_eve());
+                        //cargamos la imagen
+                        FirebaseStorage fbs = FirebaseStorage.getInstance();
+                        StorageReference str = fbs.getReference();
+                        str.child("Eventos/" + evento.getFoto_eve()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                Picasso.get().load(uri).into(v05_foto_eve);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+    //                Toast.makeText(getActivity(), "GET IMAGE FAILED", Toast.LENGTH_LONG).show();
+                                // Handle any errors
+                            }
+                        });
+                        v05_info_completa.setText(
+                                "Nivel de dificultad: " + evento.getNivel_eve() + "\n"
+                                        + "Distancia ida: " + evento.getDistanciaidatru_eve() + " "
+                                        + "Distancia vuelta: " + evento.getDistanciavueltatru_eve() + "\n"
+                                        + "Fecha ida: " + evento.getFechaidatru_eve() + "\n"
+                                        + "Fecha vuelta: " + evento.getFechavueltatru_eve() + "\n"
+                                        // + "Coordenadas de salida: " + evento.getSalidacoordenadastru_eve() + "\n"
+                                        // + "Coordenadas de llegada: " + evento.getLlegadacoordenadastru_eve() + "\n"
+                                        //  + evento.getDescgeneral_eve() + " "
+                                        + "Precio: " + evento.getPrecio_eve() + "€");
+                    }
+
+                    Log.d(TAG, "Datos recibidos!");
+                    Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+*/
+
+    @Override
     public <T> void tabla1ChangeListener(Query query, List<T> lista, Class<T> tipoObjeto, RecyclerView.Adapter miAdapter) {
-        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
-                T enProceso;
-                if (error != null) {
-                    Log.e("Error en Firestore", error.getMessage());
-                    return;
-                }
-                lista.clear();
-                for (QueryDocumentSnapshot qds : snapshots) {
-                    evento = (Evento_eve_test) qds.toObject(tipoObjeto);
-//                    lista.add(enProceso);
-//                miAdapter.notifyDataSetChanged();
-
-                    v05_titulo_eve.setText(evento.getTitulo_eve());
-                    //cargamos la imagen
-                    FirebaseStorage fbs = FirebaseStorage.getInstance();
-                    StorageReference str = fbs.getReference();
-                    str.child("Eventos/" + evento.getFoto_eve()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            Picasso.get().load(uri).into(v05_foto_eve);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-//                Toast.makeText(getActivity(), "GET IMAGE FAILED", Toast.LENGTH_LONG).show();
-                            // Handle any errors
-                        }
-                    });
-                    v05_info_completa.setText(
-                            "Nivel de dificultad: " + evento.getNivel_eve() + "\n"
-                                    + "Distancia ida: " + evento.getDistanciaidatru_eve() + " "
-                                    + "Distancia vuelta: " + evento.getDistanciavueltatru_eve() + "\n"
-                                    + "Fecha ida: " + evento.getFechaidatru_eve() + "\n"
-                                    + "Fecha vuelta: " + evento.getFechavueltatru_eve() + "\n"
-                                    // + "Coordenadas de salida: " + evento.getSalidacoordenadastru_eve() + "\n"
-                                    // + "Coordenadas de llegada: " + evento.getLlegadacoordenadastru_eve() + "\n"
-                                    //  + evento.getDescgeneral_eve() + " "
-                                    + "Precio: " + evento.getPrecio_eve() + "€");
-                }
-
-//                if (pdg.isShowing()){
-//                    pdg.dismiss();
-//                }
-
-                Log.d(TAG, "Datos recibidos!");
-                Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
     public <S> void tabla2ChangeListener(Query query, List<S> lista, Class<S> tipoObjeto, RecyclerView.Adapter miAdapter) {

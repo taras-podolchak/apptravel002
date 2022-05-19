@@ -26,10 +26,10 @@ public class V_01 extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    //TODO:los campos de xml
+    // Campos de xml
     private Button v01_buscar_actividades;
 
-    //TODO:servise
+    // Service
     private int usuariotipo = 1;
 
     public V_01() {

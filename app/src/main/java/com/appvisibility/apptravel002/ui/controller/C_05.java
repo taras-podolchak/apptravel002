@@ -37,7 +37,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class C_05 extends Fragment implements IDAO <Persona_prs, Object, Object> {
+public class C_05 extends Fragment implements IDAO <Persona_prs, Object> {
 
     // Campos de xml
     private int id_prs_enProceso;
@@ -155,7 +155,7 @@ public class C_05 extends Fragment implements IDAO <Persona_prs, Object, Object>
         });
 
         return view;
-    }//fin de constructor
+    }//Fin de constructor
 
     @Override
     public <T> void tabla1ChangeListener(Query query, List<T> lista, Class<T> tipoObjeto, RecyclerView.Adapter miAdapter) {
@@ -225,8 +225,4 @@ public class C_05 extends Fragment implements IDAO <Persona_prs, Object, Object>
 
     }
 
-    @Override
-    public <O> void tabla3ChangeListener(Query query, List<O> lista, Class<O> tipoObjeto, RecyclerView.Adapter miAdapter) {
-
-    }
 }

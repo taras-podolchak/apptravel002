@@ -46,22 +46,22 @@ public class V_04 extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    //TODO:los campos de xml
+    // Campos de xml
     private Button v04_iniciar_sesion, v04_registrarse;
     private EditText v04_email_prs;
     private EditText v04_contrasenna_prs;
 
-    //TODO:acceso a datos
+    // Acceso a datos
     private FirebaseAuth fba = FirebaseAuth.getInstance();
     private FirebaseFirestore fbf = FirebaseFirestore.getInstance();
 
-    //TODO:entities
+    // Entities
     private Context mContext;
-    private Bundle result;
+    private Bundle bundleEvento;
     private Persona_prs persona;
     int id_eve_bundle = 0;
 
-    //TODO:servise
+    // Service
     private ProgressDialog pdg;
 
     public V_04() {
@@ -108,9 +108,9 @@ public class V_04 extends Fragment {
 
         //id_eve_bundle = getArguments().getInt("eventoParaV_04", 0);
 
-        result = new Bundle();
-        result.putInt("eventoParaV_04_1", id_eve_bundle);
-        result.putInt("eventoParaV_05", id_eve_bundle);
+        bundleEvento = new Bundle();
+        bundleEvento.putInt("eventoParaV_04_1", id_eve_bundle);
+        bundleEvento.putInt("eventoParaV_05", id_eve_bundle);
 
         //Referenciamos los views
         v04_email_prs = view.findViewById(R.id.v04_etx_email_prs);
@@ -120,9 +120,9 @@ public class V_04 extends Fragment {
 
         pdg = new ProgressDialog(mContext);
 
-        //TODO: los botones
+        // Botones
         v04_iniciar_sesion.setOnClickListener(view1 -> iniciarSesion(view1));
-        v04_registrarse.setOnClickListener(view12 -> Navigation.findNavController(view12).navigate(R.id.action_nav_v04_to_nav_v04_1, result));
+        v04_registrarse.setOnClickListener(view12 -> Navigation.findNavController(view12).navigate(R.id.action_nav_v04_to_nav_v04_1, bundleEvento));
         return view;
     }
 
@@ -162,7 +162,7 @@ public class V_04 extends Fragment {
                                     //si es valiente
                                     if (persona.getUsuariotipo_prs() == 0) {
                                         sesionIniciada = persona.getUsuariotipo_prs();
-                                        Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v05, result);
+                                        Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v05, bundleEvento);
                                     }
                                     //si es colaborador
                                     if (persona.getUsuariotipo_prs() == 1) {

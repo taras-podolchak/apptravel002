@@ -130,12 +130,19 @@ public class V_03 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_03, container, false);
 
-        this.id_eve_bundle = getArguments().getInt("eventoParaV_03");
+//        this.id_eve_bundle = getArguments().getInt("eventoParaV_03");
 
-        Bundle bundleEvento = new Bundle();
-        bundleEvento.putInt("eventoParaV_04", id_eve_bundle);
-        bundleEvento.putInt("eventoParaV_05", id_eve_bundle);
-        bundleEvento.putInt("eventoParaV_05_1", id_eve_bundle);
+//        Bundle bundleEvento = new Bundle();
+        Bundle bundleEvento = getArguments();
+        //Cargamos el Evento
+        eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_03");
+        this.id_eve_bundle = eventoEnProceso.getId_eve();
+//        bundleEvento.putInt("eventoParaV_04", id_eve_bundle);
+        bundleEvento.putSerializable("eventoParaV_04", eventoEnProceso);
+//        bundleEvento.putInt("eventoParaV_05", id_eve_bundle);
+        bundleEvento.putSerializable("eventoParaV_05", eventoEnProceso);
+//        bundleEvento.putInt("eventoParaV_05_1", id_eve_bundle);
+        bundleEvento.putSerializable("eventoParaV_05_1", eventoEnProceso);
 
         this.v03_titulo_eve = view.findViewById(R.id.v03_txv_titulo_eve);
         this.v03_foto_eve = view.findViewById(R.id.v03_imv_foto_eve);
@@ -152,8 +159,19 @@ public class V_03 extends Fragment {
         this.v03_recycler_prs.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
 
         //Cargamos el Evento
+/*
         Query query1 = fbf.collection("evento_eve").whereEqualTo("id_eve", id_eve_bundle);
         Document1ChangeListener(query1);
+*/
+        v03_titulo_eve.setText(eventoEnProceso.getTitulo_eve());
+        FirebaseStorage fbs = FirebaseStorage.getInstance();
+        StorageReference str = fbs.getReference();
+        str.child("Eventos/" + eventoEnProceso.getFoto_eve()).getDownloadUrl().addOnSuccessListener(uri ->
+                Picasso.get().load(uri).into(v03_foto_eve)).addOnFailureListener(exception ->
+                Toast.makeText(getActivity(), "Error de cargar la imagen", Toast.LENGTH_LONG).show());
+        v03_fechaidatru_eve.setText(eventoEnProceso.getFechaidatru_eve());
+        v03_fechavueltatru_eve.setText(eventoEnProceso.getFechavueltatru_eve());
+        v03_estado_eve.setText("Estado: " + eventoEnProceso.getEstado_eve());
 
         //Cargamos los Actividades del Evento
         Query query2 = fbf.collection("actividad_act").whereEqualTo("id_eve", id_eve_bundle);
@@ -233,8 +251,8 @@ public class V_03 extends Fragment {
         v03_recycler_prs.setAdapter(v03_adapter_prs);
 
         return view;
-    }//fin de constructor
-
+    }//Fin de constructor
+/*
     public void Document1ChangeListener(Query query1) {
         query1.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -259,7 +277,7 @@ public class V_03 extends Fragment {
             }
         });
     }
-
+*/
     // https://stackoverflow.com/questions/63202621/how-to-query-firestore-and-get-specific-documents-in-android
     private <M> void Document2ChangeListener(Query query2, List<M> lista, Class<M> tipoObjeto) {
         query2.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
