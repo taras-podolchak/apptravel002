@@ -52,7 +52,7 @@ import java.util.stream.Collectors;
  * Use the {@link V_03#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class V_03 extends Fragment {
+public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_eveprstpr, Persona_prs> {
 
     // Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -65,7 +65,7 @@ public class V_03 extends Fragment {
 
     // Campos de xml
     private Button v03_adelante, v03_atras;
-    private int id_eve_bundle;
+    private int id_eve_enProceso;
     private TextView v03_titulo_eve;
     private ImageView v03_foto_eve;
     private TextView v03_fechaidatru_eve;
@@ -81,6 +81,7 @@ public class V_03 extends Fragment {
     private Evento_eve eventoEnProceso;
     private List<Persona_prs> personas = new ArrayList<>();
     private List<Actividad_act> actividades = new ArrayList<>();
+    private List<Actividad_act> actividadesFiltrados = new ArrayList<>();
     private List<Inscribir_eveprstpr> inscritos = new ArrayList<>();
     private List<Persona_prs> personasFiltrados = new ArrayList<>();
     private Context mContext;
@@ -126,22 +127,18 @@ public class V_03 extends Fragment {
         mContext = context;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_03, container, false);
 
-//        this.id_eve_bundle = getArguments().getInt("eventoParaV_03");
-
-//        Bundle bundleEvento = new Bundle();
         Bundle bundleEvento = getArguments();
-        //Cargamos el Evento
+        //Recuperamos el Evento
         eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_03");
-        this.id_eve_bundle = eventoEnProceso.getId_eve();
-//        bundleEvento.putInt("eventoParaV_04", id_eve_bundle);
+
+        this.id_eve_enProceso = eventoEnProceso.getId_eve();
         bundleEvento.putSerializable("eventoParaV_04", eventoEnProceso);
-//        bundleEvento.putInt("eventoParaV_05", id_eve_bundle);
         bundleEvento.putSerializable("eventoParaV_05", eventoEnProceso);
-//        bundleEvento.putInt("eventoParaV_05_1", id_eve_bundle);
         bundleEvento.putSerializable("eventoParaV_05_1", eventoEnProceso);
 
         this.v03_titulo_eve = view.findViewById(R.id.v03_txv_titulo_eve);
@@ -159,10 +156,6 @@ public class V_03 extends Fragment {
         this.v03_recycler_prs.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
 
         //Cargamos el Evento
-/*
-        Query query1 = fbf.collection("evento_eve").whereEqualTo("id_eve", id_eve_bundle);
-        Document1ChangeListener(query1);
-*/
         v03_titulo_eve.setText(eventoEnProceso.getTitulo_eve());
         FirebaseStorage fbs = FirebaseStorage.getInstance();
         StorageReference str = fbs.getReference();
@@ -174,64 +167,22 @@ public class V_03 extends Fragment {
         v03_estado_eve.setText("Estado: " + eventoEnProceso.getEstado_eve());
 
         //Cargamos los Actividades del Evento
-        Query query2 = fbf.collection("actividad_act").whereEqualTo("id_eve", id_eve_bundle);
-        Document2ChangeListener(query2, actividades, Actividad_act.class);
+        Query query1 = fbf.collection("actividad_act").orderBy("id_eve", Query.Direction.ASCENDING);
+        tabla1ChangeListener(query1, actividades, Actividad_act.class, v03_adapter_act);
 
-        //Cargamos los Inscritos del Evento
-        Query query3 = fbf.collection("inscribir_eveprstpr").whereEqualTo("id_eve", id_eve_bundle);
-        query3.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    inscritos.clear();
-                    Inscribir_eveprstpr resultado;
-                    QuerySnapshot document = task.getResult();
-                    for (QueryDocumentSnapshot qds : document) {
-                        resultado = qds.toObject(Inscribir_eveprstpr.class);
-                        inscritos.add(resultado);
-                        Log.d(TAG, "DocumentSnapshot data: " + qds.getData());
-                    }
-                } else {
-                    Log.d(TAG, "Error getting documents: ", task.getException());
-                }
-            }
-        });
+        //Cargamos todos los Inscritos
+        Query query2 = fbf.collection("inscribir_eveprstpr").whereEqualTo("id_eve", id_eve_enProceso);
+        tabla2ChangeListener(query2, inscritos, Inscribir_eveprstpr.class, null);
 
         //Cargamos todas las Personas
-        Query query4 = fbf.collection("persona_prs").orderBy("id_prs", Query.Direction.DESCENDING);
-        query4.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    personas.clear();
-                    Persona_prs resultado;
-                    QuerySnapshot document = task.getResult();
-                    for (QueryDocumentSnapshot qds : document) {
-                        resultado = qds.toObject(Persona_prs.class);
-                        personas.add(resultado);
-                        Log.d(TAG, "DocumentSnapshot data: " + qds.getData());
-                    }
-                } else {
-                    Log.d(TAG, "Error getting documents: ", task.getException());
-                }
-// Filtramos las Personas que Inscritas al Evento en proceso
-// https://stackoverflow.com/questions/36246998/stream-filter-of-1-list-based-on-another-list
-                personasFiltrados = personas.stream()
-                        .filter(e -> inscritos.stream().map(Inscribir_eveprstpr::getId_prs).anyMatch(id -> id.equals(e.getId_prs())))
-                        .collect(Collectors.toList());
-            //Cargamos los datos de las Personas Inscritas al Evento
-                v03_adapter_prs = new v03_00_prs_Adapter(personasFiltrados, mContext, id_eve_bundle);
-                v03_recycler_prs.setAdapter(v03_adapter_prs);
-            }
-        });
+        Query query3 = fbf.collection("persona_prs").orderBy("id_prs", Query.Direction.DESCENDING);
+        tabla3ChangeListener(query3, personas, Persona_prs.class, null);
 
         // Botones
         v03_foto_eve = view.findViewById(R.id.v03_imv_foto_eve);
         v03_foto_eve.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v05_1, bundleEvento);
+            public void onClick(View view) {                Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v05_1, bundleEvento);
             }
         });
 
@@ -252,52 +203,89 @@ public class V_03 extends Fragment {
 
         return view;
     }//Fin de constructor
-/*
-    public void Document1ChangeListener(Query query1) {
-        query1.addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+    @Override
+    public <T> void tabla1ChangeListener(Query query, List<T> lista, Class<T> tipoObjeto, RecyclerView.Adapter miAdapter) {
+        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
+                T enProceso;
                 if (error != null) {
-                    Log.w(TAG, "Listen failed.", error);
+                    Log.e("Error en Firestore", error.getMessage());
                     return;
                 }
+                lista.clear();
                 for (QueryDocumentSnapshot qds : snapshots) {
-                    eventoEnProceso = qds.toObject(Evento_eve.class);
+                    enProceso = (T) qds.toObject(tipoObjeto);
+                    lista.add(enProceso);
                 }
-                //Cargamos el Evento
-                v03_titulo_eve.setText(eventoEnProceso.getTitulo_eve());
-                FirebaseStorage fbs = FirebaseStorage.getInstance();
-                StorageReference str = fbs.getReference();
-                str.child("Eventos/" + eventoEnProceso.getFoto_eve()).getDownloadUrl().addOnSuccessListener(uri ->
-                        Picasso.get().load(uri).into(v03_foto_eve)).addOnFailureListener(exception ->
-                        Toast.makeText(getActivity(), "Error de cargar la imagen", Toast.LENGTH_LONG).show());
-                v03_fechaidatru_eve.setText(eventoEnProceso.getFechaidatru_eve());
-                v03_fechavueltatru_eve.setText(eventoEnProceso.getFechavueltatru_eve());
-                v03_estado_eve.setText("Estado: " + eventoEnProceso.getEstado_eve());
+//                miAdapter.notifyDataSetChanged();
+                // Filtramos las Actividades del Evento en proceso
+                actividadesFiltrados = actividades.stream()
+                    .filter(p->p.getId_eve() == id_eve_enProceso)
+                    .collect(Collectors.toList());
+                //Cargamos los Actividades del Evento
+                v03_adapter_act = new v03_00_act_Adapter(actividadesFiltrados, mContext);
+                v03_recycler_act.setAdapter(v03_adapter_act);
+
+                Log.d(TAG, "Datos recibidos!");
+                Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
             }
         });
     }
-*/
-    // https://stackoverflow.com/questions/63202621/how-to-query-firestore-and-get-specific-documents-in-android
-    private <M> void Document2ChangeListener(Query query2, List<M> lista, Class<M> tipoObjeto) {
-        query2.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+    @Override
+    public <S> void tabla2ChangeListener(Query query, List<S> lista, Class<S> tipoObjeto, RecyclerView.Adapter miAdapter) {
+        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    lista.clear();
-                    M resultado;
-                    QuerySnapshot document = task.getResult();
-                    for (QueryDocumentSnapshot qds : document) {
-                        resultado = (M) qds.toObject(tipoObjeto);
-                        lista.add(resultado);
-                        Log.d(TAG, "DocumentSnapshot data: " + qds.getData());
-                    }
-                } else {
-                    Log.d(TAG, "Error getting documents: ", task.getException());
+            public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
+                S enProceso;
+                if (error != null) {
+                    Log.e("Error en Firestore", error.getMessage());
+                    return;
                 }
-                //Cargamos los Actividades del Evento
-                v03_adapter_act = new v03_00_act_Adapter((List<Actividad_act>) lista, mContext);
-                v03_recycler_act.setAdapter(v03_adapter_act);
+                lista.clear();
+                for (QueryDocumentSnapshot qds : snapshots) {
+                    enProceso = (S) qds.toObject(tipoObjeto);
+                    lista.add(enProceso);
+                }
+//                miAdapter.notifyDataSetChanged();
+
+                Log.d(TAG, "Datos recibidos!");
+                Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    @Override
+    public <R> void tabla3ChangeListener(Query query, List<R> lista, Class<R> tipoObjeto, RecyclerView.Adapter miAdapter) {
+        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
+                R enProceso;
+                if (error != null) {
+                    Log.e("Error en Firestore", error.getMessage());
+                    return;
+                }
+                lista.clear();
+                for (QueryDocumentSnapshot qds : snapshots) {
+                    enProceso = (R) qds.toObject(tipoObjeto);
+                    lista.add(enProceso);
+                }
+//                miAdapter.notifyDataSetChanged();
+                // Mapeamos las Personas que están Inscritas al Evento en proceso
+                // https://stackoverflow.com/questions/36246998/stream-filter-of-1-list-based-on-another-list
+                personasFiltrados = personas.stream()
+                    .filter(e -> inscritos.stream().map(Inscribir_eveprstpr::getId_prs).anyMatch(id -> id.equals(e.getId_prs())))
+                    .collect(Collectors.toList());
+                //Cargamos los datos de las Personas Inscritas al Evento
+                v03_adapter_prs = new v03_00_prs_Adapter(personasFiltrados, mContext, id_eve_enProceso);
+                v03_recycler_prs.setAdapter(v03_adapter_prs);
+
+                Log.d(TAG, "Datos recibidos!");
+                Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
             }
         });
     }

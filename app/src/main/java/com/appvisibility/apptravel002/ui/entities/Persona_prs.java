@@ -1,10 +1,12 @@
 package com.appvisibility.apptravel002.ui.entities;
 
+import com.appvisibility.apptravel002.R;
+
 import java.io.Serializable;
 
 public class Persona_prs implements Serializable 	{
 															
-	private	int	id_prs	;											
+	private	int	id_prs	;
 	private	String	apodo_prs	;											
 	private	String	contrasenna_prs	;											
 	private	boolean	recordarcontrasenna_prs	;											
@@ -69,10 +71,79 @@ public class Persona_prs implements Serializable 	{
 															
 	public Persona_prs() {
 		super();													
-	}														
-															
+	}
+
 	public Persona_prs(
-			int	id_prs	,										
+			int	id_prs	,
+			String	apodo_prs	,
+			String	dni_prs	,
+			String	nombre_prs	,
+			String	apellido1_prs	,
+			String	apellido2_prs	,
+			String	direccion_prs	,
+			String	localidad_prs	,
+			String	cpostal_prs	,
+			String	movil_prs	,
+			String	email_prs	,
+			String	fotopropia_prs	,
+			String	fechaalta_prs	,
+			String	fechabaja_prs	,
+			String	contacto1cargo_prs	,
+			String	contacto1movil_prs	,
+			String	contacto2cargo_prs	,
+			String	contacto2movil_prs	,
+			int	fiabilidadpre_prs	,
+			int	valoracionorgpre_prs	,
+			int	antiguedadpre_prs	,
+			int	volumencomprapre_prs	,
+			int	cochepre_prs	,
+			int	nrelacionespre_prs	,
+			String	coche_prs	,
+			int	nps01_prs	,
+			String	nps01fecha_prs	,
+			int	nps02_prs	,
+			String	nps02fecha_prs	,
+			int	nps03_prs	,
+			String	nps03fecha_prs	,
+			boolean	condicioneslegales_prs
+	) {
+		super();
+		this.	id_prs=	id_prs	;
+		this.	apodo_prs=	apodo_prs	;
+		this.	dni_prs=	dni_prs	;
+		this.	nombre_prs=	nombre_prs	;
+		this.	apellido1_prs=	apellido1_prs	;
+		this.	apellido2_prs=	apellido2_prs	;
+		this.	direccion_prs=	direccion_prs	;
+		this.	localidad_prs=	localidad_prs	;
+		this.	cpostal_prs=	cpostal_prs	;
+		this.	movil_prs=	movil_prs	;
+		this.	email_prs=	email_prs	;
+		this.	fotopropia_prs=	fotopropia_prs	;
+		this.	fechaalta_prs=	fechaalta_prs	;
+		this.	fechabaja_prs=	fechabaja_prs	;
+		this.	contacto1cargo_prs=	contacto1cargo_prs	;
+		this.	contacto1movil_prs=	contacto1movil_prs	;
+		this.	contacto2cargo_prs=	contacto2cargo_prs	;
+		this.	contacto2movil_prs=	contacto2movil_prs	;
+		this.	fiabilidadpre_prs=	fiabilidadpre_prs	;
+		this.	valoracionorgpre_prs=	valoracionorgpre_prs	;
+		this.	antiguedadpre_prs=	antiguedadpre_prs	;
+		this.	volumencomprapre_prs=	volumencomprapre_prs	;
+		this.	cochepre_prs=	cochepre_prs	;
+		this.	nrelacionespre_prs=	nrelacionespre_prs	;
+		this.	coche_prs=	coche_prs	;
+		this.	nps01_prs=	nps01_prs	;
+		this.	nps01fecha_prs=	nps01fecha_prs	;
+		this.	nps02_prs=	nps02_prs	;
+		this.	nps02fecha_prs=	nps02fecha_prs	;
+		this.	nps03_prs=	nps03_prs	;
+		this.	nps03fecha_prs=	nps03fecha_prs	;
+		this.	condicioneslegales_prs=	condicioneslegales_prs	;
+	}
+
+	public Persona_prs(
+			int	id_prs	,
 			String	apodo_prs	,										
 			String	contrasenna_prs	,										
 			boolean	recordarcontrasenna_prs	,										

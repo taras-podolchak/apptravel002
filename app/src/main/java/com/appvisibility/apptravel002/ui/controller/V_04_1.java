@@ -64,7 +64,7 @@ public class V_04_1 extends Fragment {
 
     // Entities
     private Context mContext;
-    private Bundle result;
+    private Bundle bundleEvento;
 
     // Service
     private ProgressDialog pdg;
@@ -109,8 +109,8 @@ public class V_04_1 extends Fragment {
 
         int id_eve_bundle = getArguments().getInt("eventoParaV_04_1");
 
-        result = new Bundle();
-        result.putInt("eventoParaV_05", id_eve_bundle);
+        bundleEvento = new Bundle();
+        bundleEvento.putInt("eventoParaV_05", id_eve_bundle);
 
         v04_1_nombre_prs = view.findViewById(R.id.v04_1_etx_nombre_prs);
         v04_1_apellido1_prs = view.findViewById(R.id.v04_1_etx_apellido1_prs);
@@ -226,7 +226,7 @@ public class V_04_1 extends Fragment {
                             //añadomos el usuario a FirebaseFirestore
                             fbf.collection("persona_prs").document(fba.getUid()).set(user);
                             sesionIniciada = usuariotipo;
-                            Navigation.findNavController(view).navigate(R.id.action_nav_v04_1_to_nav_v05, result);
+                            Navigation.findNavController(view).navigate(R.id.action_nav_v04_1_to_nav_v05, bundleEvento);
                         } else {
                             Toast.makeText(getActivity(), "Ya existe el usuario con el mismo mail", Toast.LENGTH_LONG).show();
                         }

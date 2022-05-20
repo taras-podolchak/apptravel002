@@ -66,14 +66,10 @@ public class V_05_1 extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_05_1, container, false);
 
-//        id_eve_bundle = getArguments().getInt("eventoParaV_05_1");
-
-//        Bundle bundleEvento = new Bundle();
         Bundle bundleEvento = getArguments();
         //Cargamos el Evento
         eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_05_1");
         int id_eve_bundle = eventoEnProceso.getId_eve();
-//        bundleEvento.putInt("eventoParaV_05", id_eve_bundle);
         bundleEvento.putSerializable("eventoParaV_05", eventoEnProceso);
 
         this.v05_1_titulo_eve = view.findViewById(R.id.v05_1_txv_titulo_eve);
@@ -88,12 +84,9 @@ public class V_05_1 extends Fragment implements OnMapReadyCallback {
 
         //Cargamos el Evento
         // EOB: Intentar pasar este método a changeNoListener y eliminar las dos líneas siguientes
-        List<Evento_eve> eventos = new ArrayList<>();
-        v02_00_eve_Adapter v02_adapter_eve = null;
-/*
-        Query query1 = fbf.collection("evento_eve").whereEqualTo("id_eve", id_eve_bundle);
-        tabla1ChangeListener (query1, eventos, Evento_eve.class, v02_adapter_eve);
-*/
+//        List<Evento_eve> eventos = new ArrayList<>();
+//        v02_00_eve_Adapter v02_adapter_eve = null;
+
         v05_1_titulo_eve.setText(eventoEnProceso.getTitulo_eve());
         v05_1_fechapagosennal_eve.setText(eventoEnProceso.getFechapagosennal_eve());
         v05_1_fechapagototal_eve.setText(eventoEnProceso.getFechapagototal_eve());
@@ -144,65 +137,6 @@ public class V_05_1 extends Fragment implements OnMapReadyCallback {
 
         return view;
     }//Fin de constructor
-/*
-    @Override
-    public <T> void tabla1ChangeListener(Query query, List<T> lista, Class<T> tipoObjeto, RecyclerView.Adapter miAdapter) {
-        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
-                T enProceso;
-                if (error != null) {
-                    Log.e("Error en Firestore", error.getMessage());
-                    return;
-                }
-                lista.clear();
-                for (QueryDocumentSnapshot qds : snapshots) {
-                    eventoEnProceso = (Evento_eve) qds.toObject(tipoObjeto);
-//                    lista.add(enProceso);
-//                miAdapter.notifyDataSetChanged();
-
-                    v05_1_titulo_eve.setText(eventoEnProceso.getTitulo_eve());
-                    v05_1_fechapagosennal_eve.setText(eventoEnProceso.getFechapagosennal_eve());
-                    v05_1_fechapagototal_eve.setText(eventoEnProceso.getFechapagototal_eve());
-                    salidacoordenadastru_eve = eventoEnProceso.getSalidacoordenadastru_eve();
-                    v05_1_salidaidatru_eve.setText("Salida: " + eventoEnProceso.getSalidaidatru_eve());
-                    llegadacoordenadastru_eve = eventoEnProceso.getLlegadacoordenadastru_eve();
-                    v05_1_llegadaidatru_eve.setText("Destino: " + eventoEnProceso.getLlegadaidatru_eve());
-                    v05_1_descgeneral_eve.setText(eventoEnProceso.getDescgeneral_eve());
-
-//                if (pdg.isShowing()){
-//                    pdg.dismiss();
-//                }
-
-                    Log.d(TAG, "Datos recibidos!");
-                    Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-    }
-*/
-/*
-    private void DocumentChangeListener(DocumentReference drf) {
-        drf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                        evento = (Evento_eve) document.toObject(Evento_eve.class);
-                        v05_1_descgeneral_eve.setText(evento.getDescgeneral_eve());
-                        v05_1_descgeneral_eve.setText(document.getString("descgeneral_eve"));
-                    } else {
-                        Log.d(TAG, "Error en document");
-                    }
-                } else {
-                    Log.d(TAG, "Error en Firestore ", task.getException());
-                }
-            }
-        });
-    }
-*/
 
 // https://stackoverflow.com/questions/27425547/cannot-resolve-method-getsupportfragmentmanager-inside-fragment
     public void cargarMapa() {
@@ -221,6 +155,5 @@ public class V_05_1 extends Fragment implements OnMapReadyCallback {
     public void personalizarPropiedades() {
         // Mostramos controles zoom sobre el mapa
         Mapa.getUiSettings().setZoomControlsEnabled(true);
-
     }
 }

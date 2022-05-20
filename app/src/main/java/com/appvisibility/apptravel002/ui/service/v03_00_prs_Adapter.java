@@ -100,16 +100,46 @@ public class v03_00_prs_Adapter extends RecyclerView.Adapter<v03_00_prs_Adapter.
  * Proporciona los datos: Se encarga de establecer los objetos en el ViewHolder y la posición.
  */
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        int id_prs_enProceso = personas.get(position).getId_prs();
+//        int id_prs_enProceso = personas.get(position).getId_prs();
+
+        int	id_prs_enProceso = personas.get(position).getId_prs();
+        String  apodo_prs = personas.get(position).getApodo_prs();
+        String	dni_prs = personas.get(position).getDni_prs();
+        String	nombre_prs = personas.get(position).getNombre_prs();
+        String	apellido1_prs = personas.get(position).getApellido1_prs();
+        String	apellido2_prs = personas.get(position).getApellido2_prs();
+        String	direccion_prs = personas.get(position).getDireccion_prs();
+        String	localidad_prs = personas.get(position).getLocalidad_prs();
+        String	cpostal_prs = personas.get(position).getCpostal_prs();
+        String  movil_prs = personas.get(position).getMovil_prs();
+        String  email_prs = personas.get(position).getEmail_prs();
+        String  fotopropia_prs = personas.get(position).getFotopropia_prs();
+        String	fechaalta_prs = personas.get(position).getFechaalta_prs();
+        String	fechabaja_prs = personas.get(position).getFechabaja_prs();
+        String	contacto1cargo_prs = personas.get(position).getContacto1Cargo_prs();
+        String	contacto1movil_prs = personas.get(position).getContacto1Movil_prs();
+        String	contacto2cargo_prs = personas.get(position).getContacto2Cargo_prs();
+        String	contacto2movil_prs = personas.get(position).getContacto2Movil_prs();
+        int	fiabilidadpre_prs = personas.get(position).getFiabilidadpre_prs();
+        int	valoracionorgpre_prs = personas.get(position).getValoracionorgpre_prs();
+        int	antiguedadpre_prs = personas.get(position).getAntiguedadpre_prs();
+        int	volumencomprapre_prs = personas.get(position).getVolumencomprapre_prs();
+        int	cochepre_prs = personas.get(position).getCochepre_prs();
+        int	nrelacionespre_prs = personas.get(position).getNrelacionespre_prs();
+        String	coche_prs = personas.get(position).getCoche_prs();
+        int	nps01_prs = personas.get(position).getNps01_prs();
+        String	nps01fecha_prs = personas.get(position).getNps01Fecha_prs();
+        int	nps02_prs = personas.get(position).getNps02_prs();
+        String	nps02fecha_prs = personas.get(position).getNps02Fecha_prs();
+        int	nps03_prs = personas.get(position).getNps03_prs();
+        String	nps03fecha_prs = personas.get(position).getNps03Fecha_prs();
+        boolean	condicioneslegales_prs = personas.get(position).getCondicioneslegales_prs();
+
+        Persona_prs personaEnProceso = new Persona_prs(id_prs_enProceso, apodo_prs, dni_prs, nombre_prs, apellido1_prs, apellido2_prs, direccion_prs, localidad_prs, cpostal_prs, movil_prs, email_prs, fotopropia_prs, fechaalta_prs, fechabaja_prs, contacto1cargo_prs, contacto1movil_prs, contacto2cargo_prs, contacto2movil_prs, fiabilidadpre_prs, valoracionorgpre_prs, antiguedadpre_prs, volumencomprapre_prs, cochepre_prs, nrelacionespre_prs, coche_prs, nps01_prs, nps01fecha_prs, nps02_prs, nps02fecha_prs, nps03_prs, nps03fecha_prs, condicioneslegales_prs);
 
 // https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connected-entities-in-java
         Map<Integer, Object> mapIns_Tpr = transportepropios.stream()
-            .collect(Collectors.toMap(Transportepropio_tpr::getId_tpr, transportepropio -> transportepropio.getPlazaslibres_tpr()));
-
-        String fotopropia_prs = personas.get(position).getFotopropia_prs();
-        String apodo_prs = personas.get(position).getApodo_prs();
-        String movil_prs = personas.get(position).getMovil_prs();
-        String email_prs = personas.get(position).getEmail_prs();
+                .collect(Collectors.toMap(Transportepropio_tpr::getId_tpr, transportepropio -> transportepropio.getPlazaslibres_tpr()));
 
         for(Inscribir_eveprstpr i: inscritos){
             if (i.getId_prs() == id_prs_enProceso){
@@ -137,13 +167,13 @@ public class v03_00_prs_Adapter extends RecyclerView.Adapter<v03_00_prs_Adapter.
         holder.v03_cdv_persona.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundleEvento = new Bundle();
-                bundleEvento.putInt("personaParaC_05", id_prs_enProceso);
+                Bundle bundlePersona = new Bundle();
+                bundlePersona.putSerializable("personaParaC_05", personaEnProceso);
                 // TODO EOB: Sustituir condicion del if por "roll == colaborador"
                 if (sesionIniciada == 0) {
-                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundleEvento);
+                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundlePersona);
                 } else {
-                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundleEvento);
+                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundlePersona);
                 }
                 /*
                  * Notificamos cambios para que el contenedor se entere y refresque los datos
@@ -159,14 +189,16 @@ public class v03_00_prs_Adapter extends RecyclerView.Adapter<v03_00_prs_Adapter.
         holder.v03_cdv_transportepropio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
+//                Bundle bundleTransportepropio = new Bundle();
 //                bundle.putInt("personaParaC_05_tpr", id_prs_enProceso);
-                bundle.putInt("personaParaC_05", id_prs_enProceso);
+//                bundleTransportepropio.putInt("personaParaC_05", id_prs_enProceso);
+                Bundle bundlePersona = new Bundle();
+                bundlePersona.putSerializable("personaParaC_05", personaEnProceso);
                 // TODO EOB: Sustituir condicion del if por "roll == colaborador"
                 if (sesionIniciada == 0) {
-                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundlePersona);
                 } else {
-                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundlePersona);
                 }
                 /*
                  * Notificamos cambios para que el contenedor se entere y refresque los datos

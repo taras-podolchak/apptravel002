@@ -55,14 +55,23 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         int id_eve_enProceso = eventos.get(position).getId_eve();
         String titulo_eve = eventos.get(position).getTitulo_eve();
+        int nparticipantes_eve = eventos.get(position).getNparticipantes_eve();
+        String fechapagosennal_eve = eventos.get(position).getFechapagosennal_eve();
+        String fechapagototal_eve = eventos.get(position).getFechapagototal_eve();
         String foto_eve = eventos.get(position).getFoto_eve();
+        String descgeneral_eve = eventos.get(position).getDescgeneral_eve();
+        String descrecomendaciones_eve = eventos.get(position).getDescrecomendaciones_eve();
+        String salidacoordenadastru_eve = eventos.get(position).getSalidacoordenadastru_eve();
+        String salidaidatru_eve = eventos.get(position).getSalidaidatru_eve();
+        String llegadacoordenadastru_eve = eventos.get(position).getLlegadacoordenadastru_eve();
+        String llegadaidatru_eve = eventos.get(position).getLlegadaidatru_eve();
         String nivel_eve = eventos.get(position).getNivel_eve();
         String estado_eve = eventos.get(position).getEstado_eve();
         String fechaidatru_eve = eventos.get(position).getFechaidatru_eve();
         String fechavueltatru_eve = eventos.get(position).getFechavueltatru_eve();
         String transportetipo_eve = eventos.get(position).getTransportetipo_eve();
-        int nparticipantes_eve = eventos.get(position).getNparticipantes_eve();
-        Evento_eve eventoEnProceso = new Evento_eve(id_eve_enProceso, titulo_eve, nparticipantes_eve, foto_eve, nivel_eve, estado_eve, transportetipo_eve, fechaidatru_eve, fechavueltatru_eve);
+
+        Evento_eve eventoEnProceso = new Evento_eve(id_eve_enProceso, titulo_eve, nparticipantes_eve, fechapagosennal_eve, fechapagototal_eve, foto_eve, descgeneral_eve, descrecomendaciones_eve, salidacoordenadastru_eve, salidaidatru_eve, llegadacoordenadastru_eve, llegadaidatru_eve, nivel_eve, estado_eve, transportetipo_eve, fechaidatru_eve, fechavueltatru_eve);
 
         holder.v02_titulo_eve.setText(titulo_eve);
         FirebaseStorage fbs = FirebaseStorage.getInstance();

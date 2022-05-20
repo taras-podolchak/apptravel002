@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appvisibility.apptravel002.R;
+import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 import com.appvisibility.apptravel002.ui.service.v03_00_prs_Adapter;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -37,7 +38,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class C_05 extends Fragment implements IDAO <Persona_prs, Object> {
+public class C_05 extends Fragment {
 
     // Campos de xml
     private int id_prs_enProceso;
@@ -74,7 +75,9 @@ public class C_05 extends Fragment implements IDAO <Persona_prs, Object> {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_c_05, container, false);
 
-        this.id_prs_enProceso = getArguments().getInt("personaParaC_05");
+        Bundle bundlePersona = getArguments();
+        //Recuperamos la Persona
+        personaEnProceso = (Persona_prs) bundlePersona.getSerializable("personaParaC_05");
 
         this.c05_apodo_prs = view.findViewById(R.id.c05_txv_apodo_prs);
         this.c05_nombre_prs = view.findViewById(R.id.c05_txv_nombre_prs_apellido1_prs_apellido2_prs);
@@ -99,12 +102,41 @@ public class C_05 extends Fragment implements IDAO <Persona_prs, Object> {
         this.c05_nps02fecha_prs = view.findViewById(R.id.c05_txv_nps02_prs_nps02_prs);
         this.c05_nps03fecha_prs = view.findViewById(R.id.c05_txv_nps03_prs_nps03_prs);
 
-        //Cargamos el Evento
-        // EOB: Intentar pasar este método a changeNoListener y eliminar las dos líneas siguientes
-        v03_00_prs_Adapter v03_adapter_prs = null;
-
-        Query query1 = fbf.collection("persona_prs").whereEqualTo("id_prs", id_prs_enProceso);
-        tabla1ChangeListener(query1, personas, Persona_prs.class, v03_adapter_prs);
+        //Cargamos la Persona
+        c05_apodo_prs.setText(personaEnProceso.getApodo_prs());
+        c05_nombre_prs.setText(personaEnProceso.getNombre_prs() + " " + personaEnProceso.getApellido1_prs() + " " + personaEnProceso.getApellido2_prs());
+        FirebaseStorage fbs = FirebaseStorage.getInstance();
+        StorageReference str = fbs.getReference();
+        str.child("Valientes/" + personaEnProceso.getFotopropia_prs()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(c05_fotopropia_prs);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Toast.makeText(getActivity(), "Error de cargar la imagen", Toast.LENGTH_LONG).show();
+            }
+        });
+        c05_direccion_prs.setText(personaEnProceso.getDireccion_prs());
+        c05_localidad_prs.setText(personaEnProceso.getLocalidad_prs() + " " + personaEnProceso.getCpostal_prs());
+        c05_movil_prs.setText(personaEnProceso.getMovil_prs());
+        c05_coche_prs.setText(personaEnProceso.getCoche_prs());
+        c05_email_prs.setText(personaEnProceso.getEmail_prs());
+        c05_antiguedadpre_prs.setText("Antigüedad: " + personaEnProceso.getAntiguedadpre_prs());
+        c05_cochepre_prs.setText("Ofrece coche: " + personaEnProceso.getCochepre_prs());
+        c05_fiabilidadpre_prs.setText("Fiabilidad: " + personaEnProceso.getFiabilidadpre_prs());
+        c05_valoracionorgpre_prs.setText("Colaboración: " + personaEnProceso.getValoracionorgpre_prs());
+        c05_volumencomprapre_prs.setText("Volumen: " + personaEnProceso.getVolumencomprapre_prs());
+        c05_nrelacionespre_prs.setText("Contactos: " + personaEnProceso.getNrelacionespre_prs());
+        c05_contacto1cargo_prs.setText(personaEnProceso.getContacto1Cargo_prs() + " " + personaEnProceso.getContacto1Movil_prs());
+        c05_contacto2cargo_prs.setText(personaEnProceso.getContacto2Cargo_prs() + " " + personaEnProceso.getContacto2Movil_prs());
+        c05_fechaalta_prs.setText("Alta: " + personaEnProceso.getFechaalta_prs() + " / Baja: " + personaEnProceso.getFechabaja_prs());
+        c05_dni_prs.setText("DNI: " + personaEnProceso.getDni_prs());
+        c05_condicioneslegales_prs.setText("Condiciones " + (personaEnProceso.getCondicioneslegales_prs() ? "Aceptadas" : "Rechazadas"));
+        c05_nps01fecha_prs.setText(personaEnProceso.getNps01Fecha_prs() + " - NPS1: " + personaEnProceso.getNps01_prs());
+        c05_nps02fecha_prs.setText(personaEnProceso.getNps02Fecha_prs() + " - NPS2: " + personaEnProceso.getNps02_prs());
+        c05_nps03fecha_prs.setText(personaEnProceso.getNps03Fecha_prs() + " - NPS3: " + personaEnProceso.getNps03_prs());
 
         // Botones
         // Envio de whatsapp
@@ -156,73 +188,5 @@ public class C_05 extends Fragment implements IDAO <Persona_prs, Object> {
 
         return view;
     }//Fin de constructor
-
-    @Override
-    public <T> void tabla1ChangeListener(Query query, List<T> lista, Class<T> tipoObjeto, RecyclerView.Adapter miAdapter) {
-        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
-                T enProceso;
-                if (error != null) {
-                    Log.e("Error en Firestore", error.getMessage());
-                    return;
-                }
-                lista.clear();
-                for (QueryDocumentSnapshot qds : snapshots) {
-                    personaEnProceso = (Persona_prs) qds.toObject(tipoObjeto);
-//                    lista.add(enProceso);
-//                miAdapter.notifyDataSetChanged();
-
-                    c05_apodo_prs.setText(personaEnProceso.getApodo_prs());
-                    c05_nombre_prs.setText(personaEnProceso.getNombre_prs() + " " + personaEnProceso.getApellido1_prs() + " " + personaEnProceso.getApellido2_prs());
-
-                    FirebaseStorage fbs = FirebaseStorage.getInstance();
-                    StorageReference str = fbs.getReference();
-
-                    str.child("Valientes/" + personaEnProceso.getFotopropia_prs()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            Picasso.get().load(uri).into(c05_fotopropia_prs);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            Toast.makeText(getActivity(), "Error de cargar la imagen", Toast.LENGTH_LONG).show();
-                        }
-                    });
-
-                    c05_direccion_prs.setText(personaEnProceso.getDireccion_prs());
-                    c05_localidad_prs.setText(personaEnProceso.getLocalidad_prs() + " " + personaEnProceso.getCpostal_prs());
-
-                    c05_movil_prs.setText(personaEnProceso.getMovil_prs());
-                    c05_coche_prs.setText(personaEnProceso.getCoche_prs());
-                    c05_email_prs.setText(personaEnProceso.getEmail_prs());
-
-                    c05_antiguedadpre_prs.setText("Antigüedad: " + personaEnProceso.getAntiguedadpre_prs());
-                    c05_cochepre_prs.setText("Ofrece coche: " + personaEnProceso.getCochepre_prs());
-                    c05_fiabilidadpre_prs.setText("Fiabilidad: " + personaEnProceso.getFiabilidadpre_prs());
-                    c05_valoracionorgpre_prs.setText("Colaboración: " + personaEnProceso.getValoracionorgpre_prs());
-                    c05_volumencomprapre_prs.setText("Volumen: " + personaEnProceso.getVolumencomprapre_prs());
-                    c05_nrelacionespre_prs.setText("Contactos: " + personaEnProceso.getNrelacionespre_prs());
-                    c05_contacto1cargo_prs.setText(personaEnProceso.getContacto1Cargo_prs() + " " + personaEnProceso.getContacto1Movil_prs());
-                    c05_contacto2cargo_prs.setText(personaEnProceso.getContacto2Cargo_prs() + " " + personaEnProceso.getContacto2Movil_prs());
-                    c05_fechaalta_prs.setText("Alta: " + personaEnProceso.getFechaalta_prs() + " / Baja: " + personaEnProceso.getFechabaja_prs());
-                    c05_dni_prs.setText("DNI: " + personaEnProceso.getDni_prs());
-                    c05_condicioneslegales_prs.setText("Condiciones " + (personaEnProceso.getCondicioneslegales_prs() ? "Aceptadas" : "Rechazadas"));
-                    c05_nps01fecha_prs.setText(personaEnProceso.getNps01Fecha_prs() + " - NPS1: " + personaEnProceso.getNps01_prs());
-                    c05_nps02fecha_prs.setText(personaEnProceso.getNps02Fecha_prs() + " - NPS2: " + personaEnProceso.getNps02_prs());
-                    c05_nps03fecha_prs.setText(personaEnProceso.getNps03Fecha_prs() + " - NPS3: " + personaEnProceso.getNps03_prs());
-
-                    Log.d(TAG, "Datos recibidos!");
-                    Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-    }
-
-    @Override
-    public <S> void tabla2ChangeListener(Query query, List<S> lista, Class<S> tipoObjeto, RecyclerView.Adapter miAdapter) {
-
-    }
 
 }

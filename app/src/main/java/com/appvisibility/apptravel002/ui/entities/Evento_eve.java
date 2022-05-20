@@ -38,7 +38,15 @@ public class Evento_eve implements Serializable {
             int id_eve,
             String titulo_eve,
             int nparticipantes_eve,
+            String fechapagosennal_eve,
+            String fechapagototal_eve,
             String foto_eve,
+            String descgeneral_eve,
+            String descrecomendaciones_eve,
+            String salidacoordenadastru_eve,
+            String salidaidatru_eve,
+            String llegadacoordenadastru_eve,
+            String llegadaidatru_eve,
             String nivel_eve,
             String estado_eve,
             String transportetipo_eve,
@@ -49,7 +57,15 @@ public class Evento_eve implements Serializable {
         this.id_eve = id_eve;
         this.titulo_eve = titulo_eve;
         this.nparticipantes_eve = nparticipantes_eve;
+        this.fechapagosennal_eve = fechapagosennal_eve;
+        this.fechapagototal_eve = fechapagototal_eve;
         this.foto_eve = foto_eve;
+        this.descgeneral_eve = descgeneral_eve;
+        this.descrecomendaciones_eve = descrecomendaciones_eve;
+        this.salidacoordenadastru_eve = salidacoordenadastru_eve;
+        this.salidaidatru_eve = salidaidatru_eve;
+        this.llegadacoordenadastru_eve = llegadacoordenadastru_eve;
+        this.llegadaidatru_eve = llegadaidatru_eve;
         this.nivel_eve = nivel_eve;
         this.estado_eve = estado_eve;
         this.transportetipo_eve = transportetipo_eve;

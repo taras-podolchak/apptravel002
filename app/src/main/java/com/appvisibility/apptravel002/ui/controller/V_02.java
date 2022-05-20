@@ -35,7 +35,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 
-public class V_02 extends Fragment implements IDAO<Evento_eve_test, Object> {
+public class V_02 extends Fragment implements IDAO<Evento_eve_test, Object, Object> {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -51,7 +51,6 @@ public class V_02 extends Fragment implements IDAO<Evento_eve_test, Object> {
 
     // Acceso a datos
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
-    ProgressDialog pdg;
 
     // Entities
     List<Evento_eve_test> eventos = new ArrayList<>();
@@ -141,4 +140,8 @@ public class V_02 extends Fragment implements IDAO<Evento_eve_test, Object> {
 
     }
 
+    @Override
+    public <R> void tabla3ChangeListener(Query query, List<R> lista, Class<R> tipoObjeto, RecyclerView.Adapter miAdapter) {
+
+    }
 }

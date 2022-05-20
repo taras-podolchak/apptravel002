@@ -55,7 +55,7 @@ import java.util.List;
  * Use the {@link V_05#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class V_05 extends Fragment implements IDAO<Persona_prs, Actividad_act> {
+public class V_05 extends Fragment implements IDAO<Persona_prs, Object, Object> {
 
     // Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -135,14 +135,11 @@ public class V_05 extends Fragment implements IDAO<Persona_prs, Actividad_act> {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_05, container, false);
 
-//        int id_eve_bundle = getArguments().getInt("eventoParaV_05");
-
-//        Bundle bundleEvento = new Bundle();
         Bundle bundleEvento = getArguments();
         //Cargamos el Evento
         eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_05");
-        int id_eve_bundle = eventoEnProceso.getId_eve();
-        bundleEvento.putInt("eventoParaV_05_1", id_eve_bundle);
+        int id_eve_enProceso = eventoEnProceso.getId_eve();
+        bundleEvento.putInt("eventoParaV_05_1", id_eve_enProceso);
 
         v05_titulo_eve = view.findViewById(R.id.v05_txv_titulo_eve);
         v05_foto_eve = view.findViewById(R.id.v05_imv_foto_eve);
@@ -157,12 +154,9 @@ public class V_05 extends Fragment implements IDAO<Persona_prs, Actividad_act> {
 
         //Cargamos el Evento
         // EOB: Intentar pasar este método a changeNoListener y eliminar las dos líneas siguientes
-        List<Evento_eve_test> eventos_list = new ArrayList<>();
-        v02_00_eve_Adapter v02_adapter_eve = null;
-/*
-        Query query1 = fbf.collection("evento_eve_test").whereEqualTo("id_eve", id_eve_bundle);
-        tabla1ChangeListener(query1, eventos_list, Evento_eve_test.class, v02_adapter_eve);
-*/
+//        List<Evento_eve_test> eventos_list = new ArrayList<>();
+//        v02_00_eve_Adapter v02_adapter_eve = null;
+
         v05_titulo_eve.setText(eventoEnProceso.getTitulo_eve());
         //Cargamos la imagen
         FirebaseStorage fbs = FirebaseStorage.getInstance();
@@ -195,8 +189,8 @@ public class V_05 extends Fragment implements IDAO<Persona_prs, Actividad_act> {
         this.v05_recycler_prs.setHasFixedSize(true);
         this.v05_recycler_prs.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
 */
-        Query query2 = fbf.collection("persona_prs").whereIn("id_prs", Arrays.asList(1, 2, 3, 4, 5, 6));
-        tabla2ChangeListener(query2, personas, Persona_prs.class, v03_adapter_prs);
+        Query query1 = fbf.collection("persona_prs").whereIn("id_prs", Arrays.asList(1, 2, 3, 4, 5, 6));
+        tabla1ChangeListener(query1, personas, Persona_prs.class, v03_adapter_prs);
 //        personasChangeListener(1);
 
  /*       this.v05_adapter_prs = new v03_00_prs_Adapter(personas, mContext);
@@ -266,73 +260,19 @@ public class V_05 extends Fragment implements IDAO<Persona_prs, Actividad_act> {
         return view;
     }//Fin de constructor
 
-/*
-        public <T> void tabla1ChangeListener(Query query, List<T> lista, Class<T> tipoObjeto, RecyclerView.Adapter miAdapter) {
-            query.addSnapshotListener(new EventListener<QuerySnapshot>() {
-                @Override
-                public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
-                    T enProceso;
-                    if (error != null) {
-                        Log.e("Error en Firestore", error.getMessage());
-                        return;
-                    }
-                    lista.clear();
-                    for (QueryDocumentSnapshot qds : snapshots) {
-                        evento = (Evento_eve_test) qds.toObject(tipoObjeto);
-    //                    lista.add(enProceso);
-    //                miAdapter.notifyDataSetChanged();
-
-                        v05_titulo_eve.setText(evento.getTitulo_eve());
-                        //cargamos la imagen
-                        FirebaseStorage fbs = FirebaseStorage.getInstance();
-                        StorageReference str = fbs.getReference();
-                        str.child("Eventos/" + evento.getFoto_eve()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                Picasso.get().load(uri).into(v05_foto_eve);
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception exception) {
-    //                Toast.makeText(getActivity(), "GET IMAGE FAILED", Toast.LENGTH_LONG).show();
-                                // Handle any errors
-                            }
-                        });
-                        v05_info_completa.setText(
-                                "Nivel de dificultad: " + evento.getNivel_eve() + "\n"
-                                        + "Distancia ida: " + evento.getDistanciaidatru_eve() + " "
-                                        + "Distancia vuelta: " + evento.getDistanciavueltatru_eve() + "\n"
-                                        + "Fecha ida: " + evento.getFechaidatru_eve() + "\n"
-                                        + "Fecha vuelta: " + evento.getFechavueltatru_eve() + "\n"
-                                        // + "Coordenadas de salida: " + evento.getSalidacoordenadastru_eve() + "\n"
-                                        // + "Coordenadas de llegada: " + evento.getLlegadacoordenadastru_eve() + "\n"
-                                        //  + evento.getDescgeneral_eve() + " "
-                                        + "Precio: " + evento.getPrecio_eve() + "€");
-                    }
-
-                    Log.d(TAG, "Datos recibidos!");
-                    Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
-                }
-            });
-        }
-*/
-
     @Override
     public <T> void tabla1ChangeListener(Query query, List<T> lista, Class<T> tipoObjeto, RecyclerView.Adapter miAdapter) {
-    }
-
-    public <S> void tabla2ChangeListener(Query query, List<S> lista, Class<S> tipoObjeto, RecyclerView.Adapter miAdapter) {
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
-                S enProceso;
+                T enProceso;
                 if (error != null) {
                     Log.e("Error en Firestore", error.getMessage());
                     return;
                 }
                 lista.clear();
                 for (QueryDocumentSnapshot qds : snapshots) {
-                    enProceso = (S) qds.toObject(tipoObjeto);
+                    enProceso = (T) qds.toObject(tipoObjeto);
                     lista.add(enProceso);
                 }
 //                miAdapter.notifyDataSetChanged();
@@ -349,41 +289,19 @@ public class V_05 extends Fragment implements IDAO<Persona_prs, Actividad_act> {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });*/
-
-//                if (pdg.isShowing()){
-//                    pdg.dismiss();
-//                }
-
-                Log.d(TAG, "Datos recibidos!");
-                Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
+            Log.d(TAG, "Datos recibidos!");
+            Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    public <O> void tabla3ChangeListener(Query query, List<O> lista, Class<O> tipoObjeto, RecyclerView.Adapter miAdapter) {
-        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
-                O enProceso;
-                if (error != null) {
-                    Log.e("Error en Firestore", error.getMessage());
-                    return;
-                }
-                lista.clear();
-                for (QueryDocumentSnapshot qds : snapshots) {
-                    enProceso = (O) qds.toObject(tipoObjeto);
-                    lista.add(enProceso);
-                }
-                miAdapter.notifyDataSetChanged();
+    @Override
+    public <S> void tabla2ChangeListener(Query query, List<S> lista, Class<S> tipoObjeto, RecyclerView.Adapter miAdapter) {
+    }
 
-//                if (pdg.isShowing()){
-//                    pdg.dismiss();
-//                }
+    @Override
+    public <R> void tabla3ChangeListener(Query query, List<R> lista, Class<R> tipoObjeto, RecyclerView.Adapter miAdapter) {
 
-                Log.d(TAG, "Datos recibidos!");
-                Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
     private void necesitoElCocheChangeListener() {
