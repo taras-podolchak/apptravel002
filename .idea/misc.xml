@@ -44,10 +44,32 @@
         <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/menu-v23/activity_main_drawer.xml" value="0.3020833333333333" />
         <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/menu/activity_main_drawer.xml" value="0.26875" />
         <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/menu/main.xml" value="0.34739583333333335" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/activity_main_adm.xml" value="0.13145896656534956" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/activity_main_col.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/activity_main_val.xml" value="0.21422101449275363" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/app_bar_main_adm.xml" value="0.13145896656534956" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/app_bar_main_col.xml" value="0.13145896656534956" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/app_bar_main_val.xml" value="0.21422101449275363" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/content_main_adm.xml" value="0.13145896656534956" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/content_main_col.xml" value="0.13145896656534956" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/content_main_val.xml" value="0.21422101449275363" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_c_05.xml" value="0.21422101449275363" />
         <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_slideshow.xml" value="0.1598731884057971" />
         <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_01.xml" value="0.13055555555555556" />
-        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_03.xml" value="0.1" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_03.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_05.xml" value="0.1" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_05_1.xml" value="0.21422101449275363" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/nav_header_main.xml" value="0.21422101449275363" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/nav_header_main_adm.xml" value="0.13145896656534956" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/nav_header_main_col.xml" value="0.13145896656534956" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/nav_header_main_val.xml" value="0.21422101449275363" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/menu/activity_main_drawer_adm.xml" value="0.36302083333333335" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/menu/activity_main_drawer_val.xml" value="0.2703125" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/menu/main_activiry_adm.xml" value="0.2703125" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/menu/main_activiry_col.xml" value="0.36302083333333335" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/menu/main_activity_adm.xml" value="0.2864583333333333" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/menu/main_activity_col.xml" value="0.2703125" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/menu/main_activity_val.xml" value="0.2703125" />
       </map>
     </option>
   </component>

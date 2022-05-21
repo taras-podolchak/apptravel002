@@ -9,7 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.appvisibility.apptravel002.databinding.ActivityMainAdmBinding;
+import com.appvisibility.apptravel002.databinding.*;
 import com.appvisibility.apptravel002.ui.controller.V_01;
 import com.appvisibility.apptravel002.ui.controller.V_04;
 import com.appvisibility.apptravel002.ui.controller.V_05;
@@ -26,10 +26,10 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity_adm extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity_col extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private ActivityMainAdmBinding binding;
+    private ActivityMainColBinding binding;
     private FirebaseAuth fba = FirebaseAuth.getInstance();
 
     @Override
@@ -37,7 +37,7 @@ public class MainActivity_adm extends AppCompatActivity implements NavigationVie
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        int id_eve_bundle = intent.getIntExtra("abrirEnMainActivity_adm", 0);
+        int id_eve_bundle = intent.getIntExtra("abrirEnMainActivity_col", 0);
 
         Bundle result = new Bundle();
         result.putInt("eventoParaV_04", id_eve_bundle);
@@ -54,39 +54,45 @@ public class MainActivity_adm extends AppCompatActivity implements NavigationVie
             getSupportFragmentManager().beginTransaction().add(android.R.id.content, v_05).commit();
         }
 
-        binding = ActivityMainAdmBinding.inflate(getLayoutInflater());
+        binding = ActivityMainColBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        setSupportActionBar(binding.appBarMainActivityAdm.toolbar);
-        binding.appBarMainActivityAdm.fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+        setSupportActionBar(binding.appBarMainActivityCol.toolbar);
+        binding.appBarMainActivityCol.fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());
 
-        DrawerLayout drawer = binding.drawerLayoutAdm.findViewById(R.id.drawer_layout_adm);
-        NavigationView navigationView = binding.navViewAdm.findViewById(R.id.nav_view_adm);
+        DrawerLayout drawer = binding.drawerLayoutCol.findViewById(R.id.drawer_layout_col);
+        NavigationView navigationView = binding.navViewCol.findViewById(R.id.nav_view_col);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_v01, R.id.nav_v02, R.id.nav_v03, R.id.nav_v04, R.id.nav_v05, R.id.nav_v06)
                 .setOpenableLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main_activity_adm);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main_activity_col);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        NavigationView mNavigationView = findViewById(R.id.nav_view_val);
+        if (mNavigationView != null) {
+            mNavigationView.setNavigationItemSelectedListener(this);
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_activity_adm, menu);
+        getMenuInflater().inflate(R.menu.main_activiry_col, menu);
         return true;
     }
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main_activity_adm);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main_activity_col);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+    //TODO el menuImems onClicListener
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();

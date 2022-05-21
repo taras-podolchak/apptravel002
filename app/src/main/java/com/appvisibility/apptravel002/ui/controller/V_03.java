@@ -1,13 +1,12 @@
 package com.appvisibility.apptravel002.ui.controller;
 
 import static android.content.ContentValues.TAG;
-import static com.appvisibility.apptravel002.MainActivity.sesionIniciada;
+import static com.appvisibility.apptravel002.MainActivity_val.sesionIniciada;
 
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -31,8 +30,6 @@ import com.appvisibility.apptravel002.ui.entities.Inscribir_eveprstpr;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 import com.appvisibility.apptravel002.ui.service.v03_00_act_Adapter;
 import com.appvisibility.apptravel002.ui.service.v03_00_prs_Adapter;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;

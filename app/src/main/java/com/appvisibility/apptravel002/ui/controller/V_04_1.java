@@ -1,6 +1,6 @@
 package com.appvisibility.apptravel002.ui.controller;
 
-import static com.appvisibility.apptravel002.MainActivity.sesionIniciada;
+import static com.appvisibility.apptravel002.MainActivity_val.sesionIniciada;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -212,7 +212,7 @@ public class V_04_1 extends Fragment {
         user.put("email_prs", email_prs);
         user.put("dni_prs", dni_prs);
         user.put("movil_prs", movil_prs);
-        user.put("id_val_col_prs", usuariotipo);
+        user.put("usuariotipo_prs", usuariotipo);
 
         fba.createUserWithEmailAndPassword(email_prs, contrasenna_prs)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {

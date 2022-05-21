@@ -2,9 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation_col"
-    app:startDestination="@+id/nav_v02">
-
+    android:id="@+id/mobile_navigation_val"
+    app:startDestination="@+id/nav_v01">
 
     <fragment
         android:id="@+id/nav_v01"
@@ -13,7 +12,7 @@
         tools:layout="@layout/fragment_v_01" >
 
         <action
-            android:id="@+id/col_action_nav_inicio_v01_to_nav_v02"
+            android:id="@+id/action_nav_inicio_v01_to_nav_v02"
             app:destination="@id/nav_v02" />
     </fragment>
     <fragment
