@@ -15,7 +15,7 @@
         android:layout_margin="5dp">
 
         <RelativeLayout
-            android:layout_width="200dp"
+            android:layout_width="175dp"
             android:layout_height="wrap_content">
 
             <LinearLayout
@@ -46,6 +46,7 @@
                                 android:id="@+id/v03_cdv_imv_fotopropia_prs"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
+                                android:padding="3dp"
                                 tools:srcCompat="@tools:sample/avatars" />
 
                         </FrameLayout>
@@ -68,16 +69,11 @@
                                 android:id="@+id/v03_cdv_txv_movil_prs"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="center_horizontal" />
+                                android:gravity="center_horizontal"
+                                android:textSize="16sp" />
 
                         </LinearLayout>
                     </LinearLayout>
-                    <TextView
-                        android:id="@+id/v03_cdv_txv_email_prs"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_horizontal" />
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -86,17 +82,18 @@
                     android:gravity="left"
                     android:orientation="horizontal">
 
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:id="@+id/v03_cdv_imv_ico_coche"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ico_coche_naranja" />
+                        <ImageView
+                            android:id="@+id/v03_cdv_imv_ico_coche"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:padding="3dp"
+                            android:src="@drawable/ico_coche_naranja" />
 
-                </FrameLayout>
+                    </FrameLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -106,19 +103,13 @@
                         android:textAlignment="center">
 
                         <TextView
-                            android:id="@+id/v03_cdv_txv_id_tpr"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
-                            android:textSize="18sp" />
-
-                        <TextView
                             android:id="@+id/v03_cdv_txv_plazaslibres_tpr"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
                             android:gravity="center_horizontal" />
-                    </LinearLayout>
 
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>

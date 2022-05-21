@@ -281,7 +281,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
                     .filter(e -> inscritos.stream().map(Inscribir_eveprstpr::getId_prs).anyMatch(id -> id.equals(e.getId_prs())))
                     .collect(Collectors.toList());
                 //Cargamos los datos de las Personas Inscritas al Evento
-                v03_adapter_prs = new v03_00_prs_Adapter(personasFiltrados, mContext, id_eve_enProceso);
+                v03_adapter_prs = new v03_00_prs_Adapter(personasFiltrados, inscritos, mContext, id_eve_enProceso);
                 v03_recycler_prs.setAdapter(v03_adapter_prs);
 
                 Log.d(TAG, "Datos recibidos!");
