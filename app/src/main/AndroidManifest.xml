@@ -23,12 +23,12 @@
             android:label="@string/title_activity_main_adm"
             android:theme="@style/Theme.Apptravel002_adm.NoActionBar" />
         <activity
-            android:name=".MainActivity_prs"
+            android:name=".MainActivity_col"
             android:exported="false"
             android:label="@string/title_activity_main_col"
             android:theme="@style/Theme.Apptravel002_col.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name=".MainActivity_val"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Apptravel002.NoActionBar">

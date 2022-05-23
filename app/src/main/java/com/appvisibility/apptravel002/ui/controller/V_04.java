@@ -2,7 +2,7 @@ package com.appvisibility.apptravel002.ui.controller;
 
 import static android.content.ContentValues.TAG;
 
-import static com.appvisibility.apptravel002.MainActivity.sesionIniciada;
+import static com.appvisibility.apptravel002.MainActivity_val.sesionIniciada;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -21,7 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.appvisibility.apptravel002.MainActivity_prs;
+import com.appvisibility.apptravel002.MainActivity_col;
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 import com.google.firebase.auth.FirebaseAuth;
@@ -106,7 +106,7 @@ public class V_04 extends Fragment {
         View view = inflater.inflate(R.layout.fragment_v_04, container, false);
 
 
-        //id_eve_bundle = getArguments().getInt("eventoParaV_04", 0);
+        id_eve_bundle = getArguments().getInt("eventoParaV_04", -1);
 
         bundleEvento = new Bundle();
         bundleEvento.putInt("eventoParaV_04_1", id_eve_bundle);
@@ -150,27 +150,52 @@ public class V_04 extends Fragment {
                         FirebaseUser user = fba.getCurrentUser();
                         String uid = user.getUid();
 
-                        //buscamos en FirebaseFirestore el documento con esa Uid
+                        //buscamos en FirebaseFirestore la persona con esa Uid
                         DocumentReference docRef = fbf.collection("persona_prs").document(uid);
                         docRef.get().addOnCompleteListener(task1 -> {
                             if (task1.isSuccessful()) {
                                 DocumentSnapshot document = task1.getResult();
                                 if (document.exists()) {
                                     //recuperamos la persona
-                                    persona = (Persona_prs) document.toObject(Persona_prs.class);
+                                    persona = document.toObject(Persona_prs.class);
                                     Toast.makeText(getActivity(), "Bien venido " + persona.getNombre_prs(), Toast.LENGTH_LONG).show();
+
                                     //si es valiente
-                                    if (persona.getUsuariotipo_prs() == 0) {
+                                    if (persona.getUsuariotipo_prs() == 1) {
                                         sesionIniciada = persona.getUsuariotipo_prs();
                                         Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v05, bundleEvento);
                                     }
                                     //si es colaborador
-                                    if (persona.getUsuariotipo_prs() == 1) {
+                                    if (persona.getUsuariotipo_prs() == 2) {
                                         sesionIniciada = persona.getUsuariotipo_prs();
 
-                                        Intent intent = new Intent(getActivity(), MainActivity_prs.class);
-                                        intent.putExtra("abrirEnMainActivity_prs", 1);
-                                        startActivity(intent);
+                                        //si colaborador entra por el menu (sin elegir el evento) navegamos a 01
+                                        if (id_eve_bundle == -1) {
+                                            getParentFragmentManager().beginTransaction()
+                                                    .add(android.R.id.content, new V_01()).commit();
+                                        }
+                                        //si colaborador entra con el bundle desde 03, tiene que ir a 05 con bundle
+                                        else {
+                                            V_05 v_05 = new V_05();
+                                            v_05.setArguments(bundleEvento);
+                                            getParentFragmentManager().beginTransaction().replace(R.id.content, v_05).commit();
+                                        }
+                                    }
+                                    //si es administrador
+                                    if (persona.getUsuariotipo_prs() == 3) {
+                                        sesionIniciada = persona.getUsuariotipo_prs();
+
+                                        //si administrador entra por el menu (sin elegir el evento) navegamos a 01
+                                        if (id_eve_bundle == -1) {
+                                            getParentFragmentManager().beginTransaction()
+                                                    .add(android.R.id.content, new V_01()).commit();
+                                        }
+                                        //si administrador entra con el bundle desde 03, tiene que ir a 05 con bundle
+                                        else {
+                                            V_05 v_05 = new V_05();
+                                            v_05.setArguments(bundleEvento);
+                                            getParentFragmentManager().beginTransaction().replace(R.id.content, v_05).commit();
+                                        }
                                     }
                                 } else {
                                     Log.d(TAG, "No such document");

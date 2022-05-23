@@ -2,17 +2,17 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_v01_inicio">
+    android:id="@+id/mobile_navigation_col"
+    app:startDestination="@+id/nav_v02">
 
     <fragment
-        android:id="@+id/nav_v01_inicio"
+        android:id="@+id/nav_v01"
         android:name="com.appvisibility.apptravel002.ui.controller.V_01"
         android:label="@string/menu_inicio"
         tools:layout="@layout/fragment_v_01" >
         <action
             android:id="@+id/action_nav_inicio_v01_to_nav_v02"
-            app:destination="@id/nav_v02" /><!--ojo-->
+            app:destination="@id/nav_v02" />
     </fragment>
     <fragment
         android:id="@+id/nav_v02"
@@ -21,7 +21,7 @@
         tools:layout="@layout/fragment_v_02" >
         <action
             android:id="@+id/action_nav_v02_to_nav_inicio_v01"
-            app:destination="@id/nav_v01_inicio" />
+            app:destination="@id/nav_v01" />
     </fragment>
     <fragment
         android:id="@+id/nav_v02_eve_card"
@@ -113,7 +113,7 @@
         tools:layout="@layout/fragment_v_06" >
         <action
             android:id="@+id/action_nav_v06_to_nav_inicio_v01"
-            app:destination="@id/nav_v01_inicio" />
+            app:destination="@id/nav_v01" />
     </fragment>
     <fragment
         android:id="@+id/nav_c05"
@@ -127,7 +127,7 @@
 
     <activity
         android:id="@+id/nav_graph_firstActvity"
-        android:name="com.appvisibility.apptravel002.MainActivity_prs"
+        android:name="com.appvisibility.apptravel002.MainActivity_col"
         android:label="MainActivity_col"
         tools:layout="@layout/activity_main_col">
 

@@ -69,6 +69,8 @@ public class V_01 extends Fragment {
         v01_buscar_actividades.setOnClickListener(view1 -> {
 
             if (usuariotipo == 1) {
+                //getParentFragmentManager().beginTransaction().add(android.R.id.content, new V_02()).commit();
+
                 Navigation.findNavController(view1).navigate(R.id.action_nav_inicio_v01_to_nav_v02);
                 Toast.makeText(getActivity(), "Excursiones de un día", Toast.LENGTH_SHORT).show();
             }

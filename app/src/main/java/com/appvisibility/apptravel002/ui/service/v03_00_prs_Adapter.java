@@ -1,7 +1,7 @@
 package com.appvisibility.apptravel002.ui.service;
 
 import static android.content.ContentValues.TAG;
-import static com.appvisibility.apptravel002.MainActivity.sesionIniciada;
+import static com.appvisibility.apptravel002.MainActivity_val.sesionIniciada;
 
 import android.app.FragmentManager;
 import android.content.Context;
