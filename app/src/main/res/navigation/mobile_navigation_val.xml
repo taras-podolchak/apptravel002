@@ -52,6 +52,9 @@
             android:id="@+id/action_nav_v03_to_nav_v05_1"
             app:destination="@id/nav_v05_1" />
         <action
+            android:id="@+id/action_nav_v03_to_nav_v05_2"
+            app:destination="@id/nav_v05_2" />
+        <action
             android:id="@+id/action_nav_v03_to_nav_c05"
             app:destination="@id/nav_c05" />
     </fragment>
@@ -109,6 +112,18 @@
         <action
             android:id="@+id/action_nav_v05_1_to_nav_v05"
             app:destination="@id/nav_v05" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_v05_2"
+        android:name="com.appvisibility.apptravel002.ui.controller.V_05_2"
+        android:label="v05_2"
+        tools:layout="@layout/fragment_v_05_1" >
+        <action
+            android:id="@+id/action_nav_v05_1_to_nav_v05"
+            app:destination="@id/nav_v05" />
+        <action
+            android:id="@+id/action_nav_v05_2_to_nav_v03"
+            app:destination="@id/nav_v03" />
     </fragment>
     <fragment
         android:id="@+id/nav_v06"

@@ -80,7 +80,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
     private List<Actividad_act> actividades = new ArrayList<>();
     private List<Actividad_act> actividadesFiltrados = new ArrayList<>();
     private List<Inscribir_eveprstpr> inscritos = new ArrayList<>();
-    private List<Persona_prs> personasFiltrados = new ArrayList<>();
+    private List<Persona_prs> personasInscritos = new ArrayList<>();
     private Context mContext;
 
     // Service
@@ -137,6 +137,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
         bundleEvento.putSerializable("eventoParaV_04", eventoEnProceso);
         bundleEvento.putSerializable("eventoParaV_05", eventoEnProceso);
         bundleEvento.putSerializable("eventoParaV_05_1", eventoEnProceso);
+        bundleEvento.putSerializable("eventoParaV_05_2", eventoEnProceso);
 
         this.v03_titulo_eve = view.findViewById(R.id.v03_txv_titulo_eve);
         this.v03_foto_eve = view.findViewById(R.id.v03_imv_foto_eve);
@@ -179,7 +180,8 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
         v03_foto_eve = view.findViewById(R.id.v03_imv_foto_eve);
         v03_foto_eve.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {                Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v05_1, bundleEvento);
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v05_1, bundleEvento);
             }
         });
 
@@ -274,11 +276,12 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
 //                miAdapter.notifyDataSetChanged();
                 // Mapeamos las Personas que están Inscritas al Evento en proceso
                 // https://stackoverflow.com/questions/36246998/stream-filter-of-1-list-based-on-another-list
-                personasFiltrados = personas.stream()
+                personasInscritos.clear();
+                personasInscritos = personas.stream()
                     .filter(e -> inscritos.stream().map(Inscribir_eveprstpr::getId_prs).anyMatch(id -> id.equals(e.getId_prs())))
                     .collect(Collectors.toList());
                 //Cargamos los datos de las Personas Inscritas al Evento
-                v03_adapter_prs = new v03_00_prs_Adapter(personasFiltrados, inscritos, mContext, id_eve_enProceso);
+                v03_adapter_prs = new v03_00_prs_Adapter(personasInscritos, inscritos, mContext, id_eve_enProceso);
                 v03_recycler_prs.setAdapter(v03_adapter_prs);
 
                 Log.d(TAG, "Datos recibidos!");

@@ -1,10 +1,13 @@
 package com.appvisibility.apptravel002.ui.entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.appvisibility.apptravel002.R;
 
 import java.io.Serializable;
 
-public class Persona_prs implements Serializable 	{
+public class Persona_prs implements Serializable, Parcelable {
 															
 	private	int	id_prs	;
 	private	String	apodo_prs	;											
@@ -269,9 +272,86 @@ public class Persona_prs implements Serializable 	{
 		this.	nps03_prs=	nps03_prs	;										
 		this.	nps03fecha_prs=	nps03fecha_prs	;										
 		this.	condicioneslegales_prs=	condicioneslegales_prs	;
-	}														
-															
-	public 	int	getId_prs	() {return 	id_prs	;}	public void 	setId_prs	(	int	id_prs	) {this.	id_prs=	id_prs	;}
+	}
+
+	protected Persona_prs(Parcel in) {
+		id_prs = in.readInt();
+		apodo_prs = in.readString();
+		contrasenna_prs = in.readString();
+		recordarcontrasenna_prs = in.readByte() != 0;
+		actividadtipo_prs = in.readString();
+		documentotipo_prs = in.readString();
+		dni_prs = in.readString();
+		nombre_prs = in.readString();
+		apellido1_prs = in.readString();
+		apellido2_prs = in.readString();
+		razonsocial_prs = in.readString();
+		numerocta_prs = in.readString();
+		direccion_prs = in.readString();
+		localidad_prs = in.readString();
+		cpostal_prs = in.readString();
+		pais_prs = in.readString();
+		movil_prs = in.readString();
+		email_prs = in.readString();
+		telefono_prs = in.readString();
+		web_prs = in.readString();
+		usuariotipo_prs = in.readInt();
+		fotopropia_prs = in.readString();
+		fotoorg_prs = in.readString();
+		federado_prs = in.readByte() != 0;
+		federacionfoto_prs = in.readString();
+		seguro_prs = in.readByte() != 0;
+		segurocompannia_prs = in.readString();
+		seguropoliza_prs = in.readString();
+		fechacaducidadseguro_prs = in.readString();
+		fechaalta_prs = in.readString();
+		antiguedad_prs = in.readString();
+		fechabaja_prs = in.readString();
+		solicitabaja_prs = in.readByte() != 0;
+		contacto1cargo_prs = in.readString();
+		contacto1nombre_prs = in.readString();
+		contacto1apellido1_prs = in.readString();
+		contacto1apellido2_prs = in.readString();
+		contacto1movil_prs = in.readString();
+		contacto1telefono_prs = in.readString();
+		contacto1email_prs = in.readString();
+		contacto2cargo_prs = in.readString();
+		contacto2nombre_prs = in.readString();
+		contacto2apellido1_prs = in.readString();
+		contacto2apellido2_prs = in.readString();
+		contacto2movil_prs = in.readString();
+		contacto2telefono_prs = in.readString();
+		contacto2email_prs = in.readString();
+		preferencia_prs = in.readInt();
+		fiabilidadpre_prs = in.readInt();
+		valoracionorgpre_prs = in.readInt();
+		antiguedadpre_prs = in.readInt();
+		volumencomprapre_prs = in.readInt();
+		cochepre_prs = in.readInt();
+		nrelacionespre_prs = in.readInt();
+		coche_prs = in.readString();
+		nps01_prs = in.readInt();
+		nps01fecha_prs = in.readString();
+		nps02_prs = in.readInt();
+		nps02fecha_prs = in.readString();
+		nps03_prs = in.readInt();
+		nps03fecha_prs = in.readString();
+		condicioneslegales_prs = in.readByte() != 0;
+	}
+
+	public static final Creator<Persona_prs> CREATOR = new Creator<Persona_prs>() {
+		@Override
+		public Persona_prs createFromParcel(Parcel in) {
+			return new Persona_prs(in);
+		}
+
+		@Override
+		public Persona_prs[] newArray(int size) {
+			return new Persona_prs[size];
+		}
+	};
+
+	public 	int	getId_prs	() {return 	id_prs	;}	public void 	setId_prs	(int	id_prs	) {this.	id_prs=	id_prs	;}
 	public 	String	getApodo_prs	() {return 	apodo_prs	;}	public void 	setApodo_prs	(	String	apodo_prs	) {this.	apodo_prs=	apodo_prs	;}
 	public 	String	getContrasenna_prs	() {return 	contrasenna_prs	;}	public void 	setContrasenna_prs	(	String	contrasenna_prs	) {this.	contrasenna_prs=	contrasenna_prs	;}
 	public 	boolean	getRecordarcontrasenna_prs	() {return 	recordarcontrasenna_prs	;}	public void 	setRecordarcontrasenna_prs	(	boolean	recordarcontrasenna_prs	) {this.	recordarcontrasenna_prs=	recordarcontrasenna_prs	;}
@@ -401,5 +481,76 @@ public class Persona_prs implements Serializable 	{
 		builder.append(", 			condicioneslegales_prs=	");	builder.append(	condicioneslegales_prs+	" - ");						
 		builder.append("]");													
 		return builder.toString();													
-	}														
-}															
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(id_prs);
+		dest.writeString(apodo_prs);
+		dest.writeString(contrasenna_prs);
+		dest.writeByte((byte) (recordarcontrasenna_prs ? 1 : 0));
+		dest.writeString(actividadtipo_prs);
+		dest.writeString(documentotipo_prs);
+		dest.writeString(dni_prs);
+		dest.writeString(nombre_prs);
+		dest.writeString(apellido1_prs);
+		dest.writeString(apellido2_prs);
+		dest.writeString(razonsocial_prs);
+		dest.writeString(numerocta_prs);
+		dest.writeString(direccion_prs);
+		dest.writeString(localidad_prs);
+		dest.writeString(cpostal_prs);
+		dest.writeString(pais_prs);
+		dest.writeString(movil_prs);
+		dest.writeString(email_prs);
+		dest.writeString(telefono_prs);
+		dest.writeString(web_prs);
+		dest.writeInt(usuariotipo_prs);
+		dest.writeString(fotopropia_prs);
+		dest.writeString(fotoorg_prs);
+		dest.writeByte((byte) (federado_prs ? 1 : 0));
+		dest.writeString(federacionfoto_prs);
+		dest.writeByte((byte) (seguro_prs ? 1 : 0));
+		dest.writeString(segurocompannia_prs);
+		dest.writeString(seguropoliza_prs);
+		dest.writeString(fechacaducidadseguro_prs);
+		dest.writeString(fechaalta_prs);
+		dest.writeString(antiguedad_prs);
+		dest.writeString(fechabaja_prs);
+		dest.writeByte((byte) (solicitabaja_prs ? 1 : 0));
+		dest.writeString(contacto1cargo_prs);
+		dest.writeString(contacto1nombre_prs);
+		dest.writeString(contacto1apellido1_prs);
+		dest.writeString(contacto1apellido2_prs);
+		dest.writeString(contacto1movil_prs);
+		dest.writeString(contacto1telefono_prs);
+		dest.writeString(contacto1email_prs);
+		dest.writeString(contacto2cargo_prs);
+		dest.writeString(contacto2nombre_prs);
+		dest.writeString(contacto2apellido1_prs);
+		dest.writeString(contacto2apellido2_prs);
+		dest.writeString(contacto2movil_prs);
+		dest.writeString(contacto2telefono_prs);
+		dest.writeString(contacto2email_prs);
+		dest.writeInt(preferencia_prs);
+		dest.writeInt(fiabilidadpre_prs);
+		dest.writeInt(valoracionorgpre_prs);
+		dest.writeInt(antiguedadpre_prs);
+		dest.writeInt(volumencomprapre_prs);
+		dest.writeInt(cochepre_prs);
+		dest.writeInt(nrelacionespre_prs);
+		dest.writeString(coche_prs);
+		dest.writeInt(nps01_prs);
+		dest.writeString(nps01fecha_prs);
+		dest.writeInt(nps02_prs);
+		dest.writeString(nps02fecha_prs);
+		dest.writeInt(nps03_prs);
+		dest.writeString(nps03fecha_prs);
+		dest.writeByte((byte) (condicioneslegales_prs ? 1 : 0));
+	}
+}

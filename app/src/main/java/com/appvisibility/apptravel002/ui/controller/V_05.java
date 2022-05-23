@@ -29,9 +29,7 @@ import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.entities.Actividad_act;
 import com.appvisibility.apptravel002.ui.entities.Alojamiento_alo;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
-import com.appvisibility.apptravel002.ui.entities.Evento_eve_test;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
-import com.appvisibility.apptravel002.ui.service.v02_00_eve_Adapter;
 import com.appvisibility.apptravel002.ui.service.v03_00_act_Adapter;
 import com.appvisibility.apptravel002.ui.service.v03_00_prs_Adapter;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -68,6 +66,7 @@ public class V_05 extends Fragment implements IDAO<Persona_prs, Object, Object> 
 
     // Campos de xml
     private Button v05_adelante, v05_atras;
+    private int id_eve_enProceso;
     private TextView v05_titulo_eve;
     private ImageView v05_foto_eve;
     private TextView v05_info_completa;
@@ -138,7 +137,7 @@ public class V_05 extends Fragment implements IDAO<Persona_prs, Object, Object> 
         Bundle bundleEvento = getArguments();
         //Cargamos el Evento
         eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_05");
-        int id_eve_enProceso = eventoEnProceso.getId_eve();
+        id_eve_enProceso = eventoEnProceso.getId_eve();
         bundleEvento.putInt("eventoParaV_05_1", id_eve_enProceso);
 
         v05_titulo_eve = view.findViewById(R.id.v05_txv_titulo_eve);
@@ -190,7 +189,7 @@ public class V_05 extends Fragment implements IDAO<Persona_prs, Object, Object> 
         this.v05_recycler_prs.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
 */
         Query query1 = fbf.collection("persona_prs").whereIn("id_prs", Arrays.asList(1, 2, 3, 4, 5, 6));
-        tabla1ChangeListener(query1, personas, Persona_prs.class, v03_adapter_prs);
+        tabla1ChangeListener(query1, personas, Persona_prs.class, null);
 //        personasChangeListener(1);
 
  /*       this.v05_adapter_prs = new v03_00_prs_Adapter(personas, mContext);
