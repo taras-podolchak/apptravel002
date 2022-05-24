@@ -97,6 +97,7 @@ public class V_04 extends Fragment {
 
     @Override
     public void onAttach(Context context) {
+
         super.onAttach(context);
         mContext = context;
     }
@@ -104,7 +105,9 @@ public class V_04 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_04, container, false);
-
+       // if(sesionIniciada==0){
+            Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v05);
+      //  }
 
         id_eve_bundle = getArguments().getInt("eventoParaV_04", -1);
 
@@ -176,9 +179,10 @@ public class V_04 extends Fragment {
                                         }
                                         //si colaborador entra con el bundle desde 03, tiene que ir a 05 con bundle
                                         else {
-                                            V_05 v_05 = new V_05();
+                                            /*V_05 v_05 = new V_05();
                                             v_05.setArguments(bundleEvento);
-                                            getParentFragmentManager().beginTransaction().replace(R.id.content, v_05).commit();
+                                            getParentFragmentManager().beginTransaction().replace(R.id.content, v_05).commit();*/
+                                            Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v05, bundleEvento);
                                         }
                                     }
                                     //si es administrador

@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Apptravel002">
+        android:theme="@style/Theme.Apptravel002_val">
         <activity
             android:name=".MainActivity_adm"
             android:exported="false"
@@ -31,7 +31,7 @@
             android:name=".MainActivity_val"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Apptravel002.NoActionBar">
+            android:theme="@style/Theme.Apptravel002_val.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

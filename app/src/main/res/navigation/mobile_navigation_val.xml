@@ -143,5 +143,4 @@
             android:id="@+id/action_nav_c05_to_nav_v03"
             app:destination="@id/nav_v03" />
     </fragment>
-
 </navigation>

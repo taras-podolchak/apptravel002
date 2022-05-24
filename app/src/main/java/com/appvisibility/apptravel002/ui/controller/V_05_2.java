@@ -3,6 +3,7 @@ package com.appvisibility.apptravel002.ui.controller;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -24,7 +25,7 @@ import java.util.List;
  * Use the {@link V_05_2#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class V_05_2 extends Fragment {
+public class V_05_2 extends DialogFragment {
 
     // Campos de xml
     private Button v05_2_adelante, v05_2_atras;

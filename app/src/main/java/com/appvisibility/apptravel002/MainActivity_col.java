@@ -42,7 +42,7 @@ public class MainActivity_col extends AppCompatActivity implements NavigationVie
         Bundle result = new Bundle();
         result.putInt("eventoParaV_04", id_eve_bundle);
 
-        if (id_eve_bundle == -1) {
+     /*   if (id_eve_bundle == -1) {
             V_04 v_04 = new V_04();
             v_04.setArguments(result);
             getSupportFragmentManager().beginTransaction().add(android.R.id.content, v_04).commit();
@@ -52,10 +52,11 @@ public class MainActivity_col extends AppCompatActivity implements NavigationVie
             V_05 v_05 = new V_05();
             v_05.setArguments(result);
             getSupportFragmentManager().beginTransaction().add(android.R.id.content, v_05).commit();
-        }
+        }*/
 
         binding = ActivityMainColBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         setSupportActionBar(binding.appBarMainActivityCol.toolbar);
         binding.appBarMainActivityCol.fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());
@@ -72,7 +73,7 @@ public class MainActivity_col extends AppCompatActivity implements NavigationVie
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        NavigationView mNavigationView = findViewById(R.id.nav_view_val);
+        NavigationView mNavigationView = findViewById(R.id.nav_view_col);
         if (mNavigationView != null) {
             mNavigationView.setNavigationItemSelectedListener(this);
         }
@@ -91,8 +92,8 @@ public class MainActivity_col extends AppCompatActivity implements NavigationVie
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-    //TODO el menuImems onClicListener
 
+    //TODO el menuImems onClicListener
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -149,12 +150,13 @@ public class MainActivity_col extends AppCompatActivity implements NavigationVie
             }
         }
         if (id == R.id.cerrar_session) {
-            getApplication().setTheme(R.style.Theme_Apptravel002);
             Toast.makeText(getApplicationContext(), "Cerramos la sesion", Toast.LENGTH_SHORT).show();
             fba.signOut();
             sesionIniciada = 0;
+            Intent intent = new Intent(this, MainActivity_val.class);
+            startActivity(intent);
         }
-        DrawerLayout drawer = findViewById(R.id.drawer_layout_val);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout_col);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

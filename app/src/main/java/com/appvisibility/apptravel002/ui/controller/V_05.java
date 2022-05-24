@@ -136,7 +136,7 @@ public class V_05 extends Fragment implements IDAO<Persona_prs, Object, Object> 
 
         Bundle bundleEvento = getArguments();
         //Cargamos el Evento
-        eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_05");
+        //eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_05");
         id_eve_enProceso = eventoEnProceso.getId_eve();
         bundleEvento.putInt("eventoParaV_05_1", id_eve_enProceso);
 

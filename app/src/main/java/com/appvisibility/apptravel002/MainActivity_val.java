@@ -189,7 +189,6 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
             }
         }
         if (id == R.id.cerrar_session) {
-            getApplication().setTheme(R.style.Theme_Apptravel002);
             Toast.makeText(getApplicationContext(), "Cerramos la sesion", Toast.LENGTH_SHORT).show();
             fba.signOut();
             sesionIniciada = 0;

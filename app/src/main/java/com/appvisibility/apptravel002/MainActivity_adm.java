@@ -42,7 +42,7 @@ public class MainActivity_adm extends AppCompatActivity implements NavigationVie
         Bundle result = new Bundle();
         result.putInt("eventoParaV_04", id_eve_bundle);
 
-        if (id_eve_bundle == -1) {
+     /*   if (id_eve_bundle == -1) {
             V_04 v_04 = new V_04();
             v_04.setArguments(result);
             getSupportFragmentManager().beginTransaction().add(android.R.id.content, v_04).commit();
@@ -52,7 +52,7 @@ public class MainActivity_adm extends AppCompatActivity implements NavigationVie
             V_05 v_05 = new V_05();
             v_05.setArguments(result);
             getSupportFragmentManager().beginTransaction().add(android.R.id.content, v_05).commit();
-        }
+        }*/
 
         binding = ActivityMainAdmBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -72,6 +72,11 @@ public class MainActivity_adm extends AppCompatActivity implements NavigationVie
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main_activity_adm);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        NavigationView mNavigationView = findViewById(R.id.nav_view_adm);
+        if (mNavigationView != null) {
+            mNavigationView.setNavigationItemSelectedListener(this);
+        }
     }
 
     @Override
@@ -143,12 +148,13 @@ public class MainActivity_adm extends AppCompatActivity implements NavigationVie
             }
         }
         if (id == R.id.cerrar_session) {
-            getApplication().setTheme(R.style.Theme_Apptravel002);
             Toast.makeText(getApplicationContext(), "Cerramos la sesion", Toast.LENGTH_SHORT).show();
             fba.signOut();
             sesionIniciada = 0;
+            Intent intent = new Intent(this, MainActivity_val.class);
+            startActivity(intent);
         }
-        DrawerLayout drawer = findViewById(R.id.drawer_layout_val);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout_adm);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

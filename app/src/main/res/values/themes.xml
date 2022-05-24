@@ -14,16 +14,16 @@
     <!-- Customize your theme here. -->
     <!--  </style>-->
 
-    <style name="Theme.Apptravel002.NoActionBar">
+    <style name="Theme.Apptravel002_val.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.Apptravel002.AppBarOverlay" parent="Theme.Apptravel002" />
+    <style name="Theme.Apptravel002_val.AppBarOverlay" parent="Theme.Apptravel002_val" />
 
-    <style name="Theme.Apptravel002.PopupOverlay" parent="Theme.Apptravel002" />
+    <style name="Theme.Apptravel002_val.PopupOverlay" parent="Theme.Apptravel002_val" />
 
-    <style name="Theme.Apptravel002" parent="Theme.MaterialComponents.DayNight">
+    <style name="Theme.Apptravel002_val" parent="Theme.MaterialComponents.DayNight">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#00a1e7
         </item> <!-- color de la barra ( Inicio, V_01, V_02 etc ) -->
