@@ -129,8 +129,8 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_03, container, false);
 
-        Bundle bundleEvento = getArguments();
         //Recuperamos el Evento
+        Bundle bundleEvento = getArguments();
         eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_03");
 
         this.id_eve_enProceso = eventoEnProceso.getId_eve();

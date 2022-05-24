@@ -134,9 +134,10 @@ public class V_05 extends Fragment implements IDAO<Persona_prs, Object, Object> 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_05, container, false);
 
-        Bundle bundleEvento = getArguments();
         //Cargamos el Evento
-        //eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_05");
+        Bundle bundleEvento = getArguments();
+        eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_05");
+
         id_eve_enProceso = eventoEnProceso.getId_eve();
         bundleEvento.putInt("eventoParaV_05_1", id_eve_enProceso);
 

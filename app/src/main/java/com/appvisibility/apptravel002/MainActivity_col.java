@@ -37,20 +37,20 @@ public class MainActivity_col extends AppCompatActivity implements NavigationVie
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        int id_eve_bundle = intent.getIntExtra("abrirEnMainActivity_col", 0);
+        int id_eve_bundle_get = intent.getIntExtra("abrirEnMainActivity_col", 0);
 
-        Bundle result = new Bundle();
-        result.putInt("eventoParaV_04", id_eve_bundle);
+        Bundle id_eve_bundle_put = new Bundle();
+        id_eve_bundle_put.putInt("eventoParaV_04", id_eve_bundle_get);
 
-     /*   if (id_eve_bundle == -1) {
+     /*   if (id_eve_bundle_get == -1) {
             V_04 v_04 = new V_04();
-            v_04.setArguments(result);
+            v_04.setArguments(id_eve_bundle_put);
             getSupportFragmentManager().beginTransaction().add(android.R.id.content, v_04).commit();
-        } else if (id_eve_bundle == 0) {
+        } else if (id_eve_bundle_get == 0) {
             getSupportFragmentManager().beginTransaction().add(android.R.id.content, new V_01()).commit();
         } else {
             V_05 v_05 = new V_05();
-            v_05.setArguments(result);
+            v_05.setArguments(id_eve_bundle_put);
             getSupportFragmentManager().beginTransaction().add(android.R.id.content, v_05).commit();
         }*/
 

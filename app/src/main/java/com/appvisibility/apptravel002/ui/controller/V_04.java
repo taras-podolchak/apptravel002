@@ -6,7 +6,6 @@ import static com.appvisibility.apptravel002.MainActivity_val.sesionIniciada;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -21,8 +20,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.appvisibility.apptravel002.MainActivity_col;
 import com.appvisibility.apptravel002.R;
+import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -57,9 +56,11 @@ public class V_04 extends Fragment {
 
     // Entities
     private Context mContext;
-    private Bundle bundleEvento;
+    private Bundle id_eve_bundle_put;
     private Persona_prs persona;
-    int id_eve_bundle = 0;
+    int id_eve_bundle_get = 0;
+    private Evento_eve eventoEnProceso;
+    private Bundle bundleEvento;
 
     // Service
     private ProgressDialog pdg;
@@ -105,15 +106,12 @@ public class V_04 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_04, container, false);
-       // if(sesionIniciada==0){
-            Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v05);
-      //  }
 
-        id_eve_bundle = getArguments().getInt("eventoParaV_04", -1);
+        bundleEvento = getArguments();
+        eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_04");
 
-        bundleEvento = new Bundle();
-        bundleEvento.putInt("eventoParaV_04_1", id_eve_bundle);
-        bundleEvento.putInt("eventoParaV_05", id_eve_bundle);
+        bundleEvento.putSerializable("eventoParaV_04_1", eventoEnProceso);
+        bundleEvento.putSerializable("eventoParaV_05", eventoEnProceso);
 
         //Referenciamos los views
         v04_email_prs = view.findViewById(R.id.v04_etx_email_prs);
@@ -172,10 +170,9 @@ public class V_04 extends Fragment {
                                     if (persona.getUsuariotipo_prs() == 2) {
                                         sesionIniciada = persona.getUsuariotipo_prs();
 
-                                        //si colaborador entra por el menu (sin elegir el evento) navegamos a 01
-                                        if (id_eve_bundle == -1) {
-                                            getParentFragmentManager().beginTransaction()
-                                                    .add(android.R.id.content, new V_01()).commit();
+                                        // todo si colaborador entra por el menu (sin elegir el evento) navegamos a 01
+                                        if (id_eve_bundle_get == -1) {
+                                            Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_inicio_v01);
                                         }
                                         //si colaborador entra con el bundle desde 03, tiene que ir a 05 con bundle
                                         else {
@@ -189,16 +186,16 @@ public class V_04 extends Fragment {
                                     if (persona.getUsuariotipo_prs() == 3) {
                                         sesionIniciada = persona.getUsuariotipo_prs();
 
-                                        //si administrador entra por el menu (sin elegir el evento) navegamos a 01
-                                        if (id_eve_bundle == -1) {
-                                            getParentFragmentManager().beginTransaction()
-                                                    .add(android.R.id.content, new V_01()).commit();
+                                        // todo si administrador entra por el menu (sin elegir el evento) navegamos a 01
+                                        if (id_eve_bundle_get == -1) {
+                                            Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v05, bundleEvento);
                                         }
                                         //si administrador entra con el bundle desde 03, tiene que ir a 05 con bundle
                                         else {
-                                            V_05 v_05 = new V_05();
-                                            v_05.setArguments(bundleEvento);
-                                            getParentFragmentManager().beginTransaction().replace(R.id.content, v_05).commit();
+                                          /*  V_05 v_05 = new V_05();
+                                            v_05.setArguments(id_eve_bundle_put);
+                                            getParentFragmentManager().beginTransaction().replace(R.id.content, v_05).commit();*/
+                                            Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v05, bundleEvento);
                                         }
                                     }
                                 } else {

@@ -21,6 +21,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.appvisibility.apptravel002.R;
+import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -65,6 +66,7 @@ public class V_04_1 extends Fragment {
     // Entities
     private Context mContext;
     private Bundle bundleEvento;
+    private Evento_eve eventoEnProceso;
 
     // Service
     private ProgressDialog pdg;
@@ -107,10 +109,9 @@ public class V_04_1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_04_1, container, false);
 
-        int id_eve_bundle = getArguments().getInt("eventoParaV_04_1");
-
-        bundleEvento = new Bundle();
-        bundleEvento.putInt("eventoParaV_05", id_eve_bundle);
+         bundleEvento = getArguments();
+        eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_04_1");
+        bundleEvento.putSerializable("eventoParaV_05", eventoEnProceso);
 
         v04_1_nombre_prs = view.findViewById(R.id.v04_1_etx_nombre_prs);
         v04_1_apellido1_prs = view.findViewById(R.id.v04_1_etx_apellido1_prs);
@@ -144,7 +145,7 @@ public class V_04_1 extends Fragment {
             registrarUsuario(view12);
         });
 
-        v04_1_volver.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_nav_v04_1_to_nav_v04));
+        v04_1_volver.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_nav_v04_1_to_nav_v04, bundleEvento));
         return view;
     }
 
