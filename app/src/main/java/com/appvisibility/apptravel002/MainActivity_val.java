@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
@@ -102,7 +103,7 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
                     if (document.exists()) {
 
                         //recuperamos la persona
-                        persona =  document.toObject(Persona_prs.class);
+                        persona = document.toObject(Persona_prs.class);
 
                         //si es valiente
                         if (persona.getUsuariotipo_prs() == 1) {
@@ -111,16 +112,12 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
                         //si es colaborador
                         else if (persona.getUsuariotipo_prs() == 2) {
                             sesionIniciada = persona.getUsuariotipo_prs();
-                            Intent intent = new Intent(this, MainActivity_col.class);
-                            intent.putExtra("abrirEnMainActivity_col", 0);
-                            startActivity(intent);
+                            startActivity(new Intent(this, MainActivity_col.class).putExtra("abrirEnMainActivity_col", 0));
                         }
                         //si es administrador
                         else if (persona.getUsuariotipo_prs() == 3) {
                             sesionIniciada = persona.getUsuariotipo_prs();
-                            Intent intent = new Intent(this, MainActivity_col.class);
-                            intent.putExtra("abrirEnMainActivity_adm", 0);
-                            startActivity(intent);
+                            startActivity(new Intent(this, MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", 0));
                         }
                     } else {
                         Log.d(TAG, "No such document");
@@ -162,28 +159,20 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
         }
         if (id == R.id.colaborador) {
             if (sesionIniciada == 0) {
-                Intent intent = new Intent(this, MainActivity_col.class);
-                intent.putExtra("abrirEnMainActivity_col", -1);
-                startActivity(intent);
+                startActivity(new Intent(this, MainActivity_col.class).putExtra("abrirEnMainActivity_col", -1));
                 Toast.makeText(this, "Inicie la sesion por favor", Toast.LENGTH_LONG).show();
             } else if (sesionIniciada == 2) {
-                Intent intent = new Intent(this, MainActivity_col.class);
-                intent.putExtra("abrirEnMainActivity_col", 0);
-                startActivity(intent);
+                startActivity(new Intent(this, MainActivity_col.class).putExtra("abrirEnMainActivity_col", 0));
             } else {
                 Toast.makeText(this, "No tienes permisos", Toast.LENGTH_LONG).show();
             }
         }
         if (id == R.id.administrador) {
             if (sesionIniciada == 0) {
-                Intent intent = new Intent(this, MainActivity_adm.class);
-                intent.putExtra("abrirEnMainActivity_adm", -1);
-                startActivity(intent);
+                startActivity(new Intent(this, MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", -1));
                 Toast.makeText(this, "Inicie la sesion por favor", Toast.LENGTH_LONG).show();
-            } else if (sesionIniciada == 3) {
-                Intent intent = new Intent(this, MainActivity_adm.class);
-                intent.putExtra("abrirEnMainActivity_adm", 0);
-                startActivity(intent);
+            } else if (sesionIniciada == 2) {
+                startActivity(new Intent(this, MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", 0));
             } else {
                 Toast.makeText(this, "No tienes permisos", Toast.LENGTH_LONG).show();
             }

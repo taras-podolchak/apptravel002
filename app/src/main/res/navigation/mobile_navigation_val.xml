@@ -76,6 +76,9 @@
         <action
             android:id="@+id/action_nav_v04_to_nav_inicio_v01"
             app:destination="@id/nav_v01" />
+        <action
+            android:id="@+id/action_nav_v04_to_mobile_navigation_col"
+            app:destination="@id/mobile_navigation_col" />
     </fragment>
     <fragment
         android:id="@+id/nav_v04_1"

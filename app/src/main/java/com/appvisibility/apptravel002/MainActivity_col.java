@@ -13,6 +13,7 @@ import com.appvisibility.apptravel002.databinding.*;
 import com.appvisibility.apptravel002.ui.controller.V_01;
 import com.appvisibility.apptravel002.ui.controller.V_04;
 import com.appvisibility.apptravel002.ui.controller.V_05;
+import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,24 +37,6 @@ public class MainActivity_col extends AppCompatActivity implements NavigationVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent = getIntent();
-        int id_eve_bundle_get = intent.getIntExtra("abrirEnMainActivity_col", 0);
-
-        Bundle id_eve_bundle_put = new Bundle();
-        id_eve_bundle_put.putInt("eventoParaV_04", id_eve_bundle_get);
-
-     /*   if (id_eve_bundle_get == -1) {
-            V_04 v_04 = new V_04();
-            v_04.setArguments(id_eve_bundle_put);
-            getSupportFragmentManager().beginTransaction().add(android.R.id.content, v_04).commit();
-        } else if (id_eve_bundle_get == 0) {
-            getSupportFragmentManager().beginTransaction().add(android.R.id.content, new V_01()).commit();
-        } else {
-            V_05 v_05 = new V_05();
-            v_05.setArguments(id_eve_bundle_put);
-            getSupportFragmentManager().beginTransaction().add(android.R.id.content, v_05).commit();
-        }*/
-
         binding = ActivityMainColBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -76,6 +59,23 @@ public class MainActivity_col extends AppCompatActivity implements NavigationVie
         NavigationView mNavigationView = findViewById(R.id.nav_view_col);
         if (mNavigationView != null) {
             mNavigationView.setNavigationItemSelectedListener(this);
+        }//el codigo intocable
+
+        //recuperamos el bundle
+        Intent intent = getIntent();
+        int acceso = intent.getIntExtra("abrirEnMainActivity_col", 0);
+        Evento_eve evento_eve_get = (Evento_eve) intent.getSerializableExtra("eventoParaV_05");
+
+        Bundle id_eve_bundle_put = new Bundle();
+        id_eve_bundle_put.putInt("accesoParaV_04", acceso);
+        id_eve_bundle_put.putSerializable("eventoParaV_05",evento_eve_get);
+
+        if (acceso == -1) {
+            navController.navigate(R.id.nav_v04, id_eve_bundle_put);
+        } else if (acceso == 0) {
+            navController.navigate(R.id.nav_v01);
+        } else {
+            navController.navigate(R.id.nav_v05, id_eve_bundle_put);
         }
     }
 

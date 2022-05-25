@@ -1,11 +1,11 @@
 package com.appvisibility.apptravel002.ui.controller;
 
 import static android.content.ContentValues.TAG;
-
 import static com.appvisibility.apptravel002.MainActivity_val.sesionIniciada;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,6 +20,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.appvisibility.apptravel002.MainActivity_adm;
+import com.appvisibility.apptravel002.MainActivity_col;
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
@@ -58,7 +60,7 @@ public class V_04 extends Fragment {
     private Context mContext;
     private Bundle id_eve_bundle_put;
     private Persona_prs persona;
-    int id_eve_bundle_get = 0;
+    int acceso = 0;
     private Evento_eve eventoEnProceso;
     private Bundle bundleEvento;
 
@@ -108,6 +110,8 @@ public class V_04 extends Fragment {
         View view = inflater.inflate(R.layout.fragment_v_04, container, false);
 
         bundleEvento = getArguments();
+        acceso = bundleEvento.getInt("accesoParaV_04");
+
         eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_04");
 
         bundleEvento.putSerializable("eventoParaV_04_1", eventoEnProceso);
@@ -170,32 +174,29 @@ public class V_04 extends Fragment {
                                     if (persona.getUsuariotipo_prs() == 2) {
                                         sesionIniciada = persona.getUsuariotipo_prs();
 
-                                        // todo si colaborador entra por el menu (sin elegir el evento) navegamos a 01
-                                        if (id_eve_bundle_get == -1) {
-                                            Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_inicio_v01);
+                                        // si colaborador entra por el menu (sin elegir el evento) navegamos a 01
+                                        if (eventoEnProceso == null) {
+                                            startActivity(new Intent(getActivity(), MainActivity_col.class).putExtra("abrirEnMainActivity_col", 0));
                                         }
+
                                         //si colaborador entra con el bundle desde 03, tiene que ir a 05 con bundle
                                         else {
-                                            /*V_05 v_05 = new V_05();
-                                            v_05.setArguments(bundleEvento);
-                                            getParentFragmentManager().beginTransaction().replace(R.id.content, v_05).commit();*/
-                                            Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v05, bundleEvento);
+                                            startActivity(new Intent(getActivity(), MainActivity_col.class).putExtra("abrirEnMainActivity_col", eventoEnProceso.getId_eve()).putExtras(bundleEvento));
                                         }
                                     }
+
                                     //si es administrador
                                     if (persona.getUsuariotipo_prs() == 3) {
                                         sesionIniciada = persona.getUsuariotipo_prs();
 
-                                        // todo si administrador entra por el menu (sin elegir el evento) navegamos a 01
-                                        if (id_eve_bundle_get == -1) {
-                                            Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v05, bundleEvento);
+                                        // si administrador entra por el menu (sin elegir el evento) navegamos a 01
+                                        if (eventoEnProceso == null) {
+                                            startActivity(new Intent(getActivity(), MainActivity_adm.class).putExtra("adm", 0));
                                         }
+
                                         //si administrador entra con el bundle desde 03, tiene que ir a 05 con bundle
                                         else {
-                                          /*  V_05 v_05 = new V_05();
-                                            v_05.setArguments(id_eve_bundle_put);
-                                            getParentFragmentManager().beginTransaction().replace(R.id.content, v_05).commit();*/
-                                            Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v05, bundleEvento);
+                                            startActivity(new Intent(getActivity(), MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", eventoEnProceso.getId_eve()).putExtras(bundleEvento));
                                         }
                                     }
                                 } else {

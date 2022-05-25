@@ -222,8 +222,8 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
 //                miAdapter.notifyDataSetChanged();
                 // Filtramos las Actividades del Evento en proceso
                 actividadesFiltrados = actividades.stream()
-                    .filter(p->p.getId_eve() == id_eve_enProceso)
-                    .collect(Collectors.toList());
+                        .filter(p -> p.getId_eve() == id_eve_enProceso)
+                        .collect(Collectors.toList());
                 //Cargamos los Actividades del Evento
                 v03_adapter_act = new v03_00_act_Adapter(actividadesFiltrados, mContext);
                 v03_recycler_act.setAdapter(v03_adapter_act);
@@ -278,8 +278,8 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
                 // https://stackoverflow.com/questions/36246998/stream-filter-of-1-list-based-on-another-list
                 personasInscritos.clear();
                 personasInscritos = personas.stream()
-                    .filter(e -> inscritos.stream().map(Inscribir_eveprstpr::getId_prs).anyMatch(id -> id.equals(e.getId_prs())))
-                    .collect(Collectors.toList());
+                        .filter(e -> inscritos.stream().map(Inscribir_eveprstpr::getId_prs).anyMatch(id -> id.equals(e.getId_prs())))
+                        .collect(Collectors.toList());
                 //Cargamos los datos de las Personas Inscritas al Evento
                 v03_adapter_prs = new v03_00_prs_Adapter(personasInscritos, inscritos, mContext, id_eve_enProceso);
                 v03_recycler_prs.setAdapter(v03_adapter_prs);
