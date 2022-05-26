@@ -104,7 +104,6 @@ public class V_05_2 extends DialogFragment {
         v05_2_adelante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if()
                 Navigation.findNavController(view).navigate(R.id.action_nav_v05_2_to_nav_v03);
             }
         });
