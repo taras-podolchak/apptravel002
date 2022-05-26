@@ -75,7 +75,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
 
     // Entities
-    private Evento_eve eventoEnProceso;
+    public static Evento_eve eventoEnProceso;
     private List<Persona_prs> personas = new ArrayList<>();
     private List<Actividad_act> actividades = new ArrayList<>();
     private List<Actividad_act> actividadesFiltrados = new ArrayList<>();

@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.controller.V_03;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
-import com.appvisibility.apptravel002.ui.entities.Evento_eve_test;
+import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -27,10 +27,10 @@ import java.util.List;
 
 public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.ViewHolder> {
 
-    private final List<Evento_eve_test> eventos;
+    private final List<Evento_eve> eventos;
     Context context;
 
-    public v02_00_eve_Adapter(List<Evento_eve_test> eventos, Context context) {
+    public v02_00_eve_Adapter(List<Evento_eve> eventos, Context context) {
         this.eventos = eventos;
         this.context = context;
     }

@@ -188,9 +188,10 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
                         id_tpr_enProceso = ins.getId_tpr();
                     }
                 }
-                // Cargamos en el listado de personasEnCoche las personas que tiene id_tpr correspondiente a la posición seleccionada del Recycled
+                // Si la persona en proceso aún dispone de plazas libres, cargamos en el listado de personasEnCoche las personas que tiene id_tpr correspondiente a la posición seleccionada del Recycled
                 for (Inscribir_eveprs ins: inscritos) {
-                    if (ins.getId_tpr() == id_tpr_enProceso){
+                    if (ins.getId_tpr() == id_tpr_enProceso && ins.getPlazaslibres_eveprs()>=0){
+//                    if (ins.getId_tpr() == id_tpr_enProceso){
                         id_prs_enProceso = ins.getId_prs();
                         personasEnCoche.add(map_IdIns_Prs.get(id_prs_enProceso));
                     }
@@ -202,13 +203,13 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
                 // https://stackoverflow.com/questions/42436012/how-to-put-the-arraylist-into-bundle
                 // Valiente: Enviamos a la ventana modal el listado de personasEnCoche correspondiente al id_prs seleccionado
                 Bundle bundlePersonasEnCoche = new Bundle();
-                bundlePersonasEnCoche.putParcelableArrayList("personaParaC_05_2", (ArrayList<? extends Parcelable>) personasEnCoche);
+                bundlePersonasEnCoche.putParcelableArrayList("personaParaV_05_2", (ArrayList<? extends Parcelable>) personasEnCoche);
 
                 // TODO EOB: Sustituir condicion del if por "roll == colaborador"
-                if ((sesionIniciada == 2 || sesionIniciada == 3) && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs()>=0) {
+                if ((sesionIniciada == 0 || sesionIniciada == 3) && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs()>=0) {
                     Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v05_2, bundlePersonasEnCoche);
                 } else if (sesionIniciada == 0 && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs()<0) {
-//                    Toast.makeText((context.getApplicationContext()), "Inscrito sin Plaza de Transporte", Toast.LENGTH_LONG).show();
+                    Toast.makeText((context.getApplicationContext()), "Inscrito sin Plaza de Transporte", Toast.LENGTH_LONG).show();
                 } else {
                     Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundlePersona);
                 }

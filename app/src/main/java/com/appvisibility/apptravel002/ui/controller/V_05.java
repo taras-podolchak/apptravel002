@@ -80,7 +80,7 @@ public class V_05 extends Fragment implements IDAO<Persona_prs, Object, Object> 
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
 
     // Entities
-//    private Evento_eve_test evento;
+//    private Evento_eve evento;
     private Evento_eve eventoEnProceso;
     private List<Actividad_act> actividades = new ArrayList<>();
     private List<Persona_prs> personas = new ArrayList<>();
@@ -152,7 +152,7 @@ public class V_05 extends Fragment implements IDAO<Persona_prs, Object, Object> 
 
         //Cargamos el Evento
         // EOB: Intentar pasar este método a changeNoListener y eliminar las dos líneas siguientes
-//        List<Evento_eve_test> eventos_list = new ArrayList<>();
+//        List<Evento_eve> eventos = new ArrayList<>();
 //        v02_00_eve_Adapter v02_adapter_eve = null;
 
         v05_titulo_eve.setText(eventoEnProceso.getTitulo_eve());

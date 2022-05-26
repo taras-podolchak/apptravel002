@@ -29,7 +29,6 @@ public class V_05_2 extends DialogFragment {
 
     // Campos de xml
     private Button v05_2_adelante, v05_2_atras;
-//    private Spinner v05_2_lista_personas;
     private TextView v05_2_listaPlazas;
     private String informeCoche = "";
 
@@ -84,26 +83,20 @@ public class V_05_2 extends DialogFragment {
 
         Bundle bundlePersonasEnCoche = getArguments();
         //Recuperamos las Plazas del Coche
-        personasEnCoche = bundlePersonasEnCoche.getParcelableArrayList("personaParaC_05_2");
+        personasEnCoche = bundlePersonasEnCoche.getParcelableArrayList("personaParaV_05_2");
 
         Bundle bundleEvento = getArguments();
         //Recuperamos el Evento
-        eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_05_2");
+//        eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_05_2");
+        eventoEnProceso = V_03.eventoEnProceso;
         bundleEvento.putSerializable("eventoParaV_03", eventoEnProceso);
 
-//        v05_2_lista_personas = view.findViewById(R.id.v05_2_spn_lista_personas2);
         v05_2_listaPlazas = view.findViewById(R.id.v05_2_txv_listaPlazas);
-/*
-        ArrayAdapter<Persona_prs> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, personasEnCoche);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        v05_2_lista_personas.setAdapter(arrayAdapter);
-*/
-//        if (personasEnCoche != null) {
 
-            for (Persona_prs i: personasEnCoche){
-                informeCoche += i.getApodo_prs() + "\n";
-            }
-//        }
+        for (Persona_prs i: personasEnCoche){
+            informeCoche += i.getApodo_prs() + "\n";
+        }
+
         v05_2_listaPlazas.setText(informeCoche);
 
         // Botones
@@ -111,7 +104,8 @@ public class V_05_2 extends DialogFragment {
         v05_2_adelante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_nav_v05_2_to_nav_v03, bundleEvento);
+                if()
+                Navigation.findNavController(view).navigate(R.id.action_nav_v05_2_to_nav_v03);
             }
         });
 

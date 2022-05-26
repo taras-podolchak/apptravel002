@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appvisibility.apptravel002.R;
-import com.appvisibility.apptravel002.ui.entities.Evento_eve_test;
+import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.service.v02_00_eve_Adapter;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -35,7 +35,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 
-public class V_02 extends Fragment implements IDAO<Evento_eve_test, Object, Object> {
+public class V_02 extends Fragment implements IDAO<Evento_eve, Object, Object> {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -53,7 +53,7 @@ public class V_02 extends Fragment implements IDAO<Evento_eve_test, Object, Obje
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
 
     // Entities
-    List<Evento_eve_test> eventos = new ArrayList<>();
+    List<Evento_eve> eventos = new ArrayList<>();
     private Context mContext;
 
     // Service
@@ -105,8 +105,8 @@ public class V_02 extends Fragment implements IDAO<Evento_eve_test, Object, Obje
         this.v02_recycler_eve.setLayoutManager(new LinearLayoutManager(mContext));
         this.v02_adapter_eve = new v02_00_eve_Adapter(eventos, mContext);
 
-        Query query1 = fbf.collection("evento_eve_test").orderBy("id_eve", Query.Direction.ASCENDING);
-        tabla1ChangeListener(query1, eventos, Evento_eve_test.class, v02_adapter_eve);
+        Query query1 = fbf.collection("evento_eve").orderBy("id_eve", Query.Direction.ASCENDING);
+        tabla1ChangeListener(query1, eventos, Evento_eve.class, v02_adapter_eve);
 
         this.v02_recycler_eve.setAdapter(v02_adapter_eve);
         return view;
