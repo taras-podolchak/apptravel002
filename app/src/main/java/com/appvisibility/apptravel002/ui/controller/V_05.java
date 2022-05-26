@@ -27,7 +27,6 @@ import android.widget.Toast;
 
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.entities.Actividad_act;
-import com.appvisibility.apptravel002.ui.entities.Alojamiento_alo;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 import com.appvisibility.apptravel002.ui.service.v03_00_act_Adapter;
@@ -86,7 +85,6 @@ public class V_05 extends Fragment implements IDAO<Persona_prs, Object, Object> 
     private List<Actividad_act> actividades = new ArrayList<>();
     private List<Persona_prs> personas = new ArrayList<>();
     private List<Persona_prs> personasConCoches = new ArrayList<>();
-    private List<Alojamiento_alo> listAlojamiento = new ArrayList<>();
     private Context mContext;
 
     // Service
@@ -305,7 +303,7 @@ public class V_05 extends Fragment implements IDAO<Persona_prs, Object, Object> 
     }
 
     private void necesitoElCocheChangeListener() {
-        // fbf.collection("inscribir_eveprstpr").whereEqualTo("id_eve", 1)
+        // fbf.collection("inscribir_eveprs").whereEqualTo("id_eve", 1)
         fbf.collection("persona_prs").whereIn("id_prs", Arrays.asList(1, 2, 3, 4, 5, 6))
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override

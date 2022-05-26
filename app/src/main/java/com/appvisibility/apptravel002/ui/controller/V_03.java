@@ -26,7 +26,7 @@ import android.widget.Toast;
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.entities.Actividad_act;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
-import com.appvisibility.apptravel002.ui.entities.Inscribir_eveprstpr;
+import com.appvisibility.apptravel002.ui.entities.Inscribir_eveprs;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 import com.appvisibility.apptravel002.ui.service.v03_00_act_Adapter;
 import com.appvisibility.apptravel002.ui.service.v03_00_prs_Adapter;
@@ -49,7 +49,7 @@ import java.util.stream.Collectors;
  * Use the {@link V_03#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_eveprstpr, Persona_prs> {
+public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_eveprs, Persona_prs> {
 
     // Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -79,7 +79,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
     private List<Persona_prs> personas = new ArrayList<>();
     private List<Actividad_act> actividades = new ArrayList<>();
     private List<Actividad_act> actividadesFiltrados = new ArrayList<>();
-    private List<Inscribir_eveprstpr> inscritos = new ArrayList<>();
+    private List<Inscribir_eveprs> inscritos = new ArrayList<>();
     private List<Persona_prs> personasInscritos = new ArrayList<>();
     private Context mContext;
 
@@ -129,8 +129,8 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_03, container, false);
 
-        //Recuperamos el Evento
         Bundle bundleEvento = getArguments();
+        //Recuperamos el Evento
         eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_03");
 
         this.id_eve_enProceso = eventoEnProceso.getId_eve();
@@ -169,8 +169,8 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
         tabla1ChangeListener(query1, actividades, Actividad_act.class, v03_adapter_act);
 
         //Cargamos todos los Inscritos
-        Query query2 = fbf.collection("inscribir_eveprstpr").whereEqualTo("id_eve", id_eve_enProceso);
-        tabla2ChangeListener(query2, inscritos, Inscribir_eveprstpr.class, null);
+        Query query2 = fbf.collection("inscribir_eveprs").whereEqualTo("id_eve", id_eve_enProceso);
+        tabla2ChangeListener(query2, inscritos, Inscribir_eveprs.class, null);
 
         //Cargamos todas las Personas
         Query query3 = fbf.collection("persona_prs").orderBy("id_prs", Query.Direction.DESCENDING);
@@ -220,9 +220,9 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
                     lista.add(enProceso);
                 }
 //                miAdapter.notifyDataSetChanged();
-                // Filtramos las Actividades del Evento en proceso
+// Listamos las Actividades del Evento en proceso
                 actividadesFiltrados = actividades.stream()
-                        .filter(p -> p.getId_eve() == id_eve_enProceso)
+                        .filter(p->p.getId_eve() == id_eve_enProceso)
                         .collect(Collectors.toList());
                 //Cargamos los Actividades del Evento
                 v03_adapter_act = new v03_00_act_Adapter(actividadesFiltrados, mContext);
@@ -274,11 +274,11 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
                     lista.add(enProceso);
                 }
 //                miAdapter.notifyDataSetChanged();
-                // Mapeamos las Personas que están Inscritas al Evento en proceso
-                // https://stackoverflow.com/questions/36246998/stream-filter-of-1-list-based-on-another-list
+// Listamos las Personas que están Inscritas al Evento en proceso
+// https://stackoverflow.com/questions/36246998/stream-filter-of-1-list-based-on-another-list
                 personasInscritos.clear();
                 personasInscritos = personas.stream()
-                        .filter(e -> inscritos.stream().map(Inscribir_eveprstpr::getId_prs).anyMatch(id -> id.equals(e.getId_prs())))
+                        .filter(e -> inscritos.stream().map(Inscribir_eveprs::getId_prs).anyMatch(id -> id.equals(e.getId_prs())))
                         .collect(Collectors.toList());
                 //Cargamos los datos de las Personas Inscritas al Evento
                 v03_adapter_prs = new v03_00_prs_Adapter(personasInscritos, inscritos, mContext, id_eve_enProceso);
