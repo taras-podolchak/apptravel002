@@ -79,7 +79,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
     private List<Persona_prs> personas = new ArrayList<>();
     private List<Actividad_act> actividades = new ArrayList<>();
     private List<Actividad_act> actividadesFiltrados = new ArrayList<>();
-    private List<Inscribir_eveprs> inscritos = new ArrayList<>();
+    public static List<Inscribir_eveprs> inscritos = new ArrayList<>();
     private List<Persona_prs> personasInscritos = new ArrayList<>();
     private Context mContext;
 
@@ -222,14 +222,14 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
 //                miAdapter.notifyDataSetChanged();
 // Listamos las Actividades del Evento en proceso
                 actividadesFiltrados = actividades.stream()
-                        .filter(p->p.getId_eve() == id_eve_enProceso)
+                        .filter(act->act.getId_eve() == id_eve_enProceso)
                         .collect(Collectors.toList());
                 //Cargamos los Actividades del Evento
                 v03_adapter_act = new v03_00_act_Adapter(actividadesFiltrados, mContext);
                 v03_recycler_act.setAdapter(v03_adapter_act);
 
-                Log.d(TAG, "Datos recibidos!");
-                Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
+                Log.d(TAG, "Datos actividad_act recibidos!");
+//                Toast.makeText(getActivity(), "Datos actividad_act recibidos!", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -251,8 +251,8 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
                 }
 //                miAdapter.notifyDataSetChanged();
 
-                Log.d(TAG, "Datos recibidos!");
-                Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
+                Log.d(TAG, "Datos inscribir_eveprs recibidos!");
+//                Toast.makeText(getActivity(), "Datos inscribir_eveprs recibidos!", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -278,14 +278,18 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
 // https://stackoverflow.com/questions/36246998/stream-filter-of-1-list-based-on-another-list
                 personasInscritos.clear();
                 personasInscritos = personas.stream()
-                        .filter(e -> inscritos.stream().map(Inscribir_eveprs::getId_prs).anyMatch(id -> id.equals(e.getId_prs())))
+                        .filter(ins -> inscritos.stream()
+                        .map(Inscribir_eveprs::getId_prs)
+                        .anyMatch(prs -> prs.equals(ins.getId_prs())))
                         .collect(Collectors.toList());
                 //Cargamos los datos de las Personas Inscritas al Evento
-                v03_adapter_prs = new v03_00_prs_Adapter(personasInscritos, inscritos, mContext, id_eve_enProceso);
-                v03_recycler_prs.setAdapter(v03_adapter_prs);
+                if (sesionIniciada != 0){
+                    v03_adapter_prs = new v03_00_prs_Adapter(personasInscritos, inscritos, mContext, id_eve_enProceso);
+                    v03_recycler_prs.setAdapter(v03_adapter_prs);
+                }
 
-                Log.d(TAG, "Datos recibidos!");
-                Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
+                Log.d(TAG, "Datos persona_prs recibidos!");
+//                Toast.makeText(getActivity(), "Datos persona_prs recibidos!", Toast.LENGTH_LONG).show();
             }
         });
     }

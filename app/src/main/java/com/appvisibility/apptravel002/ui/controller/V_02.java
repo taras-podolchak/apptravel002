@@ -129,8 +129,8 @@ public class V_02 extends Fragment implements IDAO<Evento_eve, Object, Object> {
                 }
                 miAdapter.notifyDataSetChanged();
 
-                Log.d(TAG, "Datos recibidos!");
-                Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
+                Log.d(TAG, "Datos evento_eve recibidos!");
+//                Toast.makeText(getActivity(), "Datos evento_eve recibidos!", Toast.LENGTH_LONG).show();
             }
         });
     }

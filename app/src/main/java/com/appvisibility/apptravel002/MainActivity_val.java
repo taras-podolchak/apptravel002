@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.Menu;
-import android.view.View;
 import android.widget.Toast;
 
 import com.appvisibility.apptravel002.databinding.ActivityMainValBinding;
@@ -35,9 +34,20 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
     private ActivityMainValBinding binding;
     private FirebaseAuth fba = FirebaseAuth.getInstance();
     private FirebaseFirestore fbf = FirebaseFirestore.getInstance();
-    private Persona_prs persona;
+    private Persona_prs personaUser;
     public static int sesionIniciada = 0;
+    private Bundle bundlePersonaUsuario;
 
+/*
+    public static MainActivity_val newInstance(String param1, String param2) {
+        MainActivity_val fragment = new MainActivity_val();
+        Bundle bundel = new Bundle();
+        bundel.putString(ARG_PARAM1, param1);
+        bundel.putString(ARG_PARAM2, param2);
+        fragment.setArguments(bundel);
+        return fragment;
+    }
+*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,8 +78,14 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
         if (mNavigationView != null) {
             mNavigationView.setNavigationItemSelectedListener(this);
         }
+    }//Fin de constructor
 
-    }   //fin de constructor
+    //Generamos un bundle con los datos del Usuario activo
+    public Bundle getUser () {
+        Bundle bundelPersonaUser = new Bundle();
+        bundelPersonaUser.putSerializable("User", personaUser);
+        return bundelPersonaUser;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -103,20 +119,20 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
                     if (document.exists()) {
 
                         //recuperamos la persona
-                        persona = document.toObject(Persona_prs.class);
+                        personaUser = document.toObject(Persona_prs.class);
 
                         //si es valiente
-                        if (persona.getUsuariotipo_prs() == 1) {
-                            sesionIniciada = persona.getUsuariotipo_prs();
+                        if (personaUser.getUsuariotipo_prs() == 1) {
+                            sesionIniciada = personaUser.getUsuariotipo_prs();
                         }
                         //si es colaborador
-                        else if (persona.getUsuariotipo_prs() == 2) {
-                            sesionIniciada = persona.getUsuariotipo_prs();
+                        else if (personaUser.getUsuariotipo_prs() == 2) {
+                            sesionIniciada = personaUser.getUsuariotipo_prs();
                             startActivity(new Intent(this, MainActivity_col.class).putExtra("abrirEnMainActivity_col", 0));
                         }
                         //si es administrador
-                        else if (persona.getUsuariotipo_prs() == 3) {
-                            sesionIniciada = persona.getUsuariotipo_prs();
+                        else if (personaUser.getUsuariotipo_prs() == 3) {
+                            sesionIniciada = personaUser.getUsuariotipo_prs();
                             startActivity(new Intent(this, MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", 0));
                         }
                     } else {

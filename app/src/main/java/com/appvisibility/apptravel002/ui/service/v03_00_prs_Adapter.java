@@ -147,7 +147,6 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
 /*
                 Bundle bundlePersona = new Bundle();
                 bundlePersona.putSerializable("personaParaC_05", personaEnProceso);
-                // TODO EOB: Sustituir condicion del if por "roll == colaborador"
                 if (sesionIniciada == 0) {
                     Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundlePersona);
                 } else {
@@ -205,13 +204,13 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
                 Bundle bundlePersonasEnCoche = new Bundle();
                 bundlePersonasEnCoche.putParcelableArrayList("personaParaV_05_2", (ArrayList<? extends Parcelable>) personasEnCoche);
 
-                // TODO EOB: Sustituir condicion del if por "roll == colaborador"
-                if ((sesionIniciada == 0 || sesionIniciada == 3) && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs()>=0) {
-                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v05_2, bundlePersonasEnCoche);
-                } else if (sesionIniciada == 0 && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs()<0) {
+                if (sesionIniciada > 1 && sesionIniciada <= 3) {
+//                if ((sesionIniciada == 1 || sesionIniciada == 3) && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs()>=0) {
+                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundlePersona);
+                } else if (sesionIniciada == 1 && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs()<0) {
                     Toast.makeText((context.getApplicationContext()), "Inscrito sin Plaza de Transporte", Toast.LENGTH_LONG).show();
                 } else {
-                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundlePersona);
+                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v05_2, bundlePersonasEnCoche);
                 }
                 /*
                  * Notificamos cambios para que el contenedor se entere y refresque los datos
