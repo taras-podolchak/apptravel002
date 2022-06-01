@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
@@ -26,6 +27,10 @@ import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Inscribir_eveprs;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -34,11 +39,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -59,7 +62,6 @@ public class V_05_2 extends DialogFragment implements IDAO<Object, Inscribir_eve
     // Entities
     private Evento_eve eventoEnProceso;
     private List<Persona_prs> personasEnCoche = new ArrayList<>();
-    private Inscribir_eveprs inscritoSolicitante;
     private Inscribir_eveprs inscritoOferente;
     private String informeCoche = "";
     private List<Inscribir_eveprs> inscritos = V_03.inscritos;
@@ -67,8 +69,6 @@ public class V_05_2 extends DialogFragment implements IDAO<Object, Inscribir_eve
     private Map<Integer, Persona_prs> map_IdIns_Prs = new HashMap<>();
     private Persona_prs personaUser;
     private Persona_prs personaOferente;
-    private int plazaslibres_eveprs;
-    private Context mContext;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -135,12 +135,30 @@ public class V_05_2 extends DialogFragment implements IDAO<Object, Inscribir_eve
             .collect(Collectors.toList());
             personaOferente = personasEnCocheFiltrado.get(0);
 
+        // Mapeamos los Inscritos con el objeto Persona correspondiente
+/*
+        for(Inscribir_eveprs ins: inscritos){
+            for(Persona_prs prs: personasEnCoche){
+                if (ins.getId_prs() == prs.getId_prs()){
+                    map_IdIns_Prs.put(ins.getId_prs(), prs);
+                }
+            }
+        }
+
+ */
         //Recuperamos los datos del inscrito que ofrece el coche
         for(Inscribir_eveprs ins: inscritos) {
             if (ins.getId_prs() == personaOferente.getId_prs()) {
                 inscritoOferente = ins;
             }
         }
+/*
+        for(Inscribir_eveprs ofer: inscritos) {
+            if (ofer.getId_eveprs() == inscritoOferente.getId_eveprs()) {
+                inscritoOferente = ofer;
+            }
+        }
+*/
         //Recuperamos los inscritos en coche
         inscritosEnCoche = inscritos.stream()
             .filter(ins2->ins2.getId_tpr()==inscritoOferente.getId_tpr())
@@ -172,16 +190,57 @@ public class V_05_2 extends DialogFragment implements IDAO<Object, Inscribir_eve
         v05_2_adelante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for(Inscribir_eveprs ins: inscritos) {
-// TODO: No se como hacer el Update en Firestore
-                    if (ins.getId_prs() == personaUser.getId_prs() && ins.getPlazaslibres_eveprs() < 0) {
-                        ins.setPlazaslibres_eveprs(ins.getPlazaslibres_eveprs() + 1);
-                        inscritoOferente.setPlazaslibres_eveprs(inscritoOferente.getPlazaslibres_eveprs() - 1);
-                    }
-                }
+                for(Inscribir_eveprs inscritoSolicitante: inscritos) {
+//                    if (inscritoSolicitante.getId_prs() == 10 && inscritoSolicitante.getPlazaslibres_eveprs() < 0) {
+                    if (inscritoSolicitante.getId_prs() == personaUser.getId_prs() && inscritoSolicitante.getPlazaslibres_eveprs() < 0) {
+//https://firebase.google.com/docs/firestore/query-data/queries#java_6
 //https://stackoverflow.com/questions/68922621/how-to-update-field-in-the-firebase-firestore-document-using-the-collections
 /*You cannot query the database and update the documents in a single go. You need to query the collection, get the documents, and right after that perform the update.*/
-               Navigation.findNavController(view).navigate(R.id.action_nav_v05_2_to_nav_v03);
+                    Task<QuerySnapshot> task1 = fbf.collection("inscribir_eveprs").whereEqualTo("id_eveprs", inscritoSolicitante.getId_eveprs()).get();
+                    task1.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot qds : task.getResult()) {
+                                    Log.d(TAG, qds.getId() + " => " + qds.getData());
+                                    DocumentReference docRef = qds.getReference();
+                                    docRef.update("plazaslibres_eveprs", inscritoSolicitante.getPlazaslibres_eveprs() + 1);
+                                    docRef.update("id_tpr", inscritoOferente.getId_tpr())
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    if (inscritoOferente.getId_prs() != personaUser.getId_prs() && inscritoOferente.getPlazaslibres_eveprs() >= 1) {
+//                    if (inscritoOferente.getId_prs() == personaUser.getId_prs() && ins.getPlazaslibres_eveprs() < 0) {
+                    Task<QuerySnapshot> task1 = fbf.collection("inscribir_eveprs").whereEqualTo("id_eveprs", inscritoOferente.getId_eveprs()).get();
+                    task1.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot qds : task.getResult()) {
+                                    Log.d(TAG, qds.getId() + " => " + qds.getData());
+                                    DocumentReference docRef = qds.getReference();
+                                    docRef.update("plazaslibres_eveprs", inscritoOferente.getPlazaslibres_eveprs() - 1)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+               Navigation.findNavController(view).navigate(R.id.action_nav_v05_2_to_nav_v03, bundleEvento);
             }
         });
 
@@ -226,5 +285,4 @@ public class V_05_2 extends DialogFragment implements IDAO<Object, Inscribir_eve
     @Override
     public <R> void tabla3ChangeListener(Query query, List<R> lista, Class<R> tipoObjeto, RecyclerView.Adapter miAdapter) {
     }
-
 }

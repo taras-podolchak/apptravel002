@@ -314,8 +314,8 @@ public class V_05 extends Fragment implements IDAO<Persona_prs, Object, Object> 
                             return;
                         }
                         personasConCoches.clear();
-                        for (QueryDocumentSnapshot doc : value) {
-                            personasConCoches.add(doc.toObject(Persona_prs.class));
+                        for (QueryDocumentSnapshot qds : value) {
+                            personasConCoches.add(qds.toObject(Persona_prs.class));
                         }
                         Log.d(TAG, "Current cites in CA: ");
                     }
