@@ -21,4 +21,11 @@
 
     <string name="menu_home">Home</string>
     <string name="title_activity_main_col">MainActivity_col</string>
+
+
+    <!-- pantalla modal a_add_eve-->
+    <string name="v05_2_btn_volver">Volver</string>
+    <string name="v05_2_btn_confirmar">Solicitar</string>
+
+
 </resources>

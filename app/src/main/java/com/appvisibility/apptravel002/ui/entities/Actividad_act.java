@@ -48,6 +48,18 @@ public class Actividad_act implements Serializable {
         this.distancia_act = distancia_act;
     }
 
+    public Actividad_act(String nombre_act, String actividadtipo_act, String fecha_act, String nivel_act, int desnivel_act, int distancia_act, int horas_act, String wikiloc_act) {
+        super();
+        this.fecha_act = fecha_act;
+        this.actividadtipo_act = actividadtipo_act;
+        this.nombre_act = nombre_act;
+        this.nivel_act = nivel_act;
+        this.horas_act = horas_act;
+        this.wikiloc_act = wikiloc_act;
+        this.desnivel_act = desnivel_act;
+        this.distancia_act = distancia_act;
+    }
+
     public Actividad_act(
             int id_act,
             int id_eve,

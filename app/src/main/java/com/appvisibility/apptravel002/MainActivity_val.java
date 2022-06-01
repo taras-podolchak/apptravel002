@@ -197,6 +197,7 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
             Toast.makeText(getApplicationContext(), "Cerramos la sesion", Toast.LENGTH_SHORT).show();
             fba.signOut();
             sesionIniciada = 0;
+            startActivity(new Intent(this, MainActivity_val.class));
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout_val);
         drawer.closeDrawer(GravityCompat.START);

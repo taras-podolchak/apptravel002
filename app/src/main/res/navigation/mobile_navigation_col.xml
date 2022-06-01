@@ -128,12 +128,4 @@
             app:destination="@id/nav_v03" />
     </fragment>
 
-    <activity
-        android:id="@+id/nav_graph_firstActvity"
-        android:name="com.appvisibility.apptravel002.MainActivity_col"
-        android:label="MainActivity_col"
-        tools:layout="@layout/activity_main_col">
-
-
-    </activity>
 </navigation>

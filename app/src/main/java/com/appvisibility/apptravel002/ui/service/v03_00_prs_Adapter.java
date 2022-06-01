@@ -39,7 +39,7 @@ public class v03_00_prs_Adapter extends RecyclerView.Adapter<v03_00_prs_Adapter.
 
     private List<Persona_prs> personasInscritos = new ArrayList<>();
     private List<Persona_prs> personasEnCoche = new ArrayList<>();
-    private List<Inscribir_eveprs> inscritos  = new ArrayList<>();
+    private List<Inscribir_eveprs> inscritos = new ArrayList<>();
     private int plazaslibres_eveprs;
     private Map<Integer, Persona_prs> map_IdIns_Prs = new HashMap<>();
     private Map<Integer, Inscribir_eveprs> map_Posicion_Inscrito = new HashMap<>();
@@ -64,9 +64,9 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
                 .collect(Collectors.toMap(Transportepropio_tpr::getId_tpr, pl -> pl.getPlazaslibres_tpr()));
 */
 // Mapeamos los Inscritos con el objeto Persona correspondiente
-        for(Inscribir_eveprs ins: inscritos){
-            for(Persona_prs prs: personasInscritos){
-                if (ins.getId_prs() == prs.getId_prs()){
+        for (Inscribir_eveprs ins : inscritos) {
+            for (Persona_prs prs : personasInscritos) {
+                if (ins.getId_prs() == prs.getId_prs()) {
                     map_IdIns_Prs.put(ins.getId_prs(), prs);
                 }
             }
@@ -92,36 +92,36 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
  */
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         id_prs_enProceso = personasInscritos.get(position).getId_prs();
-        String  apodo_prs = personasInscritos.get(position).getApodo_prs();
-        String  dni_prs = personasInscritos.get(position).getDni_prs();
-        String  nombre_prs = personasInscritos.get(position).getNombre_prs();
-        String  apellido1_prs = personasInscritos.get(position).getApellido1_prs();
-        String  apellido2_prs = personasInscritos.get(position).getApellido2_prs();
-        String  direccion_prs = personasInscritos.get(position).getDireccion_prs();
-        String  localidad_prs = personasInscritos.get(position).getLocalidad_prs();
-        String  cpostal_prs = personasInscritos.get(position).getCpostal_prs();
-        String  movil_prs = personasInscritos.get(position).getMovil_prs();
-        String  email_prs = personasInscritos.get(position).getEmail_prs();
-        String  fotopropia_prs = personasInscritos.get(position).getFotopropia_prs();
-        String  fechaalta_prs = personasInscritos.get(position).getFechaalta_prs();
-        String  fechabaja_prs = personasInscritos.get(position).getFechabaja_prs();
-        String  contacto1cargo_prs = personasInscritos.get(position).getContacto1Cargo_prs();
-        String  contacto1movil_prs = personasInscritos.get(position).getContacto1Movil_prs();
-        String  contacto2cargo_prs = personasInscritos.get(position).getContacto2Cargo_prs();
-        String  contacto2movil_prs = personasInscritos.get(position).getContacto2Movil_prs();
+        String apodo_prs = personasInscritos.get(position).getApodo_prs();
+        String dni_prs = personasInscritos.get(position).getDni_prs();
+        String nombre_prs = personasInscritos.get(position).getNombre_prs();
+        String apellido1_prs = personasInscritos.get(position).getApellido1_prs();
+        String apellido2_prs = personasInscritos.get(position).getApellido2_prs();
+        String direccion_prs = personasInscritos.get(position).getDireccion_prs();
+        String localidad_prs = personasInscritos.get(position).getLocalidad_prs();
+        String cpostal_prs = personasInscritos.get(position).getCpostal_prs();
+        String movil_prs = personasInscritos.get(position).getMovil_prs();
+        String email_prs = personasInscritos.get(position).getEmail_prs();
+        String fotopropia_prs = personasInscritos.get(position).getFotopropia_prs();
+        String fechaalta_prs = personasInscritos.get(position).getFechaalta_prs();
+        String fechabaja_prs = personasInscritos.get(position).getFechabaja_prs();
+        String contacto1cargo_prs = personasInscritos.get(position).getContacto1Cargo_prs();
+        String contacto1movil_prs = personasInscritos.get(position).getContacto1Movil_prs();
+        String contacto2cargo_prs = personasInscritos.get(position).getContacto2Cargo_prs();
+        String contacto2movil_prs = personasInscritos.get(position).getContacto2Movil_prs();
         int fiabilidadpre_prs = personasInscritos.get(position).getFiabilidadpre_prs();
         int valoracionorgpre_prs = personasInscritos.get(position).getValoracionorgpre_prs();
         int antiguedadpre_prs = personasInscritos.get(position).getAntiguedadpre_prs();
         int volumencomprapre_prs = personasInscritos.get(position).getVolumencomprapre_prs();
         int cochepre_prs = personasInscritos.get(position).getCochepre_prs();
         int nrelacionespre_prs = personasInscritos.get(position).getNrelacionespre_prs();
-        String  coche_prs = personasInscritos.get(position).getCoche_prs();
+        String coche_prs = personasInscritos.get(position).getCoche_prs();
         int nps01_prs = personasInscritos.get(position).getNps01_prs();
-        String  nps01fecha_prs = personasInscritos.get(position).getNps01Fecha_prs();
+        String nps01fecha_prs = personasInscritos.get(position).getNps01Fecha_prs();
         int nps02_prs = personasInscritos.get(position).getNps02_prs();
-        String  nps02fecha_prs = personasInscritos.get(position).getNps02Fecha_prs();
+        String nps02fecha_prs = personasInscritos.get(position).getNps02Fecha_prs();
         int nps03_prs = personasInscritos.get(position).getNps03_prs();
-        String  nps03fecha_prs = personasInscritos.get(position).getNps03Fecha_prs();
+        String nps03fecha_prs = personasInscritos.get(position).getNps03Fecha_prs();
         boolean condicioneslegales_prs = personasInscritos.get(position).getCondicioneslegales_prs();
 
         Persona_prs personaEnProceso = new Persona_prs(id_prs_enProceso, apodo_prs, dni_prs, nombre_prs, apellido1_prs, apellido2_prs, direccion_prs, localidad_prs, cpostal_prs, movil_prs, email_prs, fotopropia_prs, fechaalta_prs, fechabaja_prs, contacto1cargo_prs, contacto1movil_prs, contacto2cargo_prs, contacto2movil_prs, fiabilidadpre_prs, valoracionorgpre_prs, antiguedadpre_prs, volumencomprapre_prs, cochepre_prs, nrelacionespre_prs, coche_prs, nps01_prs, nps01fecha_prs, nps02_prs, nps02fecha_prs, nps03_prs, nps03fecha_prs, condicioneslegales_prs);
@@ -139,7 +139,7 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
             }
         });
         holder.v03_apodo_prs.setText(apodo_prs);
-        holder.v03_movil_prs.setText("Tel: "+ movil_prs);
+        holder.v03_movil_prs.setText("Tel: " + movil_prs);
 
         holder.v03_cdv_persona.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,6 +147,7 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
 /*
                 Bundle bundlePersona = new Bundle();
                 bundlePersona.putSerializable("personaParaC_05", personaEnProceso);
+                // TODO EOB: Sustituir condicion del if por "roll == colaborador"
                 if (sesionIniciada == 0) {
                     Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundlePersona);
                 } else {
@@ -158,8 +159,8 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
         });
 
         // Identificamos el número de Plazas Libres disponibles del Inscrito en proceso
-        for (Inscribir_eveprs ins: inscritos) {
-            if (ins.getId_prs() == id_prs_enProceso){
+        for (Inscribir_eveprs ins : inscritos) {
+            if (ins.getId_prs() == id_prs_enProceso) {
                 plazaslibres_eveprs = ins.getPlazaslibres_eveprs();
                 // Mapeamos cada Posición del RecycledView con el id_prs asignado
                 map_Posicion_Inscrito.put(position, ins);
@@ -167,7 +168,7 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
         }
 
         // Cargamos en el RecycledView el mensaje correspondiente al número de Plazas Libres disponible en cada Inscrito
-        if (plazaslibres_eveprs == -1){
+        if (plazaslibres_eveprs == -1) {
             holder.v03_ico_coche.setImageResource(R.drawable.ico_coche_rojo);
             holder.v03_plazaslibres_eveprs.setText("Sin plaza asignada");
         } else if (plazaslibres_eveprs == 0) {
@@ -182,14 +183,14 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
             @Override
             public void onClick(View view) {
                 // Obtenemos el id_tpr correspondiente a la posición seleccionada del Recycled
-                for (Inscribir_eveprs ins: inscritos) {
-                    if (ins.getId_prs() == map_Posicion_Inscrito.get(position).getId_prs()){
+                for (Inscribir_eveprs ins : inscritos) {
+                    if (ins.getId_prs() == map_Posicion_Inscrito.get(position).getId_prs()) {
                         id_tpr_enProceso = ins.getId_tpr();
                     }
                 }
                 // Si la persona en proceso aún dispone de plazas libres, cargamos en el listado de personasEnCoche las personas que tiene id_tpr correspondiente a la posición seleccionada del Recycled
-                for (Inscribir_eveprs ins: inscritos) {
-                    if (ins.getId_tpr() == id_tpr_enProceso && ins.getPlazaslibres_eveprs()>=0){
+                for (Inscribir_eveprs ins : inscritos) {
+                    if (ins.getId_tpr() == id_tpr_enProceso && ins.getPlazaslibres_eveprs() >= 0) {
 //                    if (ins.getId_tpr() == id_tpr_enProceso){
                         id_prs_enProceso = ins.getId_prs();
                         personasEnCoche.add(map_IdIns_Prs.get(id_prs_enProceso));
@@ -204,13 +205,13 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
                 Bundle bundlePersonasEnCoche = new Bundle();
                 bundlePersonasEnCoche.putParcelableArrayList("personaParaV_05_2", (ArrayList<? extends Parcelable>) personasEnCoche);
 
-                if (sesionIniciada > 1 && sesionIniciada <= 3) {
-//                if ((sesionIniciada == 1 || sesionIniciada == 3) && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs()>=0) {
-                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundlePersona);
-                } else if (sesionIniciada == 1 && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs()<0) {
-                    Toast.makeText((context.getApplicationContext()), "Inscrito sin Plaza de Transporte", Toast.LENGTH_LONG).show();
-                } else {
+                // TODO EOB: Sustituir condicion del if por "roll == colaborador"
+                if (sesionIniciada == 1) {
                     Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v05_2, bundlePersonasEnCoche);
+                } else if (sesionIniciada == 2 || sesionIniciada == 3) {
+                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundlePersona);
+                } else {
+                    Toast.makeText((context.getApplicationContext()), "Usuario no controlado", Toast.LENGTH_LONG).show();
                 }
                 /*
                  * Notificamos cambios para que el contenedor se entere y refresque los datos

@@ -3,6 +3,7 @@ package com.appvisibility.apptravel002.ui.service;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,21 +11,30 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appvisibility.apptravel002.R;
+import com.appvisibility.apptravel002.ui.controller.A_add_eve;
+import com.appvisibility.apptravel002.ui.controller.V_03;
 import com.appvisibility.apptravel002.ui.entities.Actividad_act;
+import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 
 import java.util.List;
 
 public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.ViewHolder> {
 
     private final List<Actividad_act> actividades;
-    Context context;
+    private Context context;
+    private int accion;
+    private Bundle bundleActividad = new Bundle();
 
-    public v03_00_act_Adapter(List<Actividad_act> actividades, Context context) {
+    //accion es: 0 si lo pulsas en V03 y 1 si lo pulsas en A_add_eve
+    public v03_00_act_Adapter(List<Actividad_act> actividades, Context context, int accion) {
         this.actividades = actividades;
         this.context = context;
+        this.accion = accion;
+
     }
 
     @Override
@@ -44,24 +54,28 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
         String actividadtipo_act = actividades.get(position).getActividadtipo_act();
         String fecha_act = actividades.get(position).getFecha_act();
         String nivel_act = actividades.get(position).getNivel_act();
-        String distancia_act = String.valueOf(actividades.get(position).getDistancia_act());
-        String desnivel_act = String.valueOf(actividades.get(position).getDesnivel_act());
-        String horas_act = String.valueOf(actividades.get(position).getHoras_act());
-        String wikiloc_act = String.valueOf(actividades.get(position).getWikiloc_act());
+        int distancia_act = actividades.get(position).getDistancia_act();
+        int desnivel_act = actividades.get(position).getDesnivel_act();
+        int horas_act = actividades.get(position).getHoras_act();
+        String wikiloc_act = actividades.get(position).getWikiloc_act();
+
+        Actividad_act actividadEnProceso = new Actividad_act(nombre_act, actividadtipo_act, fecha_act, nivel_act, distancia_act, desnivel_act, horas_act, wikiloc_act);
 
         holder.v03_nombre_act.setText(nombre_act);
         holder.v03_actividadtipo_act.setText(actividadtipo_act);
         holder.v03_fecha_act.setText(fecha_act);
         holder.v03_nivel_act.setText("Nivel: " + nivel_act);
-        holder.v03_distancia_act.setText("Distancia: " + String.valueOf(distancia_act));
-        holder.v03_desnivel_act.setText("Desnivel: " + String.valueOf(desnivel_act));
-        holder.v03_horas_act.setText("Horas de marcha: " + String.valueOf(horas_act));
-
-        holder.v03_cdv_actividad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        holder.v03_distancia_act.setText("Distancia: " + distancia_act);
+        holder.v03_desnivel_act.setText("Desnivel: " + desnivel_act);
+        holder.v03_horas_act.setText("Horas de marcha: " + horas_act);
+        holder.v03_cdv_actividad.setOnClickListener(view -> {
+            if (accion == 0) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(wikiloc_act));
                 context.startActivity(intent);
+            } else if (accion == 1) {
+                bundleActividad.putSerializable("eventoPara_a_add_eve", new Evento_eve());
+                bundleActividad.putSerializable("actividadPara_a_add_eve", actividadEnProceso);
+                Navigation.findNavController(view).navigate(R.id.nav_a_create_eve, bundleActividad);
             }
         });
     }

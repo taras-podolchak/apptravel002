@@ -129,5 +129,17 @@
             android:id="@+id/action_nav_c05_to_nav_v03"
             app:destination="@id/nav_v03" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_a_create_eve"
+        android:name="com.appvisibility.apptravel002.ui.controller.A_add_eve"
+        android:label="a_create_eve"
+        tools:layout="@layout/fragment_a_add_eve" >
+        <action
+            android:id="@+id/action_a_nav_a_create_eve"
+            app:destination="@id/nav_a_create_eve" />
+        <action
+            android:id="@+id/action_nav_a_create_eve_to_nav_v01"
+            app:destination="@id/nav_v01" />
+    </fragment>
 
 </navigation>

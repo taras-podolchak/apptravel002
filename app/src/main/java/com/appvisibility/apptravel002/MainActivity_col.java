@@ -68,7 +68,7 @@ public class MainActivity_col extends AppCompatActivity implements NavigationVie
 
         Bundle id_eve_bundle_put = new Bundle();
         id_eve_bundle_put.putInt("accesoParaV_04", acceso);
-        id_eve_bundle_put.putSerializable("eventoParaV_05",evento_eve_get);
+        id_eve_bundle_put.putSerializable("eventoParaV_05", evento_eve_get);
 
         if (acceso == -1) {
             navController.navigate(R.id.nav_v04, id_eve_bundle_put);
@@ -153,8 +153,8 @@ public class MainActivity_col extends AppCompatActivity implements NavigationVie
             Toast.makeText(getApplicationContext(), "Cerramos la sesion", Toast.LENGTH_SHORT).show();
             fba.signOut();
             sesionIniciada = 0;
-            Intent intent = new Intent(this, MainActivity_val.class);
-            startActivity(intent);
+            startActivity(new Intent(this, MainActivity_val.class));
+
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout_col);
         drawer.closeDrawer(GravityCompat.START);

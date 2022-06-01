@@ -65,7 +65,7 @@ public class V_05_2 extends DialogFragment implements IDAO<Object, Inscribir_eve
     private Inscribir_eveprs inscritoOferente;
     private String informeCoche = "";
     private List<Inscribir_eveprs> inscritos = V_03.inscritos;
-    private List<Inscribir_eveprs> inscritosEnCoche  = new ArrayList<>();
+    private List<Inscribir_eveprs> inscritosEnCoche = new ArrayList<>();
     private Map<Integer, Persona_prs> map_IdIns_Prs = new HashMap<>();
     private Persona_prs personaUser;
     private Persona_prs personaOferente;
@@ -116,7 +116,7 @@ public class V_05_2 extends DialogFragment implements IDAO<Object, Inscribir_eve
         View view = inflater.inflate(R.layout.fragment_v_05_2, container, false);
 
         //https://stackoverflow.com/questions/12739909/send-data-from-activity-to-fragment-in-android
-/* So, to pass data from the MotherActivity to such a Fragment you will need to create private Strings/Bundles above the onCreate of your Mother activity - which you can fill with the data you want to pass to the fragments, and pass them on via a method created after the onCreate (here called getMyData()).*/
+        /* So, to pass data from the MotherActivity to such a Fragment you will need to create private Strings/Bundles above the onCreate of your Mother activity - which you can fill with the data you want to pass to the fragments, and pass them on via a method created after the onCreate (here called getMyData()).*/
         //Recuperamos los datos del Usuario activo
         MainActivity_val activity = (MainActivity_val) getActivity();
         Bundle bundlePersonaUser = activity.getUser();
@@ -129,11 +129,11 @@ public class V_05_2 extends DialogFragment implements IDAO<Object, Inscribir_eve
 //        https://stackoverflow.com/questions/22694884/filter-java-stream-to-1-and-only-1-element
         //Recuperamos los datos de la persona que ofrece el coche
         List<Persona_prs> personasEnCocheFiltrado = personasEnCoche.stream()
-            .filter(ins -> inscritos.stream()
-            .map(Inscribir_eveprs::getId_prs)
-            .anyMatch(prs -> prs.equals(ins.getId_prs())))
-            .collect(Collectors.toList());
-            personaOferente = personasEnCocheFiltrado.get(0);
+                .filter(ins -> inscritos.stream()
+                        .map(Inscribir_eveprs::getId_prs)
+                        .anyMatch(prs -> prs.equals(ins.getId_prs())))
+                .collect(Collectors.toList());
+        personaOferente = personasEnCocheFiltrado.get(0);
 
         // Mapeamos los Inscritos con el objeto Persona correspondiente
 /*
@@ -147,7 +147,7 @@ public class V_05_2 extends DialogFragment implements IDAO<Object, Inscribir_eve
 
  */
         //Recuperamos los datos del inscrito que ofrece el coche
-        for(Inscribir_eveprs ins: inscritos) {
+        for (Inscribir_eveprs ins : inscritos) {
             if (ins.getId_prs() == personaOferente.getId_prs()) {
                 inscritoOferente = ins;
             }
@@ -161,9 +161,9 @@ public class V_05_2 extends DialogFragment implements IDAO<Object, Inscribir_eve
 */
         //Recuperamos los inscritos en coche
         inscritosEnCoche = inscritos.stream()
-            .filter(ins2->ins2.getId_tpr()==inscritoOferente.getId_tpr())
-            .sorted((e1,e2)->e1.getId_eveprs()-e2.getId_eveprs())
-            .collect(Collectors.toList());
+                .filter(ins2 -> ins2.getId_tpr() == inscritoOferente.getId_tpr())
+                .sorted((e1, e2) -> e1.getId_eveprs() - e2.getId_eveprs())
+                .collect(Collectors.toList());
 
         Bundle bundleEvento = getArguments();
         //Recuperamos el Evento
@@ -176,10 +176,10 @@ public class V_05_2 extends DialogFragment implements IDAO<Object, Inscribir_eve
 
         v05_2_listaPlazas = view.findViewById(R.id.v05_2_txv_listaPlazas);
 
-        for (Persona_prs prs: personasEnCoche){
+        for (Persona_prs prs : personasEnCoche) {
             informeCoche += prs.getApodo_prs() + "\n";
         }
-        for (int i=0; i < inscritoOferente.getPlazaslibres_eveprs(); i++){
+        for (int i = 0; i < inscritoOferente.getPlazaslibres_eveprs(); i++) {
             informeCoche += "-----" + "\n";
         }
 
@@ -190,28 +190,28 @@ public class V_05_2 extends DialogFragment implements IDAO<Object, Inscribir_eve
         v05_2_adelante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for(Inscribir_eveprs inscritoSolicitante: inscritos) {
+                for (Inscribir_eveprs inscritoSolicitante : inscritos) {
 //                    if (inscritoSolicitante.getId_prs() == 10 && inscritoSolicitante.getPlazaslibres_eveprs() < 0) {
                     if (inscritoSolicitante.getId_prs() == personaUser.getId_prs() && inscritoSolicitante.getPlazaslibres_eveprs() < 0) {
 //https://firebase.google.com/docs/firestore/query-data/queries#java_6
 //https://stackoverflow.com/questions/68922621/how-to-update-field-in-the-firebase-firestore-document-using-the-collections
-/*You cannot query the database and update the documents in a single go. You need to query the collection, get the documents, and right after that perform the update.*/
-                    Task<QuerySnapshot> task1 = fbf.collection("inscribir_eveprs").whereEqualTo("id_eveprs", inscritoSolicitante.getId_eveprs()).get();
-                    task1.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot qds : task.getResult()) {
-                                    Log.d(TAG, qds.getId() + " => " + qds.getData());
-                                    DocumentReference docRef = qds.getReference();
-                                    docRef.update("plazaslibres_eveprs", inscritoSolicitante.getPlazaslibres_eveprs() + 1);
-                                    docRef.update("id_tpr", inscritoOferente.getId_tpr())
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void unused) {
-                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                            }
-                                        });
+                        /*You cannot query the database and update the documents in a single go. You need to query the collection, get the documents, and right after that perform the update.*/
+                        Task<QuerySnapshot> task1 = fbf.collection("inscribir_eveprs").whereEqualTo("id_eveprs", inscritoSolicitante.getId_eveprs()).get();
+                        task1.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot qds : task.getResult()) {
+                                        Log.d(TAG, qds.getId() + " => " + qds.getData());
+                                        DocumentReference docRef = qds.getReference();
+                                        docRef.update("plazaslibres_eveprs", inscritoSolicitante.getPlazaslibres_eveprs() + 1);
+                                        docRef.update("id_tpr", inscritoOferente.getId_tpr())
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                                    }
+                                                });
                                     }
                                 }
                             }
@@ -219,28 +219,28 @@ public class V_05_2 extends DialogFragment implements IDAO<Object, Inscribir_eve
                     }
                     if (inscritoOferente.getId_prs() != personaUser.getId_prs() && inscritoOferente.getPlazaslibres_eveprs() >= 1) {
 //                    if (inscritoOferente.getId_prs() == personaUser.getId_prs() && ins.getPlazaslibres_eveprs() < 0) {
-                    Task<QuerySnapshot> task1 = fbf.collection("inscribir_eveprs").whereEqualTo("id_eveprs", inscritoOferente.getId_eveprs()).get();
-                    task1.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot qds : task.getResult()) {
-                                    Log.d(TAG, qds.getId() + " => " + qds.getData());
-                                    DocumentReference docRef = qds.getReference();
-                                    docRef.update("plazaslibres_eveprs", inscritoOferente.getPlazaslibres_eveprs() - 1)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void unused) {
-                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                            }
-                                        });
+                        Task<QuerySnapshot> task1 = fbf.collection("inscribir_eveprs").whereEqualTo("id_eveprs", inscritoOferente.getId_eveprs()).get();
+                        task1.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot qds : task.getResult()) {
+                                        Log.d(TAG, qds.getId() + " => " + qds.getData());
+                                        DocumentReference docRef = qds.getReference();
+                                        docRef.update("plazaslibres_eveprs", inscritoOferente.getPlazaslibres_eveprs() - 1)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                                    }
+                                                });
                                     }
                                 }
                             }
                         });
                     }
                 }
-               Navigation.findNavController(view).navigate(R.id.action_nav_v05_2_to_nav_v03, bundleEvento);
+                Navigation.findNavController(view).navigate(R.id.action_nav_v05_2_to_nav_v03, bundleEvento);
             }
         });
 
