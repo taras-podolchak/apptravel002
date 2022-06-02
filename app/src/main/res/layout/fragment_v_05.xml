@@ -18,7 +18,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/v01_contenedor_blanco"
+        android:background="@drawable/contenedor_blanco_radius4"
         android:gravity="bottom"
         android:orientation="vertical">
 
@@ -44,8 +44,7 @@
                 <ImageView
                     android:id="@+id/v05_imv_foto_eve"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/v03_imagen_formato" />
+                    android:layout_height="match_parent"/>
 
                 <TextView
                     android:id="@+id/v05_txv_info_completa"
@@ -133,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="2"
-                android:background="@drawable/btn_formato_left_prs"
+                android:background="@drawable/btn_formato_left"
                 android:text="Volver" />
 
             <Button
@@ -142,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="2"
-                android:background="@drawable/btn_formato_right_prs"
+                android:background="@drawable/btn_formato_right"
                 android:text="Confirmar" />
         </LinearLayout>
     </LinearLayout>

@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:layout_marginHorizontal="10dp"
         android:layout_marginVertical="20dp"
-        android:background="@drawable/v01_contenedor_blanco"
+        android:background="@drawable/contenedor_blanco_radius4"
         android:orientation="vertical">
 
         <LinearLayout

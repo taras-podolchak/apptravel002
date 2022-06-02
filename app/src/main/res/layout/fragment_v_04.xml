@@ -16,7 +16,7 @@
         android:layout_marginHorizontal="25dp"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="220dp"
-        android:background="@drawable/v01_contenedor_blanco"
+        android:background="@drawable/contenedor_blanco_radius4"
         android:orientation="vertical"
         android:gravity="center">
 
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="50dp"
             android:layout_marginTop="80dp"
-            android:background="@drawable/btn_formato_left_prs"
+            android:background="@drawable/btn_formato_left"
             android:text="@string/iniciar_sesion" />
     </LinearLayout>
 
@@ -78,6 +78,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="-180dp"
-        android:background="@drawable/btn_formato_left_prs"
+        android:background="@drawable/btn_formato_left"
         android:text="@string/registrarse" />
 </LinearLayout>

@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/btn_formato_left_prs"
+                android:background="@drawable/btn_formato_left"
                 android:text="@string/volver" />
             <Button
                 android:id="@+id/v05_2_btn_confirmar"
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/btn_formato_right_prs"
+                android:background="@drawable/btn_formato_right"
                 android:text="@string/aceptar" />
         </LinearLayout>
     </LinearLayout>

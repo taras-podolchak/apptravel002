@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="@drawable/v01_contenedor_blanco"
+        android:background="@drawable/contenedor_blanco_radius4"
         android:orientation="vertical"
         android:padding="20dp">
 
@@ -241,7 +241,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
-                            android:background="@drawable/btn_formato_left_prs"
+                            android:background="@drawable/btn_formato_left"
                             android:text="@string/eliminar" />
 
                         <Button
@@ -249,7 +249,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
-                            android:background="@drawable/btn_formato_right_prs"
+                            android:background="@drawable/btn_formato_right"
                             android:text="@string/aniadir_actividad" />
                     </LinearLayout>
                 </LinearLayout>
@@ -351,7 +351,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
-                            android:background="@drawable/btn_formato_left_prs"
+                            android:background="@drawable/btn_formato_left"
                             android:text="@string/eliminar" />
 
                         <Button
@@ -359,7 +359,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
-                            android:background="@drawable/btn_formato_right_prs"
+                            android:background="@drawable/btn_formato_right"
                             android:text="@string/aniadir_actividad" />
                     </LinearLayout>
                 </LinearLayout>
@@ -376,7 +376,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:background="@drawable/btn_formato_left_prs"
+                android:background="@drawable/btn_formato_left"
                 android:text="@string/cancelar" />
 
             <Button
@@ -384,7 +384,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:background="@drawable/btn_formato_center_prs"
+                android:background="@drawable/btn_formato_center"
                 android:text="@string/limpiar_campos" />
 
             <Button
@@ -392,7 +392,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:background="@drawable/btn_formato_right_prs"
+                android:background="@drawable/btn_formato_right"
                 android:text="@string/guardar" />
         </LinearLayout>
     </LinearLayout>

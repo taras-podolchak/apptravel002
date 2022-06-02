@@ -7,7 +7,7 @@
     <group >
         <item
             android:id="@+id/mi_cuenta"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ico_track"
             android:title="Mi cuenta" />
         <item
             android:id="@+id/rutas_pendientes"
@@ -72,6 +72,6 @@
 
     <item
         android:id="@+id/cerrar_session"
-        android:icon="@drawable/ic_menu_slideshow"
+        android:icon="@drawable/ico_track"
         android:title="Cerrar session" />
 </menu>

@@ -17,13 +17,13 @@
     <color name="corp_gris_claro">#f8f8f8</color>
     <color name="corp_blanco_transparente_80_por_ciento">#CCFFFFFF</color>
 
-    <color name="colaboradorVerdeColor">#21b04b</color>
-    <color name="colaboradorVerdeLightColor">#62e379</color>
-    <color name="colaboradorVerdeDarkColor">#007f1d</color>
+    <color name="administradorMaronColor">#21b04b</color>
+    <color name="administradorMaronLightColor">#62e379</color>
+    <color name="administradorMaronDarkColor">#007f1d</color>
 
-    <color name="administradorMaronColor">#b97957</color>
-    <color name="administradorMaronLightColor">#eea884</color>
-    <color name="administradorMaronDarkColor">#864d2d</color>
+    <color name="colaboradorVerdeColor">#b97957</color>
+    <color name="colaboradorVerdeLightColor">#eea884</color>
+    <color name="colaboradorVerdeDarkColor">#864d2d</color>
 
     <color name="valienteAzulColor">#00a1e7</color>
     <color name="valienteAzulLightColor">#63d2ff</color>

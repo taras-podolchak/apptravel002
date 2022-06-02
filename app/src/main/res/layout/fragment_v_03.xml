@@ -19,7 +19,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="20dp"
         android:layout_weight="1"
-        android:background="@drawable/v01_contenedor_blanco"
+        android:background="@drawable/contenedor_blanco_radius4"
         android:orientation="vertical">
 
         <ScrollView
@@ -126,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/btn_formato_left_prs"
+                android:background="@drawable/btn_formato_left"
                 android:text="@string/volver" />
 
             <Button
@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/btn_formato_right_prs"
+                android:background="@drawable/btn_formato_right"
                 android:text="@string/me_interesa" />
         </LinearLayout>
     </LinearLayout>

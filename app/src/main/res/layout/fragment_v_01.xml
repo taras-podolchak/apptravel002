@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="120dp"
-        android:background="@drawable/v01_contenedor_blanco"
+        android:background="@drawable/contenedor_blanco_radius4"
         android:elevation="20dp"
         android:gravity="center"
         android:orientation="vertical"
@@ -57,7 +57,7 @@
             android:layout_marginStart="50dp"
             android:layout_marginTop="80dp"
             android:layout_marginEnd="50dp"
-            android:background="@drawable/btn_formato_left_prs"
+            android:background="@drawable/btn_formato_left"
             android:text="@string/buscar_actividades" />
     </LinearLayout>
 

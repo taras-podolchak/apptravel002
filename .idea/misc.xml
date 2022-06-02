@@ -45,9 +45,20 @@
         <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/menu/activity_main_drawer.xml" value="0.26875" />
         <entry key="..\:/Users/taras/AndroidStudioProjects/Java/apptravel002_fragmentos/apptravel002/app/src/main/res/menu/main.xml" value="0.34739583333333335" />
         <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/drawable-v24/btn_formato_center_prs.xml" value="0.1965" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/drawable-v24/btn_formato_left_prs.xml" value="0.2745" />
         <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/drawable-v24/btn_formato_right_prs.xml" value="0.1" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/drawable-v24/contenedor_blanco.xml" value="0.2745" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.352" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/drawable-v24/v03_textview_formato.xml" value="0.2745" />
         <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/drawable/conteneder_con_borde.xml" value="0.1" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/drawable/ic_launcher_background.xml" value="0.352" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/drawable/ic_menu_camera.xml" value="0.352" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.352" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/drawable/side_nav_bar.xml" value="0.2805" />
         <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/drawable/v01_boton_formato_l.xml" value="0.1" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/drawable/v01_boton_formato_r.xml" value="0.2745" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/drawable/v02_contenedor_blanco.xml" value="0.2745" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/drawable/v03_imagen_formato.xml" value="0.2745" />
         <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/activity_main_adm.xml" value="0.13145896656534956" />
         <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/activity_main_col.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/activity_main_val.xml" value="0.21422101449275363" />
@@ -83,6 +94,7 @@
         <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/nav_header_main_col.xml" value="0.13145896656534956" />
         <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/layout/nav_header_main_val.xml" value="0.21422101449275363" />
         <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/menu/activity_main_drawer_adm.xml" value="0.36302083333333335" />
+        <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/menu/activity_main_drawer_col.xml" value="0.26979166666666665" />
         <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/menu/activity_main_drawer_val.xml" value="0.2703125" />
         <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/menu/main_activiry_adm.xml" value="0.2703125" />
         <entry key="..\:/Users/taras/AndroidStudioProjects/apptravel002/app/src/main/res/menu/main_activiry_col.xml" value="0.36302083333333335" />
