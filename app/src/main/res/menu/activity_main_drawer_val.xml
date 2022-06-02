@@ -6,7 +6,7 @@
     <group >
         <item
             android:id="@+id/mi_cuenta"
-            android:icon="@drawable/ico_track"
+            android:icon="@drawable/common_full_open_on_phone"
             android:title="Mi cuenta" />
         <item
             android:id="@+id/rutas_pendientes"
@@ -69,6 +69,6 @@
 
     <item
         android:id="@+id/cerrar_session"
-        android:icon="@drawable/ico_track"
+        android:icon="@android:drawable/ic_lock_power_off"
         android:title="Cerrar session" />
 </menu>

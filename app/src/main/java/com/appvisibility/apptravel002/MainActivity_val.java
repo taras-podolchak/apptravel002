@@ -42,6 +42,8 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setTitle(R.integer.rol_no_iniciada);
+
         binding = ActivityMainValBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -114,6 +116,7 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
                         //si es valiente
                         if (personaTipo.getUsuariotipo_prs() == getResources().getInteger(R.integer.rol_valiente)) {
                             sesionIniciada = personaTipo.getUsuariotipo_prs();
+                            setTitle(personaTipo.getEmail_prs());
                         }
                         //si es colaborador
                         else if (personaTipo.getUsuariotipo_prs() == getResources().getInteger(R.integer.rol_colaborador)) {

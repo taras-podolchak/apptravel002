@@ -19,25 +19,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-
     <style name="Theme.Apptravel002_col" parent="Theme.MaterialComponents.Light">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/administradorMaronColor</item>
-        <item name="colorPrimaryVariant">@color/administradorMaronColor</item>
-        <item name="colorOnPrimary">@color/corp_blanco</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/administradorMaronLightColor</item>
-        <item name="colorSecondaryVariant">@color/administradorMaronLightColor</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/administradorMaronColor</item>
-        <!-- Customize your theme here. -->
-    </style>
-
-    <style name="Theme.Apptravel002_adm" parent="Theme.MaterialComponents.Light">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
@@ -54,4 +36,20 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="Theme.Apptravel002_adm" parent="Theme.MaterialComponents.Light">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/administradorMaronColor</item>
+        <item name="colorPrimaryVariant">@color/administradorMaronColor</item>
+        <item name="colorOnPrimary">@color/corp_blanco</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/administradorMaronLightColor</item>
+        <item name="colorSecondaryVariant">@color/administradorMaronLightColor</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/administradorMaronColor</item>
+        <!-- Customize your theme here. -->
+    </style>
 </resources>
