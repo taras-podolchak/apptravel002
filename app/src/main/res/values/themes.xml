@@ -1,87 +1,56 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <!--  <style name="Theme.Apptravel002" parent="Theme.MaterialComponents.DayNight.DarkActionBar">-->
-    <!-- Primary brand color. -->
-    <!--       <item name="colorPrimary">@color/purple_500</item>
-           <item name="colorPrimaryVariant">@color/purple_700</item>
-           <item name="colorOnPrimary">@color/corp_blanco</item>-->
-    <!-- Secondary brand color. -->
-    <!--       <item name="colorSecondary">@color/teal_200</item>
-           <item name="colorSecondaryVariant">@color/teal_700</item>
-           <item name="colorOnSecondary">@color/black</item>-->
-    <!-- Status bar color. -->
-    <!--      <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
-    <!-- Customize your theme here. -->
-    <!--  </style>-->
+<resources>
 
-    <style name="Theme.Apptravel002_val.NoActionBar">
+    <style name="Theme.Apptravel002_val" parent="Theme.MaterialComponents.Light">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-    </style>
 
-    <style name="Theme.Apptravel002_val.AppBarOverlay" parent="Theme.Apptravel002_val" />
-
-    <style name="Theme.Apptravel002_val.PopupOverlay" parent="Theme.Apptravel002_val" />
-
-    <style name="Theme.Apptravel002_val" parent="Theme.MaterialComponents.DayNight">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#00a1e7
+        <item name="colorPrimary">@color/valienteAzulColor
         </item> <!-- color de la barra ( Inicio, V_01, V_02 etc ) -->
-        <item name="colorPrimaryVariant">#00a1e7
+        <item name="colorPrimaryVariant">@color/valienteAzulColor
         </item><!-- color de la barra del movil ( hora, cobertura, bateria ) -->
         <item name="colorOnPrimary">@color/corp_blanco</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#63d2ff</item>
-        <item name="colorSecondaryVariant">#63d2ff</item>
+        <item name="colorSecondary">@color/valienteAzulColor</item>
+        <item name="colorSecondaryVariant">@color/valienteAzulColor</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/valienteAzulColor</item>
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.Apptravel002_col.NoActionBar">
+
+    <style name="Theme.Apptravel002_col" parent="Theme.MaterialComponents.Light">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-    </style>
 
-    <style name="Theme.Apptravel002_col.AppBarOverlay" parent="Theme.Apptravel002_col" />
-
-    <style name="Theme.Apptravel002_col.PopupOverlay" parent="Theme.Apptravel002_col" />
-
-    <style name="Theme.Apptravel002_col" parent="Theme.MaterialComponents.DayNight">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#b97957</item>
-        <item name="colorPrimaryVariant">#b97957</item>
+        <item name="colorPrimary">@color/administradorMaronColor</item>
+        <item name="colorPrimaryVariant">@color/administradorMaronColor</item>
         <item name="colorOnPrimary">@color/corp_blanco</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#eea884</item>
-        <item name="colorSecondaryVariant">#eea884</item>
+        <item name="colorSecondary">@color/administradorMaronLightColor</item>
+        <item name="colorSecondaryVariant">@color/administradorMaronLightColor</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/administradorMaronColor</item>
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.Apptravel002_adm.NoActionBar">
+    <style name="Theme.Apptravel002_adm" parent="Theme.MaterialComponents.Light">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-    </style>
 
-    <style name="Theme.Apptravel002_adm.AppBarOverlay" parent="Theme.Apptravel002_adm" />
-
-    <style name="Theme.Apptravel002_adm.PopupOverlay" parent="Theme.Apptravel002_adm" />
-
-    <style name="Theme.Apptravel002_adm" parent="Theme.MaterialComponents.DayNight">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#21b04b</item>
-        <item name="colorPrimaryVariant">#21b04b</item>
+        <item name="colorPrimary">@color/colaboradorVerdeColor</item>
+        <item name="colorPrimaryVariant">@color/colaboradorVerdeColor</item>
         <item name="colorOnPrimary">@color/corp_blanco</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#62e379</item>
-        <item name="colorSecondaryVariant">#62e379</item>
+        <item name="colorSecondary">@color/colaboradorVerdeLightColor</item>
+        <item name="colorSecondaryVariant">@color/colaboradorVerdeLightColor</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/colaboradorVerdeColor</item>
         <!-- Customize your theme here. -->
     </style>
 

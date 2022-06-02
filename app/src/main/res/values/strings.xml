@@ -109,5 +109,8 @@
     <integer name="accion_a_v04">-1</integer>
     <integer name="accion_a_v01">0</integer>
 
+    <!-- Configuracion acceso a Google maps -->
+    <string name="google_maps_key" templateMergeStrategy="preserve"
+        translatable="false">AIzaSyDchp8aiML5Coi50fk6asG9nUF06Cmj69g</string>
 
 </resources>
