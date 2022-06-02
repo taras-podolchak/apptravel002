@@ -103,7 +103,7 @@ public class V_02 extends Fragment implements IDAO<Evento_eve, Object, Object> {
         this.v02_recycler_eve = (RecyclerView) view.findViewById(R.id.v02_rcv_eventos);
         this.v02_recycler_eve.setHasFixedSize(true);
         this.v02_recycler_eve.setLayoutManager(new LinearLayoutManager(mContext));
-        this.v02_adapter_eve = new v02_00_eve_Adapter(eventos, mContext,0);
+        this.v02_adapter_eve = new v02_00_eve_Adapter(eventos, mContext, getResources().getInteger(R.integer.accion_a_v_03));
 
         Query query1 = fbf.collection("evento_eve").orderBy("id_eve", Query.Direction.ASCENDING);
         tabla1ChangeListener(query1, eventos, Evento_eve.class, v02_adapter_eve);

@@ -1,16 +1,22 @@
 package com.appvisibility.apptravel002.ui.service;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +28,8 @@ import com.appvisibility.apptravel002.ui.entities.Actividad_act;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -34,6 +42,9 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
     private Context context;
     private int accion;
     private Bundle bundleEvento = new Bundle();
+
+    // Acceso a datos
+    private FirebaseFirestore fbf = FirebaseFirestore.getInstance();
 
     //accion es: 0 si lo pulsas en V02 y 1 si lo pulsas en A_add_eve
     public v02_00_eve_Adapter(List<Evento_eve> eventos, Context context, int accion) {
@@ -99,16 +110,53 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
 
         // https://stackoverflow.com/questions/42266436/passing-objects-between-fragments
         holder.v02_cdv_eventos.setOnClickListener(v -> {
-            if (accion == 0) {
+            if (accion == v.getResources().getInteger(R.integer.accion_a_v_03)){
                 bundleEvento.putSerializable("eventoParaV_03", eventoEnProceso);
                 Navigation.findNavController(v).navigate(R.id.nav_v03, bundleEvento);
-            } else if (accion == 1) {
+            } else if (accion == v.getResources().getInteger(R.integer.accion_rellenar_formulario)){
                 bundleEvento.putSerializable("eventoPara_a_add_eve", eventoEnProceso);
                 bundleEvento.putSerializable("actividadPara_a_add_eve", new Actividad_act());
                 Navigation.findNavController(v).navigate(R.id.nav_a_create_eve, bundleEvento);
             }
         });
+        holder.v02_cdv_eventos.setOnLongClickListener(v1 -> {
+         Toast.makeText(v1.getContext(), "Eliminar evento", Toast.LENGTH_LONG).show();
 
+            AlertDialog dialogo = new AlertDialog
+                    .Builder(v1.getContext()) // NombreDeTuActividad.this, o getActivity() si es dentro de un fragmento
+                    .setPositiveButton("Sí, eliminar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            fbf.collection("evento_eve").document(Integer.toString(eventoEnProceso.getId_eve()))
+                                    .delete()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error deleting document", e);
+                                        }
+                                    });
+                        }
+                    })
+                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Hicieron click en el botón negativo, no confirmaron
+                            // Simplemente descartamos el diálogo
+                            dialog.dismiss();
+                        }
+                    })
+                    .setTitle("Confirmar") // El título
+                    .setMessage("¿Deseas eliminar este evento?") // El mensaje
+                    .create();// No olvides llamar a Create, ¡pues eso crea el AlertDialog!
+            dialogo.show();
+            return true;
+        });
     }
 
     @Override
@@ -144,6 +192,7 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
             this.v02_nparticipantes_eve = v.findViewById(R.id.v02_crd_txv_nparticipantes_eve);
 
             this.v02_cdv_eventos = v.findViewById(R.id.v02_cdv_eventos);
+
         }
     }
 }

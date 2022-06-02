@@ -132,8 +132,8 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            eventoEnProceso = (Evento_eve) getArguments().getSerializable("eventoPara_a_add_eve");
+            actividadEnProceso = (Actividad_act) getArguments().getSerializable("actividadPara_a_add_eve");
         }
     }
 
@@ -152,7 +152,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
         this.v02_recycler_eve = (RecyclerView) view.findViewById(R.id.a_add_eve_rcv_eventos);
         this.v02_recycler_eve.setHasFixedSize(true);
         this.v02_recycler_eve.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
-        this.v02_adapter_eve = new v02_00_eve_Adapter(eventos, mContext, 1);
+        this.v02_adapter_eve = new v02_00_eve_Adapter(eventos, mContext, getResources().getInteger(R.integer.accion_rellenar_formulario));
 
         Query query1 = fbf.collection("evento_eve").orderBy("id_eve", Query.Direction.ASCENDING);
         tabla1ChangeListener(query1, eventos, Evento_eve.class, v02_adapter_eve);
@@ -177,7 +177,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
 
         //Recuperamos el Evento
         if (getArguments() != null) {
-            eventoEnProceso = (Evento_eve) getArguments().getSerializable("eventoPara_a_add_eve");
+           //eventoEnProceso = (Evento_eve) getArguments().getSerializable("eventoPara_a_add_eve");
 
             //if (eventoEnProceso != null) {
             a_add_eve_titulo_eve.setText(eventoEnProceso.getTitulo_eve());
@@ -209,10 +209,16 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
         this.v03_recycler_act = (RecyclerView) view.findViewById(R.id.a_add_eve_rcv_actividades);
         this.v03_recycler_act.setHasFixedSize(true);
         this.v03_recycler_act.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
-        this.v03_adapter_act = new v03_00_act_Adapter(actividades, mContext, 1);
+        this.v03_adapter_act = new v03_00_act_Adapter(actividades, mContext, getResources().getInteger(R.integer.accion_rellenar_formulario));
 
         Query query2 = fbf.collection("actividad_act").orderBy("id_act", Query.Direction.ASCENDING);
         tabla2ChangeListener(query2, actividades, Actividad_act.class, v03_adapter_act);
+        this.v03_recycler_act.setAdapter(v03_adapter_act);
+
+        this.v03_recycler_act = (RecyclerView) view.findViewById(R.id.a_add_eve_rcv_actividades2);
+        this.v03_recycler_act.setHasFixedSize(true);
+        this.v03_recycler_act.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
+        this.v03_adapter_act = new v03_00_act_Adapter(actividades, mContext, getResources().getInteger(R.integer.accion_rellenar_formulario));
         this.v03_recycler_act.setAdapter(v03_adapter_act);
 
         a_add_eve_nombre_act = view.findViewById(R.id.a_add_eve_etx_nombre_act);
@@ -229,7 +235,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
 
         //Recuperamos la Actividad
         if (getArguments() != null) {
-            actividadEnProceso = (Actividad_act) getArguments().getSerializable("actividadPara_a_add_eve");
+            //actividadEnProceso = (Actividad_act) getArguments().getSerializable("actividadPara_a_add_eve");
 
             if (actividadEnProceso != null) {
                 a_add_eve_nombre_act.setText(actividadEnProceso.getNombre_act());
@@ -262,6 +268,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
 
     private void guardarEvento(View view) {
         Evento_eve evento_push = new Evento_eve();
+        evento_push.setId_eve(eventos.size());
         evento_push.setTitulo_eve(a_add_eve_titulo_eve.getText().toString().trim());
         evento_push.setFoto_eve(eventoEnProceso.getFoto_eve());//foto
         evento_push.setFechaidatru_eve(a_add_eve_fechaidatru_eve.getText().toString().trim());
@@ -277,7 +284,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
         evento_push.setPrecio_eve(a_add_eve_precio_eve.getId());
         evento_push.setTransportetipo_eve(a_add_eve_transportetipo_eve.getText().toString().trim());
 
-        fbf.collection("evento_eve").document().set(evento_push);
+        fbf.collection("evento_eve").document(Integer.toString(evento_push.getId_eve()+1)).set(evento_push);
         Toast.makeText(getActivity(), "El evento se ha guardado correctamente", Toast.LENGTH_LONG).show();
         Navigation.findNavController(view).navigate(R.id.action_nav_a_create_eve_to_nav_v01);
 

@@ -87,7 +87,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/btn_formato_left_prs"
-                android:text="Volver" />
+                android:text="@string/volver" />
 
             <Button
                 android:id="@+id/v05_2_btn_confirmar"

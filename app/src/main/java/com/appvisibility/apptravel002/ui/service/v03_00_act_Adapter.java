@@ -69,10 +69,10 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
         holder.v03_desnivel_act.setText("Desnivel: " + desnivel_act);
         holder.v03_horas_act.setText("Horas de marcha: " + horas_act);
         holder.v03_cdv_actividad.setOnClickListener(view -> {
-            if (accion == 0) {
+            if (accion == view.getResources().getInteger(R.integer.accion_a_web)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(wikiloc_act));
                 context.startActivity(intent);
-            } else if (accion == 1) {
+            } else if (accion == view.getResources().getInteger(R.integer.accion_rellenar_formulario)) {
                 bundleActividad.putSerializable("eventoPara_a_add_eve", new Evento_eve());
                 bundleActividad.putSerializable("actividadPara_a_add_eve", actividadEnProceso);
                 Navigation.findNavController(view).navigate(R.id.nav_a_create_eve, bundleActividad);

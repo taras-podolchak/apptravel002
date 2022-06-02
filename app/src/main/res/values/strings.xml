@@ -1,31 +1,113 @@
 <resources>
     <string name="app_name">apptravel002</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Amigos de la Montaña</string>
     <string name="nav_header_subtitle">amigosmontanawo.eboe62.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="login_failed">"Fallo de acceso"</string>
-    <string name="invalid_username">Introduzac usuario válido</string>
-    <string name="invalid_password">Mínimo 6 caracteres</string>
-    <string name="welcome">"¡Hola! "</string>
-
-    <string name="menu_inicio">Inicio</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main_adm">MainActivity_adm</string>
-
-    <string name="menu_home">Home</string>
     <string name="title_activity_main_col">MainActivity_col</string>
 
+    <!-- a_add_eve -->
+    <string name="creacion_de_evento">Creacion de evento</string>
+    <string name="titulo">Titulo</string>
+    <string name="fecha_ida">Fecha ida</string>
+    <string name="fecha_vuelta">Fecha vuelta</string>
+    <string name="nivel">Nivel</string>
+    <string name="fecha_salida">Fecha salida</string>
+    <string name="fecha_llegada">Fecha llegada</string>
+    <string name="distancia_ida">Distancia ida</string>
+    <string name="distancia_vuelta">Distancia vuelta</string>
+    <string name="salida_coordenadas">Salida coordenadas</string>
+    <string name="llegada_coordenadas">Llegada coordenadas</string>
+    <string name="llegada_vuelta">Llegada vuelta</string>
+    <string name="precio">Precio</string>
+    <string name="transporte">Transporte</string>
+    <string name="creacion_de_actividades">Creacion de actividades</string>
+    <string name="tipo">Tipo</string>
+    <string name="fecha">Fecha</string>
+    <string name="distancia">Distancia</string>
+    <string name="desnivel">Desnivel</string>
+    <string name="horas">Horas</string>
+    <string name="wikiloc">Wikiloc</string>
+    <string name="guardar">Guardar</string>
+    <string name="limpiar_campos">Limpiar campos</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="aniadir_actividad">Añadir actividad</string>
 
-    <!-- pantalla modal a_add_eve-->
-    <string name="v05_2_btn_volver">Volver</string>
+    <!-- pantalla c_05-->
+    <string name="valiente">Valiente</string>
+    <string name="preferencia">Preferencia</string>
+    <string name="datos_emergencia">Datos emergencia</string>
+    <string name="datos_filiacion">Datos filiacion</string>
+    <string name="calidad">Calidad</string>
+
+    <!-- pantalla v_01-->
+    <string name="excurciones_de_un_dia">Excurciones de un dia</string>
+    <string name="fin_de_semana">Fin de semana</string>
+    <string name="aventuras_más_largas">Aventuras más largas</string>
+    <string name="buscar_actividades">Buscar actividades</string>
+
+    <!-- pantalla v_03-->
+    <string name="inscritos">Inscritos</string>
+    <string name="actividades">Actividades</string>
+    <string name="volver">Volver</string>
+    <string name="me_interesa">Me interesa</string>
+
+    <!-- pantalla v_04 -->
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="recordarme">Recordarme</string>
+    <string name="olvidaste_tu_contraseña">¿Olvidaste tu contraseña?</string>
+    <string name="iniciar_sesion">Iniciar sesion</string>
+    <string name="registrarse">Registrarse</string>
+
+    <!-- pantalla v_04_1 -->
+    <string name="nombre">Nombre</string>
+    <string name="apellido">Apellido</string>
+    <string name="segundo_apellido">Segundo apellido</string>
+    <string name="dni">DNI</string>
+    <string name="telefono">Telefono</string>
+    <string name="telefono_emerjencia">Telefono emerjencia</string>
+    <string name="soy_valiente">Soy valiente</string>
+    <string name="soy_colaborador">Soy colaborador</string>
+    <string name="aceptacion_de_condiciones">Aceptacion de condiciones</string>
+    <string name="aceptar">Aceptar</string>
+
+    <!-- pantalla v_05? -->
+
+    <!-- pantalla v_05_1 -->
+    <string name="recomendaciones">Recomendaciones</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>  <!-- eliminar? -->
+
+    <!-- pantalla v_06 -->
+    <string name="gracias_por">Gracias por colaborar con nosotros.En breve resibirás un Email con la confirmacion de registro</string>
+    <string name="activar_aviso">Activar aviso</string>
+    <string name="buscar_mas_actividades">Buscar mas actividades</string>
+
+    <!-- pantalla modal v_05_2-->
     <string name="v05_2_btn_confirmar">Solicitar</string>
+
+    <!-- v02_00_eve_Adapter -->
+    <integer name="accion_a_v_03">0</integer>
+    <integer name="accion_rellenar_formulario">1</integer><!-- esta accion rellena el formulario en a_add_eve -->
+
+    <!-- v03_00_act_Adapter -->
+    <integer name="accion_a_web">0</integer>
+
+    <!-- tipos de usuarios -->
+    <integer name="rol_no_iniciada">0</integer>
+    <integer name="rol_valiente">1</integer>
+    <integer name="rol_colaborador">2</integer>
+    <integer name="rol_administrador">3</integer>
+
+    <!-- acciones para gestionar los fragmentos en attivities -->
+    <integer name="accion_a_v04">-1</integer>
+    <integer name="accion_a_v01">0</integer>
+
+
 
 
 </resources>

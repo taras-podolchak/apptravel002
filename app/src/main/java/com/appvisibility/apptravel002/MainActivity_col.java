@@ -122,29 +122,21 @@ public class MainActivity_col extends AppCompatActivity implements NavigationVie
             startActivity(intent);
         }
         if (id == R.id.colaborador) {
-            if (sesionIniciada == 0) {
-                Intent intent = new Intent(this, MainActivity_col.class);
-                intent.putExtra("abrirEnMainActivity_col", -1);
-                startActivity(intent);
+            if (sesionIniciada == getResources().getInteger(R.integer.rol_no_iniciada)) {
+                startActivity(new Intent(this, MainActivity_col.class).putExtra("abrirEnMainActivity_col", getResources().getInteger(R.integer.accion_a_v04)));
                 Toast.makeText(this, "Inicie la sesion por favor", Toast.LENGTH_LONG).show();
-            } else if (sesionIniciada == 2) {
-                Intent intent = new Intent(this, MainActivity_col.class);
-                intent.putExtra("abrirEnMainActivity_col", 0);
-                startActivity(intent);
+            } else if (sesionIniciada == getResources().getInteger(R.integer.rol_colaborador)) {
+                startActivity(new Intent(this, MainActivity_col.class).putExtra("abrirEnMainActivity_col", getResources().getInteger(R.integer.accion_a_v01)));
             } else {
                 Toast.makeText(this, "No tienes permisos", Toast.LENGTH_LONG).show();
             }
         }
         if (id == R.id.administrador) {
-            if (sesionIniciada == 0) {
-                Intent intent = new Intent(this, MainActivity_adm.class);
-                intent.putExtra("abrirEnMainActivity_adm", -1);
-                startActivity(intent);
+            if (sesionIniciada == getResources().getInteger(R.integer.rol_no_iniciada)) {
+                startActivity(new Intent(this, MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", getResources().getInteger(R.integer.accion_a_v04)));
                 Toast.makeText(this, "Inicie la sesion por favor", Toast.LENGTH_LONG).show();
-            } else if (sesionIniciada == 3) {
-                Intent intent = new Intent(this, MainActivity_adm.class);
-                intent.putExtra("abrirEnMainActivity_adm", 0);
-                startActivity(intent);
+            } else if (sesionIniciada == getResources().getInteger(R.integer.rol_administrador)) {
+                startActivity(new Intent(this, MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", getResources().getInteger(R.integer.accion_a_v01)));
             } else {
                 Toast.makeText(this, "No tienes permisos", Toast.LENGTH_LONG).show();
             }
@@ -152,7 +144,7 @@ public class MainActivity_col extends AppCompatActivity implements NavigationVie
         if (id == R.id.cerrar_session) {
             Toast.makeText(getApplicationContext(), "Cerramos la sesion", Toast.LENGTH_SHORT).show();
             fba.signOut();
-            sesionIniciada = 0;
+            sesionIniciada = getResources().getInteger(R.integer.rol_no_iniciada);
             startActivity(new Intent(this, MainActivity_val.class));
 
         }

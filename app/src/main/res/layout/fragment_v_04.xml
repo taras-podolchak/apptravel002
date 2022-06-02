@@ -4,31 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:background="@drawable/fondo_para_persona"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".ui.controller.V_04">
 
     <LinearLayout
         android:id="@+id/v04_LinearLayout"
-        android:background="@drawable/v01_contenedor_blanco"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="20dp"
+        android:layout_marginHorizontal="25dp"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginBottom="220dp"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:background="@drawable/v01_contenedor_blanco"
+        android:orientation="vertical"
+        android:gravity="center">
 
         <EditText
             android:id="@+id/v04_etx_email_prs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="50dp"
-            android:layout_marginBottom="30dp"
-            android:ems="10"
-            android:hint="Email"
+            android:layout_marginVertical="25dp"
+            android:hint="@string/email"
             android:inputType="textEmailAddress" />
 
         <EditText
@@ -36,49 +34,49 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="50dp"
-            android:ems="10"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:orientation="horizontal"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="30dp">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginVertical="25dp"
+            android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/v04_ckb_recordarcontrasenna_prs"
-                android:layout_width="125dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Recordarme" />
+                android:layout_weight="3"
+                android:text="@string/recordarme" />
 
             <TextView
                 android:id="@+id/v04_txv_olvidaste_contrasenna"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="¿Olvidaste tu contraseña?" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:text="@string/olvidaste_tu_contraseña"
+                android:textAlignment="center" />
 
         </LinearLayout>
 
         <Button
             android:id="@+id/v04_btn_iniciar_sesion"
-            android:layout_marginTop="80dp"
-            android:layout_marginHorizontal="50dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="80dp"
             android:background="@drawable/btn_formato_left_prs"
-            android:text="Iniciar sesion" />
+            android:text="@string/iniciar_sesion" />
     </LinearLayout>
 
     <Button
         android:id="@+id/v04_btn_registrarse"
-        android:layout_marginTop="-180dp"
-        android:layout_marginHorizontal="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="-180dp"
         android:background="@drawable/btn_formato_left_prs"
-        android:text="Registrarse" />
+        android:text="@string/registrarse" />
 </LinearLayout>
