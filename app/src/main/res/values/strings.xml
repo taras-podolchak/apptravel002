@@ -80,12 +80,9 @@
 
     <!-- pantalla v_05_1 -->
     <string name="recomendaciones">Recomendaciones</string>
+    <string name="pago_senial">Pago señal</string>
+    <string name="pago_total">Pago total</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>  <!-- eliminar? -->
-
-    <!-- pantalla v_06 -->
-    <string name="gracias_por">Gracias por colaborar con nosotros.En breve resibirás un Email con la confirmacion de registro</string>
-    <string name="activar_aviso">Activar aviso</string>
-    <string name="buscar_mas_actividades">Buscar mas actividades</string>
 
     <!-- pantalla modal v_05_2-->
     <string name="v05_2_btn_confirmar">Solicitar</string>
@@ -93,6 +90,11 @@
     <!-- v02_00_eve_Adapter -->
     <integer name="accion_a_v_03">0</integer>
     <integer name="accion_rellenar_formulario">1</integer><!-- esta accion rellena el formulario en a_add_eve -->
+
+    <!-- pantalla v_06 -->
+    <string name="gracias_por">Gracias por colaborar con nosotros.En breve resibirás un Email con la confirmacion de registro</string>
+    <string name="activar_aviso">Activar aviso</string>
+    <string name="buscar_mas_actividades">Buscar mas actividades</string>
 
     <!-- v03_00_act_Adapter -->
     <integer name="accion_a_web">0</integer>
@@ -106,8 +108,6 @@
     <!-- acciones para gestionar los fragmentos en attivities -->
     <integer name="accion_a_v04">-1</integer>
     <integer name="accion_a_v01">0</integer>
-
-
 
 
 </resources>

@@ -40,14 +40,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Pago señal"
+                    android:text="@string/pago_senial"
                     android:textAlignment="center"
                     android:textSize="20sp" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Pago total"
+                    android:text="@string/pago_total"
                     android:textAlignment="center"
                     android:textSize="20sp" />
             </LinearLayout>
