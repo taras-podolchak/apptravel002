@@ -20,7 +20,9 @@ import androidx.cardview.widget.CardView;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.appvisibility.apptravel002.MainActivity_val;
 import com.appvisibility.apptravel002.R;
+import com.appvisibility.apptravel002.ui.controller.V_05_2;
 import com.appvisibility.apptravel002.ui.entities.Inscribir_eveprs;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 import com.google.android.gms.tasks.OnFailureListener;
