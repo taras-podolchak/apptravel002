@@ -1,30 +1,55 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.Apptravel002_val" parent="Theme.MaterialComponents.DayNight">
+<resources>
+
+    <style name="Theme.Apptravel002_val" parent="Theme.MaterialComponents.Light">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#00a1e7</item>
-        <item name="colorPrimaryVariant">#00a1e7</item>
+        <item name="colorPrimary">@color/valienteAzulColor
+        </item> <!-- color de la barra ( Inicio, V_01, V_02 etc ) -->
+        <item name="colorPrimaryVariant">@color/valienteAzulColor
+        </item><!-- color de la barra del movil ( hora, cobertura, bateria ) -->
         <item name="colorOnPrimary">@color/corp_blanco</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#63d2ff</item>
-        <item name="colorSecondaryVariant">#63d2ff</item>
+        <item name="colorSecondary">@color/valienteAzulColor</item>
+        <item name="colorSecondaryVariant">@color/valienteAzulColor</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/valienteAzulColor</item>
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.Apptravel002_col" parent="Theme.MaterialComponents.DayNight">
+    <style name="Theme.Apptravel002_col" parent="Theme.MaterialComponents.Light">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#864d2d</item>
-        <item name="colorPrimaryVariant">#b97957</item>
+        <item name="colorPrimary">@color/colaboradorVerdeColor</item>
+        <item name="colorPrimaryVariant">@color/colaboradorVerdeColor</item>
         <item name="colorOnPrimary">@color/corp_blanco</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#eea884</item>
-        <item name="colorSecondaryVariant">#eea884</item>
+        <item name="colorSecondary">@color/colaboradorVerdeLightColor</item>
+        <item name="colorSecondaryVariant">@color/colaboradorVerdeLightColor</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/colaboradorVerdeColor</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Theme.Apptravel002_adm" parent="Theme.MaterialComponents.Light">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/administradorMaronColor</item>
+        <item name="colorPrimaryVariant">@color/administradorMaronColor</item>
+        <item name="colorOnPrimary">@color/corp_blanco</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/administradorMaronLightColor</item>
+        <item name="colorSecondaryVariant">@color/administradorMaronLightColor</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/administradorMaronColor</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>

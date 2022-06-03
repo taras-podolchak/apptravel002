@@ -6,7 +6,7 @@
     <group >
         <item
             android:id="@+id/mi_cuenta"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/common_full_open_on_phone"
             android:title="Mi cuenta" />
         <item
             android:id="@+id/rutas_pendientes"
@@ -49,8 +49,6 @@
             android:title="Equipamiento" />
     </menu>
     </item>
-
-
         <group
             android:id="@+id/usuario_tipo">
             <item
@@ -71,21 +69,6 @@
 
     <item
         android:id="@+id/cerrar_session"
-        android:icon="@drawable/ic_menu_slideshow"
+        android:icon="@android:drawable/ic_lock_power_off"
         android:title="Cerrar session" />
-
-  <!--  <group android:id="@+id/resto">
-        <item
-            android:id="@+id/nav_inicio_v01"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_inicio" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
-    </group>-->
 </menu>

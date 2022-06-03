@@ -35,41 +35,33 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="left"
                         android:orientation="horizontal">
 
-                        <FrameLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:id="@+id/v03_cdv_imv_fotopropia_prs"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:padding="3dp"
-                                tools:srcCompat="@tools:sample/avatars" />
-
-                        </FrameLayout>
+                        <ImageView
+                            android:id="@+id/v03_cdv_imv_fotopropia_prs"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            tools:srcCompat="@tools:sample/avatars" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical"
-                            android:textAlignment="center">
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
                             <TextView
                                 android:id="@+id/v03_cdv_txv_apodo_prs"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"
+                                android:gravity="center"
                                 android:textSize="18sp" />
 
                             <TextView
                                 android:id="@+id/v03_cdv_txv_movil_prs"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"
+                                android:gravity="center"
                                 android:textSize="16sp" />
 
                         </LinearLayout>
@@ -79,37 +71,23 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="left"
                     android:orientation="horizontal">
 
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:id="@+id/v03_cdv_imv_ico_coche"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:padding="3dp"
-                            android:src="@drawable/ico_coche_naranja" />
-
-                    </FrameLayout>
-
-                    <LinearLayout
+                    <ImageView
+                        android:id="@+id/v03_cdv_imv_ico_coche"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical"
-                        android:textAlignment="center">
+                        android:layout_weight="2"
+                        android:src="@drawable/ico_coche_naranja" />
 
-                        <TextView
-                            android:id="@+id/v03_cdv_txv_plazaslibres_eveprs"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:gravity="center_horizontal" />
+                    <TextView
+                        android:id="@+id/v03_cdv_txv_plazaslibres_eveprs"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center" />
 
-                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>

@@ -19,7 +19,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="20dp"
         android:layout_weight="1"
-        android:background="@drawable/v01_contenedor_blanco"
+        android:background="@drawable/contenedor_blanco_radius4"
         android:orientation="vertical">
 
         <ScrollView
@@ -38,13 +38,12 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:gravity="center_horizontal"
-                    android:text="TextView"
                     android:textSize="20sp" />
 
                 <ImageView
                     android:id="@+id/v03_imv_foto_eve"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp" />
+                    android:layout_height="match_parent" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -54,25 +53,19 @@
 
                     <TextView
                         android:id="@+id/v03_txv_fechaidatru_eve"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:textAlignment="textEnd"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" / "
+                        android:layout_weight="2"
                         android:textAlignment="center"
                         android:textSize="14sp" />
 
+
                     <TextView
                         android:id="@+id/v03_txv_fechavueltatru_eve"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:textAlignment="textStart"
+                        android:layout_weight="2"
+                        android:textAlignment="center"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -87,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="INSCRITOS"
+                    android:text="@string/inscritos"
                     android:textAlignment="center"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -97,24 +90,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="5dp"
-                    android:scrollbars="horizontal">
-
-                </androidx.recyclerview.widget.RecyclerView>
+                    android:scrollbars="horizontal" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/v03_rcv_transportepropios"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="5dp"
-                    android:scrollbars="horizontal">
-
-                </androidx.recyclerview.widget.RecyclerView>
+                    android:scrollbars="horizontal" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="ACTIVIDADES"
+                    android:text="@string/actividades"
                     android:textAlignment="center"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -123,7 +112,7 @@
                     android:id="@+id/v03_rcv_actividades"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scrollbars="vertical"></androidx.recyclerview.widget.RecyclerView>
+                    android:scrollbars="vertical" />
             </LinearLayout>
         </ScrollView>
 
@@ -137,8 +126,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/btn_formato_left_prs"
-                android:text="Volver" />
+                android:background="@drawable/btn_formato_left"
+                android:text="@string/volver" />
 
             <Button
                 android:id="@+id/v03_btn_me_interesa"
@@ -146,8 +135,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/btn_formato_right_prs"
-                android:text="Me interesa" />
+                android:background="@drawable/btn_formato_right"
+                android:text="@string/me_interesa" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

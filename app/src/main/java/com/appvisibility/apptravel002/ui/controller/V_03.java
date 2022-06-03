@@ -129,8 +129,8 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_03, container, false);
 
-        Bundle bundleEvento = getArguments();
         //Recuperamos el Evento
+        Bundle bundleEvento = getArguments();
         eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_03");
 
         this.id_eve_enProceso = eventoEnProceso.getId_eve();
@@ -225,7 +225,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
                         .filter(act->act.getId_eve() == id_eve_enProceso)
                         .collect(Collectors.toList());
                 //Cargamos los Actividades del Evento
-                v03_adapter_act = new v03_00_act_Adapter(actividadesFiltrados, mContext);
+                v03_adapter_act = new v03_00_act_Adapter(actividadesFiltrados, mContext, getResources().getInteger(R.integer.accion_a_web));
                 v03_recycler_act.setAdapter(v03_adapter_act);
 
                 Log.d(TAG, "Datos actividad_act recibidos!");

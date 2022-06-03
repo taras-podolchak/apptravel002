@@ -128,13 +128,13 @@ public class V_04_1 extends Fragment {
 
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
-                case R.id.v04_1_rbt_soy_persona:
+                case R.id.v04_1_rbt_soy_valiente:
                     Toast.makeText(getActivity(), "Me registro como valiente", Toast.LENGTH_SHORT).show();
-                    usuariotipo = 1;
+                    usuariotipo = getResources().getInteger(R.integer.rol_valiente);
                     break;
                 case R.id.v04_1_rbt_soy_colaborador:
                     Toast.makeText(getActivity(), "Me registro como colaborador", Toast.LENGTH_SHORT).show();
-                    usuariotipo = 2;
+                    usuariotipo = getResources().getInteger(R.integer.rol_colaborador);
                     break;
             }
         });

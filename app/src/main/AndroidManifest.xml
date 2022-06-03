@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.appvisibility.apptravel002">
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,34 +13,29 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label=""
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Apptravel002_val">
         <activity
             android:name=".MainActivity_adm"
             android:exported="false"
-            android:label="@string/title_activity_main_adm"
-            android:theme="@style/Theme.Apptravel002_adm.NoActionBar" />
+            android:theme="@style/Theme.Apptravel002_adm" />
         <activity
             android:name=".MainActivity_col"
             android:exported="false"
-            android:label="@string/title_activity_main_col"
-            android:theme="@style/Theme.Apptravel002_col.NoActionBar" />
-        <activity
-            android:name=".MainActivity_val"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.Apptravel002_val.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity> <!-- Configuracion acceso a Google maps -->
+           android:theme="@style/Theme.Apptravel002_col" />
+       <activity
+           android:name=".MainActivity_val"
+           android:exported="true"
+           android:theme="@style/Theme.Apptravel002_val">
+           <intent-filter>
+               <action android:name="android.intent.action.MAIN" />
+               <category android:name="android.intent.category.LAUNCHER" />
+           </intent-filter>
+       </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
     </application>
-
 </manifest>

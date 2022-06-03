@@ -40,7 +40,6 @@ android {
             version '3.18.1'
         }
     }
-    namespace 'com.appvisibility.apptravel002'
 }
 
 dependencies {

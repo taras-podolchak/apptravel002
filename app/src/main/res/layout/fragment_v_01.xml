@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="120dp"
-        android:background="@drawable/v01_contenedor_blanco"
+        android:background="@drawable/contenedor_blanco_radius4"
         android:elevation="20dp"
         android:gravity="center"
         android:orientation="vertical"
@@ -32,21 +32,21 @@
                 android:layout_height="70dp"
                 android:layout_marginHorizontal="50dp"
                 android:checked="true"
-                android:text="Excurciones de un dia" />
+                android:text="@string/excurciones_de_un_dia" />
 
             <RadioButton
                 android:id="@+id/v01_rbt_fin_semana"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginHorizontal="50dp"
-                android:text="Fin de semana" />
+                android:text="@string/fin_de_semana" />
 
             <RadioButton
                 android:id="@+id/v01_rbt_aventuras_largas"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginHorizontal="50dp"
-                android:text="Aventuras más largas" />
+                android:text="@string/aventuras_más_largas" />
 
         </RadioGroup>
 
@@ -57,9 +57,8 @@
             android:layout_marginStart="50dp"
             android:layout_marginTop="80dp"
             android:layout_marginEnd="50dp"
-            android:background="@drawable/btn_formato_left_prs"
-            android:text="Buscar actividades"
-            />
+            android:background="@drawable/btn_formato_left"
+            android:text="@string/buscar_actividades" />
     </LinearLayout>
 
 </LinearLayout>

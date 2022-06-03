@@ -166,17 +166,17 @@ public class V_04 extends Fragment {
                                     Toast.makeText(getActivity(), "Bien venido " + persona.getNombre_prs(), Toast.LENGTH_LONG).show();
 
                                     //si es valiente
-                                    if (persona.getUsuariotipo_prs() == 1) {
+                                    if (persona.getUsuariotipo_prs() == getResources().getInteger(R.integer.rol_valiente)) {
                                         sesionIniciada = persona.getUsuariotipo_prs();
                                         Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v05, bundleEvento);
                                     }
                                     //si es colaborador
-                                    if (persona.getUsuariotipo_prs() == 2) {
+                                    if (persona.getUsuariotipo_prs() == getResources().getInteger(R.integer.rol_colaborador)) {
                                         sesionIniciada = persona.getUsuariotipo_prs();
 
                                         // si colaborador entra por el menu (sin elegir el evento) navegamos a 01
                                         if (eventoEnProceso == null) {
-                                            startActivity(new Intent(getActivity(), MainActivity_col.class).putExtra("abrirEnMainActivity_col", 0));
+                                            startActivity(new Intent(getActivity(), MainActivity_col.class).putExtra("abrirEnMainActivity_col", getResources().getInteger(R.integer.accion_a_v01)));
                                         }
 
                                         //si colaborador entra con el bundle desde 03, tiene que ir a 05 con bundle
@@ -186,12 +186,12 @@ public class V_04 extends Fragment {
                                     }
 
                                     //si es administrador
-                                    if (persona.getUsuariotipo_prs() == 3) {
+                                    if (persona.getUsuariotipo_prs() == getResources().getInteger(R.integer.rol_administrador)) {
                                         sesionIniciada = persona.getUsuariotipo_prs();
 
                                         // si administrador entra por el menu (sin elegir el evento) navegamos a 01
                                         if (eventoEnProceso == null) {
-                                            startActivity(new Intent(getActivity(), MainActivity_adm.class).putExtra("adm", 0));
+                                            startActivity(new Intent(getActivity(), MainActivity_adm.class).putExtra("adm", getResources().getInteger(R.integer.accion_a_v01)));
                                         }
 
                                         //si administrador entra con el bundle desde 03, tiene que ir a 05 con bundle

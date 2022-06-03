@@ -34,23 +34,15 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
     private ActivityMainValBinding binding;
     private FirebaseAuth fba = FirebaseAuth.getInstance();
     private FirebaseFirestore fbf = FirebaseFirestore.getInstance();
-    private Persona_prs personaUser;
+    private Persona_prs personaTipo;
     public static int sesionIniciada = 0;
-    private Bundle bundlePersonaUsuario;
 
-/*
-    public static MainActivity_val newInstance(String param1, String param2) {
-        MainActivity_val fragment = new MainActivity_val();
-        Bundle bundel = new Bundle();
-        bundel.putString(ARG_PARAM1, param1);
-        bundel.putString(ARG_PARAM2, param2);
-        fragment.setArguments(bundel);
-        return fragment;
-    }
-*/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setTitle(R.integer.rol_no_iniciada);
 
         binding = ActivityMainValBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -81,9 +73,9 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
     }//Fin de constructor
 
     //Generamos un bundle con los datos del Usuario activo
-    public Bundle getUser () {
+    public Bundle getUser() {
         Bundle bundelPersonaUser = new Bundle();
-        bundelPersonaUser.putSerializable("User", personaUser);
+        bundelPersonaUser.putSerializable("User", personaTipo);
         return bundelPersonaUser;
     }
 
@@ -119,20 +111,21 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
                     if (document.exists()) {
 
                         //recuperamos la persona
-                        personaUser = document.toObject(Persona_prs.class);
+                        personaTipo = document.toObject(Persona_prs.class);
 
                         //si es valiente
-                        if (personaUser.getUsuariotipo_prs() == 1) {
-                            sesionIniciada = personaUser.getUsuariotipo_prs();
+                        if (personaTipo.getUsuariotipo_prs() == getResources().getInteger(R.integer.rol_valiente)) {
+                            sesionIniciada = personaTipo.getUsuariotipo_prs();
+                            setTitle(personaTipo.getEmail_prs());
                         }
                         //si es colaborador
-                        else if (personaUser.getUsuariotipo_prs() == 2) {
-                            sesionIniciada = personaUser.getUsuariotipo_prs();
+                        else if (personaTipo.getUsuariotipo_prs() == getResources().getInteger(R.integer.rol_colaborador)) {
+                            sesionIniciada = personaTipo.getUsuariotipo_prs();
                             startActivity(new Intent(this, MainActivity_col.class).putExtra("abrirEnMainActivity_col", 0));
                         }
                         //si es administrador
-                        else if (personaUser.getUsuariotipo_prs() == 3) {
-                            sesionIniciada = personaUser.getUsuariotipo_prs();
+                        else if (personaTipo.getUsuariotipo_prs() == getResources().getInteger(R.integer.rol_administrador)) {
+                            sesionIniciada = personaTipo.getUsuariotipo_prs();
                             startActivity(new Intent(this, MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", 0));
                         }
                     } else {
@@ -174,21 +167,21 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
             startActivity(intent);
         }
         if (id == R.id.colaborador) {
-            if (sesionIniciada == 0) {
-                startActivity(new Intent(this, MainActivity_col.class).putExtra("abrirEnMainActivity_col", -1));
+            if (sesionIniciada == getResources().getInteger(R.integer.rol_no_iniciada)) {
+                startActivity(new Intent(this, MainActivity_col.class).putExtra("abrirEnMainActivity_col", getResources().getInteger(R.integer.accion_a_v04)));
                 Toast.makeText(this, "Inicie la sesion por favor", Toast.LENGTH_LONG).show();
-            } else if (sesionIniciada == 2) {
-                startActivity(new Intent(this, MainActivity_col.class).putExtra("abrirEnMainActivity_col", 0));
+            } else if (sesionIniciada == getResources().getInteger(R.integer.rol_colaborador)) {
+                startActivity(new Intent(this, MainActivity_col.class).putExtra("abrirEnMainActivity_col", getResources().getInteger(R.integer.accion_a_v01)));
             } else {
                 Toast.makeText(this, "No tienes permisos", Toast.LENGTH_LONG).show();
             }
         }
         if (id == R.id.administrador) {
-            if (sesionIniciada == 0) {
-                startActivity(new Intent(this, MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", -1));
+            if (sesionIniciada == getResources().getInteger(R.integer.rol_no_iniciada)) {
+                startActivity(new Intent(this, MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", getResources().getInteger(R.integer.accion_a_v04)));
                 Toast.makeText(this, "Inicie la sesion por favor", Toast.LENGTH_LONG).show();
-            } else if (sesionIniciada == 2) {
-                startActivity(new Intent(this, MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", 0));
+            } else if (sesionIniciada == getResources().getInteger(R.integer.rol_administrador)) {
+                startActivity(new Intent(this, MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", getResources().getInteger(R.integer.accion_a_v01)));
             } else {
                 Toast.makeText(this, "No tienes permisos", Toast.LENGTH_LONG).show();
             }
@@ -196,7 +189,8 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
         if (id == R.id.cerrar_session) {
             Toast.makeText(getApplicationContext(), "Cerramos la sesion", Toast.LENGTH_SHORT).show();
             fba.signOut();
-            sesionIniciada = 0;
+            sesionIniciada = getResources().getInteger(R.integer.rol_no_iniciada);
+            startActivity(new Intent(this, MainActivity_val.class));
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout_val);
         drawer.closeDrawer(GravityCompat.START);
