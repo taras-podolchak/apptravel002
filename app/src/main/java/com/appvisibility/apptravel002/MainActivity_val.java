@@ -2,6 +2,7 @@ package com.appvisibility.apptravel002;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +12,9 @@ import android.view.Menu;
 import android.widget.Toast;
 
 import com.appvisibility.apptravel002.databinding.ActivityMainValBinding;
+import com.appvisibility.apptravel002.ui.controller.modal.OnBackPressed;
+import com.appvisibility.apptravel002.ui.controller.V_03;
+import com.appvisibility.apptravel002.ui.controller.V_05_2;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,7 +40,6 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
     private FirebaseFirestore fbf = FirebaseFirestore.getInstance();
     private Persona_prs personaTipo;
     public static int sesionIniciada = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,4 +199,20 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+// https://stackoverflow.com/questions/5448653/how-to-implement-onbackpressed-in-fragments
+// https://stackoverflow.com/questions/35708453/how-to-automatically-click-a-button-in-android-after-a-5-second-delay
+// https://stackoverflow.com/questions/41981546/cant-resolve-method-showandroid-support-v4-app-fragmentmanager-java-lang-stri
+// Cuando queremos mostrar en una activity: getActivity().getFragmentManager()
+// Cuando queremos mostrar en un fragmento: getFragmentManager()
+    public void onBackPressed() {
+        V_03.v03_atras.performClick();
+        if (V_05_2.solicitudRealizada) {
+            DialogFragment dialogFragment = OnBackPressed.newInstance("Has solicitado plaza en el coche de: ", V_05_2.personaOferente.getApodo_prs().toUpperCase() + "\n");
+            dialogFragment.show(getFragmentManager(), "tag");
+//            dialogFragment.show(getActivity().getFragmentManager(),"tag");
+            super.onBackPressed();
+        }
+    }
+
 }

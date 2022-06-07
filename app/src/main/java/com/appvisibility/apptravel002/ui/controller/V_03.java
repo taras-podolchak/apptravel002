@@ -3,6 +3,7 @@ package com.appvisibility.apptravel002.ui.controller;
 import static android.content.ContentValues.TAG;
 import static com.appvisibility.apptravel002.MainActivity_val.sesionIniciada;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appvisibility.apptravel002.R;
+import com.appvisibility.apptravel002.ui.controller.modal.InformePlazas;
+import com.appvisibility.apptravel002.ui.controller.modal.OnBackPressed;
 import com.appvisibility.apptravel002.ui.entities.Actividad_act;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Inscribir_eveprs;
@@ -55,13 +59,15 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final int YES_NO_CALL = 0;
 
     // Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     // Campos de xml
-    private Button v03_adelante, v03_atras;
+    private Button v03_adelante;
+    public static Button v03_atras;
     private int id_eve_enProceso;
     private TextView v03_titulo_eve;
     private ImageView v03_foto_eve;
@@ -100,6 +106,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
      * @return A new instance of fragment V_03.
      */
     // Rename and change types and number of parameters
+
     public static V_03 newInstance(String param1, String param2) {
         V_03 fragment = new V_03();
         Bundle bundle = new Bundle();
@@ -134,6 +141,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
         eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_03");
 
         this.id_eve_enProceso = eventoEnProceso.getId_eve();
+        bundleEvento.putSerializable("eventoParaV_04", eventoEnProceso);
         bundleEvento.putSerializable("eventoParaV_04", eventoEnProceso);
         bundleEvento.putSerializable("eventoParaV_05", eventoEnProceso);
         bundleEvento.putSerializable("eventoParaV_05_1", eventoEnProceso);
@@ -195,15 +203,17 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
         });
 
         v03_atras = view.findViewById(R.id.v03_btn_volver);
-        v03_atras.setOnClickListener(viewAtras ->
-                Navigation.findNavController(viewAtras).navigate(R.id.action_nav_v03_to_nav_v02));
-
-        v03_recycler_prs.setAdapter(v03_adapter_prs);
+        v03_atras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View viewAtras) {
+                Navigation.findNavController(viewAtras).navigate(R.id.action_nav_v03_to_nav_v02);
+            }
+        });
 
         return view;
     }//Fin de constructor
 
-    @Override
+   @Override
     public <T> void tabla1ChangeListener(Query query, List<T> lista, Class<T> tipoObjeto, RecyclerView.Adapter miAdapter) {
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @RequiresApi(api = Build.VERSION_CODES.N)

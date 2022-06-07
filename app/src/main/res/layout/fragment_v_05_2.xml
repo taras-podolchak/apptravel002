@@ -49,15 +49,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_horizontal|center_vertical"
-                        android:text="¿Quieres solicitar una plaza de coche?" />
+                        android:text="@string/quieres_solicitar" />
                 </LinearLayout>
-                <!--
-                <Spinner
-                    android:id="@+id/v05_2_spn_lista_personas"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="48dp" />
--->
+
                 <TextView
                     android:id="@+id/v05_2_txv_listaPlazas"
                     android:layout_width="match_parent"

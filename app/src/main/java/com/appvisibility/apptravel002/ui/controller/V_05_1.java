@@ -139,6 +139,7 @@ public class V_05_1 extends Fragment implements OnMapReadyCallback {
     }//Fin de constructor
 
 // https://stackoverflow.com/questions/27425547/cannot-resolve-method-getsupportfragmentmanager-inside-fragment
+// Inside a Fragment subclass you have to use getFragmentManager in place of getSupportFragmentManager.
     public void cargarMapa() {
         // Buscamos el Fragment
         SupportMapFragment mapaFrag = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.fragmentMap);

@@ -2,6 +2,7 @@ package com.appvisibility.apptravel002.ui.controller;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;

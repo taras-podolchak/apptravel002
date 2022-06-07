@@ -85,7 +85,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>  <!-- eliminar? -->
 
     <!-- pantalla modal v_05_2-->
-    <string name="v05_2_btn_confirmar">Solicitar</string>
+    <string name="quieres_solicitar">¿Quieres solicitar una plaza de coche?</string>
 
     <!-- v02_00_eve_Adapter -->
     <integer name="accion_a_v_03">0</integer>

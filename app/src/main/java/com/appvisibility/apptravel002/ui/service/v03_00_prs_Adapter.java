@@ -2,6 +2,7 @@ package com.appvisibility.apptravel002.ui.service;
 
 import static com.appvisibility.apptravel002.MainActivity_val.sesionIniciada;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
@@ -23,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.appvisibility.apptravel002.MainActivity_val;
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.controller.V_05_2;
+import com.appvisibility.apptravel002.ui.controller.modal.InformePlazas;
 import com.appvisibility.apptravel002.ui.entities.Inscribir_eveprs;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -207,13 +209,13 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
                 Bundle bundlePersonasEnCoche = new Bundle();
                 bundlePersonasEnCoche.putParcelableArrayList("personaParaV_05_2", (ArrayList<? extends Parcelable>) personasEnCoche);
 
-                // TODO EOB: Sustituir condicion del if por "roll == colaborador"
-                if (sesionIniciada == 1) {
-                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v05_2, bundlePersonasEnCoche);
-                } else if (sesionIniciada == 2 || sesionIniciada == 3) {
+                if (sesionIniciada > 1 && sesionIniciada <= 3) {
+//                if ((sesionIniciada == 1 || sesionIniciada == 3) && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs()>=0) {
                     Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundlePersona);
+                } else if (sesionIniciada == 1 && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs()<0) {
+                    Toast.makeText((context.getApplicationContext()), "Inscrito sin Plaza de Transporte", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText((context.getApplicationContext()), "Usuario no controlado", Toast.LENGTH_LONG).show();
+                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v05_2, bundlePersonasEnCoche);
                 }
                 /*
                  * Notificamos cambios para que el contenedor se entere y refresque los datos

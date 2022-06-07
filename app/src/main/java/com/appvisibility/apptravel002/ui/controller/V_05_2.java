@@ -68,8 +68,8 @@ public class V_05_2 extends DialogFragment implements IDAO<Object, Inscribir_eve
     private List<Inscribir_eveprs> inscritosEnCoche  = new ArrayList<>();
     private Map<Integer, Persona_prs> map_IdIns_Prs = new HashMap<>();
     private Persona_prs personaUser;
-    private Persona_prs personaOferente;
-    private Boolean solicitudRealizada = false;
+    public static Persona_prs personaOferente;
+    public static Boolean solicitudRealizada = true;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -191,12 +191,12 @@ public class V_05_2 extends DialogFragment implements IDAO<Object, Inscribir_eve
                                         DocumentReference docRef = qds.getReference();
                                         docRef.update("plazaslibres_eveprs", inscritoSolicitante.getPlazaslibres_eveprs() + 1);
                                         docRef.update("id_tpr", inscritoOferente.getId_tpr())
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void unused) {
-                                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                                }
-                                            });
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                                    }
+                                                });
                                     }
                                 }
                             }
@@ -213,20 +213,20 @@ public class V_05_2 extends DialogFragment implements IDAO<Object, Inscribir_eve
                                         Log.d(TAG, qds.getId() + " => " + qds.getData());
                                         DocumentReference docRef = qds.getReference();
                                         docRef.update("plazaslibres_eveprs", inscritoOferente.getPlazaslibres_eveprs() - 1)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void unused) {
-                                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                                    solicitudRealizada = true;
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.w(TAG, "Error writing document", e);
-                                                    solicitudRealizada = false;
-                                                }
-                                            });
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                                        solicitudRealizada = true;
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.w(TAG, "Error writing document", e);
+                                                        solicitudRealizada = false;
+                                                    }
+                                                });
                                     }
                                     if (solicitudRealizada){
                                         Toast.makeText(getActivity(), "Solicitud de plaza realizada", Toast.LENGTH_LONG).show();
@@ -249,6 +249,7 @@ public class V_05_2 extends DialogFragment implements IDAO<Object, Inscribir_eve
         v05_2_atras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                informeCoche = "";
                 Navigation.findNavController(view).navigate(R.id.action_nav_v05_2_to_nav_v03, bundleEvento);
             }
         });
