@@ -107,9 +107,9 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
             holder.v02_estado_eve.setVisibility(View.VISIBLE);
             if (estado_eve.equalsIgnoreCase("Confirmado")) {
                 holder.v02_estado_eve.setTextColor(context.getResources().getColor(R.color.administradorVerdeColor));
-            } else if (estado_eve.equalsIgnoreCase("Pendiente  ")) {
+            } else if (estado_eve.equalsIgnoreCase("Pendiente")) {
                 holder.v02_estado_eve.setTextColor(context.getResources().getColor(android.R.color.holo_orange_dark));
-            } else if (estado_eve.equalsIgnoreCase("Cancelado ")) {
+            } else if (estado_eve.equalsIgnoreCase("Cancelado")) {
                 holder.v02_estado_eve.setTextColor(context.getResources().getColor(R.color.red));
             }
             holder.v02_estado_eve.setText("Estado: " + estado_eve);

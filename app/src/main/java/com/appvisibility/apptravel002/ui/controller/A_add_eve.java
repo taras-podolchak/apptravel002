@@ -4,11 +4,12 @@ import static android.content.ContentValues.TAG;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
@@ -46,7 +47,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -89,7 +89,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
 
 
     private EditText a_add_eve_titulo_eve;
-    private ImageView profilePic;
+    private ImageView a_add_eve_foto_eve;
     private EditText a_add_eve_fechaidatru_eve;
     private EditText a_add_eve_fechavueltatru_eve;
     private EditText a_add_eve_nivel_eve;
@@ -174,7 +174,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
         this.v02_recycler_eve.setAdapter(v02_adapter_eve);
 
         a_add_eve_titulo_eve = view.findViewById(R.id.a_add_eve_etx_titulo_eve);
-        profilePic = view.findViewById(R.id.a_add_eve_imv_foto_eve);
+        a_add_eve_foto_eve = view.findViewById(R.id.a_add_eve_imv_foto_eve);
         a_add_eve_fechaidatru_eve = view.findViewById(R.id.a_add_eve_etx_fechaidatru_eve);
         a_add_eve_fechavueltatru_eve = view.findViewById(R.id.a_add_eve_etx_fechavueltatru_eve);
         a_add_eve_nivel_eve = view.findViewById(R.id.a_add_eve_etx_nivel_eve);
@@ -188,35 +188,29 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
         a_add_eve_precio_eve = view.findViewById(R.id.a_add_eve_etx_precio_eve);
         a_add_eve_transportetipo_eve = view.findViewById(R.id.a_add_eve_etx_transportetipo_eve);
 
+        //cargamos la imagen nueva
+
+        // https://developer.android.com/training/basics/intents/result
+        // GetContent creates an ActivityResultLauncher<String> to allow you to pass
+        // in the mime type you'd like to allow the user to select
+        ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
+            imageUri = uri;
+            a_add_eve_foto_eve.setImageURI(imageUri);
+            changeNewImage(view);
+        });
+
+        //https://firebase.google.com/docs/storage/android/upload-files?hl=es-419
+        a_add_eve_foto_eve.setOnClickListener(View1 -> {
+            mGetContent.launch("image/*");
+        });
 
         //Recuperamos el Evento
         if (getArguments() != null) {
-            //eventoEnProceso = (Evento_eve) getArguments().getSerializable("eventoPara_a_add_eve");
-
             a_add_eve_titulo_eve.setText(eventoEnProceso.getTitulo_eve());
-
-            //cargamos imagenes
-
             //cargamos la imagen que ya existe en otro evento
             str.child("Eventos/" + eventoEnProceso.getFoto_eve()).getDownloadUrl()
-                    .addOnSuccessListener(uri -> Picasso.get().load(uri).into(profilePic))
+                    .addOnSuccessListener(uri -> Picasso.get().load(uri).into(a_add_eve_foto_eve))
                     .addOnFailureListener(exception -> Toast.makeText(getActivity(), "GET IMAGE FAILED", Toast.LENGTH_SHORT).show());
-
-            //cargamos la imagen nueva
-            profilePic.setOnClickListener(View1 -> {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivity(intent);
-
-
-                imageUri = intent.getData();
-                profilePic.setImageURI(imageUri);
-
-                changeNewImage(view);
-            });
-
-
             a_add_eve_fechaidatru_eve.setText(eventoEnProceso.getFechaidatru_eve());
             a_add_eve_fechavueltatru_eve.setText(eventoEnProceso.getFechavueltatru_eve());
             a_add_eve_nivel_eve.setText(eventoEnProceso.getNivel_eve());
@@ -229,7 +223,6 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
             a_add_eve_llegadavueltatru_eve.setText(eventoEnProceso.getLlegadavueltatru_eve());
             a_add_eve_precio_eve.setId(eventoEnProceso.getPrecio_eve());
             a_add_eve_transportetipo_eve.setText(eventoEnProceso.getTransportetipo_eve());
-            // }
         }
 
 
@@ -374,7 +367,6 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
             // añadir mas controles para rellenar huecos del arrlist
             if (eve.getId_eve() > this.id_new_eve) {
                 this.id_new_eve = eve.getId_eve();
-
             }
             this.id_new_eve++;
         }
@@ -382,8 +374,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
         Evento_eve evento_push = new Evento_eve();
         evento_push.setId_eve(id_new_eve);
         evento_push.setTitulo_eve(a_add_eve_titulo_eve.getText().toString().trim());
-        //todo foto
-        evento_push.setFoto_eve(eventoEnProceso.getFoto_eve());
+        evento_push.setFoto_eve(imageUri.getLastPathSegment());
         evento_push.setFechaidatru_eve(a_add_eve_fechaidatru_eve.getText().toString().trim());
         evento_push.setFechavueltatru_eve(a_add_eve_fechavueltatru_eve.getText().toString().trim());
         evento_push.setNivel_eve(a_add_eve_nivel_eve.getText().toString().trim());
@@ -406,15 +397,12 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
             fbf.collection("evento_eve").document(Integer.toString(id_new_eve)).set(evento_push);
             Toast.makeText(getActivity(), "El evento se ha creado correctamente", Toast.LENGTH_SHORT).show();
         }
-
         Navigation.findNavController(view).navigate(R.id.action_nav_a_create_eve_to_nav_v01);
-
     }
 
     private void limpiarEvento() {
-
         a_add_eve_titulo_eve.getText().clear();
-        profilePic.setImageDrawable(null);
+        a_add_eve_foto_eve.setImageResource(R.drawable.ic_menu_gallery);
         a_add_eve_fechaidatru_eve.getText().clear();
         a_add_eve_fechavueltatru_eve.getText().clear();
         a_add_eve_nivel_eve.getText().clear();
@@ -431,28 +419,17 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
 
     private void changeNewImage(View view) {
 
-
         final ProgressDialog pd = new ProgressDialog(mContext);
-        pd.setTitle("Uploading Image...");
+        pd.setTitle("Cargando la imagen...");
         pd.show();
-        final String randomKey = UUID.randomUUID().toString();
-        str.child("Eventos/" + randomKey);
-        str.putFile(imageUri)
+        str.child("Eventos/" + imageUri.getLastPathSegment()).putFile(imageUri)
                 .addOnSuccessListener(taskSnapshot -> {
                     pd.dismiss();
-                    Snackbar.make(view, "image Uploaded.", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(view, "La imagen se ha cargado con exito!", Snackbar.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(e -> {
                     pd.dismiss();
-                    Toast.makeText(getActivity(), "Failed to upload!", Toast.LENGTH_SHORT).show();
-                })
-                        /*.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                                double progress = (100.0 * snapshot.getBytesTransferred()) / snapshot.getTotalByteCount();
-                                pd.setMessage("Upload is " + progress + "% done");
-                            }
-                        })*/;
-
+                    Toast.makeText(getActivity(), "Error a cargar la imagen!", Toast.LENGTH_SHORT).show();
+                });
     }
 }

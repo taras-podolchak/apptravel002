@@ -243,7 +243,7 @@ public class V_05_2_modal extends DialogFragment implements IDAO<Object, Inscrib
                     Toast.makeText(getActivity(), "La solicitud no reune los requisitos", Toast.LENGTH_LONG).show();
                 }
                 informeCoche = "";
-                Navigation.findNavController(view).navigate(R.id.action_nav_v05_2_to_nav_v03, bundleEvento);
+                getDialog().cancel();
             }
         });
 
@@ -252,7 +252,7 @@ public class V_05_2_modal extends DialogFragment implements IDAO<Object, Inscrib
             @Override
             public void onClick(View view) {
                 informeCoche = "";
-                Navigation.findNavController(view).navigate(R.id.action_nav_v05_2_to_nav_v03, bundleEvento);
+                getDialog().cancel();
             }
         });
 

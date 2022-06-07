@@ -210,15 +210,15 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
                 bundlePersonasEnCoche.putParcelableArrayList("personaParaV_05_2", (ArrayList<? extends Parcelable>) personasEnCoche);
 
                 // TODO EOB: Sustituir condicion del if por "roll == colaborador"
-                if (sesionIniciada == view.getResources().getInteger(R.integer.rol_valiente)) {
+                if (sesionIniciada == view.getResources().getInteger(R.integer.rol_valiente) && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs()>=0) {
                     FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
                     DialogFragment v_05_2 = new V_05_2_modal();
                     v_05_2.setArguments(bundlePersonasEnCoche);
                     v_05_2.show(manager, "dialog");
-                } else if (sesionIniciada == view.getResources().getInteger(R.integer.rol_colaborador) || sesionIniciada == view.getResources().getInteger(R.integer.rol_administrador)) {
+                }else  if (sesionIniciada == view.getResources().getInteger(R.integer.rol_valiente) && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs()<0) {
+                    Toast.makeText((context.getApplicationContext()), "Inscrito sin Plaza de Transporte", Toast.LENGTH_LONG).show();
+                } else if (sesionIniciada > view.getResources().getInteger(R.integer.rol_valiente) ) {
                     Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundlePersona);
-                } else {
-                    Toast.makeText((context.getApplicationContext()), "Usuario no controlado", Toast.LENGTH_SHORT).show();
                 }
                 /*
                  * Notificamos cambios para que el contenedor se entere y refresque los datos
