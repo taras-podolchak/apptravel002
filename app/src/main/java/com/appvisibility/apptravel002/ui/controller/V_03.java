@@ -1,6 +1,5 @@
 package com.appvisibility.apptravel002.ui.controller;
 
-import static android.content.ContentValues.TAG;
 import static com.appvisibility.apptravel002.MainActivity_val.sesionIniciada;
 
 import android.content.Context;
@@ -24,7 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appvisibility.apptravel002.R;
-import com.appvisibility.apptravel002.ui.controller.IDAO.IDAO;
+import com.appvisibility.apptravel002.ui.controller.Interfaces.IDAO;
 import com.appvisibility.apptravel002.ui.entities.Actividad_act;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Inscribir_eveprs;

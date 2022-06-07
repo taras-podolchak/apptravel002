@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import com.appvisibility.apptravel002.MainActivity_val;
 import com.appvisibility.apptravel002.R;
-import com.appvisibility.apptravel002.ui.controller.IDAO.IDAO;
+import com.appvisibility.apptravel002.ui.controller.Interfaces.IDAO;
 import com.appvisibility.apptravel002.ui.controller.V_03;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Inscribir_eveprs;

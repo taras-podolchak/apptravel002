@@ -1,4 +1,4 @@
-package com.appvisibility.apptravel002.ui.controller.IDAO;
+package com.appvisibility.apptravel002.ui.controller.Interfaces;
 
 import androidx.recyclerview.widget.RecyclerView;
 
