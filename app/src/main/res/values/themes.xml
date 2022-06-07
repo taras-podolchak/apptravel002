@@ -24,15 +24,15 @@
         <item name="windowNoTitle">true</item>
 
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/colaboradorVerdeColor</item>
-        <item name="colorPrimaryVariant">@color/colaboradorVerdeColor</item>
+        <item name="colorPrimary">@color/colaboradorMarronColor</item>
+        <item name="colorPrimaryVariant">@color/colaboradorMarronColor</item>
         <item name="colorOnPrimary">@color/corp_blanco</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/colaboradorVerdeLightColor</item>
-        <item name="colorSecondaryVariant">@color/colaboradorVerdeLightColor</item>
+        <item name="colorSecondary">@color/colaboradorMarronLightColor</item>
+        <item name="colorSecondaryVariant">@color/colaboradorMarronLightColor</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/colaboradorVerdeColor</item>
+        <item name="android:statusBarColor">@color/colaboradorMarronColor</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -41,15 +41,15 @@
         <item name="windowNoTitle">true</item>
 
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/administradorMaronColor</item>
-        <item name="colorPrimaryVariant">@color/administradorMaronColor</item>
+        <item name="colorPrimary">@color/administradorVerdeColor</item>
+        <item name="colorPrimaryVariant">@color/administradorVerdeColor</item>
         <item name="colorOnPrimary">@color/corp_blanco</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/administradorMaronLightColor</item>
-        <item name="colorSecondaryVariant">@color/administradorMaronLightColor</item>
+        <item name="colorSecondary">@color/administradorVerdeLightColor</item>
+        <item name="colorSecondaryVariant">@color/administradorVerdeLightColor</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/administradorMaronColor</item>
+        <item name="android:statusBarColor">@color/administradorVerdeColor</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>

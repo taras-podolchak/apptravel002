@@ -2,15 +2,12 @@ package com.appvisibility.apptravel002.ui.controller;
 
 import static android.content.ContentValues.TAG;
 
-import android.app.DialogFragment;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -18,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appvisibility.apptravel002.R;
+import com.appvisibility.apptravel002.ui.controller.IDAO.IDAO;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.service.v02_00_eve_Adapter;
 import com.google.firebase.firestore.EventListener;
@@ -131,7 +129,7 @@ public class V_02 extends Fragment implements IDAO<Evento_eve, Object, Object> {
                 miAdapter.notifyDataSetChanged();
 
                 Log.d(TAG, "Datos evento_eve recibidos!");
-//                Toast.makeText(getActivity(), "Datos evento_eve recibidos!", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity(), "Datos evento_eve recibidos!", Toast.LENGTH_SHORT).show();
             }
         });
     }

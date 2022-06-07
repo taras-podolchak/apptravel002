@@ -3,17 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/LinearLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    tools:context=".ui.controller.V_05_2">
+    android:layout_height="wrap_content"
+    tools:context=".ui.controller.modal.V_05_2_modal">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
         android:gravity="center"
-        android:background="@drawable/conteneder_con_borde"
         android:orientation="vertical">
 
         <ScrollView
@@ -24,6 +20,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:padding="20dp"
                 android:orientation="vertical">
 
                 <TextView

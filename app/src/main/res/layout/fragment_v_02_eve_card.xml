@@ -80,7 +80,8 @@
                     android:id="@+id/v02_crd_txv_estado_eve"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/v02_crd_txv_transportetipo_eve"

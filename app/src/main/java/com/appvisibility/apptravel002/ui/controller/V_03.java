@@ -3,7 +3,6 @@ package com.appvisibility.apptravel002.ui.controller;
 import static android.content.ContentValues.TAG;
 import static com.appvisibility.apptravel002.MainActivity_val.sesionIniciada;
 
-import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,8 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appvisibility.apptravel002.R;
-import com.appvisibility.apptravel002.ui.controller.modal.InformePlazas;
-import com.appvisibility.apptravel002.ui.controller.modal.OnBackPressed;
+import com.appvisibility.apptravel002.ui.controller.IDAO.IDAO;
 import com.appvisibility.apptravel002.ui.entities.Actividad_act;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Inscribir_eveprs;
@@ -74,6 +71,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
     private TextView v03_fechaidatru_eve;
     private TextView v03_fechavueltatru_eve;
     private TextView v03_estado_eve;
+    private TextView v03_inscritos_eve;
     private RecyclerView v03_recycler_prs;
     private RecyclerView v03_recycler_act;
 
@@ -106,7 +104,6 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
      * @return A new instance of fragment V_03.
      */
     // Rename and change types and number of parameters
-
     public static V_03 newInstance(String param1, String param2) {
         V_03 fragment = new V_03();
         Bundle bundle = new Bundle();
@@ -152,6 +149,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
         this.v03_fechaidatru_eve = view.findViewById(R.id.v03_txv_fechaidatru_eve);
         this.v03_fechavueltatru_eve = view.findViewById(R.id.v03_txv_fechavueltatru_eve);
         this.v03_estado_eve = view.findViewById(R.id.v03_txv_estado_eve);
+        this.v03_inscritos_eve = view.findViewById(R.id.v03_txv_inscritos_eve);
 
         this.v03_recycler_act = (RecyclerView) view.findViewById(R.id.v03_rcv_actividades);
         this.v03_recycler_act.setHasFixedSize(true);
@@ -167,7 +165,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
         StorageReference str = fbs.getReference();
         str.child("Eventos/" + eventoEnProceso.getFoto_eve()).getDownloadUrl().addOnSuccessListener(uri ->
                 Picasso.get().load(uri).into(v03_foto_eve)).addOnFailureListener(exception ->
-                Toast.makeText(getActivity(), "Error de cargar la imagen", Toast.LENGTH_LONG).show());
+                Toast.makeText(getActivity(), "Error de cargar la imagen", Toast.LENGTH_SHORT).show());
         v03_fechaidatru_eve.setText(eventoEnProceso.getFechaidatru_eve());
         v03_fechavueltatru_eve.setText(eventoEnProceso.getFechavueltatru_eve());
         v03_estado_eve.setText("Estado: " + eventoEnProceso.getEstado_eve());
@@ -176,13 +174,21 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
         Query query1 = fbf.collection("actividad_act").orderBy("id_eve", Query.Direction.ASCENDING);
         tabla1ChangeListener(query1, actividades, Actividad_act.class, v03_adapter_act);
 
-        //Cargamos todos los Inscritos
-        Query query2 = fbf.collection("inscribir_eveprs").whereEqualTo("id_eve", id_eve_enProceso);
-        tabla2ChangeListener(query2, inscritos, Inscribir_eveprs.class, null);
+        //si la sesion esta iniciada
+        if (sesionIniciada!=getResources().getInteger(R.integer.rol_no_iniciada)) {
+            //activamos los
+            v03_inscritos_eve.setVisibility(View.VISIBLE);
+            v03_recycler_prs.setVisibility(View.VISIBLE);
 
-        //Cargamos todas las Personas
-        Query query3 = fbf.collection("persona_prs").orderBy("id_prs", Query.Direction.DESCENDING);
-        tabla3ChangeListener(query3, personas, Persona_prs.class, null);
+            //Cargamos todos los Inscritos
+            Query query2 = fbf.collection("inscribir_eveprs").whereEqualTo("id_eve", id_eve_enProceso);
+            tabla2ChangeListener(query2, inscritos, Inscribir_eveprs.class, null);
+
+            //Cargamos todas las Personas
+            Query query3 = fbf.collection("persona_prs").orderBy("id_prs", Query.Direction.DESCENDING);
+            tabla3ChangeListener(query3, personas, Persona_prs.class, null);
+        }
+
 
         // Botones
         v03_foto_eve = view.findViewById(R.id.v03_imv_foto_eve);
@@ -213,7 +219,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
         return view;
     }//Fin de constructor
 
-   @Override
+    @Override
     public <T> void tabla1ChangeListener(Query query, List<T> lista, Class<T> tipoObjeto, RecyclerView.Adapter miAdapter) {
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -232,14 +238,11 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
 //                miAdapter.notifyDataSetChanged();
 // Listamos las Actividades del Evento en proceso
                 actividadesFiltrados = actividades.stream()
-                        .filter(act->act.getId_eve() == id_eve_enProceso)
+                        .filter(act -> act.getId_eve() == id_eve_enProceso)
                         .collect(Collectors.toList());
                 //Cargamos los Actividades del Evento
                 v03_adapter_act = new v03_00_act_Adapter(actividadesFiltrados, mContext, getResources().getInteger(R.integer.accion_a_web));
                 v03_recycler_act.setAdapter(v03_adapter_act);
-
-                Log.d(TAG, "Datos actividad_act recibidos!");
-//                Toast.makeText(getActivity(), "Datos actividad_act recibidos!", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -259,10 +262,6 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
                     enProceso = (S) qds.toObject(tipoObjeto);
                     lista.add(enProceso);
                 }
-//                miAdapter.notifyDataSetChanged();
-
-                Log.d(TAG, "Datos inscribir_eveprs recibidos!");
-//                Toast.makeText(getActivity(), "Datos inscribir_eveprs recibidos!", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -289,17 +288,12 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
                 personasInscritos.clear();
                 personasInscritos = personas.stream()
                         .filter(ins -> inscritos.stream()
-                        .map(Inscribir_eveprs::getId_prs)
-                        .anyMatch(prs -> prs.equals(ins.getId_prs())))
+                                .map(Inscribir_eveprs::getId_prs)
+                                .anyMatch(prs -> prs.equals(ins.getId_prs())))
                         .collect(Collectors.toList());
                 //Cargamos los datos de las Personas Inscritas al Evento
-                if (sesionIniciada != 0){
-                    v03_adapter_prs = new v03_00_prs_Adapter(personasInscritos, inscritos, mContext, id_eve_enProceso);
-                    v03_recycler_prs.setAdapter(v03_adapter_prs);
-                }
-
-                Log.d(TAG, "Datos persona_prs recibidos!");
-//                Toast.makeText(getActivity(), "Datos persona_prs recibidos!", Toast.LENGTH_LONG).show();
+                v03_adapter_prs = new v03_00_prs_Adapter(personasInscritos, inscritos, mContext, id_eve_enProceso);
+                v03_recycler_prs.setAdapter(v03_adapter_prs);
             }
         });
     }

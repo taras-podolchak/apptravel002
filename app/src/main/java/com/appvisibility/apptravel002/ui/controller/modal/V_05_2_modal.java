@@ -1,4 +1,4 @@
-package com.appvisibility.apptravel002.ui.controller;
+package com.appvisibility.apptravel002.ui.controller.modal;
 
 import static android.content.ContentValues.TAG;
 
@@ -23,6 +23,8 @@ import android.widget.Toast;
 
 import com.appvisibility.apptravel002.MainActivity_val;
 import com.appvisibility.apptravel002.R;
+import com.appvisibility.apptravel002.ui.controller.IDAO.IDAO;
+import com.appvisibility.apptravel002.ui.controller.V_03;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Inscribir_eveprs;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
@@ -46,10 +48,10 @@ import java.util.stream.Collectors;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link V_05_2#newInstance} factory method to
+ * Use the {@link V_05_2_modal#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class V_05_2 extends DialogFragment implements IDAO<Object, Inscribir_eveprs, Object> {
+public class V_05_2_modal extends DialogFragment implements IDAO<Object, Inscribir_eveprs, Object> {
 
     // Campos de xml
     private Button v05_2_adelante, v05_2_atras;
@@ -80,7 +82,7 @@ public class V_05_2 extends DialogFragment implements IDAO<Object, Inscribir_eve
     private String mParam1;
     private String mParam2;
 
-    public V_05_2() {
+    public V_05_2_modal() {
         // Required empty public constructor
     }
 
@@ -90,11 +92,11 @@ public class V_05_2 extends DialogFragment implements IDAO<Object, Inscribir_eve
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment V_05_2.
+     * @return A new instance of fragment V_05_2_modal.
      */
     // TODO: Rename and change types and number of parameters
-    public static V_05_2 newInstance(String param1, String param2) {
-        V_05_2 fragment = new V_05_2();
+    public static V_05_2_modal newInstance(String param1, String param2) {
+        V_05_2_modal fragment = new V_05_2_modal();
         Bundle bundle = new Bundle();
         bundle.putString(ARG_PARAM1, param1);
         bundle.putString(ARG_PARAM2, param2);
@@ -114,7 +116,7 @@ public class V_05_2 extends DialogFragment implements IDAO<Object, Inscribir_eve
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_v_05_2, container, false);
+        View view = inflater.inflate(R.layout.fragment_v_05_2_modal, container, false);
 
         //https://stackoverflow.com/questions/12739909/send-data-from-activity-to-fragment-in-android
         /* So, to pass data from the MotherActivity to such a Fragment you will need to create private Strings/Bundles above the onCreate of your Mother activity - which you can fill with the data you want to pass to the fragments, and pass them on via a method created after the onCreate (here called getMyData()).*/

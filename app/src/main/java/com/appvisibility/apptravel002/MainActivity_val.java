@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.appvisibility.apptravel002.databinding.ActivityMainValBinding;
 import com.appvisibility.apptravel002.ui.controller.modal.OnBackPressed;
 import com.appvisibility.apptravel002.ui.controller.V_03;
-import com.appvisibility.apptravel002.ui.controller.V_05_2;
+import com.appvisibility.apptravel002.ui.controller.modal.V_05_2_modal;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -172,21 +172,21 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
         if (id == R.id.colaborador) {
             if (sesionIniciada == getResources().getInteger(R.integer.rol_no_iniciada)) {
                 startActivity(new Intent(this, MainActivity_col.class).putExtra("abrirEnMainActivity_col", getResources().getInteger(R.integer.accion_a_v04)));
-                Toast.makeText(this, "Inicie la sesion por favor", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Inicie la sesion por favor", Toast.LENGTH_SHORT).show();
             } else if (sesionIniciada == getResources().getInteger(R.integer.rol_colaborador)) {
                 startActivity(new Intent(this, MainActivity_col.class).putExtra("abrirEnMainActivity_col", getResources().getInteger(R.integer.accion_a_v01)));
             } else {
-                Toast.makeText(this, "No tienes permisos", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
             }
         }
         if (id == R.id.administrador) {
             if (sesionIniciada == getResources().getInteger(R.integer.rol_no_iniciada)) {
                 startActivity(new Intent(this, MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", getResources().getInteger(R.integer.accion_a_v04)));
-                Toast.makeText(this, "Inicie la sesion por favor", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Inicie la sesion por favor", Toast.LENGTH_SHORT).show();
             } else if (sesionIniciada == getResources().getInteger(R.integer.rol_administrador)) {
                 startActivity(new Intent(this, MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", getResources().getInteger(R.integer.accion_a_v01)));
             } else {
-                Toast.makeText(this, "No tienes permisos", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
             }
         }
         if (id == R.id.cerrar_session) {
@@ -207,8 +207,8 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
 // Cuando queremos mostrar en un fragmento: getFragmentManager()
     public void onBackPressed() {
         V_03.v03_atras.performClick();
-        if (V_05_2.solicitudRealizada) {
-            DialogFragment dialogFragment = OnBackPressed.newInstance("Has solicitado plaza en el coche de: ", V_05_2.personaOferente.getApodo_prs().toUpperCase() + "\n");
+        if (V_05_2_modal.solicitudRealizada) {
+            DialogFragment dialogFragment = OnBackPressed.newInstance("Has solicitado plaza en el coche de: ", V_05_2_modal.personaOferente.getApodo_prs().toUpperCase() + "\n");
             dialogFragment.show(getFragmentManager(), "tag");
 //            dialogFragment.show(getActivity().getFragmentManager(),"tag");
             super.onBackPressed();

@@ -97,63 +97,64 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
         str.child("Eventos/" + foto_eve).getDownloadUrl().addOnSuccessListener(uri -> Picasso.get().load(uri).into(holder.v02_foto_eve)).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-//                Toast.makeText(getActivity(), "GET IMAGE FAILED", Toast.LENGTH_LONG).show();
-                // Handle any errors
+                Toast.makeText(context.getApplicationContext(), "Error a la hora de cargar la imagen", Toast.LENGTH_SHORT).show();
             }
         });
         holder.v02_fechaidatru_eve.setText(fechaidatru_eve);
         holder.v02_fechavueltatru_eve.setText(fechavueltatru_eve);
         holder.v02_nivel_eve.setText("Nivel: " + nivel_eve);
-        holder.v02_estado_eve.setText("Estado: " + estado_eve);
+        if (accion == context.getResources().getInteger(R.integer.accion_rellenar_formulario)) {
+            holder.v02_estado_eve.setVisibility(View.VISIBLE);
+            if (estado_eve.equalsIgnoreCase("Confirmado")) {
+                holder.v02_estado_eve.setTextColor(context.getResources().getColor(R.color.administradorVerdeColor));
+            } else if (estado_eve.equalsIgnoreCase("Pendiente  ")) {
+                holder.v02_estado_eve.setTextColor(context.getResources().getColor(android.R.color.holo_orange_dark));
+            } else if (estado_eve.equalsIgnoreCase("Cancelado ")) {
+                holder.v02_estado_eve.setTextColor(context.getResources().getColor(R.color.red));
+            }
+            holder.v02_estado_eve.setText("Estado: " + estado_eve);
+        }
         holder.v02_transportetipo_eve.setText(transportetipo_eve);
         holder.v02_nparticipantes_eve.setText("Participantes: " + nparticipantes_eve);
 
         // https://stackoverflow.com/questions/42266436/passing-objects-between-fragments
         holder.v02_cdv_eventos.setOnClickListener(v -> {
-            if (accion == v.getResources().getInteger(R.integer.accion_a_v_03)){
+            if (accion == v.getResources().getInteger(R.integer.accion_a_v_03)) {
                 bundleEvento.putSerializable("eventoParaV_03", eventoEnProceso);
                 Navigation.findNavController(v).navigate(R.id.nav_v03, bundleEvento);
-            } else if (accion == v.getResources().getInteger(R.integer.accion_rellenar_formulario)){
+            } else if (accion == v.getResources().getInteger(R.integer.accion_rellenar_formulario)) {
                 bundleEvento.putSerializable("eventoPara_a_add_eve", eventoEnProceso);
                 bundleEvento.putSerializable("actividadPara_a_add_eve", new Actividad_act());
                 Navigation.findNavController(v).navigate(R.id.nav_a_create_eve, bundleEvento);
             }
         });
-        holder.v02_cdv_eventos.setOnLongClickListener(v1 -> {
-         Toast.makeText(v1.getContext(), "Eliminar evento", Toast.LENGTH_LONG).show();
 
+        holder.v02_cdv_eventos.setOnLongClickListener(v1 -> {
             AlertDialog dialogo = new AlertDialog
-                    .Builder(v1.getContext()) // NombreDeTuActividad.this, o getActivity() si es dentro de un fragmento
-                    .setPositiveButton("Sí, eliminar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            fbf.collection("evento_eve").document(Integer.toString(eventoEnProceso.getId_eve()))
-                                    .delete()
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Log.w(TAG, "Error deleting document", e);
-                                        }
-                                    });
-                        }
+                    .Builder(v1.getContext())
+                    .setPositiveButton("Activar evento", (dialog, which) -> {
+                        eventoEnProceso.setEstado_eve("activado");
+                        fbf.collection("evento_eve").document(Integer.toString(eventoEnProceso.getId_eve())).set(eventoEnProceso);
+                        Toast.makeText(v1.getContext(), "Evento activado!", Toast.LENGTH_SHORT).show();
                     })
-                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // Hicieron click en el botón negativo, no confirmaron
-                            // Simplemente descartamos el diálogo
-                            dialog.dismiss();
-                        }
-                    })
-                    .setTitle("Confirmar") // El título
-                    .setMessage("¿Deseas eliminar este evento?") // El mensaje
-                    .create();// No olvides llamar a Create, ¡pues eso crea el AlertDialog!
+                    .setNegativeButton("Desactivar evento", (dialog, which) -> {
+                        eventoEnProceso.setEstado_eve("desactivado");
+                        fbf.collection("evento_eve").document(Integer.toString(eventoEnProceso.getId_eve())).set(eventoEnProceso);
+                        Toast.makeText(v1.getContext(), "Evento desactivado!", Toast.LENGTH_SHORT).show();
+                    }).
+                    setNeutralButton("Eliminar evento", (dialog, which) -> fbf.collection("evento_eve").document(Integer.toString(eventoEnProceso.getId_eve()))
+                            .delete()
+                            .addOnSuccessListener(aVoid -> {
+                                Log.d(TAG, "Evento eliminado con éxito!");
+                                Toast.makeText(v1.getContext(), "Evento eliminado con éxito!", Toast.LENGTH_SHORT).show();
+                            })
+                            .addOnFailureListener(e -> {
+                                Log.w(TAG, "Ha ocurrido un error eliminando el Evento", e);
+                                Toast.makeText(v1.getContext(), "Ha ocurrido un error eliminando el Evento", Toast.LENGTH_SHORT).show();
+                            }))
+                    .setTitle("Confirmar")
+                    .setMessage("¿Que deseas hacer con este evento?")
+                    .create();
             dialogo.show();
             return true;
         });

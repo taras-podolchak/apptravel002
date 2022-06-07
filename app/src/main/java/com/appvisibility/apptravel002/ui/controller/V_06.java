@@ -74,7 +74,10 @@ public class V_06 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_06, container, false);
+
         v06_activar_aviso = view.findViewById(R.id.v06_btn_activar_aviso);
+        v06_mas_actividades = view.findViewById(R.id.v06_btn_buscar_mas_actividades);
+
         v06_activar_aviso.setOnClickListener(view1 -> {
             Calendar beginTime = Calendar.getInstance();
             beginTime.set(2012, 0, 19, 7, 30);
@@ -92,7 +95,6 @@ public class V_06 extends Fragment {
             startActivity(intent);
         });
 
-        v06_mas_actividades = view.findViewById(R.id.v06_btn_buscar_mas_actividades);
         v06_mas_actividades.setOnClickListener(view12 -> Navigation.findNavController(view12).navigate(R.id.action_nav_v06_to_nav_inicio_v01));
         return view;
     }

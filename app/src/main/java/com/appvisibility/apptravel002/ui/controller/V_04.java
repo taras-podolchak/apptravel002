@@ -138,12 +138,12 @@ public class V_04 extends Fragment {
 
         //Verificamos que las cajas de texto no estén vacías
         if (TextUtils.isEmpty(email_prs)) {
-            Toast.makeText(getActivity(), "Se debe ingresar un email_prs", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Se debe ingresar un email_prs", Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (TextUtils.isEmpty(contrasenna_prs)) {
-            Toast.makeText(getActivity(), "Falta ingresar la contraseña", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Falta ingresar la contraseña", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -163,7 +163,7 @@ public class V_04 extends Fragment {
                                 if (document.exists()) {
                                     //recuperamos la persona
                                     persona = document.toObject(Persona_prs.class);
-                                    Toast.makeText(getActivity(), "Bien venido " + persona.getNombre_prs(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getActivity(), "Bien venido " + persona.getNombre_prs(), Toast.LENGTH_SHORT).show();
 
                                     //si es valiente
                                     if (persona.getUsuariotipo_prs() == getResources().getInteger(R.integer.rol_valiente)) {
@@ -207,7 +207,7 @@ public class V_04 extends Fragment {
                             }
                         });
                     } else {
-                        Toast.makeText(getActivity(), "El email_prs o la contraseña es incorrecta", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "El email_prs o la contraseña es incorrecta", Toast.LENGTH_SHORT).show();
                     }
                     pdg.dismiss();
                 });

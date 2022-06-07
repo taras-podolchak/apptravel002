@@ -41,7 +41,7 @@ public class MainActivity_col extends AppCompatActivity implements NavigationVie
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMainActivityCol.toolbar);
-        binding.appBarMainActivityCol.fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+        binding.appBarMainActivityCol.fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_SHORT)
                 .setAction("Action", null).show());
 
         DrawerLayout drawer = binding.drawerLayoutCol.findViewById(R.id.drawer_layout_col);
@@ -124,21 +124,21 @@ public class MainActivity_col extends AppCompatActivity implements NavigationVie
         if (id == R.id.colaborador) {
             if (sesionIniciada == getResources().getInteger(R.integer.rol_no_iniciada)) {
                 startActivity(new Intent(this, MainActivity_col.class).putExtra("abrirEnMainActivity_col", getResources().getInteger(R.integer.accion_a_v04)));
-                Toast.makeText(this, "Inicie la sesion por favor", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Inicie la sesion por favor", Toast.LENGTH_SHORT).show();
             } else if (sesionIniciada == getResources().getInteger(R.integer.rol_colaborador)) {
                 startActivity(new Intent(this, MainActivity_col.class).putExtra("abrirEnMainActivity_col", getResources().getInteger(R.integer.accion_a_v01)));
             } else {
-                Toast.makeText(this, "No tienes permisos", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
             }
         }
         if (id == R.id.administrador) {
             if (sesionIniciada == getResources().getInteger(R.integer.rol_no_iniciada)) {
                 startActivity(new Intent(this, MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", getResources().getInteger(R.integer.accion_a_v04)));
-                Toast.makeText(this, "Inicie la sesion por favor", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Inicie la sesion por favor", Toast.LENGTH_SHORT).show();
             } else if (sesionIniciada == getResources().getInteger(R.integer.rol_administrador)) {
                 startActivity(new Intent(this, MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", getResources().getInteger(R.integer.accion_a_v01)));
             } else {
-                Toast.makeText(this, "No tienes permisos", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
             }
         }
         if (id == R.id.cerrar_session) {

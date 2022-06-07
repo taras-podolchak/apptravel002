@@ -2,7 +2,6 @@ package com.appvisibility.apptravel002.ui.service;
 
 import static com.appvisibility.apptravel002.MainActivity_val.sesionIniciada;
 
-import android.app.DialogFragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
@@ -17,14 +16,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.appvisibility.apptravel002.MainActivity_val;
 import com.appvisibility.apptravel002.R;
-import com.appvisibility.apptravel002.ui.controller.V_05_2;
-import com.appvisibility.apptravel002.ui.controller.modal.InformePlazas;
+import com.appvisibility.apptravel002.ui.controller.modal.V_05_2_modal;
 import com.appvisibility.apptravel002.ui.entities.Inscribir_eveprs;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -47,12 +47,12 @@ public class v03_00_prs_Adapter extends RecyclerView.Adapter<v03_00_prs_Adapter.
     private int plazaslibres_eveprs;
     private Map<Integer, Persona_prs> map_IdIns_Prs = new HashMap<>();
     private Map<Integer, Inscribir_eveprs> map_Posicion_Inscrito = new HashMap<>();
-    FirebaseStorage fbs = FirebaseStorage.getInstance();
-    StorageReference str = fbs.getReference();
-    Context context;
-    int id_eve_bundle;
-    int id_tpr_enProceso = 0;
-    int id_prs_enProceso;
+    private FirebaseStorage fbs = FirebaseStorage.getInstance();
+    private StorageReference str = fbs.getReference();
+    private Context context;
+    private int id_eve_bundle;
+    private int id_tpr_enProceso = 0;
+    private int id_prs_enProceso;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public v03_00_prs_Adapter(List<Persona_prs> personasInscritos, List<Inscribir_eveprs> inscritos, Context context, int id_eve_bundle) {
@@ -138,7 +138,7 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-//                Toast.makeText(getActivity(), "GET IMAGE FAILED", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity(), "GET IMAGE FAILED", Toast.LENGTH_SHORT).show();
                 // Handle any errors
             }
         });
@@ -209,13 +209,16 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
                 Bundle bundlePersonasEnCoche = new Bundle();
                 bundlePersonasEnCoche.putParcelableArrayList("personaParaV_05_2", (ArrayList<? extends Parcelable>) personasEnCoche);
 
-                if (sesionIniciada > 1 && sesionIniciada <= 3) {
-//                if ((sesionIniciada == 1 || sesionIniciada == 3) && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs()>=0) {
+                // TODO EOB: Sustituir condicion del if por "roll == colaborador"
+                if (sesionIniciada == view.getResources().getInteger(R.integer.rol_valiente)) {
+                    FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
+                    DialogFragment v_05_2 = new V_05_2_modal();
+                    v_05_2.setArguments(bundlePersonasEnCoche);
+                    v_05_2.show(manager, "dialog");
+                } else if (sesionIniciada == view.getResources().getInteger(R.integer.rol_colaborador) || sesionIniciada == view.getResources().getInteger(R.integer.rol_administrador)) {
                     Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundlePersona);
-                } else if (sesionIniciada == 1 && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs()<0) {
-                    Toast.makeText((context.getApplicationContext()), "Inscrito sin Plaza de Transporte", Toast.LENGTH_LONG).show();
                 } else {
-                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_v05_2, bundlePersonasEnCoche);
+                    Toast.makeText((context.getApplicationContext()), "Usuario no controlado", Toast.LENGTH_SHORT).show();
                 }
                 /*
                  * Notificamos cambios para que el contenedor se entere y refresque los datos

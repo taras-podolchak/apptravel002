@@ -152,7 +152,7 @@ public class V_04_1 extends Fragment {
     //2º MÉTODOS REGISTROFB
     private void registrarUsuario(View view) {
         if (!v04_1_condicioneslegales_prs.isChecked() /*|| !cbTerminos.isChecked()*/) {
-            Toast.makeText(getActivity(), "Debes aceptar los términos y condiciones", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Debes aceptar los términos y condiciones", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -169,31 +169,31 @@ public class V_04_1 extends Fragment {
 
         //Verificamos que las cajas de texto no estén vacías
         if (TextUtils.isEmpty(nombre_prs)) {
-            Toast.makeText(getActivity(), "Se debe ingresar el nombre_prs", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Se debe ingresar el nombre_prs", Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(apellido1_prs)) {
-            Toast.makeText(getActivity(), "Se debe ingresar el apellido1_prs", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Se debe ingresar el apellido1_prs", Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(email_prs)) {
-            Toast.makeText(getActivity(), "Se debe ingresar el email_prs", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Se debe ingresar el email_prs", Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(contrasenna1_prs)) {
-            Toast.makeText(getActivity(), "Se debe ingresar la contraseña", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Se debe ingresar la contraseña", Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(contrasenna2_prs)) {
-            Toast.makeText(getActivity(), "Se debe confirmar la contraseña", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Se debe confirmar la contraseña", Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(dni_prs)) {
-            Toast.makeText(getActivity(), "Se debe ingresar el DNI", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Se debe ingresar el DNI", Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(movil_prs)) {
-            Toast.makeText(getActivity(), "Se debe ingresar un movil_prs", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Se debe ingresar un movil_prs", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -201,7 +201,7 @@ public class V_04_1 extends Fragment {
         if (contrasenna1_prs.equals(contrasenna2_prs)) {
             contrasenna_prs = contrasenna1_prs;
         } else {
-            Toast.makeText(getActivity(), "Las contraseñas no coinciden", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -222,14 +222,14 @@ public class V_04_1 extends Fragment {
 
                         //comprobando el éxito
                         if (task.isSuccessful()) {
-                            Toast.makeText(getActivity(), "Se ha registrado el usuario: " + nombre_prs + " " + apellido1_prs, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Se ha registrado el usuario: " + nombre_prs + " " + apellido1_prs, Toast.LENGTH_SHORT).show();
 
                             //añadomos el usuario a FirebaseFirestore
                             fbf.collection("persona_prs").document(fba.getUid()).set(user);
                             sesionIniciada = usuariotipo;
                             Navigation.findNavController(view).navigate(R.id.action_nav_v04_1_to_nav_v05, bundleEvento);
                         } else {
-                            Toast.makeText(getActivity(), "Ya existe el usuario con el mismo mail", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Ya existe el usuario con el mismo mail", Toast.LENGTH_SHORT).show();
                         }
                         pdg.dismiss();
                     }

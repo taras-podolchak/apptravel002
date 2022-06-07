@@ -115,7 +115,7 @@ public class C_05 extends Fragment {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-                Toast.makeText(getActivity(), "Error de cargar la imagen", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Error de cargar la imagen", Toast.LENGTH_SHORT).show();
             }
         });
         c05_direccion_prs.setText(personaEnProceso.getDireccion_prs());

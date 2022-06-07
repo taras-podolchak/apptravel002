@@ -35,6 +35,7 @@
     <string name="limpiar_campos">Limpiar campos</string>
     <string name="cancelar">Cancelar</string>
     <string name="eliminar">Eliminar</string>
+    <string name="editar">Editar</string>
     <string name="aniadir_actividad">Añadir actividad</string>
 
     <!-- pantalla c_05-->
@@ -89,7 +90,8 @@
 
     <!-- v02_00_eve_Adapter -->
     <integer name="accion_a_v_03">0</integer>
-    <integer name="accion_rellenar_formulario">1</integer><!-- esta accion rellena el formulario en a_add_eve -->
+    <integer name="accion_rellenar_formulario">1
+    </integer><!-- esta accion rellena el formulario en a_add_eve -->
 
     <!-- pantalla v_06 -->
     <string name="gracias_por">Gracias por colaborar con nosotros.En breve resibirás un Email con la confirmacion de registro</string>
@@ -109,8 +111,12 @@
     <integer name="accion_a_v04">-1</integer>
     <integer name="accion_a_v01">0</integer>
 
+    <!-- estados de los eventos -->
+    <integer name="confirmado">-1</integer>
+    <integer name="pendiente">-1</integer>
+    <integer name="realizado">0</integer>
+
     <!-- Configuracion acceso a Google maps -->
-    <string name="google_maps_key" templateMergeStrategy="preserve"
-        translatable="false">AIzaSyDchp8aiML5Coi50fk6asG9nUF06Cmj69g</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDchp8aiML5Coi50fk6asG9nUF06Cmj69g</string>
 
 </resources>

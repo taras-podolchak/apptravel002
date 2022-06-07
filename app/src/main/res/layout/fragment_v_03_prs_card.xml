@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".ui.controller.V_03">
-    <!--    tools:context=".ui.controller.V_02"-->
 
     <androidx.cardview.widget.CardView
         android:id="@+id/v03_cdv_persona"
