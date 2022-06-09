@@ -14,6 +14,7 @@
             android:id="@+id/action_nav_inicio_v01_to_nav_v02"
             app:destination="@id/nav_v02" />
     </fragment>
+
     <fragment
         android:id="@+id/nav_v02"
         android:name="com.appvisibility.apptravel002.ui.controller.V_02"
@@ -22,6 +23,7 @@
             android:id="@+id/action_nav_v02_to_nav_inicio_v01"
             app:destination="@id/nav_v01" />
     </fragment>
+
     <fragment
         android:id="@+id/nav_v02_eve_card"
         android:name="com.appvisibility.apptravel002.ui.controller.V_02"
@@ -30,6 +32,7 @@
             android:id="@+id/action_nav_v02_eve_card_to_nav_v03"
             app:destination="@id/nav_v03" />
     </fragment>
+
     <fragment
         android:id="@+id/nav_v03"
         android:name="com.appvisibility.apptravel002.ui.controller.V_03"
@@ -47,14 +50,14 @@
             android:id="@+id/action_nav_v03_to_nav_v05_1"
             app:destination="@id/nav_v05_1" />
         <action
-            android:id="@+id/action_nav_v03_to_nav_c05"
-            app:destination="@id/nav_c05" />
+            android:id="@+id/action_nav_v03_to_nav_C_03_1"
+            app:destination="@id/nav_C_03_1" />
     </fragment>
+
     <fragment
         android:id="@+id/nav_v04"
         android:name="com.appvisibility.apptravel002.ui.controller.V_04"
         tools:layout="@layout/fragment_v_04" >
-
         <action
             android:id="@+id/action_nav_v04_to_nav_v03"
             app:destination="@id/nav_v03" />
@@ -68,6 +71,7 @@
             android:id="@+id/action_nav_v04_to_nav_inicio_v01"
             app:destination="@id/nav_v01" />
     </fragment>
+
     <fragment
         android:id="@+id/nav_v04_1"
         android:name="com.appvisibility.apptravel002.ui.controller.V_04_1"
@@ -79,6 +83,7 @@
             android:id="@+id/action_nav_v04_1_to_nav_v05"
             app:destination="@id/nav_v05" />
     </fragment>
+
     <fragment
         android:id="@+id/nav_v05"
         android:name="com.appvisibility.apptravel002.ui.controller.V_05"
@@ -101,6 +106,7 @@
             android:id="@+id/action_nav_v05_1_to_nav_v05"
             app:destination="@id/nav_v05" />
     </fragment>
+
     <fragment
         android:id="@+id/nav_v06"
         android:name="com.appvisibility.apptravel002.ui.controller.V_06"
@@ -109,14 +115,16 @@
             android:id="@+id/action_nav_v06_to_nav_inicio_v01"
             app:destination="@id/nav_v01" />
     </fragment>
+
     <fragment
-        android:id="@+id/nav_c05"
-        android:name="com.appvisibility.apptravel002.ui.controller.C_05"
-        tools:layout="@layout/fragment_c_05" >
+        android:id="@+id/nav_C_03_1"
+        android:name="com.appvisibility.apptravel002.ui.controller.C_03_1"
+        tools:layout="@layout/fragment_c_03_1" >
         <action
-            android:id="@+id/action_nav_c05_to_nav_v03"
+            android:id="@+id/action_nav_C_03_1_to_nav_v03"
             app:destination="@id/nav_v03" />
     </fragment>
+
     <fragment
         android:id="@+id/nav_a_create_eve"
         android:name="com.appvisibility.apptravel002.ui.controller.A_add_eve"

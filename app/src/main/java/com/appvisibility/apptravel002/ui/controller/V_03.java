@@ -240,7 +240,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
                         .filter(act -> act.getId_eve() == id_eve_enProceso)
                         .collect(Collectors.toList());
                 //Cargamos los Actividades del Evento
-                v03_adapter_act = new v03_00_act_Adapter(actividadesFiltrados, mContext, getResources().getInteger(R.integer.accion_a_web));
+                v03_adapter_act = new v03_00_act_Adapter(actividadesFiltrados, mContext, getResources().getInteger(R.integer.accion_a_web),null, 0);
                 v03_recycler_act.setAdapter(v03_adapter_act);
             }
         });

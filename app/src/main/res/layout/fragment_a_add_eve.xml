@@ -26,221 +26,236 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="@string/creacion_de_evento"
-                    android:textAlignment="center"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/a_add_eve_rcv_eventos"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="20dp"
-                    android:clickable="true"
-                    android:scrollbars="horizontal" />
-
-                <EditText
-                    android:id="@+id/a_add_eve_etx_titulo_eve"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/titulo"
-                    android:textSize="20sp" />
-
-                <ImageView
-                    android:id="@+id/a_add_eve_imv_foto_eve"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:pointerIcon="zoom_in"
-                    app:srcCompat="@drawable/ic_menu_gallery" />
-
+                <!-- eve -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/a_add_eve_etx_fechaidatru_eve"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:hint="@string/fecha_ida" />
+                        android:layout_margin="10dp"
+                        android:text="@string/creacion_de_evento"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
-                    <EditText
-                        android:id="@+id/a_add_eve_etx_fechavueltatru_eve"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/a_add_eve_rcv_eventos"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:hint="@string/fecha_vuelta" />
+                        android:layout_marginVertical="20dp"
+                        android:clickable="true"
+                        android:scrollbars="horizontal" />
 
+                    <EditText
+                        android:id="@+id/a_add_eve_etx_titulo_eve"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/titulo"
+                        android:textSize="20sp" />
+
+                    <ImageView
+                        android:id="@+id/a_add_eve_imv_foto_eve"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:pointerIcon="zoom_in"
+                        app:srcCompat="@drawable/ic_menu_gallery" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/a_add_eve_etx_fechaidatru_eve"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:hint="@string/fecha_ida" />
+
+                        <EditText
+                            android:id="@+id/a_add_eve_etx_fechavueltatru_eve"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:hint="@string/fecha_vuelta" />
+
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/a_add_eve_etx_nivel_eve"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/nivel" />
+
+                    <EditText
+                        android:id="@+id/a_add_eve_etx_salidaidatru_eve"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/fecha_salida" />
+
+                    <EditText
+                        android:id="@+id/a_add_eve_etx_llegadaidatru_eve"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/fecha_llegada" />
+
+                    <EditText
+                        android:id="@+id/a_add_eve_etx_distanciaidatru_eve"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/distancia_ida" />
+
+                    <EditText
+                        android:id="@+id/a_add_eve_etx_distanciavueltatru_eve"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/distancia_vuelta" />
+
+                    <EditText
+                        android:id="@+id/a_add_eve_etx_llegadacoordenadastru_eve"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/llegada_coordenadas" />
+
+                    <EditText
+                        android:id="@+id/a_add_eve_etx_salidacoordenadastru_eve"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/salida_coordenadas" />
+
+                    <EditText
+                        android:id="@+id/a_add_eve_etx_llegadavueltatru_eve"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/llegada_vuelta" />
+
+                    <EditText
+                        android:id="@+id/a_add_eve_etx_precio_eve"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/precio" />
+
+                    <EditText
+                        android:id="@+id/a_add_eve_etx_transportetipo_eve"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/transporte" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="@string/creacion_de_actividades"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
-                <EditText
-                    android:id="@+id/a_add_eve_etx_nivel_eve"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/nivel" />
-
-                <EditText
-                    android:id="@+id/a_add_eve_etx_salidaidatru_eve"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/fecha_salida" />
-
-                <EditText
-                    android:id="@+id/a_add_eve_etx_llegadaidatru_eve"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/fecha_llegada" />
-
-                <EditText
-                    android:id="@+id/a_add_eve_etx_distanciaidatru_eve"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/distancia_ida" />
-
-                <EditText
-                    android:id="@+id/a_add_eve_etx_distanciavueltatru_eve"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/distancia_vuelta" />
-
-                <EditText
-                    android:id="@+id/a_add_eve_etx_llegadacoordenadastru_eve"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/llegada_coordenadas" />
-
-                <EditText
-                    android:id="@+id/a_add_eve_etx_salidacoordenadastru_eve"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/salida_coordenadas" />
-
-                <EditText
-                    android:id="@+id/a_add_eve_etx_llegadavueltatru_eve"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/llegada_vuelta" />
-
-                <EditText
-                    android:id="@+id/a_add_eve_etx_precio_eve"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/precio" />
-
-                <EditText
-                    android:id="@+id/a_add_eve_etx_transportetipo_eve"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/transporte" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="@string/creacion_de_actividades"
-                    android:textAlignment="center"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
+                <!-- act1 -->
                 <LinearLayout
                     android:id="@+id/a_add_eve_ll_añadir_act1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/conteneder_con_borde"
                     android:orientation="vertical">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/a_add_eve_rcv_actividades"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:scrollbars="horizontal" />
-
-                    <EditText
-                        android:id="@+id/a_add_eve_etx_nombre_act"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/nombre"
-                        android:textAlignment="center" />
-
-                    <EditText
-                        android:id="@+id/a_add_eve_etx_actividadtipo_act"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/tipo"
-                        android:textAlignment="center" />
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:background="@drawable/conteneder_con_borde"
+                        android:orientation="vertical">
 
-                        <EditText
-                            android:id="@+id/a_add_eve_etx_fecha_act"
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/a_add_eve_rcv_actividad1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            android:hint="@string/fecha" />
+                            android:scrollbars="horizontal" />
 
                         <EditText
-                            android:id="@+id/a_add_eve_etx_nivel_act"
+                            android:id="@+id/a_add_eve_etx_nombre_act1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
+                            android:hint="@string/nombre"
+                            android:textAlignment="center" />
+
+                        <EditText
+                            android:id="@+id/a_add_eve_etx_actividadtipo_act1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/tipo"
+                            android:textAlignment="center" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_fecha_act1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:hint="@string/fecha" />
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_nivel_act1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:hint="@string/nivel" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_distancia_act1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="4"
+                                android:gravity="center"
+                                android:hint="Distancia" />
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_desnivel_act1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="4"
+                                android:gravity="center"
+                                android:hint="@string/desnivel" />
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_horas_act1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:gravity="center"
+                                android:hint="@string/horas" />
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/a_add_eve_etx_wikiloc_act1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:hint="@string/nivel" />
+                            android:hint="@string/wikiloc" />
+
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <EditText
-                            android:id="@+id/a_add_eve_etx_distancia_act"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="4"
-                            android:gravity="center"
-                            android:hint="Distancia" />
-
-                        <EditText
-                            android:id="@+id/a_add_eve_etx_desnivel_act"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="4"
-                            android:gravity="center"
-                            android:hint="@string/desnivel" />
-
-                        <EditText
-                            android:id="@+id/a_add_eve_etx_horas_act"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="3"
-                            android:gravity="center"
-                            android:hint="@string/horas" />
-                    </LinearLayout>
-
-                    <EditText
-                        android:id="@+id/a_add_eve_etx_wikiloc_act"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:hint="@string/wikiloc" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/a_add_eve_btn_eliminar_act"
+                            android:id="@+id/a_add_eve_btn_eliminar_act1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
@@ -248,105 +263,114 @@
                             android:text="@string/eliminar" />
 
                         <Button
-                            android:id="@+id/a_add_eve_btn_aniadir_act"
+                            android:id="@+id/a_add_eve_btn_aniadir_act1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
                             android:background="@drawable/btn_formato_right"
-                            android:text="@string/aniadir_actividad" />
+                            android:text="@string/aniadir_otra" />
                     </LinearLayout>
                 </LinearLayout>
 
+                <!-- act2 -->
                 <LinearLayout
                     android:id="@+id/a_add_eve_ll_añadir_act2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/conteneder_con_borde"
-                    android:orientation="vertical">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/a_add_eve_rcv_actividades2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:scrollbars="horizontal" />
-
-                    <EditText
-                        android:id="@+id/a_add_eve_etx_nombre_act2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/nombre"
-                        android:textAlignment="center" />
-
-                    <EditText
-                        android:id="@+id/a_add_eve_etx_actividadtipo_act2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/tipo"
-                        android:textAlignment="center" />
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:background="@drawable/conteneder_con_borde"
+                        android:orientation="vertical">
 
-                        <EditText
-                            android:id="@+id/a_add_eve_etx_fecha_act2"
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/a_add_eve_rcv_actividad2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            android:hint="@string/fecha" />
+                            android:scrollbars="horizontal" />
 
                         <EditText
-                            android:id="@+id/a_add_eve_etx_nivel_act2"
+                            android:id="@+id/a_add_eve_etx_nombre_act2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
+                            android:hint="@string/nombre"
+                            android:textAlignment="center" />
+
+                        <EditText
+                            android:id="@+id/a_add_eve_etx_actividadtipo_act2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/tipo"
+                            android:textAlignment="center" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_fecha_act2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:hint="@string/fecha" />
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_nivel_act2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:hint="@string/nivel" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_distancia_act2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="4"
+                                android:gravity="center"
+                                android:hint="@string/distancia" />
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_desnivel_act2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="4"
+                                android:gravity="center"
+                                android:hint="@string/desnivel" />
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_horas_act2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:gravity="center"
+                                android:hint="@string/horas" />
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/a_add_eve_etx_wikiloc_act2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:hint="@string/nivel" />
+                            android:hint="@string/wikiloc" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <EditText
-                            android:id="@+id/a_add_eve_etx_distancia_act2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="4"
-                            android:gravity="center"
-                            android:hint="@string/distancia" />
-
-                        <EditText
-                            android:id="@+id/a_add_eve_etx_desnivel_act2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="4"
-                            android:gravity="center"
-                            android:hint="@string/desnivel" />
-
-                        <EditText
-                            android:id="@+id/a_add_eve_etx_horas_act2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="3"
-                            android:gravity="center"
-                            android:hint="@string/horas" />
-                    </LinearLayout>
-
-                    <EditText
-                        android:id="@+id/a_add_eve_etx_wikiloc_act2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:hint="@string/wikiloc" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
                         android:orientation="horizontal">
 
                         <Button
@@ -363,12 +387,370 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
                             android:background="@drawable/btn_formato_right"
-                            android:text="@string/aniadir_actividad" />
+                            android:text="@string/aniadir_otra" />
                     </LinearLayout>
                 </LinearLayout>
+
+                <!-- act3 -->
+                <LinearLayout
+                    android:id="@+id/a_add_eve_ll_añadir_act3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/conteneder_con_borde"
+                        android:orientation="vertical">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/a_add_eve_rcv_actividad3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:scrollbars="horizontal" />
+
+                        <EditText
+                            android:id="@+id/a_add_eve_etx_nombre_act3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/nombre"
+                            android:textAlignment="center" />
+
+                        <EditText
+                            android:id="@+id/a_add_eve_etx_actividadtipo_act3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/tipo"
+                            android:textAlignment="center" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_fecha_act3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:hint="@string/fecha" />
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_nivel_act3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:hint="@string/nivel" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_distancia_act3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="4"
+                                android:gravity="center"
+                                android:hint="Distancia" />
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_desnivel_act3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="4"
+                                android:gravity="center"
+                                android:hint="@string/desnivel" />
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_horas_act3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:gravity="center"
+                                android:hint="@string/horas" />
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/a_add_eve_etx_wikiloc_act3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:hint="@string/wikiloc" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/a_add_eve_btn_eliminar_act3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:background="@drawable/btn_formato_left"
+                            android:text="@string/eliminar" />
+
+                        <Button
+                            android:id="@+id/a_add_eve_btn_aniadir_act3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:background="@drawable/btn_formato_right"
+                            android:text="@string/aniadir_otra" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- act4 -->
+                <LinearLayout
+                    android:id="@+id/a_add_eve_ll_añadir_act4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/conteneder_con_borde"
+                        android:orientation="vertical">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/a_add_eve_rcv_actividad4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:scrollbars="horizontal" />
+
+                        <EditText
+                            android:id="@+id/a_add_eve_etx_nombre_act4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/nombre"
+                            android:textAlignment="center" />
+
+                        <EditText
+                            android:id="@+id/a_add_eve_etx_actividadtipo_act4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/tipo"
+                            android:textAlignment="center" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_fecha_act4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:hint="@string/fecha" />
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_nivel_act4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:hint="@string/nivel" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_distancia_act4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="4"
+                                android:gravity="center"
+                                android:hint="Distancia" />
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_desnivel_act4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="4"
+                                android:gravity="center"
+                                android:hint="@string/desnivel" />
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_horas_act4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:gravity="center"
+                                android:hint="@string/horas" />
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/a_add_eve_etx_wikiloc_act4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:hint="@string/wikiloc" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/a_add_eve_btn_eliminar_act4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:background="@drawable/btn_formato_left"
+                            android:text="@string/eliminar" />
+
+                        <Button
+                            android:id="@+id/a_add_eve_btn_aniadir_act4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:background="@drawable/btn_formato_right"
+                            android:text="@string/aniadir_otra" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- act5 -->
+                <LinearLayout
+                    android:id="@+id/a_add_eve_ll_añadir_act5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/conteneder_con_borde"
+                        android:orientation="vertical">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/a_add_eve_rcv_actividad5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:scrollbars="horizontal" />
+
+                        <EditText
+                            android:id="@+id/a_add_eve_etx_nombre_act5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/nombre"
+                            android:textAlignment="center" />
+
+                        <EditText
+                            android:id="@+id/a_add_eve_etx_actividadtipo_act5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/tipo"
+                            android:textAlignment="center" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_fecha_act5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:hint="@string/fecha" />
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_nivel_act5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:hint="@string/nivel" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_distancia_act5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="4"
+                                android:gravity="center"
+                                android:hint="Distancia" />
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_desnivel_act5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="4"
+                                android:gravity="center"
+                                android:hint="@string/desnivel" />
+
+                            <EditText
+                                android:id="@+id/a_add_eve_etx_horas_act5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:gravity="center"
+                                android:hint="@string/horas" />
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/a_add_eve_etx_wikiloc_act5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:hint="@string/wikiloc" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/a_add_eve_btn_eliminar_act5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:background="@drawable/btn_formato_left"
+                            android:text="@string/eliminar" />
+
+                        <Button
+                            android:id="@+id/a_add_eve_btn_aniadir_act5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:background="@drawable/btn_formato_right"
+                            android:text="@string/aniadir_otra" />
+                    </LinearLayout>
+                </LinearLayout>
+
             </LinearLayout>
         </ScrollView>
-
+        <!-- 3btn -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

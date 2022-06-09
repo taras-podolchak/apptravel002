@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.appvisibility.apptravel002.databinding.ActivityMainValBinding;
 import com.appvisibility.apptravel002.ui.controller.modal.OnBackPressed;
 import com.appvisibility.apptravel002.ui.controller.V_03;
-import com.appvisibility.apptravel002.ui.controller.modal.V_05_2_modal;
+import com.appvisibility.apptravel002.ui.controller.modal.V_03_2_modal;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -207,8 +207,8 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
 // Cuando queremos mostrar en un fragmento: getFragmentManager()
     public void onBackPressed() {
         V_03.v03_atras.performClick();
-        if (V_05_2_modal.solicitudRealizada) {
-            DialogFragment dialogFragment = OnBackPressed.newInstance("Has solicitado plaza en el coche de: ", V_05_2_modal.personaOferente.getApodo_prs().toUpperCase() + "\n");
+        if (V_03_2_modal.solicitudRealizada) {
+            DialogFragment dialogFragment = OnBackPressed.newInstance("Has solicitado plaza en el coche de: ", V_03_2_modal.personaOferente.getApodo_prs().toUpperCase() + "\n");
             dialogFragment.show(getFragmentManager(), "tag");
 //            dialogFragment.show(getActivity().getFragmentManager(),"tag");
             super.onBackPressed();

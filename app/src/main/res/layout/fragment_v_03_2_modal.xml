@@ -4,7 +4,7 @@
     android:id="@+id/LinearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ui.controller.modal.V_05_2_modal">
+    tools:context=".ui.controller.modal.V_03_2_modal">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/v05_2_txv_titulo"
+                    android:id="@+id/v03_2_txv_titulo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
@@ -36,7 +36,7 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
                     <ImageView
-                        android:id="@+id/v05_2_cdv_imv_ico_coche"
+                        android:id="@+id/v03_2_cdv_imv_ico_coche"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
@@ -50,7 +50,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/v05_2_txv_listaPlazas"
+                    android:id="@+id/v03_2_txv_listaPlazas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20dp" />
@@ -61,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
-                android:id="@+id/v05_2_btn_volver"
+                android:id="@+id/v03_2_btn_volver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -69,7 +69,7 @@
                 android:background="@drawable/btn_formato_left"
                 android:text="@string/volver" />
             <Button
-                android:id="@+id/v05_2_btn_confirmar"
+                android:id="@+id/v03_2_btn_confirmar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"

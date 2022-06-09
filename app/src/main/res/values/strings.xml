@@ -36,7 +36,7 @@
     <string name="cancelar">Cancelar</string>
     <string name="eliminar">Eliminar</string>
     <string name="editar">Editar</string>
-    <string name="aniadir_actividad">Añadir actividad</string>
+    <string name="aniadir_otra">Añadir otra</string>
 
     <!-- pantalla c_05-->
     <string name="valiente">Valiente</string>
@@ -56,6 +56,15 @@
     <string name="actividades">Actividades</string>
     <string name="volver">Volver</string>
     <string name="me_interesa">Me interesa</string>
+
+    <!-- pantalla v_03_1 -->
+    <string name="recomendaciones">Recomendaciones</string>
+    <string name="pago_senial">Pago señal</string>
+    <string name="pago_total">Pago total</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>  <!-- eliminar? -->
+
+    <!-- pantalla modal v_03_2-->
+    <string name="quieres_solicitar">¿Quieres solicitar una plaza de coche?</string>
 
     <!-- pantalla v_04 -->
     <string name="email">Email</string>
@@ -78,15 +87,6 @@
     <string name="aceptar">Aceptar</string>
 
     <!-- pantalla v_05? -->
-
-    <!-- pantalla v_05_1 -->
-    <string name="recomendaciones">Recomendaciones</string>
-    <string name="pago_senial">Pago señal</string>
-    <string name="pago_total">Pago total</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>  <!-- eliminar? -->
-
-    <!-- pantalla modal v_05_2-->
-    <string name="quieres_solicitar">¿Quieres solicitar una plaza de coche?</string>
 
     <!-- v02_00_eve_Adapter -->
     <integer name="accion_a_v_03">0</integer>

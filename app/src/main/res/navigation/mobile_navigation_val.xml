@@ -101,8 +101,8 @@
     </fragment>
     <fragment
         android:id="@+id/nav_v05_2"
-        android:name="com.appvisibility.apptravel002.ui.controller.modal.V_05_2_modal"
-        tools:layout="@layout/fragment_v_05_2_modal" >
+        android:name="com.appvisibility.apptravel002.ui.controller.modal.V_03_2_modal"
+        tools:layout="@layout/fragment_v_03_2_modal" >
         <action
             android:id="@+id/action_nav_v05_1_to_nav_v05"
             app:destination="@id/nav_v05" />

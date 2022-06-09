@@ -8,10 +8,10 @@
     android:background="@drawable/fondo_para_persona"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".ui.controller.C_05">
+    tools:context=".ui.controller.C_03_1">
 
     <LinearLayout
-        android:id="@+id/c05_LinearLayout"
+        android:id="@+id/c03_1_LinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -38,14 +38,14 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/c05_txv_apodo_prs"
+                    android:id="@+id/c03_1_txv_apodo_prs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/c05_txv_nombre_prs_apellido1_prs_apellido2_prs"
+                    android:id="@+id/c03_1_txv_nombre_prs_apellido1_prs_apellido2_prs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
@@ -64,7 +64,7 @@
                         android:layout_weight="2">
 
                         <ImageView
-                            android:id="@+id/c05_imv_fotopropia_prs"
+                            android:id="@+id/c03_1_imv_fotopropia_prs"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             tools:srcCompat="@tools:sample/avatars" />
@@ -79,33 +79,33 @@
                         android:padding="10dp">
 
                         <TextView
-                            android:id="@+id/c05_txv_movil_prs"
+                            android:id="@+id/c03_1_txv_movil_prs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
                         <TextView
-                            android:id="@+id/c05_txv_movil_whatsapp_prs"
+                            android:id="@+id/c03_1_txv_movil_whatsapp_prs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
                         <TextView
-                            android:id="@+id/c05_txv_email_prs"
+                            android:id="@+id/c03_1_txv_email_prs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
                         <TextView
-                            android:id="@+id/c05_txv_direccion_prs"
+                            android:id="@+id/c03_1_txv_direccion_prs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
 
                         <TextView
-                            android:id="@+id/c05_txv_localidad_prs_cpostal_prs"
+                            android:id="@+id/c03_1_txv_localidad_prs_cpostal_prs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
                         <TextView
-                            android:id="@+id/c05_txv_coche_prs"
+                            android:id="@+id/c03_1_txv_coche_prs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
@@ -138,19 +138,19 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/c05_txv_antiguedadpre_prs"
+                            android:id="@+id/c03_1_txv_antiguedadpre_prs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textAlignment="center" />
 
                         <TextView
-                            android:id="@+id/c05_txv_fiabilidadpre_prs"
+                            android:id="@+id/c03_1_txv_fiabilidadpre_prs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textAlignment="center" />
 
                         <TextView
-                            android:id="@+id/c05_txv_volumencomprapre_prs"
+                            android:id="@+id/c03_1_txv_volumencomprapre_prs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textAlignment="center" />
@@ -163,19 +163,19 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/c05_txv_cochepre_prs"
+                            android:id="@+id/c03_1_txv_cochepre_prs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textAlignment="center" />
 
                         <TextView
-                            android:id="@+id/c05_txv_valoracionorgpre_prs"
+                            android:id="@+id/c03_1_txv_valoracionorgpre_prs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textAlignment="center" />
 
                         <TextView
-                            android:id="@+id/c05_txv_nrelacionespre_prs"
+                            android:id="@+id/c03_1_txv_nrelacionespre_prs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textAlignment="center" />
@@ -200,13 +200,13 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/c05_txt_contacto1cargo_prs_contacto1movil_prs"
+                        android:id="@+id/c03_1_txt_contacto1cargo_prs_contacto1movil_prs"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAlignment="center" />
 
                     <TextView
-                        android:id="@+id/c05_txt_contacto2cargo_prs_contacto2movil_prs"
+                        android:id="@+id/c03_1_txt_contacto2cargo_prs_contacto2movil_prs"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAlignment="center" />
@@ -239,7 +239,7 @@
                         android:textAlignment="center">
 
                         <TextView
-                            android:id="@+id/c05_txv_fechaalta_prs_fechabaja_prs"
+                            android:id="@+id/c03_1_txv_fechaalta_prs_fechabaja_prs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textAlignment="center" />
@@ -250,14 +250,14 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/c05_txv_dni_prs"
+                                android:id="@+id/c03_1_txv_dni_prs"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:textAlignment="center" />
 
                             <TextView
-                                android:id="@+id/c05_txv_condicioneslegales_prs"
+                                android:id="@+id/c03_1_txv_condicioneslegales_prs"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -287,19 +287,19 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/c05_txv_nps01_prs_nps01_prs"
+                        android:id="@+id/c03_1_txv_nps01_prs_nps01_prs"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAlignment="center" />
 
                     <TextView
-                        android:id="@+id/c05_txv_nps02_prs_nps02_prs"
+                        android:id="@+id/c03_1_txv_nps02_prs_nps02_prs"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAlignment="center" />
 
                     <TextView
-                        android:id="@+id/c05_txv_nps03_prs_nps03_prs"
+                        android:id="@+id/c03_1_txv_nps03_prs_nps03_prs"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAlignment="center" />

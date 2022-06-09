@@ -24,7 +24,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appvisibility.apptravel002.R;
-import com.appvisibility.apptravel002.ui.controller.modal.V_05_2_modal;
+import com.appvisibility.apptravel002.ui.controller.modal.V_03_2_modal;
 import com.appvisibility.apptravel002.ui.entities.Inscribir_eveprs;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -37,7 +37,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class v03_00_prs_Adapter extends RecyclerView.Adapter<v03_00_prs_Adapter.ViewHolder> {
 
@@ -212,9 +211,9 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
                 // TODO EOB: Sustituir condicion del if por "roll == colaborador"
                 if (sesionIniciada == view.getResources().getInteger(R.integer.rol_valiente) && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs()>=0) {
                     FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
-                    DialogFragment v_05_2 = new V_05_2_modal();
-                    v_05_2.setArguments(bundlePersonasEnCoche);
-                    v_05_2.show(manager, "dialog");
+                    DialogFragment v_03_2 = new V_03_2_modal();
+                    v_03_2.setArguments(bundlePersonasEnCoche);
+                    v_03_2.show(manager, "dialog");
                 }else  if (sesionIniciada == view.getResources().getInteger(R.integer.rol_valiente) && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs()<0) {
                     Toast.makeText((context.getApplicationContext()), "Inscrito sin Plaza de Transporte", Toast.LENGTH_LONG).show();
                 } else if (sesionIniciada > view.getResources().getInteger(R.integer.rol_valiente) ) {
