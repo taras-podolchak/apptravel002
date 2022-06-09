@@ -524,21 +524,24 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
             this.id_new_act++;
         }
 
-
-
         Evento_eve evento_push = recuperacionEve();
 
         if (update_create) {
             evento_push.setId_eve(eventoEnProceso.getId_eve());
+            guardar_acts(eventoEnProceso.getId_eve());
             fbf.collection("evento_eve").document(Integer.toString(eventoEnProceso.getId_eve())).set(evento_push);
             Toast.makeText(getActivity(), "El evento se ha actualizado correctamente", Toast.LENGTH_SHORT).show();
         } else {
             if (imageUri != null)
                 evento_push.setFoto_eve(imageUri.getLastPathSegment());
+            guardar_acts(id_new_eve);
             fbf.collection("evento_eve").document(Integer.toString(id_new_eve)).set(evento_push);
             Toast.makeText(getActivity(), "El evento se ha creado correctamente", Toast.LENGTH_SHORT).show();
         }
+        Navigation.findNavController(view).navigate(R.id.action_nav_a_create_eve_to_nav_v01);
+    }
 
+    private void guardar_acts(int id_eve){
         Actividad_act act1 = recuperacionAct1();
         Actividad_act act2 = recuperacionAct2();
         Actividad_act act3 = recuperacionAct3();
@@ -546,31 +549,36 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
         Actividad_act act5 = recuperacionAct5();
 
         if (!act1.getNombre_act().isEmpty()) {
-            act1.setId_eve(id_new_eve);
+            act1.setId_eve(id_eve);
+            act1.setId_act(id_new_act);
             fbf.collection("actividad_act").document(Integer.toString(id_new_act)).set(act1);
             Toast.makeText(getActivity(), "act1 save", Toast.LENGTH_SHORT).show();
 
             if (!act2.getNombre_act().isEmpty()) {
                 id_new_act++;
-                act2.setId_eve(id_new_eve);
+                act2.setId_act(id_new_act);
+                act2.setId_eve(id_eve);
                 fbf.collection("actividad_act").document(Integer.toString(id_new_act)).set(act2);
                 Toast.makeText(getActivity(), "act2 save", Toast.LENGTH_SHORT).show();
 
                 if (!act3.getNombre_act().isEmpty()) {
                     id_new_act++;
-                    act3.setId_eve(id_new_eve);
+                    act3.setId_act(id_new_act);
+                    act3.setId_eve(id_eve);
                     fbf.collection("actividad_act").document(Integer.toString(id_new_act)).set(act3);
                     Toast.makeText(getActivity(), "act3 save", Toast.LENGTH_SHORT).show();
 
                     if (!act4.getNombre_act().isEmpty()) {
                         id_new_act++;
-                        act4.setId_eve(id_new_eve);
+                        act4.setId_act(id_new_act);
+                        act4.setId_eve(id_eve);
                         fbf.collection("actividad_act").document(Integer.toString(id_new_act)).set(act4);
                         Toast.makeText(getActivity(), "act4 save", Toast.LENGTH_SHORT).show();
 
                         if (!act5.getNombre_act().isEmpty()) {
                             id_new_act++;
-                            act5.setId_eve(id_new_eve);
+                            act5.setId_act(id_new_act);
+                            act5.setId_eve(id_eve);
                             fbf.collection("actividad_act").document(Integer.toString(id_new_act)).set(act5);
                             Toast.makeText(getActivity(), "act5 save", Toast.LENGTH_SHORT).show();
                         }
@@ -578,7 +586,6 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
                 }
             }
         }
-        Navigation.findNavController(view).navigate(R.id.action_nav_a_create_eve_to_nav_v01);
     }
 
     private Evento_eve recuperacionEve() {
