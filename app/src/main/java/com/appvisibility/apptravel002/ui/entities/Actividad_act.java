@@ -1,6 +1,7 @@
 package com.appvisibility.apptravel002.ui.entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Actividad_act implements Serializable {
 
@@ -25,76 +26,16 @@ public class Actividad_act implements Serializable {
         super();
     }
 
-    public Actividad_act(
-            int id_act,
-            int id_eve,
-            String fecha_act,
-            String actividadtipo_act,
-            String nombre_act,
-            String nivel_act,
-            int horas_act,
-            int desnivel_act,
-            int distancia_act
-    ) {
-        super();
+    public Actividad_act(int id_act, String nombre_act, String actividadtipo_act, String fecha_act, String nivel_act, int distancia_act, int desnivel_act, int horas_act, String wikiloc_act) {
         this.id_act = id_act;
-        this.id_eve = id_eve;
-        this.fecha_act = fecha_act;
-        this.actividadtipo_act = actividadtipo_act;
         this.nombre_act = nombre_act;
+        this.actividadtipo_act = actividadtipo_act;
+        this.fecha_act = fecha_act;
         this.nivel_act = nivel_act;
-        this.horas_act = horas_act;
-        this.desnivel_act = desnivel_act;
         this.distancia_act = distancia_act;
-    }
-
-    public Actividad_act(String nombre_act, String actividadtipo_act, String fecha_act, String nivel_act, int desnivel_act, int distancia_act, int horas_act, String wikiloc_act) {
-        super();
-        this.fecha_act = fecha_act;
-        this.actividadtipo_act = actividadtipo_act;
-        this.nombre_act = nombre_act;
-        this.nivel_act = nivel_act;
+        this.desnivel_act = desnivel_act;
         this.horas_act = horas_act;
         this.wikiloc_act = wikiloc_act;
-        this.desnivel_act = desnivel_act;
-        this.distancia_act = distancia_act;
-    }
-
-    public Actividad_act(
-            int id_act,
-            int id_eve,
-            String fecha_act,
-            String actividadtipo_act,
-            String nombre_act,
-            String foto_act,
-            String descactividad_act,
-            String nivel_act,
-            String salida_act,
-            String salidacoordenadas_act,
-            String llegada_act,
-            String llegadacoordenadastru_eve,
-            int horas_act,
-            String wikiloc_act,
-            int desnivel_act,
-            int distancia_act
-    ) {
-        super();
-        this.id_act = id_act;
-        this.id_eve = id_eve;
-        this.fecha_act = fecha_act;
-        this.actividadtipo_act = actividadtipo_act;
-        this.nombre_act = nombre_act;
-        this.foto_act = foto_act;
-        this.descactividad_act = descactividad_act;
-        this.nivel_act = nivel_act;
-        this.salida_act = salida_act;
-        this.salidacoordenadas_act = salidacoordenadas_act;
-        this.llegada_act = llegada_act;
-        this.llegadacoordenadastru_eve = llegadacoordenadastru_eve;
-        this.horas_act = horas_act;
-        this.wikiloc_act = wikiloc_act;
-        this.desnivel_act = desnivel_act;
-        this.distancia_act = distancia_act;
     }
 
     public int getId_act() {
@@ -223,6 +164,19 @@ public class Actividad_act implements Serializable {
 
     public void setDistancia_act(int distancia_act) {
         this.distancia_act = distancia_act;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Actividad_act that = (Actividad_act) o;
+        return horas_act == that.horas_act && desnivel_act == that.desnivel_act && distancia_act == that.distancia_act && Objects.equals(fecha_act, that.fecha_act) && Objects.equals(actividadtipo_act, that.actividadtipo_act) && nombre_act.equals(that.nombre_act) && Objects.equals(nivel_act, that.nivel_act) && Objects.equals(wikiloc_act, that.wikiloc_act);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fecha_act, actividadtipo_act, nombre_act, nivel_act, horas_act, wikiloc_act, desnivel_act, distancia_act);
     }
 
     @Override

@@ -32,6 +32,7 @@
     <string name="horas">Horas</string>
     <string name="wikiloc">Wikiloc</string>
     <string name="guardar">Guardar</string>
+    <string name="quitar_de_evento">Quitar de evento</string>
     <string name="limpiar_campos">Limpiar campos</string>
     <string name="cancelar">Cancelar</string>
     <string name="eliminar">Eliminar</string>
@@ -122,4 +123,23 @@
     <!-- Configuracion acceso a Google maps -->
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDchp8aiML5Coi50fk6asG9nUF06Cmj69g</string>
 
+    <!-- prueba con el tiempo -->
+    <string name="weather">Clima</string>
+    <string name="country_iso_code">Código ISO del País :</string>
+    <string name="code">Código</string>
+    <string name="city_name">Nombre de Ciudad :</string>
+    <string name="name">Nombre</string>
+    <string name="get">Obtener</string>
+    <string name="tiempo">Tiempo</string>
+    <string name="current">Actual :</string>
+    <string name="se_siente_como">Se siente como :</string>
+    <string name="minimum">Mínima :</string>
+    <string name="maximum">Máxima :</string>
+    <string name="presion">Presión :</string>
+    <string name="humedad">Humedad :</string>
+    <string name="velocidad">Velocidad :</string>
+    <string name="dirección">Dirección :</string>
+    <string name="nubes">Nubes :</string>
+    <string name="visibilidad">Visibilidad :</string>
+    <string name="Fields_cannot_be_empty">Los campos no pueden ser vacíos</string>
 </resources>

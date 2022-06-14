@@ -6,17 +6,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +15,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.controller.Interfaces.IDAO;
@@ -74,8 +72,8 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
     private List<Evento_eve> eventos = new ArrayList<>();
     private List<Actividad_act> actividades = new ArrayList<>();
     private Context mContext;
-    private Evento_eve eventoEnProceso;
-    private Actividad_act actividadEnProceso;
+    // private Evento_eve eventoEnProceso;
+    // private Actividad_act actividadEnProceso;
     private int id_new_eve;
     private int id_new_act;
     private Uri imageUri;
@@ -95,6 +93,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
     private RecyclerView v03_recycler_act5;
 
     //eve
+    private EditText a_add_eve_id_eve;
     private EditText a_add_eve_titulo_eve;
     private ImageView a_add_eve_foto_eve;
     private EditText a_add_eve_fechaidatru_eve;
@@ -114,6 +113,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
     private Button a_add_eve_cancelar;
 
     //act 1
+    private EditText a_add_eve_id_act1;
     private LinearLayout a_add_eve_añadir_act1;
     private EditText a_add_eve_nombre_act1;
     private EditText a_add_eve_actividadtipo_act1;
@@ -127,6 +127,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
     private Button a_add_eve_aniadir_act1;
 
     //act 2
+    private EditText a_add_eve_id_act2;
     private LinearLayout a_add_eve_añadir_act2;
     private EditText a_add_eve_nombre_act2;
     private EditText a_add_eve_actividadtipo_act2;
@@ -140,6 +141,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
     private Button a_add_eve_aniadir_act2;
 
     //act 3
+    private EditText a_add_eve_id_act3;
     private LinearLayout a_add_eve_añadir_act3;
     private EditText a_add_eve_nombre_act3;
     private EditText a_add_eve_actividadtipo_act3;
@@ -153,6 +155,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
     private Button a_add_eve_aniadir_act3;
 
     //act 4
+    private EditText a_add_eve_id_act4;
     private LinearLayout a_add_eve_añadir_act4;
     private EditText a_add_eve_nombre_act4;
     private EditText a_add_eve_actividadtipo_act4;
@@ -166,6 +169,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
     private Button a_add_eve_aniadir_act4;
 
     //act 5
+    private EditText a_add_eve_id_act5;
     private LinearLayout a_add_eve_añadir_act5;
     private EditText a_add_eve_nombre_act5;
     private EditText a_add_eve_actividadtipo_act5;
@@ -202,16 +206,10 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
     }
 
     @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable("eventoPara_a_add_eve", eventoEnProceso);
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            id_new_eve = getArguments().getInt("id_new_eve");
+           // id_new_eve = getArguments().getInt("id_new_eve");
         }
     }
 
@@ -237,7 +235,6 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
         tabla1ChangeListener(query1, eventos, Evento_eve.class, v02_adapter_eve);
 
         this.v02_recycler_eve.setAdapter(v02_adapter_eve);
-
 
         //RecyclerView de la actividad1
         this.v03_recycler_act1 = (RecyclerView) view.findViewById(R.id.a_add_eve_rcv_actividad1);
@@ -293,11 +290,8 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
 
         //los botones del evento
         a_add_eve_guardar.setOnClickListener(view1 -> {
-            if (a_add_eve_titulo_eve.getText().toString().isEmpty()) {
-                Toast.makeText(getActivity(), "Falta el titulo!", Toast.LENGTH_SHORT).show();
-            } else {
+            if (comprobacionDeLosCamposObligatorios())
                 modalConfirmacionUpdateOrCreate(view1);
-            }
         });
         a_add_eve_limpiar_campos.setOnClickListener(view13 -> limpiarEve());
         a_add_eve_cancelar.setOnClickListener(view13 -> Navigation.findNavController(view13).navigate(R.id.action_nav_a_create_eve_to_nav_v01));
@@ -389,8 +383,240 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
 
     }
 
+
+
+    private void changeNewImage(View view) {
+
+        final ProgressDialog pd = new ProgressDialog(mContext);
+        pd.setTitle("Cargando la imagen...");
+        pd.show();
+        str.child("Eventos/" + imageUri.getLastPathSegment()).putFile(imageUri)
+                .addOnSuccessListener(taskSnapshot -> {
+                    pd.dismiss();
+                    Snackbar.make(view, "La imagen se ha cargado con exito!", Snackbar.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    pd.dismiss();
+                    Toast.makeText(getActivity(), "Error a cargar la imagen!", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+
+    private boolean comprobacionDeLosCamposObligatorios() {
+        if (a_add_eve_titulo_eve.getText().toString().isEmpty()) {
+            Toast.makeText(getActivity(), "Falta el titulo!", Toast.LENGTH_SHORT).show();
+        } else {
+            if (a_add_eve_distanciaidatru_eve.getText().toString().length() == 0 ||
+                    a_add_eve_distanciavueltatru_eve.getText().toString().length() == 0 ||
+                    a_add_eve_precio_eve.getText().toString().length() == 0) {
+                a_add_eve_distanciaidatru_eve.setError("Campo obligatorio");
+                a_add_eve_distanciavueltatru_eve.setError("Campo obligatorio");
+                a_add_eve_precio_eve.setError("Campo obligatorio");
+            } else {
+                if (a_add_eve_nombre_act1.getText().toString().length() == 0) {
+                    return true;
+                } else {
+                    if (a_add_eve_nombre_act1.getText().toString().length() == 0 ||
+                            a_add_eve_distancia_act1.getText().toString().length() == 0 ||
+                            a_add_eve_desnivel_act1.getText().toString().length() == 0 ||
+                            a_add_eve_horas_act1.getText().toString().length() == 0) {
+                        a_add_eve_nombre_act1.setError("Campo obligatorio");
+                        a_add_eve_distancia_act1.setError("Campo obligatorio");
+                        a_add_eve_desnivel_act1.setError("Campo obligatorio");
+                        a_add_eve_horas_act1.setError("Campo obligatorio");
+                    } else {
+                        if (a_add_eve_nombre_act2.getText().toString().length() == 0) {
+                            return true;
+                        } else {
+                            if (a_add_eve_nombre_act2.getText().toString().length() == 0 ||
+                                    a_add_eve_distancia_act2.getText().toString().length() == 0 ||
+                                    a_add_eve_desnivel_act2.getText().toString().length() == 0 ||
+                                    a_add_eve_horas_act2.getText().toString().length() == 0) {
+                                a_add_eve_nombre_act2.setError("Campo obligatorio");
+                                a_add_eve_distancia_act2.setError("Campo obligatorio");
+                                a_add_eve_desnivel_act2.setError("Campo obligatorio");
+                                a_add_eve_horas_act2.setError("Campo obligatorio");
+                            } else {
+                                if (a_add_eve_nombre_act3.getText().toString().length() == 0) {
+                                    return true;
+                                } else {
+                                    if (a_add_eve_nombre_act3.getText().toString().length() == 0 ||
+                                            a_add_eve_distancia_act3.getText().toString().length() == 0 ||
+                                            a_add_eve_desnivel_act3.getText().toString().length() == 0 ||
+                                            a_add_eve_horas_act3.getText().toString().length() == 0) {
+                                        a_add_eve_nombre_act3.setError("Campo obligatorio");
+                                        a_add_eve_distancia_act3.setError("Campo obligatorio");
+                                        a_add_eve_desnivel_act3.setError("Campo obligatorio");
+                                        a_add_eve_horas_act3.setError("Campo obligatorio");
+                                    } else {
+                                        if (a_add_eve_nombre_act4.getText().toString().length() == 0) {
+                                            return true;
+                                        } else {
+                                            if (a_add_eve_nombre_act4.getText().toString().length() == 0 ||
+                                                    a_add_eve_distancia_act4.getText().toString().length() == 0 ||
+                                                    a_add_eve_desnivel_act4.getText().toString().length() == 0 ||
+                                                    a_add_eve_horas_act4.getText().toString().length() == 0) {
+                                                a_add_eve_nombre_act4.setError("Campo obligatorio");
+                                                a_add_eve_distancia_act4.setError("Campo obligatorio");
+                                                a_add_eve_desnivel_act4.setError("Campo obligatorio");
+                                                a_add_eve_horas_act4.setError("Campo obligatorio");
+                                            } else {
+                                                if (a_add_eve_nombre_act5.getText().toString().length() == 0) {
+                                                    return true;
+                                                } else {
+                                                    if (a_add_eve_nombre_act5.getText().toString().length() == 0 ||
+                                                            a_add_eve_distancia_act5.getText().toString().length() == 0 ||
+                                                            a_add_eve_desnivel_act5.getText().toString().length() == 0 ||
+                                                            a_add_eve_horas_act5.getText().toString().length() == 0) {
+                                                        a_add_eve_nombre_act5.setError("Campo obligatorio");
+                                                        a_add_eve_distancia_act5.setError("Campo obligatorio");
+                                                        a_add_eve_desnivel_act5.setError("Campo obligatorio");
+                                                        a_add_eve_horas_act5.setError("Campo obligatorio");
+                                                    } else {
+                                                        return true;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private void modalConfirmacionUpdateOrCreate(View view) {
+        AlertDialog dialogo = new AlertDialog
+                .Builder(view.getContext())
+                .setPositiveButton("Actualizar", (dialog, which) -> guardarEve(view, true))
+                .setNegativeButton("Crear", (dialog, which) -> guardarEve(view, false))
+                .setTitle("Confirmar")
+                .setMessage("¿Que deseas hacer con este evento?")
+                .create();
+        dialogo.show();
+    }
+
+    private void guardarEve(View view, boolean update_create) {
+
+        //sacamos el mayor id_eve del arrlist de eventos
+        for (Evento_eve eve : eventos) {
+            // añadir mas controles para rellenar huecos del arrlist
+            if (eve.getId_eve() > this.id_new_eve) {
+                this.id_new_eve = eve.getId_eve();
+            }
+            this.id_new_eve++;
+        }
+        //sacamos el mayor id_act del arrlist de actividades
+        for (Actividad_act act : actividades) {
+            // añadir mas controles para rellenar huecos del arrlist
+            if (act.getId_act() > this.id_new_act) {
+                this.id_new_act = act.getId_act();
+            }
+            // this.id_new_act++;
+        }
+
+        Evento_eve evento_push = recuperacionEve();
+        //actualizar
+        if (update_create) {
+            guardar_acts(Integer.parseInt(a_add_eve_id_eve.getText().toString().trim()));
+            fbf.collection("evento_eve").document(String.valueOf(Integer.parseInt(a_add_eve_id_eve.getText().toString().trim()))).set(evento_push);
+            Toast.makeText(getActivity(), "El evento se ha actualizado correctamente", Toast.LENGTH_SHORT).show();
+        } //crear
+        else {
+            if (imageUri != null)
+                evento_push.setFoto_eve(imageUri.getLastPathSegment());
+            evento_push.setId_eve(id_new_eve);
+            guardar_acts(id_new_eve);
+            fbf.collection("evento_eve").document(Integer.toString(id_new_eve)).set(evento_push);
+            Toast.makeText(getActivity(), "El evento se ha creado correctamente", Toast.LENGTH_SHORT).show();
+        }
+        Navigation.findNavController(view).navigate(R.id.action_nav_a_create_eve_to_nav_v01);
+    }
+
+    private void guardar_acts(int id_eve) {
+        if (!a_add_eve_nombre_act1.getText().toString().trim().isEmpty()) {
+            Actividad_act act1 = recuperacionAct1();
+            act1.setId_eve(id_eve);
+            boolean existAct1 = false;
+            for (Actividad_act act : actividades) {
+                if (act1.equals(act)) {
+                    existAct1 = true;
+                }
+            }
+            if (!existAct1)
+                act1.setId_act(++id_new_act);
+            fbf.collection("actividad_act").document(Integer.toString(act1.getId_act())).set(act1);
+            Toast.makeText(getActivity(), "act1 save", Toast.LENGTH_SHORT).show();
+
+            if (!a_add_eve_nombre_act2.getText().toString().trim().isEmpty()) {
+                Actividad_act act2 = recuperacionAct2();
+                act2.setId_eve(id_eve);
+                boolean existAct2 = false;
+                for (Actividad_act act : actividades) {
+                    if (act2.equals(act)) {
+                        existAct2 = true;
+                    }
+                }
+                if (!existAct2)
+                    act2.setId_act(++id_new_act);
+                fbf.collection("actividad_act").document(Integer.toString(act2.getId_act())).set(act2);
+                Toast.makeText(getActivity(), "act2 save", Toast.LENGTH_SHORT).show();
+
+                if (!a_add_eve_nombre_act3.getText().toString().trim().isEmpty()) {
+                    Actividad_act act3 = recuperacionAct3();
+                    act3.setId_eve(id_eve);
+                    boolean existAct3 = false;
+                    for (Actividad_act act : actividades) {
+                        if (act3.equals(act)) {
+                            existAct3 = true;
+                        }
+                    }
+                    if (!existAct3)
+                        act3.setId_act(++id_new_act);
+                    fbf.collection("actividad_act").document(Integer.toString(act3.getId_act())).set(act3);
+                    Toast.makeText(getActivity(), "act3 save", Toast.LENGTH_SHORT).show();
+
+                    if (!a_add_eve_nombre_act4.getText().toString().trim().isEmpty()) {
+                        Actividad_act act4 = recuperacionAct4();
+                        act4.setId_eve(id_eve);
+                        boolean existAct4 = false;
+                        for (Actividad_act act : actividades) {
+                            if (act4.equals(act)) {
+                                existAct4 = true;
+                            }
+                        }
+                        if (!existAct4)
+                            act4.setId_act(++id_new_act);
+                        fbf.collection("actividad_act").document(Integer.toString(act4.getId_act())).set(act4);
+                        Toast.makeText(getActivity(), "act4 save", Toast.LENGTH_SHORT).show();
+
+                        if (!a_add_eve_nombre_act5.getText().toString().trim().isEmpty()) {
+                            Actividad_act act5 = recuperacionAct5();
+                            act5.setId_eve(id_eve);
+                            boolean existAct5 = false;
+                            for (Actividad_act act : actividades) {
+                                if (act5.equals(act)) {
+                                    existAct5 = true;
+                                }
+                            }
+                            if (!existAct5)
+                                act5.setId_act(++id_new_act);
+                            fbf.collection("actividad_act").document(Integer.toString(act5.getId_act())).set(act5);
+                            Toast.makeText(getActivity(), "act5 save", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private void asignacionDeLosCamposDeAAddEve(View view) {
         //evento eve
+        a_add_eve_id_eve = view.findViewById(R.id.a_add_eve_etx_id_eve);
         a_add_eve_titulo_eve = view.findViewById(R.id.a_add_eve_etx_titulo_eve);
         a_add_eve_foto_eve = view.findViewById(R.id.a_add_eve_imv_foto_eve);
         a_add_eve_fechaidatru_eve = view.findViewById(R.id.a_add_eve_etx_fechaidatru_eve);
@@ -410,6 +636,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
         a_add_eve_cancelar = view.findViewById(R.id.a_add_eve_btn_cancelar);
 
         //actividad act 1
+        a_add_eve_id_act1 = view.findViewById(R.id.a_add_eve_etx_id_act1);
         a_add_eve_añadir_act1 = view.findViewById(R.id.a_add_eve_ll_añadir_act1);
         a_add_eve_nombre_act1 = view.findViewById(R.id.a_add_eve_etx_nombre_act1);
         a_add_eve_actividadtipo_act1 = view.findViewById(R.id.a_add_eve_etx_actividadtipo_act1);
@@ -423,6 +650,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
         a_add_eve_eliminar_act1 = view.findViewById(R.id.a_add_eve_btn_eliminar_act1);
 
         //actividad act 2
+        a_add_eve_id_act2 = view.findViewById(R.id.a_add_eve_etx_id_act2);
         a_add_eve_añadir_act2 = view.findViewById(R.id.a_add_eve_ll_añadir_act2);
         a_add_eve_nombre_act2 = view.findViewById(R.id.a_add_eve_etx_nombre_act2);
         a_add_eve_actividadtipo_act2 = view.findViewById(R.id.a_add_eve_etx_actividadtipo_act2);
@@ -436,6 +664,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
         a_add_eve_eliminar_act2 = view.findViewById(R.id.a_add_eve_btn_eliminar_act2);
 
         //actividad act 3
+        a_add_eve_id_act3 = view.findViewById(R.id.a_add_eve_etx_id_act3);
         a_add_eve_añadir_act3 = view.findViewById(R.id.a_add_eve_ll_añadir_act3);
         a_add_eve_nombre_act3 = view.findViewById(R.id.a_add_eve_etx_nombre_act3);
         a_add_eve_actividadtipo_act3 = view.findViewById(R.id.a_add_eve_etx_actividadtipo_act3);
@@ -449,6 +678,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
         a_add_eve_eliminar_act3 = view.findViewById(R.id.a_add_eve_btn_eliminar_act3);
 
         //actividad act 4
+        a_add_eve_id_act4 = view.findViewById(R.id.a_add_eve_etx_id_act4);
         a_add_eve_añadir_act4 = view.findViewById(R.id.a_add_eve_ll_añadir_act4);
         a_add_eve_nombre_act4 = view.findViewById(R.id.a_add_eve_etx_nombre_act4);
         a_add_eve_actividadtipo_act4 = view.findViewById(R.id.a_add_eve_etx_actividadtipo_act4);
@@ -462,6 +692,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
         a_add_eve_eliminar_act4 = view.findViewById(R.id.a_add_eve_btn_eliminar_act4);
 
         //actividad act 5
+        a_add_eve_id_act5 = view.findViewById(R.id.a_add_eve_etx_id_act5);
         a_add_eve_añadir_act5 = view.findViewById(R.id.a_add_eve_ll_añadir_act5);
         a_add_eve_nombre_act5 = view.findViewById(R.id.a_add_eve_etx_nombre_act5);
         a_add_eve_actividadtipo_act5 = view.findViewById(R.id.a_add_eve_etx_actividadtipo_act5);
@@ -475,122 +706,9 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
         a_add_eve_eliminar_act5 = view.findViewById(R.id.a_add_eve_btn_eliminar_act5);
     }
 
-    private void modalConfirmacionUpdateOrCreate(View view) {
-
-        AlertDialog dialogo = new AlertDialog
-                .Builder(view.getContext())
-                .setPositiveButton("Actualizar", (dialog, which) -> guardarEve(view, true))
-                .setNegativeButton("Crear", (dialog, which) -> guardarEve(view, false))
-                .setTitle("Confirmar")
-                .setMessage("¿Que deseas hacer con este evento?")
-                .create();
-        dialogo.show();
-
-    }
-
-    private void changeNewImage(View view) {
-
-        final ProgressDialog pd = new ProgressDialog(mContext);
-        pd.setTitle("Cargando la imagen...");
-        pd.show();
-        str.child("Eventos/" + imageUri.getLastPathSegment()).putFile(imageUri)
-                .addOnSuccessListener(taskSnapshot -> {
-                    pd.dismiss();
-                    Snackbar.make(view, "La imagen se ha cargado con exito!", Snackbar.LENGTH_SHORT).show();
-                })
-                .addOnFailureListener(e -> {
-                    pd.dismiss();
-                    Toast.makeText(getActivity(), "Error a cargar la imagen!", Toast.LENGTH_SHORT).show();
-                });
-    }
-
-
-    private void guardarEve(View view, boolean update_create) {
-
-        //sacamos el mayor id_eve del arrlist de eventos
-        for (Evento_eve eve : eventos) {
-            // añadir mas controles para rellenar huecos del arrlist
-            if (eve.getId_eve() > this.id_new_eve) {
-                this.id_new_eve = eve.getId_eve();
-            }
-            this.id_new_eve++;
-        }
-        //sacamos el mayor id_act del arrlist de actividades
-        for (Actividad_act act : actividades) {
-            // añadir mas controles para rellenar huecos del arrlist
-            if (act.getId_act() > this.id_new_act) {
-                this.id_new_act = act.getId_act();
-            }
-            this.id_new_act++;
-        }
-
-        Evento_eve evento_push = recuperacionEve();
-
-        if (update_create) {
-            evento_push.setId_eve(eventoEnProceso.getId_eve());
-            guardar_acts(eventoEnProceso.getId_eve());
-            fbf.collection("evento_eve").document(Integer.toString(eventoEnProceso.getId_eve())).set(evento_push);
-            Toast.makeText(getActivity(), "El evento se ha actualizado correctamente", Toast.LENGTH_SHORT).show();
-        } else {
-            if (imageUri != null)
-                evento_push.setFoto_eve(imageUri.getLastPathSegment());
-            guardar_acts(id_new_eve);
-            fbf.collection("evento_eve").document(Integer.toString(id_new_eve)).set(evento_push);
-            Toast.makeText(getActivity(), "El evento se ha creado correctamente", Toast.LENGTH_SHORT).show();
-        }
-        Navigation.findNavController(view).navigate(R.id.action_nav_a_create_eve_to_nav_v01);
-    }
-
-    private void guardar_acts(int id_eve){
-        Actividad_act act1 = recuperacionAct1();
-        Actividad_act act2 = recuperacionAct2();
-        Actividad_act act3 = recuperacionAct3();
-        Actividad_act act4 = recuperacionAct4();
-        Actividad_act act5 = recuperacionAct5();
-
-        if (!act1.getNombre_act().isEmpty()) {
-            act1.setId_eve(id_eve);
-            act1.setId_act(id_new_act);
-            fbf.collection("actividad_act").document(Integer.toString(id_new_act)).set(act1);
-            Toast.makeText(getActivity(), "act1 save", Toast.LENGTH_SHORT).show();
-
-            if (!act2.getNombre_act().isEmpty()) {
-                id_new_act++;
-                act2.setId_act(id_new_act);
-                act2.setId_eve(id_eve);
-                fbf.collection("actividad_act").document(Integer.toString(id_new_act)).set(act2);
-                Toast.makeText(getActivity(), "act2 save", Toast.LENGTH_SHORT).show();
-
-                if (!act3.getNombre_act().isEmpty()) {
-                    id_new_act++;
-                    act3.setId_act(id_new_act);
-                    act3.setId_eve(id_eve);
-                    fbf.collection("actividad_act").document(Integer.toString(id_new_act)).set(act3);
-                    Toast.makeText(getActivity(), "act3 save", Toast.LENGTH_SHORT).show();
-
-                    if (!act4.getNombre_act().isEmpty()) {
-                        id_new_act++;
-                        act4.setId_act(id_new_act);
-                        act4.setId_eve(id_eve);
-                        fbf.collection("actividad_act").document(Integer.toString(id_new_act)).set(act4);
-                        Toast.makeText(getActivity(), "act4 save", Toast.LENGTH_SHORT).show();
-
-                        if (!act5.getNombre_act().isEmpty()) {
-                            id_new_act++;
-                            act5.setId_act(id_new_act);
-                            act5.setId_eve(id_eve);
-                            fbf.collection("actividad_act").document(Integer.toString(id_new_act)).set(act5);
-                            Toast.makeText(getActivity(), "act5 save", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     private Evento_eve recuperacionEve() {
         Evento_eve eve = new Evento_eve();
-        eve.setId_eve(id_new_eve);
+        eve.setId_eve(Integer.parseInt(a_add_eve_id_eve.getText().toString().trim()));
         eve.setTitulo_eve(a_add_eve_titulo_eve.getText().toString().trim());
         eve.setFoto_eve(a_add_eve_foto_eve.getTransitionName());
         eve.setFechaidatru_eve(a_add_eve_fechaidatru_eve.getText().toString().trim());
@@ -598,14 +716,15 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
         eve.setNivel_eve(a_add_eve_nivel_eve.getText().toString().trim());
         eve.setSalidaidatru_eve(a_add_eve_salidaidatru_eve.getText().toString().trim());
         eve.setLlegadaidatru_eve(a_add_eve_llegadaidatru_eve.getText().toString().trim());
-        eve.setDistanciaidatru_eve(a_add_eve_distanciaidatru_eve.getId());
-        eve.setDistanciavueltatru_eve(a_add_eve_distanciavueltatru_eve.getId());
+        eve.setDistanciaidatru_eve(Integer.parseInt(a_add_eve_distanciaidatru_eve.getText().toString().trim()));
+        eve.setDistanciavueltatru_eve(Integer.parseInt(a_add_eve_distanciavueltatru_eve.getText().toString().trim()));
         eve.setLlegadacoordenadastru_eve(a_add_eve_llegadacoordenadastru_eve.getText().toString().trim());
         eve.setSalidacoordenadastru_eve(a_add_eve_salidacoordenadastru_eve.getText().toString().trim());
         eve.setLlegadavueltatru_eve(a_add_eve_llegadavueltatru_eve.getText().toString().trim());
-        eve.setPrecio_eve(a_add_eve_precio_eve.getId());
+        eve.setPrecio_eve(Integer.parseInt(a_add_eve_precio_eve.getText().toString().trim()));
         eve.setTransportetipo_eve(a_add_eve_transportetipo_eve.getText().toString().trim());
         eve.setEstado_eve("Pendiente");
+
         return eve;
     }
 
@@ -626,72 +745,80 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
         a_add_eve_transportetipo_eve.getText().clear();
     }
 
+
     private Actividad_act recuperacionAct1() {
         Actividad_act act1 = new Actividad_act();
+        act1.setId_act(Integer.parseInt(a_add_eve_id_act1.getText().toString().trim()));
         act1.setNombre_act(a_add_eve_nombre_act1.getText().toString().trim());
         act1.setActividadtipo_act(a_add_eve_actividadtipo_act1.getText().toString().trim());
         act1.setFecha_act(a_add_eve_fecha_act1.getText().toString().trim());
         act1.setNivel_act(a_add_eve_nivel_act1.getText().toString().trim());
-        act1.setDistancia_act(a_add_eve_distancia_act1.getId());
-        act1.setDesnivel_act(a_add_eve_desnivel_act1.getId());
-        act1.setHoras_act(a_add_eve_horas_act1.getId());
+        act1.setDistancia_act(Integer.parseInt(a_add_eve_distancia_act1.getText().toString().trim()));
+        act1.setDesnivel_act(Integer.parseInt(a_add_eve_desnivel_act1.getText().toString().trim()));
+        act1.setHoras_act(Integer.parseInt(a_add_eve_horas_act1.getText().toString().trim()));
         act1.setWikiloc_act(a_add_eve_wikiloc_act1.getText().toString().trim());
         return act1;
     }
 
     private Actividad_act recuperacionAct2() {
         Actividad_act act2 = new Actividad_act();
+        act2.setId_act(Integer.parseInt(a_add_eve_id_act2.getText().toString().trim()));
         act2.setNombre_act(a_add_eve_nombre_act2.getText().toString().trim());
         act2.setActividadtipo_act(a_add_eve_actividadtipo_act2.getText().toString().trim());
         act2.setFecha_act(a_add_eve_fecha_act2.getText().toString().trim());
         act2.setNivel_act(a_add_eve_nivel_act2.getText().toString().trim());
-        act2.setDistancia_act(a_add_eve_distancia_act2.getId());
-        act2.setDesnivel_act(a_add_eve_desnivel_act2.getId());
-        act2.setHoras_act(a_add_eve_horas_act2.getId());
+        act2.setDistancia_act(Integer.parseInt(a_add_eve_distancia_act2.getText().toString().trim()));
+        act2.setDesnivel_act(Integer.parseInt(a_add_eve_desnivel_act2.getText().toString().trim()));
+        act2.setHoras_act(Integer.parseInt(a_add_eve_horas_act2.getText().toString().trim()));
         act2.setWikiloc_act(a_add_eve_wikiloc_act2.getText().toString().trim());
         return act2;
     }
 
     private Actividad_act recuperacionAct3() {
         Actividad_act act3 = new Actividad_act();
+        act3.setId_act(Integer.parseInt(a_add_eve_id_act3.getText().toString().trim()));
         act3.setNombre_act(a_add_eve_nombre_act3.getText().toString().trim());
         act3.setActividadtipo_act(a_add_eve_actividadtipo_act3.getText().toString().trim());
         act3.setFecha_act(a_add_eve_fecha_act3.getText().toString().trim());
         act3.setNivel_act(a_add_eve_nivel_act3.getText().toString().trim());
-        act3.setDistancia_act(a_add_eve_distancia_act3.getId());
-        act3.setDesnivel_act(a_add_eve_desnivel_act3.getId());
-        act3.setHoras_act(a_add_eve_horas_act3.getId());
+        act3.setDistancia_act(Integer.parseInt(a_add_eve_distancia_act3.getText().toString().trim()));
+        act3.setDesnivel_act(Integer.parseInt(a_add_eve_desnivel_act3.getText().toString().trim()));
+        act3.setHoras_act(Integer.parseInt(a_add_eve_horas_act3.getText().toString().trim()));
         act3.setWikiloc_act(a_add_eve_wikiloc_act3.getText().toString().trim());
         return act3;
     }
 
     private Actividad_act recuperacionAct4() {
         Actividad_act act4 = new Actividad_act();
+        act4.setId_act(Integer.parseInt(a_add_eve_id_act4.getText().toString().trim()));
         act4.setNombre_act(a_add_eve_nombre_act4.getText().toString().trim());
         act4.setActividadtipo_act(a_add_eve_actividadtipo_act4.getText().toString().trim());
         act4.setFecha_act(a_add_eve_fecha_act4.getText().toString().trim());
         act4.setNivel_act(a_add_eve_nivel_act4.getText().toString().trim());
-        act4.setDistancia_act(a_add_eve_distancia_act4.getId());
-        act4.setDesnivel_act(a_add_eve_desnivel_act4.getId());
-        act4.setHoras_act(a_add_eve_horas_act4.getId());
+        act4.setDistancia_act(Integer.parseInt(a_add_eve_distancia_act4.getText().toString().trim()));
+        act4.setDesnivel_act(Integer.parseInt(a_add_eve_desnivel_act4.getText().toString().trim()));
+        act4.setHoras_act(Integer.parseInt(a_add_eve_horas_act4.getText().toString().trim()));
         act4.setWikiloc_act(a_add_eve_wikiloc_act4.getText().toString().trim());
         return act4;
     }
 
     private Actividad_act recuperacionAct5() {
         Actividad_act act5 = new Actividad_act();
+        act5.setId_act(Integer.parseInt(a_add_eve_id_act5.getText().toString().trim()));
         act5.setNombre_act(a_add_eve_nombre_act5.getText().toString().trim());
         act5.setActividadtipo_act(a_add_eve_actividadtipo_act5.getText().toString().trim());
         act5.setFecha_act(a_add_eve_fecha_act5.getText().toString().trim());
         act5.setNivel_act(a_add_eve_nivel_act5.getText().toString().trim());
-        act5.setDistancia_act(a_add_eve_distancia_act5.getId());
-        act5.setDesnivel_act(a_add_eve_desnivel_act5.getId());
-        act5.setHoras_act(a_add_eve_horas_act5.getId());
+        act5.setDistancia_act(Integer.parseInt(a_add_eve_distancia_act5.getText().toString().trim()));
+        act5.setDesnivel_act(Integer.parseInt(a_add_eve_desnivel_act5.getText().toString().trim()));
+        act5.setHoras_act(Integer.parseInt(a_add_eve_horas_act5.getText().toString().trim()));
         act5.setWikiloc_act(a_add_eve_wikiloc_act5.getText().toString().trim());
         return act5;
     }
 
+
     private void limpiarAct1() {
+        a_add_eve_nombre_act1.getText().clear();
         a_add_eve_nombre_act1.getText().clear();
         a_add_eve_actividadtipo_act1.getText().clear();
         a_add_eve_fecha_act1.getText().clear();

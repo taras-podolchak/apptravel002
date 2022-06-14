@@ -2,19 +2,24 @@ package com.appvisibility.apptravel002;
 
 import static android.content.ContentValues.TAG;
 
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
 import com.appvisibility.apptravel002.databinding.ActivityMainValBinding;
-import com.appvisibility.apptravel002.ui.controller.modal.OnBackPressed;
-import com.appvisibility.apptravel002.ui.controller.V_03;
-import com.appvisibility.apptravel002.ui.controller.modal.V_03_2_modal;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,15 +27,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import androidx.annotation.NonNull;
-import androidx.core.view.GravityCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity_val extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -62,7 +58,7 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_v01, R.id.nav_v02, R.id.nav_v03, R.id.nav_v04, R.id.nav_v05, R.id.nav_v06)
+                R.id.nav_v01, R.id.nav_v02, R.id.nav_v03, R.id.nav_v04, R.id.nav_v05, R.id.nav_v05_1, R.id.nav_v06)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main_activity_val);
@@ -205,6 +201,7 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
 // https://stackoverflow.com/questions/41981546/cant-resolve-method-showandroid-support-v4-app-fragmentmanager-java-lang-stri
 // Cuando queremos mostrar en una activity: getActivity().getFragmentManager()
 // Cuando queremos mostrar en un fragmento: getFragmentManager()
+    /*
     public void onBackPressed() {
         V_03.v03_atras.performClick();
         if (V_03_2_modal.solicitudRealizada) {
@@ -213,6 +210,6 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
 //            dialogFragment.show(getActivity().getFragmentManager(),"tag");
             super.onBackPressed();
         }
-    }
+    }*/
 
 }

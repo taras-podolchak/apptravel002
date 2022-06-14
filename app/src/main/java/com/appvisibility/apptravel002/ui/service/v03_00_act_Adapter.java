@@ -1,28 +1,26 @@
 package com.appvisibility.apptravel002.ui.service;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appvisibility.apptravel002.R;
+import com.appvisibility.apptravel002.ui.controller.modal.A_update_act_modal;
 import com.appvisibility.apptravel002.ui.entities.Actividad_act;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -37,8 +35,10 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
     private Bundle bundleActividad = new Bundle();
     private View view_A_add_eve;
     private FirebaseFirestore fbf = FirebaseFirestore.getInstance();
+    private int idEve =  new v02_00_eve_Adapter().getIdEve();
 
     //act 1
+    private EditText a_add_eve_id_act1;
     private EditText a_add_eve_nombre_act1;
     private EditText a_add_eve_actividadtipo_act1;
     private EditText a_add_eve_fecha_act1;
@@ -49,6 +49,7 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
     private EditText a_add_eve_wikiloc_act1;
 
     //act 2
+    private EditText a_add_eve_id_act2;
     private EditText a_add_eve_nombre_act2;
     private EditText a_add_eve_actividadtipo_act2;
     private EditText a_add_eve_fecha_act2;
@@ -59,6 +60,7 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
     private EditText a_add_eve_wikiloc_act2;
 
     //act 3
+    private EditText a_add_eve_id_act3;
     private EditText a_add_eve_nombre_act3;
     private EditText a_add_eve_actividadtipo_act3;
     private EditText a_add_eve_fecha_act3;
@@ -69,6 +71,7 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
     private EditText a_add_eve_wikiloc_act3;
 
     //act 4
+    private EditText a_add_eve_id_act4;
     private EditText a_add_eve_nombre_act4;
     private EditText a_add_eve_actividadtipo_act4;
     private EditText a_add_eve_fecha_act4;
@@ -79,6 +82,7 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
     private EditText a_add_eve_wikiloc_act4;
 
     //act 5
+    private EditText a_add_eve_id_act5;
     private EditText a_add_eve_nombre_act5;
     private EditText a_add_eve_actividadtipo_act5;
     private EditText a_add_eve_fecha_act5;
@@ -113,6 +117,11 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
  * Proporciona los datos: Se encarga de establecer los objetos en el ViewHolder y la posición.
  */
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        if (accion == context.getResources().getInteger(R.integer.accion_rellenar_formulario))
+
+           rellenacionDeLosCamposDeEveEligido();
+
+        int id_act_enProceso = actividades.get(position).getId_act();
         String nombre_act = actividades.get(position).getNombre_act();
         String actividadtipo_act = actividades.get(position).getActividadtipo_act();
         String fecha_act = actividades.get(position).getFecha_act();
@@ -122,7 +131,7 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
         int horas_act = actividades.get(position).getHoras_act();
         String wikiloc_act = actividades.get(position).getWikiloc_act();
 
-        Actividad_act actividadEnProceso = new Actividad_act(nombre_act, actividadtipo_act, fecha_act, nivel_act, distancia_act, desnivel_act, horas_act, wikiloc_act);
+        Actividad_act actividadEnProceso = new Actividad_act(id_act_enProceso, nombre_act, actividadtipo_act, fecha_act, nivel_act, distancia_act, desnivel_act, horas_act, wikiloc_act);
 
         holder.v03_nombre_act.setText(nombre_act);
         holder.v03_actividadtipo_act.setText(actividadtipo_act);
@@ -154,39 +163,28 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
 
         //largo click por el item
         holder.v03_cdv_actividad.setOnLongClickListener(v1 -> {
-            if (accion == v1.getResources().getInteger(R.integer.accion_rellenar_formulario)) {
-                AlertDialog dialogo = new AlertDialog
-                        .Builder(v1.getContext())
-                        .setPositiveButton("Activar actividad", (dialog, which) -> {
-                            actividadEnProceso.setDescactividad_act("activado");
-                            fbf.collection("actividad_act").document(Integer.toString(actividadEnProceso.getId_act())).set(actividadEnProceso);
-                            Toast.makeText(v1.getContext(), "Actividad activado!", Toast.LENGTH_SHORT).show();
-                        })
-                        .setNegativeButton("Desactivar actividad", (dialog, which) -> {
-                            actividadEnProceso.setDescactividad_act("desactivado");
-                            fbf.collection("actividad_act").document(Integer.toString(actividadEnProceso.getId_act())).set(actividadEnProceso);
-                            Toast.makeText(v1.getContext(), "Actividad desactivado!", Toast.LENGTH_SHORT).show();
-                        })
-                        .setNeutralButton("Eliminar actividad", (dialog, which) -> fbf.collection("actividad_act").document(Integer.toString(actividadEnProceso.getId_act()))
-                                .delete()
-                                .addOnSuccessListener(aVoid -> {
-                                    Toast.makeText(v1.getContext(), "Actividad eliminado con éxito!", Toast.LENGTH_SHORT).show();
-                                })
-                                .addOnFailureListener(e -> {
-                                    Toast.makeText(v1.getContext(), "Ha ocurrido un error eliminando la actividad", Toast.LENGTH_SHORT).show();
-                                }))
-                        .setTitle("Confirmar")
-                        .setMessage("¿Que deseas hacer con esta actividad?")
-                        .create();
-                dialogo.show();
-            }
+            FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
+            Bundle bundleActividadEnProceso = new Bundle();
+            bundleActividadEnProceso.putSerializable("actividadParaAUpdateActModal", actividadEnProceso);
+            DialogFragment a_update_act_modal = new A_update_act_modal();
+            a_update_act_modal.setArguments(bundleActividadEnProceso);
+            a_update_act_modal.show(manager, "dialog");
             return true;
         });
+    }
+
+    private void rellenacionDeLosCamposDeEveEligido() {
+        for (Actividad_act act : actividades) {
+            if (act.getId_eve() == idEve && idEve != 0)
+                rellenacionDeLosCamposDeAAddEve_act1(act);
+        }
+
     }
 
 
     private void asignacionDeLosCamposDeAAddEve() {
         //actividad act 1
+        a_add_eve_id_act1 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_id_act1);
         a_add_eve_nombre_act1 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_nombre_act1);
         a_add_eve_actividadtipo_act1 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_actividadtipo_act1);
         a_add_eve_fecha_act1 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_fecha_act1);
@@ -197,6 +195,7 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
         a_add_eve_wikiloc_act1 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_wikiloc_act1);
 
         //actividad act 2
+        a_add_eve_id_act2 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_id_act2);
         a_add_eve_nombre_act2 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_nombre_act2);
         a_add_eve_actividadtipo_act2 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_actividadtipo_act2);
         a_add_eve_fecha_act2 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_fecha_act2);
@@ -207,6 +206,7 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
         a_add_eve_wikiloc_act2 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_wikiloc_act2);
 
         //actividad act 3
+        a_add_eve_id_act3 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_id_act3);
         a_add_eve_nombre_act3 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_nombre_act3);
         a_add_eve_actividadtipo_act3 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_actividadtipo_act3);
         a_add_eve_fecha_act3 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_fecha_act3);
@@ -214,9 +214,11 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
         a_add_eve_distancia_act3 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_distancia_act3);
         a_add_eve_desnivel_act3 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_desnivel_act3);
         a_add_eve_horas_act3 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_horas_act3);
-        a_add_eve_wikiloc_act3 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_wikiloc_act3);;
+        a_add_eve_wikiloc_act3 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_wikiloc_act3);
+        ;
 
         //actividad act 4
+        a_add_eve_id_act4 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_id_act4);
         a_add_eve_nombre_act4 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_nombre_act4);
         a_add_eve_actividadtipo_act4 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_actividadtipo_act4);
         a_add_eve_fecha_act4 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_fecha_act4);
@@ -227,6 +229,7 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
         a_add_eve_wikiloc_act4 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_wikiloc_act4);
 
         //actividad act 5
+        a_add_eve_id_act5 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_id_act5);
         a_add_eve_nombre_act5 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_nombre_act5);
         a_add_eve_actividadtipo_act5 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_actividadtipo_act5);
         a_add_eve_fecha_act5 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_fecha_act5);
@@ -238,60 +241,64 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
     }
 
     private void rellenacionDeLosCamposDeAAddEve_act1(Actividad_act actividadEnProceso) {
+        a_add_eve_id_act1.setText(String.valueOf(actividadEnProceso.getId_act()));
         a_add_eve_nombre_act1.setText(actividadEnProceso.getNombre_act());
         a_add_eve_actividadtipo_act1.setText(actividadEnProceso.getActividadtipo_act());
         a_add_eve_fecha_act1.setText(actividadEnProceso.getFecha_act());
         a_add_eve_nivel_act1.setText(actividadEnProceso.getNivel_act());
-        a_add_eve_distancia_act1.setId(actividadEnProceso.getDistancia_act());
-        a_add_eve_desnivel_act1.setId(actividadEnProceso.getDesnivel_act());
-        a_add_eve_horas_act1.setId(actividadEnProceso.getHoras_act());
+        a_add_eve_distancia_act1.setText(String.valueOf(actividadEnProceso.getDistancia_act()));
+        a_add_eve_desnivel_act1.setText(String.valueOf(actividadEnProceso.getDesnivel_act()));
+        a_add_eve_horas_act1.setText(String.valueOf(actividadEnProceso.getHoras_act()));
         a_add_eve_wikiloc_act1.setText(actividadEnProceso.getWikiloc_act());
     }
+
     private void rellenacionDeLosCamposDeAAddEve_act2(Actividad_act actividadEnProceso) {
+        a_add_eve_id_act2.setText(String.valueOf(actividadEnProceso.getId_act()));
         a_add_eve_nombre_act2.setText(actividadEnProceso.getNombre_act());
         a_add_eve_actividadtipo_act2.setText(actividadEnProceso.getActividadtipo_act());
         a_add_eve_fecha_act2.setText(actividadEnProceso.getFecha_act());
         a_add_eve_nivel_act2.setText(actividadEnProceso.getNivel_act());
-        a_add_eve_distancia_act2.setId(actividadEnProceso.getDistancia_act());
-        a_add_eve_desnivel_act2.setId(actividadEnProceso.getDesnivel_act());
-        a_add_eve_horas_act2.setId(actividadEnProceso.getHoras_act());
+        a_add_eve_distancia_act2.setText(String.valueOf(actividadEnProceso.getDistancia_act()));
+        a_add_eve_desnivel_act2.setText(String.valueOf(actividadEnProceso.getDesnivel_act()));
+        a_add_eve_horas_act2.setText(String.valueOf(actividadEnProceso.getHoras_act()));
         a_add_eve_wikiloc_act2.setText(actividadEnProceso.getWikiloc_act());
     }
 
     private void rellenacionDeLosCamposDeAAddEve_act3(Actividad_act actividadEnProceso) {
+        a_add_eve_id_act3.setText(String.valueOf(actividadEnProceso.getId_act()));
         a_add_eve_nombre_act3.setText(actividadEnProceso.getNombre_act());
         a_add_eve_actividadtipo_act3.setText(actividadEnProceso.getActividadtipo_act());
         a_add_eve_fecha_act3.setText(actividadEnProceso.getFecha_act());
         a_add_eve_nivel_act3.setText(actividadEnProceso.getNivel_act());
-        a_add_eve_distancia_act3.setId(actividadEnProceso.getDistancia_act());
-        a_add_eve_desnivel_act3.setId(actividadEnProceso.getDesnivel_act());
-        a_add_eve_horas_act3.setId(actividadEnProceso.getHoras_act());
+        a_add_eve_distancia_act3.setText(String.valueOf(actividadEnProceso.getDistancia_act()));
+        a_add_eve_desnivel_act3.setText(String.valueOf(actividadEnProceso.getDesnivel_act()));
+        a_add_eve_horas_act3.setText(String.valueOf(actividadEnProceso.getHoras_act()));
         a_add_eve_wikiloc_act3.setText(actividadEnProceso.getWikiloc_act());
     }
 
     private void rellenacionDeLosCamposDeAAddEve_act4(Actividad_act actividadEnProceso) {
+        a_add_eve_id_act4.setText(String.valueOf(actividadEnProceso.getId_act()));
         a_add_eve_nombre_act4.setText(actividadEnProceso.getNombre_act());
         a_add_eve_actividadtipo_act4.setText(actividadEnProceso.getActividadtipo_act());
         a_add_eve_fecha_act4.setText(actividadEnProceso.getFecha_act());
         a_add_eve_nivel_act4.setText(actividadEnProceso.getNivel_act());
-        a_add_eve_distancia_act4.setId(actividadEnProceso.getDistancia_act());
-        a_add_eve_desnivel_act4.setId(actividadEnProceso.getDesnivel_act());
-        a_add_eve_horas_act4.setId(actividadEnProceso.getHoras_act());
+        a_add_eve_distancia_act4.setText(String.valueOf(actividadEnProceso.getDistancia_act()));
+        a_add_eve_desnivel_act4.setText(String.valueOf(actividadEnProceso.getDesnivel_act()));
+        a_add_eve_horas_act4.setText(String.valueOf(actividadEnProceso.getHoras_act()));
         a_add_eve_wikiloc_act4.setText(actividadEnProceso.getWikiloc_act());
     }
 
     private void rellenacionDeLosCamposDeAAddEve_act5(Actividad_act actividadEnProceso) {
+        a_add_eve_id_act5.setText(String.valueOf(actividadEnProceso.getId_act()));
         a_add_eve_nombre_act5.setText(actividadEnProceso.getNombre_act());
         a_add_eve_actividadtipo_act5.setText(actividadEnProceso.getActividadtipo_act());
         a_add_eve_fecha_act5.setText(actividadEnProceso.getFecha_act());
         a_add_eve_nivel_act5.setText(actividadEnProceso.getNivel_act());
-        a_add_eve_distancia_act5.setId(actividadEnProceso.getDistancia_act());
-        a_add_eve_desnivel_act5.setId(actividadEnProceso.getDesnivel_act());
-        a_add_eve_horas_act5.setId(actividadEnProceso.getHoras_act());
+        a_add_eve_distancia_act5.setText(String.valueOf(actividadEnProceso.getDistancia_act()));
+        a_add_eve_desnivel_act5.setText(String.valueOf(actividadEnProceso.getDesnivel_act()));
+        a_add_eve_horas_act5.setText(String.valueOf(actividadEnProceso.getHoras_act()));
         a_add_eve_wikiloc_act5.setText(actividadEnProceso.getWikiloc_act());
     }
-
-
 
     @Override
     public int getItemCount() {
@@ -307,6 +314,7 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
         private TextView v03_desnivel_act;
         private TextView v03_horas_act;
         private CardView v03_cdv_actividad;
+        private LifecycleOwner lifecycleOwner = this.lifecycleOwner;
 
         public ViewHolder(View v) {
             super(v);
@@ -319,6 +327,7 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
             this.v03_nivel_act = v.findViewById(R.id.v03_cdv_txv_nivel_act);
 
             this.v03_cdv_actividad = v.findViewById(R.id.v03_cdv_actividad);
+
         }
     }
 }

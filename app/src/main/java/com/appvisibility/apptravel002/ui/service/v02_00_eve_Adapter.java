@@ -1,10 +1,7 @@
 package com.appvisibility.apptravel002.ui.service;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,12 +29,14 @@ import java.util.List;
 
 public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.ViewHolder> {
 
-    private final List<Evento_eve> eventos;
+    private List<Evento_eve> eventos;
     private Context context;
     private int accion;
     private Bundle bundleEvento = new Bundle();
     private View view_A_add_eve;
+    private int idEve;
 
+    private EditText a_add_eve_id_eve;
     private EditText a_add_eve_titulo_eve;
     private ImageView a_add_eve_foto_eve;
     private EditText a_add_eve_fechaidatru_eve;
@@ -58,6 +57,16 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
     private FirebaseStorage fbs = FirebaseStorage.getInstance();
     private StorageReference str = fbs.getReference();
 
+    public int getIdEve() {
+        return idEve;
+    }
+
+    public void setIdEve(int idEve) {
+        this.idEve = idEve;
+    }
+
+    public v02_00_eve_Adapter() {
+    }
 
     //accion es: 0 si lo pulsas en V02 y 1 si lo pulsas en A_add_eve
     //view_A_add_eve es: la View de A_add_eve para tener acceso a sus campos
@@ -86,61 +95,64 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
      */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        int id_eve_enProceso = eventos.get(position).getId_eve();
-        String titulo_eve = eventos.get(position).getTitulo_eve();
-        int nparticipantes_eve = eventos.get(position).getNparticipantes_eve();
-        String fechapagosennal_eve = eventos.get(position).getFechapagosennal_eve();
-        String fechapagototal_eve = eventos.get(position).getFechapagototal_eve();
-        String foto_eve = eventos.get(position).getFoto_eve();
-        String descgeneral_eve = eventos.get(position).getDescgeneral_eve();
-        String descrecomendaciones_eve = eventos.get(position).getDescrecomendaciones_eve();
-        String salidacoordenadastru_eve = eventos.get(position).getSalidacoordenadastru_eve();
-        String salidaidatru_eve = eventos.get(position).getSalidaidatru_eve();
-        String llegadacoordenadastru_eve = eventos.get(position).getLlegadacoordenadastru_eve();
-        String llegadaidatru_eve = eventos.get(position).getLlegadaidatru_eve();
-        String nivel_eve = eventos.get(position).getNivel_eve();
-        String estado_eve = eventos.get(position).getEstado_eve();
-        String fechaidatru_eve = eventos.get(position).getFechaidatru_eve();
-        String fechavueltatru_eve = eventos.get(position).getFechavueltatru_eve();
-        String transportetipo_eve = eventos.get(position).getTransportetipo_eve();
 
-        Evento_eve eventoEnProceso = new Evento_eve(id_eve_enProceso, titulo_eve, nparticipantes_eve, fechapagosennal_eve, fechapagototal_eve, foto_eve, descgeneral_eve, descrecomendaciones_eve, salidacoordenadastru_eve, salidaidatru_eve, llegadacoordenadastru_eve, llegadaidatru_eve, nivel_eve, estado_eve, transportetipo_eve, fechaidatru_eve, fechavueltatru_eve);
+        Evento_eve eveEnProceso = new Evento_eve();
+        eveEnProceso.setId_eve(eventos.get(position).getId_eve());
+        eveEnProceso.setTitulo_eve(eventos.get(position).getTitulo_eve());
+        eveEnProceso.setFoto_eve(eventos.get(position).getFoto_eve());
+        eveEnProceso.setFechaidatru_eve(eventos.get(position).getFechaidatru_eve());
+        eveEnProceso.setFechavueltatru_eve(eventos.get(position).getFechavueltatru_eve());
+        eveEnProceso.setNivel_eve(eventos.get(position).getNivel_eve());
+        eveEnProceso.setSalidaidatru_eve(eventos.get(position).getSalidaidatru_eve());
+        eveEnProceso.setLlegadaidatru_eve(eventos.get(position).getLlegadaidatru_eve());
+        eveEnProceso.setDistanciaidatru_eve(eventos.get(position).getDistanciaidatru_eve());
+        eveEnProceso.setDistanciavueltatru_eve(eventos.get(position).getDistanciavueltatru_eve());
+        eveEnProceso.setLlegadacoordenadastru_eve(eventos.get(position).getLlegadacoordenadastru_eve());
+        eveEnProceso.setSalidacoordenadastru_eve(eventos.get(position).getSalidacoordenadastru_eve());
+        eveEnProceso.setLlegadavueltatru_eve(eventos.get(position).getLlegadavueltatru_eve());
+        eveEnProceso.setPrecio_eve(eventos.get(position).getPrecio_eve());
+        eveEnProceso.setTransportetipo_eve(eventos.get(position).getTransportetipo_eve());
+        eveEnProceso.setEstado_eve(eventos.get(position).getEstado_eve());
+        eveEnProceso.setPrecio_eve(eventos.get(position).getPrecio_eve());
+        eveEnProceso.setDistanciaidatru_eve(eventos.get(position).getDistanciaidatru_eve());
+        eveEnProceso.setDistanciavueltatru_eve(eventos.get(position).getDistanciavueltatru_eve());
 
-        holder.v02_titulo_eve.setText(titulo_eve);
+        holder.v02_titulo_eve.setText(eveEnProceso.getTitulo_eve());
         FirebaseStorage fbs = FirebaseStorage.getInstance();
         StorageReference str = fbs.getReference();
-        str.child("Eventos/" + foto_eve).getDownloadUrl().addOnSuccessListener(uri -> Picasso.get().load(uri).into(holder.v02_foto_eve)).addOnFailureListener(new OnFailureListener() {
+        str.child("Eventos/" + eveEnProceso.getFoto_eve()).getDownloadUrl().addOnSuccessListener(uri -> Picasso.get().load(uri).into(holder.v02_foto_eve)).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 Toast.makeText(context.getApplicationContext(), "Error a la hora de cargar la imagen", Toast.LENGTH_SHORT).show();
             }
         });
-        holder.v02_fechaidatru_eve.setText(fechaidatru_eve);
-        holder.v02_fechavueltatru_eve.setText(fechavueltatru_eve);
-        holder.v02_nivel_eve.setText("Nivel: " + nivel_eve);
+        holder.v02_fechaidatru_eve.setText(eveEnProceso.getFechaidatru_eve());
+        holder.v02_fechavueltatru_eve.setText(eveEnProceso.getFechavueltatru_eve());
+        holder.v02_nivel_eve.setText("Nivel: " + eveEnProceso.getNivel_eve());
         if (accion == context.getResources().getInteger(R.integer.accion_rellenar_formulario)) {
             asignacionDeLosCamposDeAAddEve();
             holder.v02_estado_eve.setVisibility(View.VISIBLE);
-            if (estado_eve.equalsIgnoreCase("Confirmado")) {
+            if (eveEnProceso.getEstado_eve().equalsIgnoreCase("Confirmado")) {
                 holder.v02_estado_eve.setTextColor(context.getResources().getColor(R.color.administradorVerdeColor));
-            } else if (estado_eve.equalsIgnoreCase("Pendiente")) {
+            } else if (eveEnProceso.getEstado_eve().equalsIgnoreCase("Pendiente")) {
                 holder.v02_estado_eve.setTextColor(context.getResources().getColor(android.R.color.holo_orange_dark));
-            } else if (estado_eve.equalsIgnoreCase("Cancelado")) {
+            } else if (eveEnProceso.getEstado_eve().equalsIgnoreCase("Cancelado")) {
                 holder.v02_estado_eve.setTextColor(context.getResources().getColor(R.color.red));
             }
-            holder.v02_estado_eve.setText("Estado: " + estado_eve);
+            holder.v02_estado_eve.setText("Estado: " + eveEnProceso.getEstado_eve());
         }
-        holder.v02_transportetipo_eve.setText(transportetipo_eve);
-        holder.v02_nparticipantes_eve.setText("Participantes: " + nparticipantes_eve);
+        holder.v02_transportetipo_eve.setText(eveEnProceso.getTransportetipo_eve());
+        holder.v02_nparticipantes_eve.setText("Participantes: " + eveEnProceso.getNparticipantes_eve());
 
         //corto click por el item
         // https://stackoverflow.com/questions/42266436/passing-objects-between-fragments
         holder.v02_cdv_eventos.setOnClickListener(v -> {
             if (accion == v.getResources().getInteger(R.integer.accion_a_v_03)) {
-                bundleEvento.putSerializable("eventoParaV_03", eventoEnProceso);
+                bundleEvento.putSerializable("eventoParaV_03", eveEnProceso);
                 Navigation.findNavController(v).navigate(R.id.nav_v03, bundleEvento);
             } else if (accion == v.getResources().getInteger(R.integer.accion_rellenar_formulario)) {
-                rellenacionDeLosCamposDeAAddEve(eventoEnProceso);
+                idEve = eveEnProceso.getId_eve();
+                rellenacionDeLosCamposDeAAddEve(eveEnProceso);
             }
         });
 
@@ -150,23 +162,21 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
                 AlertDialog dialogo = new AlertDialog
                         .Builder(v1.getContext())
                         .setPositiveButton("Activar evento", (dialog, which) -> {
-                            eventoEnProceso.setEstado_eve("activado");
-                            fbf.collection("evento_eve").document(Integer.toString(eventoEnProceso.getId_eve())).set(eventoEnProceso);
+                            eveEnProceso.setEstado_eve("activado");
+                            fbf.collection("evento_eve").document(Integer.toString(eveEnProceso.getId_eve())).set(eveEnProceso);
                             Toast.makeText(v1.getContext(), "Evento activado!", Toast.LENGTH_SHORT).show();
                         })
                         .setNegativeButton("Desactivar evento", (dialog, which) -> {
-                            eventoEnProceso.setEstado_eve("desactivado");
-                            fbf.collection("evento_eve").document(Integer.toString(eventoEnProceso.getId_eve())).set(eventoEnProceso);
+                            eveEnProceso.setEstado_eve("desactivado");
+                            fbf.collection("evento_eve").document(Integer.toString(eveEnProceso.getId_eve())).set(eveEnProceso);
                             Toast.makeText(v1.getContext(), "Evento desactivado!", Toast.LENGTH_SHORT).show();
                         })
-                        .setNeutralButton("Eliminar evento", (dialog, which) -> fbf.collection("evento_eve").document(Integer.toString(eventoEnProceso.getId_eve()))
+                        .setNeutralButton("Eliminar evento", (dialog, which) -> fbf.collection("evento_eve").document(Integer.toString(eveEnProceso.getId_eve()))
                                 .delete()
                                 .addOnSuccessListener(aVoid -> {
-                                    Log.d(TAG, "Evento eliminado con éxito!");
                                     Toast.makeText(v1.getContext(), "Evento eliminado con éxito!", Toast.LENGTH_SHORT).show();
                                 })
                                 .addOnFailureListener(e -> {
-                                    Log.w(TAG, "Ha ocurrido un error eliminando el Evento", e);
                                     Toast.makeText(v1.getContext(), "Ha ocurrido un error eliminando el Evento", Toast.LENGTH_SHORT).show();
                                 }))
                         .setTitle("Confirmar")
@@ -179,6 +189,7 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
     }
 
     private void asignacionDeLosCamposDeAAddEve() {
+        a_add_eve_id_eve = view_A_add_eve.findViewById(R.id.a_add_eve_etx_id_eve);
         a_add_eve_titulo_eve = view_A_add_eve.findViewById(R.id.a_add_eve_etx_titulo_eve);
         a_add_eve_foto_eve = view_A_add_eve.findViewById(R.id.a_add_eve_imv_foto_eve);
         a_add_eve_fechaidatru_eve = view_A_add_eve.findViewById(R.id.a_add_eve_etx_fechaidatru_eve);
@@ -196,7 +207,7 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
     }
 
     private void rellenacionDeLosCamposDeAAddEve(Evento_eve eventoEnProceso) {
-
+        a_add_eve_id_eve.setText(String.valueOf(eventoEnProceso.getId_eve()));
         a_add_eve_titulo_eve.setText(eventoEnProceso.getTitulo_eve());
         //cargamos la imagen que ya existe en otro evento
         str.child("Eventos/" + eventoEnProceso.getFoto_eve()).getDownloadUrl()

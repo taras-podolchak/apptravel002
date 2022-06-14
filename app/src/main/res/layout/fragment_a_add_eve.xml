@@ -7,6 +7,13 @@
     android:background="@drawable/fondo_para_persona"
 
     tools:context=".ui.controller.A_add_eve">
+    <!--nunca se ve es oculto, sirve solo para pasar la id-->
+    <EditText
+        android:id="@+id/a_add_eve_etx_id_eve"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -106,12 +113,14 @@
                         android:id="@+id/a_add_eve_etx_distanciaidatru_eve"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="number"
                         android:hint="@string/distancia_ida" />
 
                     <EditText
                         android:id="@+id/a_add_eve_etx_distanciavueltatru_eve"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="number"
                         android:hint="@string/distancia_vuelta" />
 
                     <EditText
@@ -136,6 +145,7 @@
                         android:id="@+id/a_add_eve_etx_precio_eve"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="number"
                         android:hint="@string/precio" />
 
                     <EditText
@@ -161,7 +171,15 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                    <EditText
+                        android:id="@+id/a_add_eve_etx_id_act1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:visibility="gone" />
+
                     <LinearLayout
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/conteneder_con_borde"
@@ -279,6 +297,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:visibility="gone">
+
+                    <EditText
+                        android:id="@+id/a_add_eve_etx_id_act2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:visibility="gone" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -399,6 +424,13 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
+                    <EditText
+                        android:id="@+id/a_add_eve_etx_id_act3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:visibility="gone" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -518,6 +550,13 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
+                    <EditText
+                        android:id="@+id/a_add_eve_etx_id_act4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:visibility="gone" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -636,6 +675,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:visibility="gone">
+
+                    <EditText
+                        android:id="@+id/a_add_eve_etx_id_act5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:visibility="gone" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

@@ -5,13 +5,6 @@ import static android.content.ContentValues.TAG;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +17,12 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.controller.Interfaces.IDAO;
@@ -137,8 +136,7 @@ public class V_05 extends Fragment implements IDAO<Persona_prs, Object, Object> 
         Bundle bundleEvento = getArguments();
         eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_05");
 
-        id_eve_enProceso = eventoEnProceso.getId_eve();
-        bundleEvento.putInt("eventoParaV_05_1", id_eve_enProceso);
+        bundleEvento.putSerializable("eventoParaV_05_1", eventoEnProceso);
 
         v05_titulo_eve = view.findViewById(R.id.v05_txv_titulo_eve);
         v05_foto_eve = view.findViewById(R.id.v05_imv_foto_eve);
