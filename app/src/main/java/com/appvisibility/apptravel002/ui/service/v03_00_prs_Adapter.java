@@ -94,42 +94,71 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
  * Proporciona los datos: Se encarga de establecer los objetos en el ViewHolder y la posición.
  */
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        id_prs_enProceso = personasInscritos.get(position).getId_prs();
-        String apodo_prs = personasInscritos.get(position).getApodo_prs();
-        String dni_prs = personasInscritos.get(position).getDni_prs();
-        String nombre_prs = personasInscritos.get(position).getNombre_prs();
-        String apellido1_prs = personasInscritos.get(position).getApellido1_prs();
-        String apellido2_prs = personasInscritos.get(position).getApellido2_prs();
-        String direccion_prs = personasInscritos.get(position).getDireccion_prs();
-        String localidad_prs = personasInscritos.get(position).getLocalidad_prs();
-        String cpostal_prs = personasInscritos.get(position).getCpostal_prs();
-        String movil_prs = personasInscritos.get(position).getMovil_prs();
-        String email_prs = personasInscritos.get(position).getEmail_prs();
-        String fotopropia_prs = personasInscritos.get(position).getFotopropia_prs();
-        String fechaalta_prs = personasInscritos.get(position).getFechaalta_prs();
-        String fechabaja_prs = personasInscritos.get(position).getFechabaja_prs();
-        String contacto1cargo_prs = personasInscritos.get(position).getContacto1Cargo_prs();
-        String contacto1movil_prs = personasInscritos.get(position).getContacto1Movil_prs();
-        String contacto2cargo_prs = personasInscritos.get(position).getContacto2Cargo_prs();
-        String contacto2movil_prs = personasInscritos.get(position).getContacto2Movil_prs();
-        int fiabilidadpre_prs = personasInscritos.get(position).getFiabilidadpre_prs();
-        int valoracionorgpre_prs = personasInscritos.get(position).getValoracionorgpre_prs();
-        int antiguedadpre_prs = personasInscritos.get(position).getAntiguedadpre_prs();
-        int volumencomprapre_prs = personasInscritos.get(position).getVolumencomprapre_prs();
-        int cochepre_prs = personasInscritos.get(position).getCochepre_prs();
-        int nrelacionespre_prs = personasInscritos.get(position).getNrelacionespre_prs();
-        String coche_prs = personasInscritos.get(position).getCoche_prs();
-        int nps01_prs = personasInscritos.get(position).getNps01_prs();
-        String nps01fecha_prs = personasInscritos.get(position).getNps01Fecha_prs();
-        int nps02_prs = personasInscritos.get(position).getNps02_prs();
-        String nps02fecha_prs = personasInscritos.get(position).getNps02Fecha_prs();
-        int nps03_prs = personasInscritos.get(position).getNps03_prs();
-        String nps03fecha_prs = personasInscritos.get(position).getNps03Fecha_prs();
-        boolean condicioneslegales_prs = personasInscritos.get(position).getCondicioneslegales_prs();
+        Persona_prs personaEnProceso = new Persona_prs();
+        personaEnProceso.setId_prs(personasInscritos.get(position).getId_prs());
+        personaEnProceso.setApodo_prs(personasInscritos.get(position).getApodo_prs());
+        personaEnProceso.setContrasenna_prs(personasInscritos.get(position).getContrasenna_prs());
+        personaEnProceso.setRecordarcontrasenna_prs(personasInscritos.get(position).getRecordarcontrasenna_prs());
+        personaEnProceso.setActividadtipo_prs(personasInscritos.get(position).getActividadtipo_prs());
+        personaEnProceso.setDocumentotipo_prs(personasInscritos.get(position).getDocumentotipo_prs());
+        personaEnProceso.setDni_prs(personasInscritos.get(position).getDni_prs());
+        personaEnProceso.setNombre_prs(personasInscritos.get(position).getNombre_prs());
+        personaEnProceso.setApellido1_prs(personasInscritos.get(position).getApellido1_prs());
+        personaEnProceso.setApellido2_prs(personasInscritos.get(position).getApellido2_prs());
+        personaEnProceso.setRazonsocial_prs(personasInscritos.get(position).getRazonsocial_prs());
+        personaEnProceso.setNumerocta_prs(personasInscritos.get(position).getNumerocta_prs());
+        personaEnProceso.setDireccion_prs(personasInscritos.get(position).getDireccion_prs());
+        personaEnProceso.setLocalidad_prs(personasInscritos.get(position).getLocalidad_prs());
+        personaEnProceso.setCpostal_prs(personasInscritos.get(position).getCpostal_prs());
+        personaEnProceso.setPais_prs(personasInscritos.get(position).getPais_prs());
+        personaEnProceso.setMovil_prs(personasInscritos.get(position).getMovil_prs());
+        personaEnProceso.setEmail_prs(personasInscritos.get(position).getEmail_prs());
+        personaEnProceso.setTelefono_prs(personasInscritos.get(position).getTelefono_prs());
+        personaEnProceso.setWeb_prs(personasInscritos.get(position).getWeb_prs());
+        personaEnProceso.setUsuariotipo_prs(personasInscritos.get(position).getUsuariotipo_prs());
+        personaEnProceso.setFotopropia_prs(personasInscritos.get(position).getFotopropia_prs());
+        personaEnProceso.setFotoorg_prs(personasInscritos.get(position).getFotoorg_prs());
+        personaEnProceso.setFederado_prs(personasInscritos.get(position).getFederado_prs());
+        personaEnProceso.setFederacionfoto_prs(personasInscritos.get(position).getFederacionfoto_prs());
+        personaEnProceso.setSeguro_prs(personasInscritos.get(position).getSeguro_prs());
+        personaEnProceso.setSegurocompannia_prs(personasInscritos.get(position).getSegurocompannia_prs());
+        personaEnProceso.setSeguropoliza_prs(personasInscritos.get(position).getSeguropoliza_prs());
+        personaEnProceso.setFechacaducidadseguro_prs(personasInscritos.get(position).getFechacaducidadseguro_prs());
+        personaEnProceso.setFechaalta_prs(personasInscritos.get(position).getFechaalta_prs());
+        personaEnProceso.setAntiguedad_prs(personasInscritos.get(position).getAntiguedad_prs());
+        personaEnProceso.setFechabaja_prs(personasInscritos.get(position).getFechabaja_prs());
+        personaEnProceso.setSolicitabaja_prs(personasInscritos.get(position).getSolicitabaja_prs());
+        personaEnProceso.setContacto1Cargo_prs(personasInscritos.get(position).getContacto1Cargo_prs());
+        personaEnProceso.setContacto1Nombre_prs(personasInscritos.get(position).getContacto1Nombre_prs());
+        personaEnProceso.setContacto1Apellido1_prs(personasInscritos.get(position).getContacto1Apellido1_prs());
+        personaEnProceso.setContacto1Apellido2_prs(personasInscritos.get(position).getContacto1Apellido2_prs());
+        personaEnProceso.setContacto1Movil_prs(personasInscritos.get(position).getContacto1Movil_prs());
+        personaEnProceso.setContacto1Telefono_prs(personasInscritos.get(position).getContacto1Telefono_prs());
+        personaEnProceso.setContacto1Email_prs(personasInscritos.get(position).getContacto1Email_prs());
+        personaEnProceso.setContacto2Cargo_prs(personasInscritos.get(position).getContacto2Cargo_prs());
+        personaEnProceso.setContacto2Nombre_prs(personasInscritos.get(position).getContacto2Nombre_prs());
+        personaEnProceso.setContacto2Apellido1_prs(personasInscritos.get(position).getContacto2Apellido1_prs());
+        personaEnProceso.setContacto2Apellido2_prs(personasInscritos.get(position).getContacto2Apellido2_prs());
+        personaEnProceso.setContacto2Movil_prs(personasInscritos.get(position).getContacto2Movil_prs());
+        personaEnProceso.setContacto2Telefono_prs(personasInscritos.get(position).getContacto2Telefono_prs());
+        personaEnProceso.setContacto2Email_prs(personasInscritos.get(position).getContacto2Email_prs());
+        personaEnProceso.setPreferencia_prs(personasInscritos.get(position).getPreferencia_prs());
+        personaEnProceso.setFiabilidadpre_prs(personasInscritos.get(position).getFiabilidadpre_prs());
+        personaEnProceso.setValoracionorgpre_prs(personasInscritos.get(position).getValoracionorgpre_prs());
+        personaEnProceso.setAntiguedadpre_prs(personasInscritos.get(position).getAntiguedadpre_prs());
+        personaEnProceso.setVolumencomprapre_prs(personasInscritos.get(position).getVolumencomprapre_prs());
+        personaEnProceso.setCochepre_prs(personasInscritos.get(position).getCochepre_prs());
+        personaEnProceso.setNrelacionespre_prs(personasInscritos.get(position).getNrelacionespre_prs());
+        personaEnProceso.setCoche_prs(personasInscritos.get(position).getCoche_prs());
+        personaEnProceso.setNps01_prs(personasInscritos.get(position).getNps01_prs());
+        personaEnProceso.setNps01Fecha_prs(personasInscritos.get(position).getNps01Fecha_prs());
+        personaEnProceso.setNps02_prs(personasInscritos.get(position).getNps02_prs());
+        personaEnProceso.setNps02Fecha_prs(personasInscritos.get(position).getNps02Fecha_prs());
+        personaEnProceso.setNps03_prs(personasInscritos.get(position).getNps03_prs());
+        personaEnProceso.setNps03Fecha_prs(personasInscritos.get(position).getNps03Fecha_prs());
+        personaEnProceso.setCondicioneslegales_prs(personasInscritos.get(position).getCondicioneslegales_prs());
 
-        Persona_prs personaEnProceso = new Persona_prs(id_prs_enProceso, apodo_prs, dni_prs, nombre_prs, apellido1_prs, apellido2_prs, direccion_prs, localidad_prs, cpostal_prs, movil_prs, email_prs, fotopropia_prs, fechaalta_prs, fechabaja_prs, contacto1cargo_prs, contacto1movil_prs, contacto2cargo_prs, contacto2movil_prs, fiabilidadpre_prs, valoracionorgpre_prs, antiguedadpre_prs, volumencomprapre_prs, cochepre_prs, nrelacionespre_prs, coche_prs, nps01_prs, nps01fecha_prs, nps02_prs, nps02fecha_prs, nps03_prs, nps03fecha_prs, condicioneslegales_prs);
-
-        str.child("Valientes/" + fotopropia_prs).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        str.child("Valientes/" + personaEnProceso.getFotopropia_prs()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri).into(holder.v03_fotopropia_prs);
@@ -141,8 +170,8 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
                 // Handle any errors
             }
         });
-        holder.v03_apodo_prs.setText(apodo_prs);
-        holder.v03_movil_prs.setText("Tel: " + movil_prs);
+        holder.v03_apodo_prs.setText(personaEnProceso.getApodo_prs());
+        holder.v03_movil_prs.setText("Tel: " + personaEnProceso.getMovil_prs());
 
         holder.v03_cdv_persona.setOnClickListener(new View.OnClickListener() {
             @Override

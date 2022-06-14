@@ -34,7 +34,7 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
     private int accion;
     private Bundle bundleEvento = new Bundle();
     private View view_A_add_eve;
-    private int idEve;
+    static int idEve;
 
     private EditText a_add_eve_id_eve;
     private EditText a_add_eve_titulo_eve;
@@ -56,17 +56,6 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
     private FirebaseFirestore fbf = FirebaseFirestore.getInstance();
     private FirebaseStorage fbs = FirebaseStorage.getInstance();
     private StorageReference str = fbs.getReference();
-
-    public int getIdEve() {
-        return idEve;
-    }
-
-    public void setIdEve(int idEve) {
-        this.idEve = idEve;
-    }
-
-    public v02_00_eve_Adapter() {
-    }
 
     //accion es: 0 si lo pulsas en V02 y 1 si lo pulsas en A_add_eve
     //view_A_add_eve es: la View de A_add_eve para tener acceso a sus campos
@@ -99,23 +88,28 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
         Evento_eve eveEnProceso = new Evento_eve();
         eveEnProceso.setId_eve(eventos.get(position).getId_eve());
         eveEnProceso.setTitulo_eve(eventos.get(position).getTitulo_eve());
+        eveEnProceso.setNparticipantes_eve(eventos.get(position).getNparticipantes_eve());
+        eveEnProceso.setFechapagosennal_eve(eventos.get(position).getFechapagosennal_eve());
+        eveEnProceso.setFechapagototal_eve(eventos.get(position).getFechapagototal_eve());
+        eveEnProceso.setPrecio_eve(eventos.get(position).getPrecio_eve());
         eveEnProceso.setFoto_eve(eventos.get(position).getFoto_eve());
-        eveEnProceso.setFechaidatru_eve(eventos.get(position).getFechaidatru_eve());
-        eveEnProceso.setFechavueltatru_eve(eventos.get(position).getFechavueltatru_eve());
+        eveEnProceso.setDescgeneral_eve(eventos.get(position).getDescgeneral_eve());
+        eveEnProceso.setDescrecomendaciones_eve(eventos.get(position).getDescrecomendaciones_eve());
+        eveEnProceso.setDescseguridad_eve(eventos.get(position).getDescseguridad_eve());
         eveEnProceso.setNivel_eve(eventos.get(position).getNivel_eve());
-        eveEnProceso.setSalidaidatru_eve(eventos.get(position).getSalidaidatru_eve());
-        eveEnProceso.setLlegadaidatru_eve(eventos.get(position).getLlegadaidatru_eve());
-        eveEnProceso.setDistanciaidatru_eve(eventos.get(position).getDistanciaidatru_eve());
-        eveEnProceso.setDistanciavueltatru_eve(eventos.get(position).getDistanciavueltatru_eve());
-        eveEnProceso.setLlegadacoordenadastru_eve(eventos.get(position).getLlegadacoordenadastru_eve());
-        eveEnProceso.setSalidacoordenadastru_eve(eventos.get(position).getSalidacoordenadastru_eve());
-        eveEnProceso.setLlegadavueltatru_eve(eventos.get(position).getLlegadavueltatru_eve());
-        eveEnProceso.setPrecio_eve(eventos.get(position).getPrecio_eve());
         eveEnProceso.setTransportetipo_eve(eventos.get(position).getTransportetipo_eve());
-        eveEnProceso.setEstado_eve(eventos.get(position).getEstado_eve());
-        eveEnProceso.setPrecio_eve(eventos.get(position).getPrecio_eve());
+        eveEnProceso.setFechaidatru_eve(eventos.get(position).getFechaidatru_eve());
+        eveEnProceso.setSalidaidatru_eve(eventos.get(position).getSalidaidatru_eve());
+        eveEnProceso.setSalidacoordenadastru_eve(eventos.get(position).getSalidacoordenadastru_eve());
+        eveEnProceso.setLlegadaidatru_eve(eventos.get(position).getLlegadaidatru_eve());
+        eveEnProceso.setLlegadacoordenadastru_eve(eventos.get(position).getLlegadacoordenadastru_eve());
         eveEnProceso.setDistanciaidatru_eve(eventos.get(position).getDistanciaidatru_eve());
+        eveEnProceso.setFechavueltatru_eve(eventos.get(position).getFechavueltatru_eve());
+        eveEnProceso.setSalidavueltatru_eve(eventos.get(position).getSalidavueltatru_eve());
+        eveEnProceso.setLlegadavueltatru_eve(eventos.get(position).getLlegadavueltatru_eve());
         eveEnProceso.setDistanciavueltatru_eve(eventos.get(position).getDistanciavueltatru_eve());
+        eveEnProceso.setEstado_eve(eventos.get(position).getEstado_eve());
+        eveEnProceso.setDescestado_eve(eventos.get(position).getDescestado_eve());
 
         holder.v02_titulo_eve.setText(eveEnProceso.getTitulo_eve());
         FirebaseStorage fbs = FirebaseStorage.getInstance();

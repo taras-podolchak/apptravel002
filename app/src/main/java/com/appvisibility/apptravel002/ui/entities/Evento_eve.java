@@ -34,100 +34,6 @@ public class Evento_eve implements Serializable {
         super();
     }
 
-    public Evento_eve(
-            int id_eve,
-            String titulo_eve,
-            int nparticipantes_eve,
-            String fechapagosennal_eve,
-            String fechapagototal_eve,
-            String foto_eve,
-            String descgeneral_eve,
-            String descrecomendaciones_eve,
-            String salidacoordenadastru_eve,
-            String salidaidatru_eve,
-            String llegadacoordenadastru_eve,
-            String llegadaidatru_eve,
-            String nivel_eve,
-            String estado_eve,
-            String transportetipo_eve,
-            String fechaidatru_eve,
-            String fechavueltatru_eve
-    ) {
-        super();
-        this.id_eve = id_eve;
-        this.titulo_eve = titulo_eve;
-        this.nparticipantes_eve = nparticipantes_eve;
-        this.fechapagosennal_eve = fechapagosennal_eve;
-        this.fechapagototal_eve = fechapagototal_eve;
-        this.foto_eve = foto_eve;
-        this.descgeneral_eve = descgeneral_eve;
-        this.descrecomendaciones_eve = descrecomendaciones_eve;
-        this.salidacoordenadastru_eve = salidacoordenadastru_eve;
-        this.salidaidatru_eve = salidaidatru_eve;
-        this.llegadacoordenadastru_eve = llegadacoordenadastru_eve;
-        this.llegadaidatru_eve = llegadaidatru_eve;
-        this.nivel_eve = nivel_eve;
-        this.estado_eve = estado_eve;
-        this.transportetipo_eve = transportetipo_eve;
-        this.fechaidatru_eve = fechaidatru_eve;
-        this.fechavueltatru_eve = fechavueltatru_eve;
-    }
-
-    public Evento_eve(
-            int id_eve,
-            String titulo_eve,
-            int nparticipantes_eve,
-            boolean viajeconavion_eve,
-            String fechapagosennal_eve,
-            String fechapagototal_eve,
-            int precio_eve,
-            String foto_eve,
-            String descgeneral_eve,
-            String descrecomendaciones_eve,
-            String descseguridad_eve,
-            String nivel_eve,
-            String transportetipo_eve,
-            String fechaidatru_eve,
-            String salidaidatru_eve,
-            String salidacoordenadastru_eve,
-            String llegadaidatru_eve,
-            String llegadacoordenadastru_eve,
-            int distanciaidatru_eve,
-            String fechavueltatru_eve,
-            String salidavueltatru_eve,
-            String llegadavueltatru_eve,
-            int distanciavueltatru_eve,
-            String estado_eve,
-            String descestado_eve
-    ) {
-        super();
-        this.id_eve = id_eve;
-        this.titulo_eve = titulo_eve;
-        this.nparticipantes_eve = nparticipantes_eve;
-        this.viajeconavion_eve = viajeconavion_eve;
-        this.fechapagosennal_eve = fechapagosennal_eve;
-        this.fechapagototal_eve = fechapagototal_eve;
-        this.precio_eve = precio_eve;
-        this.foto_eve = foto_eve;
-        this.descgeneral_eve = descgeneral_eve;
-        this.descrecomendaciones_eve = descrecomendaciones_eve;
-        this.descseguridad_eve = descseguridad_eve;
-        this.nivel_eve = nivel_eve;
-        this.transportetipo_eve = transportetipo_eve;
-        this.fechaidatru_eve = fechaidatru_eve;
-        this.salidaidatru_eve = salidaidatru_eve;
-        this.salidacoordenadastru_eve = salidacoordenadastru_eve;
-        this.llegadaidatru_eve = llegadaidatru_eve;
-        this.llegadacoordenadastru_eve = llegadacoordenadastru_eve;
-        this.distanciaidatru_eve = distanciaidatru_eve;
-        this.fechavueltatru_eve = fechavueltatru_eve;
-        this.salidavueltatru_eve = salidavueltatru_eve;
-        this.llegadavueltatru_eve = llegadavueltatru_eve;
-        this.distanciavueltatru_eve = distanciavueltatru_eve;
-        this.estado_eve = estado_eve;
-        this.descestado_eve = descestado_eve;
-    }
-
     public int getId_eve() {
         return id_eve;
     }
@@ -152,7 +58,7 @@ public class Evento_eve implements Serializable {
         this.nparticipantes_eve = nparticipantes_eve;
     }
 
-    public boolean getViajeconavion_eve() {
+    public boolean isViajeconavion_eve() {
         return viajeconavion_eve;
     }
 
@@ -326,62 +232,5 @@ public class Evento_eve implements Serializable {
 
     public void setDescestado_eve(String descestado_eve) {
         this.descestado_eve = descestado_eve;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("	Evento_eve	 [	id_eve=	");
-        builder.append(id_eve + " - ");
-        builder.append("	0	 [	titulo_eve=	");
-        builder.append(titulo_eve + " - ");
-        builder.append("	0	 [	nparticipantes_eve=	");
-        builder.append(nparticipantes_eve + " - ");
-        builder.append("	0	 [	viajeconavion_eve=	");
-        builder.append(viajeconavion_eve + " - ");
-        builder.append("	0	 [	fechapagosennal_eve=	");
-        builder.append(fechapagosennal_eve + " - ");
-        builder.append("	0	 [	fechapagototal_eve=	");
-        builder.append(fechapagototal_eve + " - ");
-        builder.append("	0	 [	precio_eve=	");
-        builder.append(precio_eve + " - ");
-        builder.append("	0	 [	foto_eve=	");
-        builder.append(foto_eve + " - ");
-        builder.append("	0	 [	descgeneral_eve=	");
-        builder.append(descgeneral_eve + " - ");
-        builder.append("	0	 [	descrecomendaciones_eve=	");
-        builder.append(descrecomendaciones_eve + " - ");
-        builder.append("	0	 [	descseguridad_eve=	");
-        builder.append(descseguridad_eve + " - ");
-        builder.append("	0	 [	nivel_eve=	");
-        builder.append(nivel_eve + " - ");
-        builder.append("	0	 [	transportetipo_eve=	");
-        builder.append(transportetipo_eve + " - ");
-        builder.append("	0	 [	fechaidatru_eve=	");
-        builder.append(fechaidatru_eve + " - ");
-        builder.append("	0	 [	salidaidatru_eve=	");
-        builder.append(salidaidatru_eve + " - ");
-        builder.append("	0	 [	salidacoordenadastru_eve=	");
-        builder.append(salidacoordenadastru_eve + " - ");
-        builder.append("	0	 [	llegadaidatru_eve=	");
-        builder.append(llegadaidatru_eve + " - ");
-        builder.append("	0	 [	llegadacoordenadastru_eve=	");
-        builder.append(llegadacoordenadastru_eve + " - ");
-        builder.append("	0	 [	distanciaidatru_eve=	");
-        builder.append(distanciaidatru_eve + " - ");
-        builder.append("	0	 [	fechavueltatru_eve=	");
-        builder.append(fechavueltatru_eve + " - ");
-        builder.append("	0	 [	salidavueltatru_eve=	");
-        builder.append(salidavueltatru_eve + " - ");
-        builder.append("	0	 [	llegadavueltatru_eve=	");
-        builder.append(llegadavueltatru_eve + " - ");
-        builder.append("	0	 [	distanciavueltatru_eve=	");
-        builder.append(distanciavueltatru_eve + " - ");
-        builder.append("	0	 [	estado_eve=	");
-        builder.append(estado_eve + " - ");
-        builder.append(", 			descestado_eve=	");
-        builder.append(descestado_eve + " - ");
-        builder.append("]");
-        return builder.toString();
     }
 }

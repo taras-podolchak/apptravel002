@@ -1,5 +1,8 @@
 package com.appvisibility.apptravel002.ui.service;
 
+import static com.appvisibility.apptravel002.MainActivity_val.sesionIniciada;
+import static com.appvisibility.apptravel002.ui.service.v02_00_eve_Adapter.idEve;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -35,7 +38,7 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
     private Bundle bundleActividad = new Bundle();
     private View view_A_add_eve;
     private FirebaseFirestore fbf = FirebaseFirestore.getInstance();
-    private int idEve =  new v02_00_eve_Adapter().getIdEve();
+   // private int idEve = new v02_00_eve_Adapter().getIdEve();
 
     //act 1
     private EditText a_add_eve_id_act1;
@@ -118,33 +121,38 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
  */
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (accion == context.getResources().getInteger(R.integer.accion_rellenar_formulario))
+            rellenacionDeLosCamposDeEveEligido();
 
-           rellenacionDeLosCamposDeEveEligido();
+        Actividad_act actividadEnProceso = new Actividad_act();
+        actividadEnProceso.setId_act(actividades.get(position).getId_act());
+        actividadEnProceso.setId_eve(actividades.get(position).getId_eve());
+        actividadEnProceso.setFecha_act(actividades.get(position).getFecha_act());
+        actividadEnProceso.setActividadtipo_act(actividades.get(position).getActividadtipo_act());
+        actividadEnProceso.setNombre_act(actividades.get(position).getNombre_act());
+        actividadEnProceso.setFoto_act(actividades.get(position).getFoto_act());
+        actividadEnProceso.setDescactividad_act(actividades.get(position).getDescactividad_act());
+        actividadEnProceso.setNivel_act(actividades.get(position).getNivel_act());
+        actividadEnProceso.setSalida_act(actividades.get(position).getSalida_act());
+        actividadEnProceso.setSalidacoordenadas_act(actividades.get(position).getSalidacoordenadas_act());
+        actividadEnProceso.setLlegada_act(actividades.get(position).getLlegada_act());
+        actividadEnProceso.setLlegadacoordenadastru_eve(actividades.get(position).getLlegadacoordenadastru_eve());
+        actividadEnProceso.setHoras_act(actividades.get(position).getHoras_act());
+        actividadEnProceso.setWikiloc_act(actividades.get(position).getWikiloc_act());
+        actividadEnProceso.setDesnivel_act(actividades.get(position).getDesnivel_act());
+        actividadEnProceso.setDistancia_act(actividades.get(position).getDistancia_act());
 
-        int id_act_enProceso = actividades.get(position).getId_act();
-        String nombre_act = actividades.get(position).getNombre_act();
-        String actividadtipo_act = actividades.get(position).getActividadtipo_act();
-        String fecha_act = actividades.get(position).getFecha_act();
-        String nivel_act = actividades.get(position).getNivel_act();
-        int distancia_act = actividades.get(position).getDistancia_act();
-        int desnivel_act = actividades.get(position).getDesnivel_act();
-        int horas_act = actividades.get(position).getHoras_act();
-        String wikiloc_act = actividades.get(position).getWikiloc_act();
-
-        Actividad_act actividadEnProceso = new Actividad_act(id_act_enProceso, nombre_act, actividadtipo_act, fecha_act, nivel_act, distancia_act, desnivel_act, horas_act, wikiloc_act);
-
-        holder.v03_nombre_act.setText(nombre_act);
-        holder.v03_actividadtipo_act.setText(actividadtipo_act);
-        holder.v03_fecha_act.setText(fecha_act);
-        holder.v03_nivel_act.setText("Nivel: " + nivel_act);
-        holder.v03_distancia_act.setText("Distancia: " + distancia_act);
-        holder.v03_desnivel_act.setText("Desnivel: " + desnivel_act);
-        holder.v03_horas_act.setText("Horas de marcha: " + horas_act);
+        holder.v03_nombre_act.setText(actividadEnProceso.getNombre_act());
+        holder.v03_actividadtipo_act.setText(actividadEnProceso.getActividadtipo_act());
+        holder.v03_fecha_act.setText(actividadEnProceso.getFecha_act());
+        holder.v03_nivel_act.setText("Nivel: " + actividadEnProceso.getNivel_act());
+        holder.v03_distancia_act.setText("Distancia: " + actividadEnProceso.getDistancia_act());
+        holder.v03_desnivel_act.setText("Desnivel: " + actividadEnProceso.getDesnivel_act());
+        holder.v03_horas_act.setText("Horas de marcha: " + actividadEnProceso.getHoras_act());
 
         //corto click por el item
         holder.v03_cdv_actividad.setOnClickListener(view -> {
             if (accion == view.getResources().getInteger(R.integer.accion_a_web)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(wikiloc_act));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(actividadEnProceso.getWikiloc_act()));
                 context.startActivity(intent);
             } else if (accion == view.getResources().getInteger(R.integer.accion_rellenar_formulario)) {
                 asignacionDeLosCamposDeAAddEve();
@@ -163,12 +171,15 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
 
         //largo click por el item
         holder.v03_cdv_actividad.setOnLongClickListener(v1 -> {
-            FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
-            Bundle bundleActividadEnProceso = new Bundle();
-            bundleActividadEnProceso.putSerializable("actividadParaAUpdateActModal", actividadEnProceso);
-            DialogFragment a_update_act_modal = new A_update_act_modal();
-            a_update_act_modal.setArguments(bundleActividadEnProceso);
-            a_update_act_modal.show(manager, "dialog");
+            if (sesionIniciada == v1.getResources().getInteger(R.integer.rol_administrador)) {
+                FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
+                Bundle bundleActividadEnProceso = new Bundle();
+
+                bundleActividadEnProceso.putSerializable("actividadParaAUpdateActModal", actividadEnProceso);
+                DialogFragment a_update_act_modal = new A_update_act_modal();
+                a_update_act_modal.setArguments(bundleActividadEnProceso);
+                a_update_act_modal.show(manager, "dialog");
+            }
             return true;
         });
     }
@@ -178,9 +189,7 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
             if (act.getId_eve() == idEve && idEve != 0)
                 rellenacionDeLosCamposDeAAddEve_act1(act);
         }
-
     }
-
 
     private void asignacionDeLosCamposDeAAddEve() {
         //actividad act 1

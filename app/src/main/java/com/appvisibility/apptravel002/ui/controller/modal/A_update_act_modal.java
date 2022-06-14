@@ -102,16 +102,21 @@ public class A_update_act_modal extends DialogFragment {
             A_update_act_modal.this.getDialog().cancel();
         });
         a_update_act_modal_quitar_de_evento.setOnClickListener(view12 -> {
-            guardarAct();
+            desasignarAct();
             A_update_act_modal.this.getDialog().cancel();
         });
 
         return view;
     }
 
+    private void desasignarAct() {
+        actividad_push.setId_eve(0);
+        fbf.collection("actividad_act").document(Integer.toString(actividadEnProceso.getId_act())).set(actividad_push);
+        Toast.makeText(getActivity(), "La actividad se ha actualizado correctamente", Toast.LENGTH_SHORT).show();
+    }
+
     private void guardarAct() {
         actividad_push = recuperacionAct();
-        actividad_push.setId_eve(0);
         fbf.collection("actividad_act").document(Integer.toString(actividadEnProceso.getId_act())).set(actividad_push);
         Toast.makeText(getActivity(), "La actividad se ha actualizado correctamente", Toast.LENGTH_SHORT).show();
     }
@@ -147,9 +152,9 @@ public class A_update_act_modal extends DialogFragment {
         a_update_act_modal_actividadtipo_act.setText(actividadEnProceso.getActividadtipo_act());
         a_update_act_modal_fecha_act.setText(actividadEnProceso.getFecha_act());
         a_update_act_modal_nivel_act.setText(actividadEnProceso.getNivel_act());
-        a_update_act_modal_distancia_act.setId(actividadEnProceso.getDistancia_act());
-        a_update_act_modal_desnivel_act.setId(actividadEnProceso.getDesnivel_act());
-        a_update_act_modal_horas_act.setId(actividadEnProceso.getHoras_act());
+        a_update_act_modal_distancia_act.setText(String.valueOf(actividadEnProceso.getDistancia_act()));
+        a_update_act_modal_desnivel_act.setText(String.valueOf(actividadEnProceso.getDesnivel_act()));
+        a_update_act_modal_horas_act.setText(String.valueOf(actividadEnProceso.getHoras_act()));
         a_update_act_modal_wikiloc_act.setText(actividadEnProceso.getWikiloc_act());
     }
 
@@ -159,9 +164,9 @@ public class A_update_act_modal extends DialogFragment {
         act.setActividadtipo_act(a_update_act_modal_actividadtipo_act.getText().toString().trim());
         act.setFecha_act(a_update_act_modal_fecha_act.getText().toString().trim());
         act.setNivel_act(a_update_act_modal_nivel_act.getText().toString().trim());
-        act.setDistancia_act(a_update_act_modal_distancia_act.getId());
-        act.setDesnivel_act(a_update_act_modal_desnivel_act.getId());
-        act.setHoras_act(a_update_act_modal_horas_act.getId());
+        act.setDistancia_act(Integer.parseInt(a_update_act_modal_distancia_act.getText().toString().trim()));
+        act.setDesnivel_act(Integer.parseInt(a_update_act_modal_desnivel_act.getText().toString().trim()));
+        act.setHoras_act(Integer.parseInt(a_update_act_modal_horas_act.getText().toString().trim()));
         act.setWikiloc_act(a_update_act_modal_wikiloc_act.getText().toString().trim());
         return act;
     }

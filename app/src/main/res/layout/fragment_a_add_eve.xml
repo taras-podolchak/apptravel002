@@ -234,6 +234,7 @@
 
                             <EditText
                                 android:id="@+id/a_add_eve_etx_distancia_act1"
+                                android:inputType="number"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="4"
@@ -243,6 +244,7 @@
                             <EditText
                                 android:id="@+id/a_add_eve_etx_desnivel_act1"
                                 android:layout_width="match_parent"
+                                android:inputType="number"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="4"
                                 android:gravity="center"
@@ -251,6 +253,7 @@
                             <EditText
                                 android:id="@+id/a_add_eve_etx_horas_act1"
                                 android:layout_width="match_parent"
+                                android:inputType="number"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
                                 android:gravity="center"
@@ -361,6 +364,7 @@
 
                             <EditText
                                 android:id="@+id/a_add_eve_etx_distancia_act2"
+                                android:inputType="number"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="4"
@@ -370,6 +374,7 @@
                             <EditText
                                 android:id="@+id/a_add_eve_etx_desnivel_act2"
                                 android:layout_width="match_parent"
+                                android:inputType="number"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="4"
                                 android:gravity="center"
@@ -378,6 +383,7 @@
                             <EditText
                                 android:id="@+id/a_add_eve_etx_horas_act2"
                                 android:layout_width="match_parent"
+                                android:inputType="number"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
                                 android:gravity="center"
@@ -486,6 +492,7 @@
 
                             <EditText
                                 android:id="@+id/a_add_eve_etx_distancia_act3"
+                                android:inputType="number"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="4"
@@ -495,6 +502,7 @@
                             <EditText
                                 android:id="@+id/a_add_eve_etx_desnivel_act3"
                                 android:layout_width="match_parent"
+                                android:inputType="number"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="4"
                                 android:gravity="center"
@@ -503,6 +511,7 @@
                             <EditText
                                 android:id="@+id/a_add_eve_etx_horas_act3"
                                 android:layout_width="match_parent"
+                                android:inputType="number"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
                                 android:gravity="center"
@@ -612,6 +621,7 @@
 
                             <EditText
                                 android:id="@+id/a_add_eve_etx_distancia_act4"
+                                android:inputType="number"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="4"
@@ -621,6 +631,7 @@
                             <EditText
                                 android:id="@+id/a_add_eve_etx_desnivel_act4"
                                 android:layout_width="match_parent"
+                                android:inputType="number"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="4"
                                 android:gravity="center"
@@ -629,6 +640,7 @@
                             <EditText
                                 android:id="@+id/a_add_eve_etx_horas_act4"
                                 android:layout_width="match_parent"
+                                android:inputType="number"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
                                 android:gravity="center"
@@ -738,6 +750,7 @@
 
                             <EditText
                                 android:id="@+id/a_add_eve_etx_distancia_act5"
+                                android:inputType="number"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="4"
@@ -747,6 +760,7 @@
                             <EditText
                                 android:id="@+id/a_add_eve_etx_desnivel_act5"
                                 android:layout_width="match_parent"
+                                android:inputType="number"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="4"
                                 android:gravity="center"
@@ -755,6 +769,7 @@
                             <EditText
                                 android:id="@+id/a_add_eve_etx_horas_act5"
                                 android:layout_width="match_parent"
+                                android:inputType="number"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
                                 android:gravity="center"

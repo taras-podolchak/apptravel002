@@ -62,7 +62,6 @@
     <string name="recomendaciones">Recomendaciones</string>
     <string name="pago_senial">Pago señal</string>
     <string name="pago_total">Pago total</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>  <!-- eliminar? -->
 
     <!-- pantalla modal v_03_2-->
     <string name="quieres_solicitar">¿Quieres solicitar una plaza de coche?</string>

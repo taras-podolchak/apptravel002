@@ -109,10 +109,8 @@ public class V_05_1 extends Fragment implements OnMapReadyCallback {
 //        DocumentReference drf = fbf.collection("evento_eve").document(String.valueOf(id_eve_bundle));
 //        DocumentChangeListener(drf);
 
-
         //recuperacion de temperatura
         //https://www.youtube.com/watch?v=5sIrkG_PLYs&ab_channel=OSWALDOFABIANPALACIOSMU%C3%91OZ
-
         service.requestWeatherData("Madrid", "ES", (isNetworkError, statusCode, root) -> {
             if (!isNetworkError) {
                 if (statusCode == 200) {
@@ -154,7 +152,6 @@ public class V_05_1 extends Fragment implements OnMapReadyCallback {
             }
         });
 
-        v05_1_descgeneral_eve = view.findViewById(R.id.v05_1_txv_descgeneral_eve);
         v05_1_descgeneral_eve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -26,18 +26,6 @@ public class Actividad_act implements Serializable {
         super();
     }
 
-    public Actividad_act(int id_act, String nombre_act, String actividadtipo_act, String fecha_act, String nivel_act, int distancia_act, int desnivel_act, int horas_act, String wikiloc_act) {
-        this.id_act = id_act;
-        this.nombre_act = nombre_act;
-        this.actividadtipo_act = actividadtipo_act;
-        this.fecha_act = fecha_act;
-        this.nivel_act = nivel_act;
-        this.distancia_act = distancia_act;
-        this.desnivel_act = desnivel_act;
-        this.horas_act = horas_act;
-        this.wikiloc_act = wikiloc_act;
-    }
-
     public int getId_act() {
         return id_act;
     }
@@ -126,11 +114,11 @@ public class Actividad_act implements Serializable {
         this.llegada_act = llegada_act;
     }
 
-    public String getLlegadacoordenadastru_Eve() {
+    public String getLlegadacoordenadastru_eve() {
         return llegadacoordenadastru_eve;
     }
 
-    public void setLlegadacoordenadastru_Eve(String llegadacoordenadastru_eve) {
+    public void setLlegadacoordenadastru_eve(String llegadacoordenadastru_eve) {
         this.llegadacoordenadastru_eve = llegadacoordenadastru_eve;
     }
 
@@ -179,42 +167,4 @@ public class Actividad_act implements Serializable {
         return Objects.hash(fecha_act, actividadtipo_act, nombre_act, nivel_act, horas_act, wikiloc_act, desnivel_act, distancia_act);
     }
 
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("	Actividad_act	 [	id_act=	");
-        builder.append(id_act + " - ");
-        builder.append(", 			id_eve=	");
-        builder.append(id_eve + " - ");
-        builder.append(", 			fecha_act=	");
-        builder.append(fecha_act + " - ");
-        builder.append(", 			actividadtipo_act=	");
-        builder.append(actividadtipo_act + " - ");
-        builder.append(", 			nombre_act=	");
-        builder.append(nombre_act + " - ");
-        builder.append(", 			foto_act=	");
-        builder.append(foto_act + " - ");
-        builder.append(", 			descactividad_act=	");
-        builder.append(descactividad_act + " - ");
-        builder.append(", 			nivel_act=	");
-        builder.append(nivel_act + " - ");
-        builder.append(", 			salida_act=	");
-        builder.append(salida_act + " - ");
-        builder.append(", 			salidacoordenadas_act=	");
-        builder.append(salidacoordenadas_act + " - ");
-        builder.append(", 			llegada_act=	");
-        builder.append(llegada_act + " - ");
-        builder.append(", 			llegadacoordenadastru_eve=	");
-        builder.append(llegadacoordenadastru_eve + " - ");
-        builder.append(", 			horas_act=	");
-        builder.append(horas_act + " - ");
-        builder.append(", 			wikiloc_act=	");
-        builder.append(wikiloc_act + " - ");
-        builder.append(", 			desnivel_act=	");
-        builder.append(desnivel_act + " - ");
-        builder.append(", 			distancia_act=	");
-        builder.append(distancia_act + " - ");
-        builder.append("]");
-        return builder.toString();
-    }
 }
