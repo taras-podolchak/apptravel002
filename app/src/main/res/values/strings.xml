@@ -101,6 +101,16 @@
     <!-- v03_00_act_Adapter -->
     <integer name="accion_a_web">0</integer>
 
+    <!-- pantalla ACV_my_account -->
+    <string name="apodo">Apodo</string>
+    <string name="direccion">Direccion</string>
+    <string name="localidad">Localidad</string>
+    <string name="cpostal">Código postal</string>
+    <string name="pais">Pais</string>
+    <string name="seguro">Seguro</string>
+    <string name="seguropoliza">Seguro poliza</string>
+    <string name="fechacaducidadseguro">fecha caducidad de seguro</string>
+
     <!-- tipos de usuarios -->
     <integer name="rol_no_iniciada">0</integer>
     <integer name="rol_valiente">1</integer>
@@ -141,4 +151,6 @@
     <string name="nubes">Nubes :</string>
     <string name="visibilidad">Visibilidad :</string>
     <string name="Fields_cannot_be_empty">Los campos no pueden ser vacíos</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

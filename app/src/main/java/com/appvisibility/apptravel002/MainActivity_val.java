@@ -36,6 +36,8 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
     private FirebaseFirestore fbf = FirebaseFirestore.getInstance();
     private Persona_prs personaTipo;
     public static int sesionIniciada = 0;
+    NavController navController;
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +63,7 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
                 R.id.nav_v01, R.id.nav_v02, R.id.nav_v03, R.id.nav_v04, R.id.nav_v05, R.id.nav_v05_1, R.id.nav_v06)
                 .setOpenableLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main_activity_val);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main_activity_val);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
@@ -100,7 +102,7 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
 
             //obtenemos la Uid del registro de la bbdd FirebaseAuth
             FirebaseUser user = fba.getCurrentUser();
-            String uid = user.getUid();
+            uid = user.getUid();
 
             //buscamos en FirebaseFirestore el documento con esa Uid
             DocumentReference docRef = fbf.collection("persona_prs").document(uid);
@@ -141,6 +143,15 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
+        if (id == R.id.mi_cuenta) {
+            if (sesionIniciada == getResources().getInteger(R.integer.rol_no_iniciada))
+                navController.navigate(R.id.nav_v04);
+            else {
+                Bundle bundle = new Bundle();
+                bundle.putString("idPersona", uid);
+                navController.navigate(R.id.ACV_my_account, bundle);
+            }
+        }
         if (id == R.id.dudas_sobre_logistica) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://amigosmontanawo.eboe62.com/dudas-sobre-la-logistica/"));
             startActivity(intent);
