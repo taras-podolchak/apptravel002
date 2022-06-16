@@ -1,11 +1,8 @@
 package com.appvisibility.apptravel002.ui.controller;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -264,7 +261,7 @@ public class V_05 extends Fragment implements IDAO<Persona_prs, Object, Object> 
             public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
                 T enProceso;
                 if (error != null) {
-                    Log.e("Error en Firestore", error.getMessage());
+                    Toast.makeText(mContext, "Error en Firestore", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 lista.clear();
@@ -286,8 +283,6 @@ public class V_05 extends Fragment implements IDAO<Persona_prs, Object, Object> 
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });*/
-            Log.d(TAG, "Datos recibidos!");
-            Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -309,14 +304,14 @@ public class V_05 extends Fragment implements IDAO<Persona_prs, Object, Object> 
                     public void onEvent(@Nullable QuerySnapshot value,
                                         @Nullable FirebaseFirestoreException e) {
                         if (e != null) {
-                            Log.w(TAG, "Listen failed.", e);
+                            Toast.makeText(mContext, "Listen failed.", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         personasConCoches.clear();
                         for (QueryDocumentSnapshot qds : value) {
                             personasConCoches.add(qds.toObject(Persona_prs.class));
                         }
-                        Log.d(TAG, "Current cites in CA: ");
+                        Toast.makeText(mContext, "Current cites in CA:", Toast.LENGTH_SHORT).show();
                     }
                 });
 

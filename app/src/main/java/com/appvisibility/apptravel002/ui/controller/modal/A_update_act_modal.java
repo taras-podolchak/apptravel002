@@ -41,7 +41,7 @@ public class A_update_act_modal extends DialogFragment {
 
     // Entities
     private Actividad_act actividadEnProceso;
-    private Actividad_act actividad_push;
+    //private Actividad_act actividad_push;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -78,7 +78,7 @@ public class A_update_act_modal extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            actividadEnProceso = (Actividad_act) getArguments().getSerializable("actividadParaAUpdateActModal");
+            actividadEnProceso = (Actividad_act) getArguments().getSerializable("actividadParaRellenarA_update_act_modal");
         }
     }
 
@@ -94,35 +94,34 @@ public class A_update_act_modal extends DialogFragment {
 
         a_update_act_modal_limpiar_campos.setOnClickListener(view12 -> limpiarAct());
         a_update_act_modal_guardar.setOnClickListener(view12 -> {
-            guardarAct();
+            guardarAct(recuperacionAct());
             A_update_act_modal.this.getDialog().cancel();
         });
         a_update_act_modal_eliminar.setOnClickListener(view12 -> {
-            eliminarAct(view12);
+            eliminarAct(view12,recuperacionAct());
             A_update_act_modal.this.getDialog().cancel();
         });
         a_update_act_modal_quitar_de_evento.setOnClickListener(view12 -> {
-            desasignarAct();
+            desasignarAct(recuperacionAct());
             A_update_act_modal.this.getDialog().cancel();
         });
 
         return view;
     }
 
-    private void desasignarAct() {
-        actividad_push.setId_eve(0);
-        fbf.collection("actividad_act").document(Integer.toString(actividadEnProceso.getId_act())).set(actividad_push);
-        Toast.makeText(getActivity(), "La actividad se ha actualizado correctamente", Toast.LENGTH_SHORT).show();
+    private void desasignarAct(Actividad_act actividad_desasignar) {
+        actividad_desasignar.setId_eve(0);
+        fbf.collection("actividad_act").document(Integer.toString(actividad_desasignar.getId_act())).set(actividad_desasignar);
+        Toast.makeText(getActivity(), "La actividad se ha desasignado correctamente", Toast.LENGTH_SHORT).show();
     }
 
-    private void guardarAct() {
-        actividad_push = recuperacionAct();
-        fbf.collection("actividad_act").document(Integer.toString(actividadEnProceso.getId_act())).set(actividad_push);
-        Toast.makeText(getActivity(), "La actividad se ha actualizado correctamente", Toast.LENGTH_SHORT).show();
+    private void guardarAct(Actividad_act actividad_guardar) {
+        fbf.collection("actividad_act").document(Integer.toString(actividad_guardar.getId_act())).set(actividad_guardar);
+        Toast.makeText(getActivity(), "La actividad se ha guardado correctamente", Toast.LENGTH_SHORT).show();
     }
 
-    private void eliminarAct(View v) {
-        fbf.collection("actividad_act").document(Integer.toString(actividadEnProceso.getId_act()))
+    private void eliminarAct(View v, Actividad_act actividad_eliminar) {
+        fbf.collection("actividad_act").document(Integer.toString(actividad_eliminar.getId_act()))
                 .delete()
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(v.getContext(), "Actividad eliminado con éxito!", Toast.LENGTH_SHORT).show();
@@ -147,28 +146,27 @@ public class A_update_act_modal extends DialogFragment {
         a_update_act_modal_quitar_de_evento = view.findViewById(R.id.a_update_act_modal_btn_quitar_de_evento);
     }
 
-    private void rellenacionDeLosCamposDeAAddEve_act(Actividad_act actividadEnProceso) {
-        a_update_act_modal_nombre_act.setText(actividadEnProceso.getNombre_act());
-        a_update_act_modal_actividadtipo_act.setText(actividadEnProceso.getActividadtipo_act());
-        a_update_act_modal_fecha_act.setText(actividadEnProceso.getFecha_act());
-        a_update_act_modal_nivel_act.setText(actividadEnProceso.getNivel_act());
-        a_update_act_modal_distancia_act.setText(String.valueOf(actividadEnProceso.getDistancia_act()));
-        a_update_act_modal_desnivel_act.setText(String.valueOf(actividadEnProceso.getDesnivel_act()));
-        a_update_act_modal_horas_act.setText(String.valueOf(actividadEnProceso.getHoras_act()));
-        a_update_act_modal_wikiloc_act.setText(actividadEnProceso.getWikiloc_act());
+    private void rellenacionDeLosCamposDeAAddEve_act(Actividad_act actividadParaRellenar) {
+        a_update_act_modal_nombre_act.setText(actividadParaRellenar.getNombre_act());
+        a_update_act_modal_actividadtipo_act.setText(actividadParaRellenar.getActividadtipo_act());
+        a_update_act_modal_fecha_act.setText(actividadParaRellenar.getFecha_act());
+        a_update_act_modal_nivel_act.setText(actividadParaRellenar.getNivel_act());
+        a_update_act_modal_distancia_act.setText(String.valueOf(actividadParaRellenar.getDistancia_act()));
+        a_update_act_modal_desnivel_act.setText(String.valueOf(actividadParaRellenar.getDesnivel_act()));
+        a_update_act_modal_horas_act.setText(String.valueOf(actividadParaRellenar.getHoras_act()));
+        a_update_act_modal_wikiloc_act.setText(actividadParaRellenar.getWikiloc_act());
     }
 
-    private Actividad_act recuperacionAct() {
-        Actividad_act act = new Actividad_act();
-        act.setNombre_act(a_update_act_modal_nombre_act.getText().toString().trim());
-        act.setActividadtipo_act(a_update_act_modal_actividadtipo_act.getText().toString().trim());
-        act.setFecha_act(a_update_act_modal_fecha_act.getText().toString().trim());
-        act.setNivel_act(a_update_act_modal_nivel_act.getText().toString().trim());
-        act.setDistancia_act(Integer.parseInt(a_update_act_modal_distancia_act.getText().toString().trim()));
-        act.setDesnivel_act(Integer.parseInt(a_update_act_modal_desnivel_act.getText().toString().trim()));
-        act.setHoras_act(Integer.parseInt(a_update_act_modal_horas_act.getText().toString().trim()));
-        act.setWikiloc_act(a_update_act_modal_wikiloc_act.getText().toString().trim());
-        return act;
+    private  Actividad_act recuperacionAct() {
+        actividadEnProceso.setNombre_act(a_update_act_modal_nombre_act.getText().toString().trim());
+        actividadEnProceso.setActividadtipo_act(a_update_act_modal_actividadtipo_act.getText().toString().trim());
+        actividadEnProceso.setFecha_act(a_update_act_modal_fecha_act.getText().toString().trim());
+        actividadEnProceso.setNivel_act(a_update_act_modal_nivel_act.getText().toString().trim());
+        actividadEnProceso.setDistancia_act(Integer.parseInt(a_update_act_modal_distancia_act.getText().toString().trim()));
+        actividadEnProceso.setDesnivel_act(Integer.parseInt(a_update_act_modal_desnivel_act.getText().toString().trim()));
+        actividadEnProceso.setHoras_act(Integer.parseInt(a_update_act_modal_horas_act.getText().toString().trim()));
+        actividadEnProceso.setWikiloc_act(a_update_act_modal_wikiloc_act.getText().toString().trim());
+        return actividadEnProceso;
     }
 
     private void limpiarAct() {

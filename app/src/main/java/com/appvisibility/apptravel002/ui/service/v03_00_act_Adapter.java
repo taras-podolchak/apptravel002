@@ -1,7 +1,6 @@
 package com.appvisibility.apptravel002.ui.service;
 
 import static com.appvisibility.apptravel002.MainActivity_val.sesionIniciada;
-import static com.appvisibility.apptravel002.ui.service.v02_00_eve_Adapter.idEve;
 
 import android.content.Context;
 import android.content.Intent;
@@ -120,9 +119,9 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
  * Proporciona los datos: Se encarga de establecer los objetos en el ViewHolder y la posición.
  */
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if (accion == context.getResources().getInteger(R.integer.accion_rellenar_formulario))
+   /*     if (accion == context.getResources().getInteger(R.integer.accion_rellenar_formulario))
             rellenacionDeLosCamposDeEveEligido();
-
+*/
         Actividad_act actividadEnProceso = new Actividad_act();
         actividadEnProceso.setId_act(actividades.get(position).getId_act());
         actividadEnProceso.setId_eve(actividades.get(position).getId_eve());
@@ -175,7 +174,7 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
                 FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
                 Bundle bundleActividadEnProceso = new Bundle();
 
-                bundleActividadEnProceso.putSerializable("actividadParaAUpdateActModal", actividadEnProceso);
+                bundleActividadEnProceso.putSerializable("actividadParaRellenarA_update_act_modal", actividadEnProceso);
                 DialogFragment a_update_act_modal = new A_update_act_modal();
                 a_update_act_modal.setArguments(bundleActividadEnProceso);
                 a_update_act_modal.show(manager, "dialog");
@@ -183,14 +182,14 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
             return true;
         });
     }
-
+/*
     private void rellenacionDeLosCamposDeEveEligido() {
         for (Actividad_act act : actividades) {
             if (act.getId_eve() == idEve && idEve != 0)
                 rellenacionDeLosCamposDeAAddEve_act1(act);
         }
     }
-
+*/
     private void asignacionDeLosCamposDeAAddEve() {
         //actividad act 1
         a_add_eve_id_act1 = view_A_add_eve.findViewById(R.id.a_add_eve_etx_id_act1);

@@ -1,11 +1,8 @@
 package com.appvisibility.apptravel002;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -20,6 +17,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.appvisibility.apptravel002.databinding.ActivityMainValBinding;
+import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,8 +34,7 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
     private FirebaseFirestore fbf = FirebaseFirestore.getInstance();
     private Persona_prs personaTipo;
     public static int sesionIniciada = 0;
-    NavController navController;
-    String uid;
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +68,22 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
         if (mNavigationView != null) {
             mNavigationView.setNavigationItemSelectedListener(this);
         }
+
+        //recuperamos el bundle
+        Intent intent = getIntent();
+        int acceso = intent.getIntExtra("abrirEnMainActivity_val", 0);
+        Evento_eve evento_eve_get = (Evento_eve) intent.getSerializableExtra("eventoParaV_05");
+
+        Bundle id_eve_bundle_put = new Bundle();
+        id_eve_bundle_put.putInt("accesoParaV_04", acceso);
+        id_eve_bundle_put.putSerializable("eventoParaV_05", evento_eve_get);
+
+        if (acceso == -1)
+            navController.navigate(R.id.nav_v04, id_eve_bundle_put);
+        else if (acceso == 0)
+            navController.navigate(R.id.nav_v01);
+        else
+            navController.navigate(R.id.nav_v05, id_eve_bundle_put);
     }//Fin de constructor
 
     //Generamos un bundle con los datos del Usuario activo
@@ -102,7 +115,7 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
 
             //obtenemos la Uid del registro de la bbdd FirebaseAuth
             FirebaseUser user = fba.getCurrentUser();
-            uid = user.getUid();
+            String uid = user.getUid();
 
             //buscamos en FirebaseFirestore el documento con esa Uid
             DocumentReference docRef = fbf.collection("persona_prs").document(uid);
@@ -114,10 +127,11 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
                         //recuperamos la persona
                         personaTipo = document.toObject(Persona_prs.class);
 
+                        setTitle(personaTipo.getEmail_prs());
+
                         //si es valiente
                         if (personaTipo.getUsuariotipo_prs() == getResources().getInteger(R.integer.rol_valiente)) {
                             sesionIniciada = personaTipo.getUsuariotipo_prs();
-                            setTitle(personaTipo.getEmail_prs());
                         }
                         //si es colaborador
                         else if (personaTipo.getUsuariotipo_prs() == getResources().getInteger(R.integer.rol_colaborador)) {
@@ -129,11 +143,7 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
                             sesionIniciada = personaTipo.getUsuariotipo_prs();
                             startActivity(new Intent(this, MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", 0));
                         }
-                    } else {
-                        Log.d(TAG, "No such document");
                     }
-                } else {
-                    Log.d(TAG, "get failed with ", task1.getException());
                 }
             });
         }
@@ -144,69 +154,69 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.mi_cuenta) {
-            if (sesionIniciada == getResources().getInteger(R.integer.rol_no_iniciada))
-                navController.navigate(R.id.nav_v04);
-            else {
+            if (sesionIniciada == getResources().getInteger(R.integer.rol_no_iniciada)) {
+                Bundle id_eve_bundle_put = new Bundle();
+                id_eve_bundle_put.putInt("accesoParaV_04", 0);
+                navController.navigate(R.id.nav_v04, id_eve_bundle_put);
+            } else {
+                FirebaseUser user = fba.getCurrentUser();
+                String uid = user.getUid();
                 Bundle bundle = new Bundle();
                 bundle.putString("idPersona", uid);
                 navController.navigate(R.id.ACV_my_account, bundle);
             }
         }
-        if (id == R.id.dudas_sobre_logistica) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://amigosmontanawo.eboe62.com/dudas-sobre-la-logistica/"));
-            startActivity(intent);
-        }
-        if (id == R.id.dudas_sobre_montannismo) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://amigosmontanawo.eboe62.com/dudas-sobre-montanismo/"));
-            startActivity(intent);
-        }
-        if (id == R.id.dudas_sobre_club) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://amigosmontanawo.eboe62.com/dudas-sobre-el-club/"));
-            startActivity(intent);
-        }
-        if (id == R.id.licencia_federativa) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://amigosmontanawo.eboe62.com/2020/10/01/licencia-federativa/"));
-            startActivity(intent);
-        }
-        if (id == R.id.equipamiento) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://amigosmontanawo.eboe62.com/2020/10/05/496/"));
-            startActivity(intent);
-        }
-        if (id == R.id.pagina_web) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://amigosmontanawo.eboe62.com/"));
-            startActivity(intent);
-        }
+        if (id == R.id.dudas_sobre_logistica)
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://amigosmontanawo.eboe62.com/dudas-sobre-la-logistica/")));
+
+        if (id == R.id.dudas_sobre_montannismo)
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://amigosmontanawo.eboe62.com/dudas-sobre-montanismo/")));
+
+        if (id == R.id.dudas_sobre_club)
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://amigosmontanawo.eboe62.com/dudas-sobre-el-club/")));
+
+        if (id == R.id.licencia_federativa)
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://amigosmontanawo.eboe62.com/2020/10/01/licencia-federativa/")));
+
+        if (id == R.id.equipamiento)
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://amigosmontanawo.eboe62.com/2020/10/05/496/")));
+
+        if (id == R.id.pagina_web)
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://amigosmontanawo.eboe62.com/")));
+
         if (id == R.id.colaborador) {
             if (sesionIniciada == getResources().getInteger(R.integer.rol_no_iniciada)) {
                 startActivity(new Intent(this, MainActivity_col.class).putExtra("abrirEnMainActivity_col", getResources().getInteger(R.integer.accion_a_v04)));
                 Toast.makeText(this, "Inicie la sesion por favor", Toast.LENGTH_SHORT).show();
-            } else if (sesionIniciada == getResources().getInteger(R.integer.rol_colaborador)) {
+            } else if (sesionIniciada == getResources().getInteger(R.integer.rol_colaborador))
                 startActivity(new Intent(this, MainActivity_col.class).putExtra("abrirEnMainActivity_col", getResources().getInteger(R.integer.accion_a_v01)));
-            } else {
+            else
                 Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
-            }
+
         }
         if (id == R.id.administrador) {
             if (sesionIniciada == getResources().getInteger(R.integer.rol_no_iniciada)) {
                 startActivity(new Intent(this, MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", getResources().getInteger(R.integer.accion_a_v04)));
                 Toast.makeText(this, "Inicie la sesion por favor", Toast.LENGTH_SHORT).show();
-            } else if (sesionIniciada == getResources().getInteger(R.integer.rol_administrador)) {
+            } else if (sesionIniciada == getResources().getInteger(R.integer.rol_administrador))
                 startActivity(new Intent(this, MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", getResources().getInteger(R.integer.accion_a_v01)));
-            } else {
+            else
                 Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
-            }
+
         }
         if (id == R.id.cerrar_session) {
             Toast.makeText(getApplicationContext(), "Cerramos la sesion", Toast.LENGTH_SHORT).show();
             fba.signOut();
+            setTitle(R.integer.rol_no_iniciada);
             sesionIniciada = getResources().getInteger(R.integer.rol_no_iniciada);
             startActivity(new Intent(this, MainActivity_val.class));
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout_val);
         drawer.closeDrawer(GravityCompat.START);
+
+
         return true;
     }
-
 // https://stackoverflow.com/questions/5448653/how-to-implement-onbackpressed-in-fragments
 // https://stackoverflow.com/questions/35708453/how-to-automatically-click-a-button-in-android-after-a-5-second-delay
 // https://stackoverflow.com/questions/41981546/cant-resolve-method-showandroid-support-v4-app-fragmentmanager-java-lang-stri

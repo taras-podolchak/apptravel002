@@ -4,14 +4,6 @@ import static android.content.ContentValues.TAG;
 
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +11,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.appvisibility.apptravel002.MainActivity_val;
 import com.appvisibility.apptravel002.R;
@@ -126,7 +125,7 @@ public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscrib
 
         Bundle bundlePersonasEnCoche = getArguments();
         //Recuperamos las Plazas del Coche
-        personasEnCoche = bundlePersonasEnCoche.getParcelableArrayList("personaParaV_05_2");
+        personasEnCoche = bundlePersonasEnCoche.getParcelableArrayList("personaParaV_03_2");
 
 //        https://stackoverflow.com/questions/22694884/filter-java-stream-to-1-and-only-1-element
         //Recuperamos los datos de la persona que ofrece el coche
@@ -152,7 +151,7 @@ public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscrib
 
         Bundle bundleEvento = getArguments();
         //Recuperamos el Evento
-//        eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_05_2");
+//        eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_03_2");
         eventoEnProceso = V_03.eventoEnProceso;
         bundleEvento.putSerializable("eventoParaV_03", eventoEnProceso);
 

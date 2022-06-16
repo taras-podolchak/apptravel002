@@ -39,6 +39,7 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
     private EditText a_add_eve_id_eve;
     private EditText a_add_eve_titulo_eve;
     private ImageView a_add_eve_foto_eve;
+    private EditText a_add_eve_foto_ruta_eve;
     private EditText a_add_eve_fechaidatru_eve;
     private EditText a_add_eve_fechavueltatru_eve;
     private EditText a_add_eve_nivel_eve;
@@ -186,6 +187,7 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
         a_add_eve_id_eve = view_A_add_eve.findViewById(R.id.a_add_eve_etx_id_eve);
         a_add_eve_titulo_eve = view_A_add_eve.findViewById(R.id.a_add_eve_etx_titulo_eve);
         a_add_eve_foto_eve = view_A_add_eve.findViewById(R.id.a_add_eve_imv_foto_eve);
+        a_add_eve_foto_ruta_eve = view_A_add_eve.findViewById(R.id.a_add_eve_imv_foto_ruta_eve);
         a_add_eve_fechaidatru_eve = view_A_add_eve.findViewById(R.id.a_add_eve_etx_fechaidatru_eve);
         a_add_eve_fechavueltatru_eve = view_A_add_eve.findViewById(R.id.a_add_eve_etx_fechavueltatru_eve);
         a_add_eve_nivel_eve = view_A_add_eve.findViewById(R.id.a_add_eve_etx_nivel_eve);
@@ -207,6 +209,7 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
         str.child("Eventos/" + eventoEnProceso.getFoto_eve()).getDownloadUrl()
                 .addOnSuccessListener(uri -> Picasso.get().load(uri).into(a_add_eve_foto_eve))
                 .addOnFailureListener(exception -> Toast.makeText(view_A_add_eve.getContext(), "GET IMAGE FAILED", Toast.LENGTH_SHORT).show());
+        a_add_eve_foto_ruta_eve.setText((eventoEnProceso.getFoto_eve()));
         a_add_eve_fechaidatru_eve.setText(eventoEnProceso.getFechaidatru_eve());
         a_add_eve_fechavueltatru_eve.setText(eventoEnProceso.getFechavueltatru_eve());
         a_add_eve_nivel_eve.setText(eventoEnProceso.getNivel_eve());

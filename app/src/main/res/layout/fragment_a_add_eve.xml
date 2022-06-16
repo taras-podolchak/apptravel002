@@ -66,9 +66,15 @@
                     <ImageView
                         android:id="@+id/a_add_eve_imv_foto_eve"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:pointerIcon="zoom_in"
                         app:srcCompat="@drawable/ic_menu_gallery" />
+
+                    <EditText
+                        android:id="@+id/a_add_eve_imv_foto_ruta_eve"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"

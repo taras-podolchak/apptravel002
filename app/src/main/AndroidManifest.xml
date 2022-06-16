@@ -18,9 +18,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Apptravel002_val">
         <activity
-            android:name=".Tiempo_prueba"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity_adm"
             android:exported="false"
             android:theme="@style/Theme.Apptravel002_adm" />

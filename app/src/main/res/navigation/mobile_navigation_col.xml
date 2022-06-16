@@ -115,4 +115,8 @@
             android:id="@+id/action_nav_c05_to_nav_v03"
             app:destination="@id/nav_v03" />
     </fragment>
+    <fragment
+        android:id="@+id/ACV_my_account"
+        android:name="com.appvisibility.apptravel002.ui.controller.ACV_my_account"
+        tools:layout="@layout/fragment_a_c_v_my_account" />
 </navigation>

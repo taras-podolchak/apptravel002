@@ -97,15 +97,16 @@ public class ACV_my_account extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            idPersona = getArguments().getString("idPersona");
+
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_a_c_v_my_account, container, false);
+
+        idPersona = getArguments().getString("idPersona");
 
         acv_my_account_otopropia_prs = view.findViewById(R.id.acv_my_account_imv_otopropia_prs);
         acv_my_account_nombre_prs = view.findViewById(R.id.acv_my_account_etx_nombre_prs);

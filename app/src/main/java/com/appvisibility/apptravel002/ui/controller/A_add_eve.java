@@ -1,12 +1,9 @@
 package com.appvisibility.apptravel002.ui.controller;
 
-import static android.content.ContentValues.TAG;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,6 +74,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
     private int id_new_eve;
     private int id_new_act;
     private Uri imageUri;
+    private boolean subirNewFoto = false;
 
 
     // Service
@@ -96,6 +94,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
     private EditText a_add_eve_id_eve;
     private EditText a_add_eve_titulo_eve;
     private ImageView a_add_eve_foto_eve;
+    private EditText a_add_eve_foto_ruta_eve;
     private EditText a_add_eve_fechaidatru_eve;
     private EditText a_add_eve_fechavueltatru_eve;
     private EditText a_add_eve_nivel_eve;
@@ -209,7 +208,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-           // id_new_eve = getArguments().getInt("id_new_eve");
+
         }
     }
 
@@ -226,7 +225,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
         asignacionDeLosCamposDeAAddEve(view);
 
         //RecyclerView de los eventos
-        this.v02_recycler_eve = (RecyclerView) view.findViewById(R.id.a_add_eve_rcv_eventos);
+        this.v02_recycler_eve = view.findViewById(R.id.a_add_eve_rcv_eventos);
         this.v02_recycler_eve.setHasFixedSize(true);
         this.v02_recycler_eve.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
         this.v02_adapter_eve = new v02_00_eve_Adapter(eventos, mContext, getResources().getInteger(R.integer.accion_rellenar_formulario), view);
@@ -237,7 +236,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
         this.v02_recycler_eve.setAdapter(v02_adapter_eve);
 
         //RecyclerView de la actividad1
-        this.v03_recycler_act1 = (RecyclerView) view.findViewById(R.id.a_add_eve_rcv_actividad1);
+        this.v03_recycler_act1 = view.findViewById(R.id.a_add_eve_rcv_actividad1);
         this.v03_recycler_act1.setHasFixedSize(true);
         this.v03_recycler_act1.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
         this.v03_adapter_act1 = new v03_00_act_Adapter(actividades, mContext, getResources().getInteger(R.integer.accion_rellenar_formulario), view, 1);
@@ -246,28 +245,28 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
         this.v03_recycler_act1.setAdapter(v03_adapter_act1);
 
         //RecyclerView de la actividad2
-        this.v03_recycler_act2 = (RecyclerView) view.findViewById(R.id.a_add_eve_rcv_actividad2);
+        this.v03_recycler_act2 = view.findViewById(R.id.a_add_eve_rcv_actividad2);
         this.v03_recycler_act2.setHasFixedSize(true);
         this.v03_recycler_act2.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
         this.v03_adapter_act2 = new v03_00_act_Adapter(actividades, mContext, getResources().getInteger(R.integer.accion_rellenar_formulario), view, 2);
         this.v03_recycler_act2.setAdapter(v03_adapter_act2);
 
         //RecyclerView de la actividad3
-        this.v03_recycler_act3 = (RecyclerView) view.findViewById(R.id.a_add_eve_rcv_actividad3);
+        this.v03_recycler_act3 = view.findViewById(R.id.a_add_eve_rcv_actividad3);
         this.v03_recycler_act3.setHasFixedSize(true);
         this.v03_recycler_act3.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
         this.v03_adapter_act3 = new v03_00_act_Adapter(actividades, mContext, getResources().getInteger(R.integer.accion_rellenar_formulario), view, 3);
         this.v03_recycler_act3.setAdapter(v03_adapter_act3);
 
         //RecyclerView de la actividad4
-        this.v03_recycler_act4 = (RecyclerView) view.findViewById(R.id.a_add_eve_rcv_actividad4);
+        this.v03_recycler_act4 = view.findViewById(R.id.a_add_eve_rcv_actividad4);
         this.v03_recycler_act4.setHasFixedSize(true);
         this.v03_recycler_act4.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
         this.v03_adapter_act4 = new v03_00_act_Adapter(actividades, mContext, getResources().getInteger(R.integer.accion_rellenar_formulario), view, 4);
         this.v03_recycler_act4.setAdapter(v03_adapter_act4);
 
         //RecyclerView de la actividad5
-        this.v03_recycler_act5 = (RecyclerView) view.findViewById(R.id.a_add_eve_rcv_actividad5);
+        this.v03_recycler_act5 = view.findViewById(R.id.a_add_eve_rcv_actividad5);
         this.v03_recycler_act5.setHasFixedSize(true);
         this.v03_recycler_act5.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
         this.v03_adapter_act5 = new v03_00_act_Adapter(actividades, mContext, getResources().getInteger(R.integer.accion_rellenar_formulario), view, 5);
@@ -279,9 +278,10 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
             imageUri = uri;
             a_add_eve_foto_eve.setImageURI(imageUri);
             //1.3
-            changeNewImage(view);
+            subirNewFoto = true;
         });
 
+        //click por la imagen
         // 1.1 https://firebase.google.com/docs/storage/android/upload-files?hl=es-419
         a_add_eve_foto_eve.setOnClickListener(View1 -> {
             mGetContent.launch("image/*");
@@ -339,7 +339,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
             public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
                 T enProceso;
                 if (error != null) {
-                    Log.e("Error en Firestore", error.getMessage());
+                    Toast.makeText(mContext, "Error en Firestore", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 lista.clear();
@@ -348,9 +348,6 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
                     lista.add(enProceso);
                 }
                 miAdapter.notifyDataSetChanged();
-
-                Log.d(TAG, "Datos recibidos!");
-                Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -362,7 +359,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
             public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
                 S enProceso;
                 if (error != null) {
-                    Log.e("Error en Firestore", error.getMessage());
+                    Toast.makeText(mContext, "Error en Firestore", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 lista.clear();
@@ -371,9 +368,6 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
                     lista.add(enProceso);
                 }
                 miAdapter.notifyDataSetChanged();
-
-                Log.d(TAG, "Datos recibidos!");
-                Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -382,8 +376,6 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
     public <R> void tabla3ChangeListener(Query query, List<R> lista, Class<R> tipoObjeto, RecyclerView.Adapter miAdapter) {
 
     }
-
-
 
     private void changeNewImage(View view) {
 
@@ -534,6 +526,8 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
             fbf.collection("evento_eve").document(Integer.toString(id_new_eve)).set(evento_push);
             Toast.makeText(getActivity(), "El evento se ha creado correctamente", Toast.LENGTH_SHORT).show();
         }
+        if (subirNewFoto)
+            changeNewImage(view);
         Navigation.findNavController(view).navigate(R.id.action_nav_a_create_eve_to_nav_v01);
     }
 
@@ -619,6 +613,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
         a_add_eve_id_eve = view.findViewById(R.id.a_add_eve_etx_id_eve);
         a_add_eve_titulo_eve = view.findViewById(R.id.a_add_eve_etx_titulo_eve);
         a_add_eve_foto_eve = view.findViewById(R.id.a_add_eve_imv_foto_eve);
+        a_add_eve_foto_ruta_eve = view.findViewById(R.id.a_add_eve_imv_foto_ruta_eve);
         a_add_eve_fechaidatru_eve = view.findViewById(R.id.a_add_eve_etx_fechaidatru_eve);
         a_add_eve_fechavueltatru_eve = view.findViewById(R.id.a_add_eve_etx_fechavueltatru_eve);
         a_add_eve_nivel_eve = view.findViewById(R.id.a_add_eve_etx_nivel_eve);
@@ -710,7 +705,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
         Evento_eve eve = new Evento_eve();
         eve.setId_eve(Integer.parseInt(a_add_eve_id_eve.getText().toString().trim()));
         eve.setTitulo_eve(a_add_eve_titulo_eve.getText().toString().trim());
-        eve.setFoto_eve(a_add_eve_foto_eve.getTransitionName());
+        eve.setFoto_eve(a_add_eve_foto_ruta_eve.getText().toString().trim());
         eve.setFechaidatru_eve(a_add_eve_fechaidatru_eve.getText().toString().trim());
         eve.setFechavueltatru_eve(a_add_eve_fechavueltatru_eve.getText().toString().trim());
         eve.setNivel_eve(a_add_eve_nivel_eve.getText().toString().trim());
@@ -724,13 +719,14 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
         eve.setPrecio_eve(Integer.parseInt(a_add_eve_precio_eve.getText().toString().trim()));
         eve.setTransportetipo_eve(a_add_eve_transportetipo_eve.getText().toString().trim());
         eve.setEstado_eve("Pendiente");
-
         return eve;
     }
 
     private void limpiarEve() {
         a_add_eve_titulo_eve.getText().clear();
         a_add_eve_foto_eve.setImageResource(R.drawable.ic_menu_gallery);
+        a_add_eve_foto_ruta_eve.getText().clear();
+        ;
         a_add_eve_fechaidatru_eve.getText().clear();
         a_add_eve_fechavueltatru_eve.getText().clear();
         a_add_eve_nivel_eve.getText().clear();

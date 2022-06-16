@@ -1,18 +1,12 @@
 package com.appvisibility.apptravel002.ui.controller;
 
-import static android.content.ContentValues.TAG;
 import static com.appvisibility.apptravel002.MainActivity_val.sesionIniciada;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +14,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import com.appvisibility.apptravel002.MainActivity_adm;
 import com.appvisibility.apptravel002.MainActivity_col;
+import com.appvisibility.apptravel002.MainActivity_val;
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
@@ -165,24 +163,30 @@ public class V_04 extends Fragment {
                                     persona = document.toObject(Persona_prs.class);
                                     Toast.makeText(getActivity(), "Bien venido " + persona.getNombre_prs(), Toast.LENGTH_SHORT).show();
 
+
                                     //si es valiente
                                     if (persona.getUsuariotipo_prs() == getResources().getInteger(R.integer.rol_valiente)) {
                                         sesionIniciada = persona.getUsuariotipo_prs();
-                                        Navigation.findNavController(view).navigate(R.id.action_nav_v04_to_nav_v05, bundleEvento);
+
+                                        // si valiente entra por el menu (sin elegir el evento) navegamos a 01
+                                        if (eventoEnProceso == null)
+                                            startActivity(new Intent(getActivity(), MainActivity_val.class).putExtra("abrirEnMainActivity_val", getResources().getInteger(R.integer.accion_a_v01)));
+
+                                            //si valiente entra con el bundle desde 03, tiene que ir a 05 con bundle
+                                        else
+                                            startActivity(new Intent(getActivity(), MainActivity_val.class).putExtra("abrirEnMainActivity_val", eventoEnProceso.getId_eve()).putExtras(bundleEvento));
                                     }
                                     //si es colaborador
                                     if (persona.getUsuariotipo_prs() == getResources().getInteger(R.integer.rol_colaborador)) {
                                         sesionIniciada = persona.getUsuariotipo_prs();
 
                                         // si colaborador entra por el menu (sin elegir el evento) navegamos a 01
-                                        if (eventoEnProceso == null) {
+                                        if (eventoEnProceso == null)
                                             startActivity(new Intent(getActivity(), MainActivity_col.class).putExtra("abrirEnMainActivity_col", getResources().getInteger(R.integer.accion_a_v01)));
-                                        }
 
-                                        //si colaborador entra con el bundle desde 03, tiene que ir a 05 con bundle
-                                        else {
+                                            //si colaborador entra con el bundle desde 03, tiene que ir a 05 con bundle
+                                        else
                                             startActivity(new Intent(getActivity(), MainActivity_col.class).putExtra("abrirEnMainActivity_col", eventoEnProceso.getId_eve()).putExtras(bundleEvento));
-                                        }
                                     }
 
                                     //si es administrador
@@ -190,21 +194,17 @@ public class V_04 extends Fragment {
                                         sesionIniciada = persona.getUsuariotipo_prs();
 
                                         // si administrador entra por el menu (sin elegir el evento) navegamos a 01
-                                        if (eventoEnProceso == null) {
+                                        if (eventoEnProceso == null)
                                             startActivity(new Intent(getActivity(), MainActivity_adm.class).putExtra("adm", getResources().getInteger(R.integer.accion_a_v01)));
-                                        }
 
-                                        //si administrador entra con el bundle desde 03, tiene que ir a 05 con bundle
-                                        else {
+                                            //si administrador entra con el bundle desde 03, tiene que ir a 05 con bundle
+                                        else
                                             startActivity(new Intent(getActivity(), MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", eventoEnProceso.getId_eve()).putExtras(bundleEvento));
-                                        }
                                     }
-                                } else {
-                                    Log.d(TAG, "No such document");
-                                }
-                            } else {
-                                Log.d(TAG, "get failed with ", task1.getException());
-                            }
+                                } else
+                                Toast.makeText(mContext, "No such document", Toast.LENGTH_SHORT).show();
+                            } else
+                            Toast.makeText(mContext, "Get failed with", Toast.LENGTH_SHORT).show();
                         });
                     } else {
                         Toast.makeText(getActivity(), "El email_prs o la contraseña es incorrecta", Toast.LENGTH_SHORT).show();

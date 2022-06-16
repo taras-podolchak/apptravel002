@@ -5,15 +5,6 @@ import static com.appvisibility.apptravel002.MainActivity_val.sesionIniciada;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +12,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.controller.Interfaces.IDAO;
@@ -141,7 +139,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
         bundleEvento.putSerializable("eventoParaV_04", eventoEnProceso);
         bundleEvento.putSerializable("eventoParaV_05", eventoEnProceso);
         bundleEvento.putSerializable("eventoParaV_05_1", eventoEnProceso);
-        bundleEvento.putSerializable("eventoParaV_05_2", eventoEnProceso);
+        bundleEvento.putSerializable("eventoParaV_03_2", eventoEnProceso);
 
         this.v03_titulo_eve = view.findViewById(R.id.v03_txv_titulo_eve);
         this.v03_foto_eve = view.findViewById(R.id.v03_imv_foto_eve);
@@ -226,7 +224,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
             public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
                 T enProceso;
                 if (error != null) {
-                    Log.e("Error en Firestore", error.getMessage());
+                    Toast.makeText(mContext, "Error en Firestore", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 lista.clear();
@@ -253,7 +251,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
             public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
                 S enProceso;
                 if (error != null) {
-                    Log.e("Error en Firestore", error.getMessage());
+                    Toast.makeText(mContext, "Error en Firestore", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 lista.clear();
@@ -273,7 +271,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
             public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
                 R enProceso;
                 if (error != null) {
-                    Log.e("Error en Firestore", error.getMessage());
+                    Toast.makeText(mContext, "Error en Firestore", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 lista.clear();

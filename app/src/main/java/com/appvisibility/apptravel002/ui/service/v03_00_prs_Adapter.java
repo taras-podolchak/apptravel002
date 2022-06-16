@@ -235,7 +235,7 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
                 // https://stackoverflow.com/questions/42436012/how-to-put-the-arraylist-into-bundle
                 // Valiente: Enviamos a la ventana modal el listado de personasEnCoche correspondiente al id_prs seleccionado
                 Bundle bundlePersonasEnCoche = new Bundle();
-                bundlePersonasEnCoche.putParcelableArrayList("personaParaV_05_2", (ArrayList<? extends Parcelable>) personasEnCoche);
+                bundlePersonasEnCoche.putParcelableArrayList("personaParaV_03_2", (ArrayList<? extends Parcelable>) personasEnCoche);
 
                 // TODO EOB: Sustituir condicion del if por "roll == colaborador"
                 if (sesionIniciada == view.getResources().getInteger(R.integer.rol_valiente) && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs()>=0) {

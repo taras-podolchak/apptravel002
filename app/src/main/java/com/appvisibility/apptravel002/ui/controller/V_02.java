@@ -1,13 +1,11 @@
 package com.appvisibility.apptravel002.ui.controller;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -118,7 +116,7 @@ public class V_02 extends Fragment implements IDAO<Evento_eve, Object, Object> {
             public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
                 T enProceso;
                 if (error != null) {
-                    Log.e("Error en Firestore", error.getMessage());
+                    Toast.makeText(mContext, "Error en Firestore", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 lista.clear();
@@ -127,9 +125,6 @@ public class V_02 extends Fragment implements IDAO<Evento_eve, Object, Object> {
                     lista.add(enProceso);
                 }
                 miAdapter.notifyDataSetChanged();
-
-                Log.d(TAG, "Datos evento_eve recibidos!");
-//                Toast.makeText(getActivity(), "Datos evento_eve recibidos!", Toast.LENGTH_SHORT).show();
             }
         });
     }
