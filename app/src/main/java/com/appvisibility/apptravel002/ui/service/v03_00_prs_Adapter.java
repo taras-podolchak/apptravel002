@@ -95,7 +95,8 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
  */
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Persona_prs personaEnProceso = new Persona_prs();
-        personaEnProceso.setId_prs(personasInscritos.get(position).getId_prs());
+        id_prs_enProceso = personasInscritos.get(position).getId_prs();
+        personaEnProceso.setId_prs(id_prs_enProceso);
         personaEnProceso.setApodo_prs(personasInscritos.get(position).getApodo_prs());
         personaEnProceso.setContrasenna_prs(personasInscritos.get(position).getContrasenna_prs());
         personaEnProceso.setRecordarcontrasenna_prs(personasInscritos.get(position).getRecordarcontrasenna_prs());
@@ -239,10 +240,10 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
 
                 // TODO EOB: Sustituir condicion del if por "roll == colaborador"
                 if (sesionIniciada == view.getResources().getInteger(R.integer.rol_valiente) && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs()>=0) {
-                    FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
-                    DialogFragment v_03_2 = new V_03_2_modal();
-                    v_03_2.setArguments(bundlePersonasEnCoche);
-                    v_03_2.show(manager, "dialog");
+                    FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+                    DialogFragment v_03_2_modal = new V_03_2_modal();
+                    v_03_2_modal.setArguments(bundlePersonasEnCoche);
+                    v_03_2_modal.show(fragmentManager, "dialog");
                 }else  if (sesionIniciada == view.getResources().getInteger(R.integer.rol_valiente) && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs()<0) {
                     Toast.makeText((context.getApplicationContext()), "Inscrito sin Plaza de Transporte", Toast.LENGTH_LONG).show();
                 } else if (sesionIniciada > view.getResources().getInteger(R.integer.rol_valiente) ) {

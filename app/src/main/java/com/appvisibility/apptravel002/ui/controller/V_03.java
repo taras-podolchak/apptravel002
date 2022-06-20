@@ -5,6 +5,8 @@ import static com.appvisibility.apptravel002.MainActivity_val.sesionIniciada;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -224,7 +226,8 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
             public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
                 T enProceso;
                 if (error != null) {
-                    Toast.makeText(mContext, "Error en Firestore", Toast.LENGTH_SHORT).show();
+                    Log.e("Error en Firestore", error.getMessage());
+//                    Toast.makeText(mContext, "Error en Firestore", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 lista.clear();
@@ -271,7 +274,8 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
             public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
                 R enProceso;
                 if (error != null) {
-                    Toast.makeText(mContext, "Error en Firestore", Toast.LENGTH_SHORT).show();
+                    Log.e("Error en Firestore", error.getMessage());
+//                    Toast.makeText(mContext, "Error en Firestore", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 lista.clear();
@@ -280,13 +284,13 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
                     lista.add(enProceso);
                 }
 //                miAdapter.notifyDataSetChanged();
-// Listamos las Personas que están Inscritas al Evento en proceso
+// Listamos el subconjunto de Personas que están Inscritas al Evento en proceso
 // https://stackoverflow.com/questions/36246998/stream-filter-of-1-list-based-on-another-list
                 personasInscritos.clear();
                 personasInscritos = personas.stream()
                         .filter(ins -> inscritos.stream()
-                                .map(Inscribir_eveprs::getId_prs)
-                                .anyMatch(prs -> prs.equals(ins.getId_prs())))
+                        .map(Inscribir_eveprs::getId_prs)
+                        .anyMatch(prs -> prs.equals(ins.getId_prs())))
                         .collect(Collectors.toList());
                 //Cargamos los datos de las Personas Inscritas al Evento
                 v03_adapter_prs = new v03_00_prs_Adapter(personasInscritos, inscritos, mContext, id_eve_enProceso);
