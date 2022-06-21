@@ -172,24 +172,7 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
             }
         });
         holder.v03_apodo_prs.setText(personaEnProceso.getApodo_prs());
-        holder.v03_movil_prs.setText("Tel: " + personaEnProceso.getMovil_prs());
-
-        holder.v03_cdv_persona.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-/*
-                Bundle bundlePersona = new Bundle();
-                bundlePersona.putSerializable("personaParaC_05", personaEnProceso);
-                // TODO EOB: Sustituir condicion del if por "roll == colaborador"
-                if (sesionIniciada == 0) {
-                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundlePersona);
-                } else {
-                    Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundlePersona);
-                }
-                notifyDataSetChanged();
-*/
-            }
-        });
+//        holder.v03_movil_prs.setText("Tel: " + personaEnProceso.getMovil_prs());
 
         // Identificamos el número de Plazas Libres disponibles del Inscrito en proceso
         for (Inscribir_eveprs ins : inscritos) {
@@ -212,41 +195,41 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
             holder.v03_plazaslibres_eveprs.setText("Plazas libres: " + plazaslibres_eveprs);
         }
 
-        holder.v03_cdv_transportepropio.setOnClickListener(new View.OnClickListener() {
+        holder.v03_cdv_persona.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Obtenemos el id_tpr correspondiente a la posición seleccionada del Recycled
+                // Obtenemos el id_tpr (coche) en proceso correspondiente a la posición seleccionada del Recycled
                 for (Inscribir_eveprs ins : inscritos) {
                     if (ins.getId_prs() == map_Posicion_Inscrito.get(position).getId_prs()) {
                         id_tpr_enProceso = ins.getId_tpr();
                     }
                 }
-                // Si la persona en proceso aún dispone de plazas libres, cargamos en el listado de personasEnCoche las personas que tiene id_tpr correspondiente a la posición seleccionada del Recycled
+                // Si el id_tpr (coche) en proceso aún dispone de plazas libres, cargamos en el listado de personasEnCoche las personas que tiene ese id_tpr
                 for (Inscribir_eveprs ins : inscritos) {
-                    if (ins.getId_tpr() == id_tpr_enProceso && ins.getPlazaslibres_eveprs() >= 0) {
-//                    if (ins.getId_tpr() == id_tpr_enProceso){
+                    if (ins.getId_tpr() == id_tpr_enProceso
+                            && ins.getPlazaslibres_eveprs() >= 0) {
                         id_prs_enProceso = ins.getId_prs();
                         personasEnCoche.add(map_IdIns_Prs.get(id_prs_enProceso));
                     }
                 }
 
-                // Colaboradores: Enviamos la ficha completa de la personaEnProceso
-                Bundle bundlePersona = new Bundle();
-                bundlePersona.putSerializable("personaParaC_05", personaEnProceso);
-                // https://stackoverflow.com/questions/42436012/how-to-put-the-arraylist-into-bundle
-                // Valiente: Enviamos a la ventana modal el listado de personasEnCoche correspondiente al id_prs seleccionado
-                Bundle bundlePersonasEnCoche = new Bundle();
-                bundlePersonasEnCoche.putParcelableArrayList("personaParaV_03_2", (ArrayList<? extends Parcelable>) personasEnCoche);
-
-                // TODO EOB: Sustituir condicion del if por "roll == colaborador"
-                if (sesionIniciada == view.getResources().getInteger(R.integer.rol_valiente) && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs()>=0) {
+                if (sesionIniciada == view.getResources().getInteger(R.integer.rol_valiente)
+                        && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs() >= 0) {
+                    // https://stackoverflow.com/questions/42436012/how-to-put-the-arraylist-into-bundle
+                    // Valiente: Enviamos a la ventana modal el listado de personasEnCoche correspondiente al id_prs (Persona) seleccionado
+                    Bundle bundlePersonasEnCoche = new Bundle();
+                    bundlePersonasEnCoche.putParcelableArrayList("personaParaV_03_2", (ArrayList<? extends Parcelable>) personasEnCoche);
                     FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
                     DialogFragment v_03_2_modal = new V_03_2_modal();
                     v_03_2_modal.setArguments(bundlePersonasEnCoche);
                     v_03_2_modal.show(fragmentManager, "dialog");
-                }else  if (sesionIniciada == view.getResources().getInteger(R.integer.rol_valiente) && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs()<0) {
+                } else if (sesionIniciada ==  view.getResources().getInteger(R.integer.rol_valiente)
+                        && map_Posicion_Inscrito.get(position).getPlazaslibres_eveprs() < 0) {
                     Toast.makeText((context.getApplicationContext()), "Inscrito sin Plaza de Transporte", Toast.LENGTH_LONG).show();
                 } else if (sesionIniciada > view.getResources().getInteger(R.integer.rol_valiente) ) {
+                    // Colaboradores: Enviamos la ficha completa de la personaEnProceso
+                    Bundle bundlePersona = new Bundle();
+                    bundlePersona.putSerializable("personaParaC_05", personaEnProceso);
                     Navigation.findNavController(view).navigate(R.id.action_nav_v03_to_nav_c05, bundlePersona);
                 }
                 /*
@@ -270,7 +253,6 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
         private ImageView v03_ico_coche;
         private TextView v03_plazaslibres_eveprs;
         private CardView v03_cdv_persona;
-        private CardView v03_cdv_transportepropio;
 
         public ViewHolder(View v) {
             super(v);
@@ -279,8 +261,7 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
             this.v03_movil_prs = v.findViewById(R.id.v03_cdv_txv_movil_prs);
             this.v03_ico_coche = v.findViewById(R.id.v03_cdv_imv_ico_coche);
             this.v03_plazaslibres_eveprs = v.findViewById(R.id.v03_cdv_txv_plazaslibres_eveprs);
-            this.v03_cdv_persona = (CardView) v.findViewById(R.id.v03_cdv_persona);
-            this.v03_cdv_transportepropio = (CardView) v.findViewById(R.id.v03_cdv_persona);
+            this.v03_cdv_persona = v.findViewById(R.id.v03_cdv_persona);
         }
     }
 }

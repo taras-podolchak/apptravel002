@@ -326,16 +326,14 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
 
         public ViewHolder(View v) {
             super(v);
-            this.v03_distancia_act = v.findViewById(R.id.v03_cdv_txv_distancia_act);
-            this.v03_desnivel_act = v.findViewById(R.id.v03_cdv_txv_desnivel_act);
-            this.v03_horas_act = v.findViewById(R.id.v03_cdv_txv_horas_act);
             this.v03_nombre_act = v.findViewById(R.id.v03_cdv_txv_nombre_act);
             this.v03_actividadtipo_act = v.findViewById(R.id.v03_cdv_txv_actividadtipo_act);
             this.v03_fecha_act = v.findViewById(R.id.v03_cdv_txv_fecha_act);
             this.v03_nivel_act = v.findViewById(R.id.v03_cdv_txv_nivel_act);
-
+            this.v03_distancia_act = v.findViewById(R.id.v03_cdv_txv_distancia_act);
+            this.v03_desnivel_act = v.findViewById(R.id.v03_cdv_txv_desnivel_act);
+            this.v03_horas_act = v.findViewById(R.id.v03_cdv_txv_horas_act);
             this.v03_cdv_actividad = v.findViewById(R.id.v03_cdv_actividad);
-
         }
     }
 }

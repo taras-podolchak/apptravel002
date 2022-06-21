@@ -2,6 +2,7 @@ package com.appvisibility.apptravel002.ui.controller.modal;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,7 +40,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,7 +70,7 @@ public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscrib
     private Map<Integer, Persona_prs> map_IdIns_Prs = new HashMap<>();
     private Persona_prs personaUser;
     public static Persona_prs personaOferente;
-    public Boolean solicitudRealizada = false;
+    public static Boolean solicitudRealizada = false;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -143,15 +143,15 @@ public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscrib
 // https://stackoverflow.com/questions/36246998/stream-filter-of-1-list-based-on-another-list
         inscritosEnCoche.clear();
         inscritosEnCoche = inscritos.stream()
-                .filter(prs -> personasEnCoche.stream()
-                .map(Persona_prs::getId_prs)
-                .anyMatch(ins -> ins.equals(prs.getId_prs())))
-                .collect(Collectors.toList());
+            .filter(prs -> personasEnCoche.stream()
+            .map(Persona_prs::getId_prs)
+            .anyMatch(ins -> ins.equals(prs.getId_prs())))
+            .collect(Collectors.toList());
 
         //Identificamos al inscrito que ofrece el coche
         inscritoOferente = inscritosEnCoche.stream()
-                .max((p1,p2)->p1.getPlazaslibres_eveprs()>p2.getPlazaslibres_eveprs()?1:-1)
-                .orElse(null);
+            .max((p1,p2) -> p1.getPlazaslibres_eveprs() > p2.getPlazaslibres_eveprs()?1:-1)
+            .orElse(null);
 
         //Recuperamos los datos del inscrito que ofrece el coche
         for(Persona_prs prs: personasEnCoche) {
@@ -162,9 +162,9 @@ public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscrib
 
         //Recuperamos los inscritos en coche
         inscritosEnCoche = inscritos.stream()
-                .filter(ins2->ins2.getId_tpr()==inscritoOferente.getId_tpr())
-                .sorted((e1,e2)->e2.getPlazaslibres_eveprs()-e1.getPlazaslibres_eveprs())
-                .collect(Collectors.toList());
+            .filter(ins2 -> ins2.getId_tpr() == inscritoOferente.getId_tpr())
+            .sorted((e1,e2) -> e2.getPlazaslibres_eveprs() - e1.getPlazaslibres_eveprs())
+            .collect(Collectors.toList());
 
         Bundle bundleEvento = getArguments();
         //Recuperamos el Evento
@@ -187,16 +187,38 @@ public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscrib
         v03_2_listaPlazas.setText(informeCoche);
 
         // Botones
-        v03_2_adelante = view.findViewById(R.id.v03_2_btn_confirmar);
+        v03_2_adelante = view.findViewById(R.id.v03_2_btn_adelante);
         v03_2_adelante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 for(Inscribir_eveprs inscritoSolicitante: inscritos) {
+                    if (solicitudRealizada) {
+                            solicitudRealizada = true;
+                    } else {
+                        if (inscritoSolicitante.getId_prs() == personaUser.getId_prs()
+                                && personaUser.getUsuariotipo_prs() > 0
+                                && personaUser.getUsuariotipo_prs() <= 3
+                                && inscritoSolicitante.getPlazaslibres_eveprs() < 0
+                                && inscritoOferente.getId_prs() != personaUser.getId_prs()
+                                && inscritoOferente.getPlazaslibres_eveprs() >= 1) {
+                            solicitudRealizada = true;
+                        } else {
+                            solicitudRealizada = false;
+                        }
+                    }
+                }
+                if (solicitudRealizada){
+                    Toast.makeText(getActivity(), "Solicitud de plaza realizada", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getActivity(), "La solicitud no reune los requisitos", Toast.LENGTH_LONG).show();
+                }                                           ;
+                solicitudRealizada = false;
+                for(Inscribir_eveprs inscritoSolicitante: inscritos) {
 //                    if (inscritoSolicitante.getId_prs() == 10 && inscritoSolicitante.getPlazaslibres_eveprs() < 0) {
                     if (inscritoSolicitante.getId_prs() == personaUser.getId_prs()
                             && personaUser.getUsuariotipo_prs() > 0
-                            && personaUser.getUsuariotipo_prs() <= 3 &&
-                            inscritoSolicitante.getPlazaslibres_eveprs() < 0) {
+                            && personaUser.getUsuariotipo_prs() <= 3
+                            && inscritoSolicitante.getPlazaslibres_eveprs() < 0) {
 //https://firebase.google.com/docs/firestore/query-data/queries#java_6
 //https://firebase.google.com/docs/firestore/manage-data/add-data
 //https://stackoverflow.com/questions/68922621/how-to-update-field-in-the-firebase-firestore-document-using-the-collections
@@ -211,12 +233,12 @@ public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscrib
                                         DocumentReference docRef = qds.getReference();
                                         docRef.update("plazaslibres_eveprs", inscritoSolicitante.getPlazaslibres_eveprs() + 1);
                                         docRef.update("id_tpr", inscritoOferente.getId_tpr())
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void unused) {
-                                                        Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                                    }
-                                                });
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                                }
+                                            });
 //                                        inscritoSolicitante.setPlazaslibres_eveprs(inscritoSolicitante.getPlazaslibres_eveprs() + 1);
                                     }
                                 }
@@ -239,14 +261,15 @@ public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscrib
                                                         @Override
                                                         public void onSuccess(Void unused) {
                                                             Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                                            solicitudRealizada = true;
+//                                                            solicitudRealizada = true;
                                                         }
                                                     })
                                                     .addOnFailureListener(new OnFailureListener() {
                                                         @Override
                                                         public void onFailure(@NonNull Exception e) {
                                                             Log.w(TAG, "Error writing document", e);
-                                                            solicitudRealizada = false;
+//                                                            solicitudRealizada = (solicitudRealizada)?true:false;
+//                                                            solicitudRealizada = false;
                                                         }
                                                     });
                                         }
@@ -260,15 +283,21 @@ public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscrib
                                     }
                                 }
                             });
+//                        } else {
+//                            solicitudRealizada = (solicitudRealizada)?true:false;
                         }
+//                    } else {
+//                        solicitudRealizada = (solicitudRealizada)?true:false;
                     }
+//                    solicitudRealizada = (solicitudRealizada)?true:false;
                 }
-                if (!solicitudRealizada){
+/*
+                if (solicitudRealizada){
                     Toast.makeText(getActivity(), "Solicitud de plaza realizada", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(getActivity(), "La solicitud no reune los requisitos", Toast.LENGTH_LONG).show();
-                }
-
+                }                                           ;
+*/
 //                informeCoche = "";
                 getDialog().cancel();
             }

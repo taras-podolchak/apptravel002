@@ -70,7 +70,7 @@
                 android:text="@string/volver" />
 
             <Button
-                android:id="@+id/v03_2_btn_confirmar"
+                android:id="@+id/v03_2_btn_adelante"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"

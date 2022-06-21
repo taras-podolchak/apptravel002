@@ -50,18 +50,18 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/v03_cdv_txv_apodo_prs"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:textSize="18sp" />
-
-                            <TextView
                                 android:id="@+id/v03_cdv_txv_movil_prs"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/v03_cdv_txv_apodo_prs"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:textSize="18sp" />
 
                         </LinearLayout>
                     </LinearLayout>

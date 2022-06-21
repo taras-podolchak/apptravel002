@@ -174,7 +174,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
         tabla1ChangeListener(query1, actividades, Actividad_act.class, v03_adapter_act);
 
         //si la sesion esta iniciada
-        if (sesionIniciada!=getResources().getInteger(R.integer.rol_no_iniciada)) {
+        if (sesionIniciada != getResources().getInteger(R.integer.rol_no_iniciada)) {
             //activamos los
             v03_inscritos_eve.setVisibility(View.VISIBLE);
             v03_recycler_prs.setVisibility(View.VISIBLE);
@@ -188,7 +188,6 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
             tabla3ChangeListener(query3, personas, Persona_prs.class, null);
         }
 
-
         // Botones
         v03_foto_eve = view.findViewById(R.id.v03_imv_foto_eve);
         v03_foto_eve.setOnClickListener(new View.OnClickListener() {
@@ -198,9 +197,9 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
             }
         });
 
-        v03_adelante = view.findViewById(R.id.v03_btn_me_interesa);
+        v03_adelante = view.findViewById(R.id.v03_btn_adelante);
         v03_adelante.setOnClickListener(viewAdelante -> {
-            if (sesionIniciada == 0) {
+            if (sesionIniciada == getResources().getInteger(R.integer.rol_no_iniciada)) {
                 Navigation.findNavController(viewAdelante).navigate(R.id.action_nav_v03_to_nav_v04, bundleEvento);
             } else {
                 Navigation.findNavController(viewAdelante).navigate(R.id.action_nav_v03_to_nav_v05, bundleEvento);
