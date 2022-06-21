@@ -66,6 +66,7 @@
     <!-- pantalla modal v_03_2-->
     <string name="quieres_solicitar">¿Quieres solicitar una plaza de coche?</string>
     <string name="solicitar">Solicitar</string>
+    <string name="renunciar">Renunciar</string>
 
     <!-- pantalla v_04 -->
     <string name="email">Email</string>
