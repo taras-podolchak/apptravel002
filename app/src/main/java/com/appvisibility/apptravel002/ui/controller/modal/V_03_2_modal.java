@@ -135,12 +135,14 @@ public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscrib
 
         //Identificamos al inscrito que ofrece el coche
         inscritoOferente = inscritosEnCoche.stream()
+            .filter(p->p.getId_eveprs() == (p.getId_tpr()))
             .max((p1,p2) -> p1.getPlazaslibres_eveprs() > p2.getPlazaslibres_eveprs()?1:-1)
             .orElse(null);
 
         //Recuperamos los datos del inscrito que ofrece el coche
         for(Persona_prs prs: personasEnCoche) {
-            if (prs.getId_prs() == inscritoOferente.getId_prs()) {
+            if (prs.getId_prs() == inscritoOferente.getId_prs()
+                && inscritoOferente.getId_tpr() == inscritoOferente.getId_eveprs()) {
                 personaOferente = prs;
             }
         }
@@ -264,14 +266,17 @@ public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscrib
             @Override
             public void onClick(View view) {
                 for (Inscribir_eveprs inscritoSolicitante : inscritos) {
+//                    solicitudRealizada = true;
                     if (!solicitudRealizada
                             && (inscritoSolicitante.getId_prs() == personaUser.getId_prs()
                             && personaUser.getUsuariotipo_prs() > 0
                             && personaUser.getUsuariotipo_prs() <= 3
                             && inscritoSolicitante.getPlazaslibres_eveprs() == 0
+                            && inscritoSolicitante.getId_tpr() == inscritoOferente.getId_tpr()
                             && inscritoOferente.getId_prs() != personaUser.getId_prs()
-                            && inscritoOferente.getPlazaslibres_eveprs() >= 1)) {
-                        if (!solicitudRealizada) {
+                            && inscritoOferente.getPlazaslibres_eveprs() >= 0)) {
+                        if (!solicitudRealizada
+                            && inscritoOferente.getId_tpr() == inscritoOferente.getId_eveprs()) {
 //https://firebase.google.com/docs/firestore/query-data/queries#java_6
 //https://firebase.google.com/docs/firestore/manage-data/add-data
 //https://stackoverflow.com/questions/68922621/how-to-update-field-in-the-firebase-firestore-document-using-the-collections
@@ -322,14 +327,15 @@ public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscrib
                                 }
                             });
                         }
+                        solicitudRealizada = true;
                     }
                 }
-                if (solicitudRealizada){
-                    Toast.makeText(getActivity(), "Renuncia de plaza realizada", Toast.LENGTH_LONG).show();
-                } else {
+                if (!solicitudRealizada){
                     Toast.makeText(getActivity(), "La renuncia no reune los requisitos", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getActivity(), "Renuncia de plaza realizada", Toast.LENGTH_LONG).show();
                 }                                           ;
-//                solicitudRealizada = false;
+                solicitudRealizada = false;
                 getDialog().cancel();
             }
         });
