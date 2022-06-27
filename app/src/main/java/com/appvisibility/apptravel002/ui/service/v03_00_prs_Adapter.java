@@ -44,7 +44,7 @@ public class v03_00_prs_Adapter extends RecyclerView.Adapter<v03_00_prs_Adapter.
     private List<Persona_prs> personasEnCoche = new ArrayList<>();
     private List<Inscribir_eveprs> inscritos = new ArrayList<>();
     private int plazaslibres_eveprs;
-    private Map<Integer, Persona_prs> map_IdIns_Prs = new HashMap<>();
+    public static Map<Integer, Persona_prs> map_IdIns_Prs = new HashMap<>();
     private Map<Integer, Inscribir_eveprs> map_Posicion_Inscrito = new HashMap<>();
     private FirebaseStorage fbs = FirebaseStorage.getInstance();
     private StorageReference str = fbs.getReference();

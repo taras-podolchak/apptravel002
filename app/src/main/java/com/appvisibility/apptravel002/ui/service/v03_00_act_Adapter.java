@@ -34,7 +34,6 @@ public class v03_00_act_Adapter extends RecyclerView.Adapter<v03_00_act_Adapter.
     private Context context;
     private int accion;
     private int posicionActividad;
-    private Bundle bundleActividad = new Bundle();
     private View view_A_add_eve;
     private FirebaseFirestore fbf = FirebaseFirestore.getInstance();
    // private int idEve = new v02_00_eve_Adapter().getIdEve();

@@ -26,6 +26,7 @@ import com.appvisibility.apptravel002.ui.controller.V_03;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Inscribir_eveprs;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
+import com.appvisibility.apptravel002.ui.service.v03_00_prs_Adapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -39,33 +40,37 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link V_03_2_modal#newInstance} factory method to
+ * Use the {@link V_05_2_modal#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscribir_eveprs, Object> {
+public class V_05_2_modal extends DialogFragment implements IDAO<Object, Inscribir_eveprs, Object> {
 
     // Campos de xml
-    private Button v03_2_adelante, v03_2_atras;
-    private TextView v03_2_titulo;
-    private TextView v03_2_listaPlazas;
+    private Button v05_2_adelante, v05_2_atras;
+    private TextView v05_2_titulo;
+    private TextView v05_2_inscritoOferentes;
 
     // Acceso a datos
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
 
     // Entities
     private Evento_eve eventoEnProceso;
-    private List<Persona_prs> personasEnCoche = new ArrayList<>();
+    private List<Persona_prs> personaOferentes = new ArrayList<>();
     private Inscribir_eveprs inscritoOferente;
-    private String informeCoche = "";
+//    private String informeCoche = "";
     private List<Inscribir_eveprs> inscritos = V_03.inscritos;
-    private List<Inscribir_eveprs> inscritosEnCoche  = new ArrayList<>();
+    private List<Inscribir_eveprs> inscritoOferentes = new ArrayList<>();
+    public static Map<Integer, Persona_prs> map_IdIns_Prs = v03_00_prs_Adapter.map_IdIns_Prs;
     private Persona_prs personaUser;
-    public static Persona_prs personaOferente;
+    private Persona_prs personaOferente;
+    private int id_prs_enProceso;
     public Boolean solicitudRealizada = false;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -77,7 +82,7 @@ public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscrib
     private String mParam1;
     private String mParam2;
 
-    public V_03_2_modal() {
+    public V_05_2_modal() {
         // Required empty public constructor    
     }
 
@@ -87,11 +92,11 @@ public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscrib
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment V_03_2_modal.
+     * @return A new instance of fragment V_05_2_modal.
      */
     // TODO: Rename and change types and number of parameters
-    public static V_03_2_modal newInstance(String param1, String param2) {
-        V_03_2_modal fragment = new V_03_2_modal();
+    public static V_05_2_modal newInstance(String param1, String param2) {
+        V_05_2_modal fragment = new V_05_2_modal();
         Bundle bundle = new Bundle();
         bundle.putString(ARG_PARAM1, param1);
         bundle.putString(ARG_PARAM2, param2);
@@ -111,7 +116,7 @@ public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscrib
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_v_03_2_modal, container, false);
+        View view = inflater.inflate(R.layout.fragment_v_05_2_modal, container, false);
 
         //https://stackoverflow.com/questions/12739909/send-data-from-activity-to-fragment-in-android
         /* So, to pass data from the MotherActivity to such a Fragment you will need to create private Strings/Bundles above the onCreate of your Mother activity - which you can fill with the data you want to pass to the fragments, and pass them on via a method created after the onCreate (here called getMyData()).*/
@@ -120,38 +125,18 @@ public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscrib
         Bundle bundlePersonaUser = activity.getUser();
         personaUser = (Persona_prs) bundlePersonaUser.getSerializable("User");
 
-        Bundle bundlePersonasEnCoche = getArguments();
+        Bundle bundleInscritoOferentes = getArguments();
         //Recuperamos las Plazas del Coche
-        personasEnCoche = bundlePersonasEnCoche.getParcelableArrayList("personaParaV_03_2");
+        inscritoOferentes = bundleInscritoOferentes.getParcelableArrayList("inscritoParaV_05_2");
 
-// Listamos el subconjunto de Inscritos que viajan en el id_tpr (coche) en proceso
-// https://stackoverflow.com/questions/36246998/stream-filter-of-1-list-based-on-another-list
-        inscritosEnCoche.clear();
-        inscritosEnCoche = inscritos.stream()
-            .filter(prs -> personasEnCoche.stream()
-            .map(Persona_prs::getId_prs)
-            .anyMatch(ins -> ins.equals(prs.getId_prs())))
-            .collect(Collectors.toList());
-
-        //Identificamos al inscrito que ofrecen Plazas Libres en el coche
-        inscritoOferente = inscritosEnCoche.stream()
-            .filter(p->p.getId_eveprs() == (p.getId_tpr()))
-            .max((p1,p2) -> p1.getPlazaslibres_eveprs() > p2.getPlazaslibres_eveprs()?1:-1)
-            .orElse(null);
-
-        //Recuperamos los datos del inscrito que ofrecen Plazas Libres en el coche
-        for(Persona_prs prs: personasEnCoche) {
-            if (prs.getId_prs() == inscritoOferente.getId_prs()
-                && inscritoOferente.getId_tpr() == inscritoOferente.getId_eveprs()) {
-                personaOferente = prs;
+        //Recuperamos los datos de las personas que ofrecen Plazas Libres en el coche
+        for(Inscribir_eveprs ins: inscritoOferentes){
+            if (ins.getPlazaslibres_eveprs() > 0
+                && ins.getId_prs() != personaUser.getId_prs()) {
+                id_prs_enProceso = ins.getId_prs();
+                personaOferentes.add(map_IdIns_Prs.get(id_prs_enProceso));
             }
         }
-
-        //Recuperamos los inscritos en coche
-        inscritosEnCoche = inscritos.stream()
-            .filter(ins2 -> ins2.getId_tpr() == inscritoOferente.getId_tpr())
-            .sorted((e1,e2) -> e2.getPlazaslibres_eveprs() - e1.getPlazaslibres_eveprs())
-            .collect(Collectors.toList());
 
         Bundle bundleEvento = getArguments();
         //Recuperamos el Evento
@@ -159,34 +144,15 @@ public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscrib
         eventoEnProceso = V_03.eventoEnProceso;
         bundleEvento.putSerializable("eventoParaV_03", eventoEnProceso);
 
-        v03_2_titulo = view.findViewById(R.id.v03_2_txv_titulo);
-        v03_2_titulo.setText("COCHE DE " + personaOferente.getApodo_prs().toUpperCase());
+        v05_2_titulo = view.findViewById(R.id.v03_2_txv_titulo);
+        v05_2_titulo.setText("LISTADO DE COCHES CON PLAZAS LIBRES");
 
-        v03_2_listaPlazas = view.findViewById(R.id.v05_2_txv_apodo_prs);
-
-        for (Persona_prs prs: personasEnCoche){
-            for (Inscribir_eveprs ins: inscritosEnCoche){
-                if (prs.getId_prs() == ins.getId_prs() && ins.getPlazaslibres_eveprs() > 0){
-                    informeCoche += prs.getApodo_prs() + "\n";
-                }
-            }
-        }
-        for (Persona_prs prs: personasEnCoche){
-            for (Inscribir_eveprs ins: inscritosEnCoche){
-                if (prs.getId_prs() == ins.getId_prs() && ins.getPlazaslibres_eveprs() <= 0){
-                    informeCoche += prs.getApodo_prs() + "\n";
-                }
-            }
-        }
-        for (int i=0; i < inscritoOferente.getPlazaslibres_eveprs(); i++){
-            informeCoche += "-----" + "\n";
-        }
-
-        v03_2_listaPlazas.setText(informeCoche);
+        v05_2_inscritoOferentes = view.findViewById(R.id.v05_2_txv_apodo_prs);
+        v05_2_inscritoOferentes.setText(personaOferente.getApodo_prs().toUpperCase());
 
         // Botones
-        v03_2_adelante = view.findViewById(R.id.v03_2_btn_adelante);
-        v03_2_adelante.setOnClickListener(new View.OnClickListener() {
+        v05_2_adelante = view.findViewById(R.id.v03_2_btn_adelante);
+        v05_2_adelante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 for (Inscribir_eveprs inscritoSolicitante : inscritos) {
@@ -261,8 +227,8 @@ public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscrib
             }
         });
 
-        v03_2_atras = view.findViewById(R.id.v03_2_btn_atras);
-        v03_2_atras.setOnClickListener(new View.OnClickListener() {
+        v05_2_atras = view.findViewById(R.id.v03_2_btn_atras);
+        v05_2_atras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 for (Inscribir_eveprs inscritoSolicitante : inscritos) {
@@ -338,7 +304,7 @@ public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscrib
                 getDialog().cancel();
             }
         });
-        personasEnCoche.clear();
+        personaOferentes.clear();
         return view;
     }//Fin de constructor
 

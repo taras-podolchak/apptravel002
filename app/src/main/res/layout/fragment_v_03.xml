@@ -76,6 +76,12 @@
                     android:textAlignment="center" />
 
                 <TextView
+                    android:id="@+id/v03_txv_precio_eve"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center" />
+
+                <TextView
                     android:id="@+id/v03_txv_inscritos_eve"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -123,7 +129,7 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/v03_btn_volver"
+                android:id="@+id/v03_btn_atras"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -138,7 +144,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/btn_formato_right"
-                android:text="@string/me_interesa" />
+                android:text="@string/inscripcion" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

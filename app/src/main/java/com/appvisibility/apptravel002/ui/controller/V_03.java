@@ -70,6 +70,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
     private TextView v03_fechaidatru_eve;
     private TextView v03_fechavueltatru_eve;
     private TextView v03_estado_eve;
+    private TextView v03_precio_eve;
     private TextView v03_inscritos_eve;
     private RecyclerView v03_recycler_prs;
     private RecyclerView v03_recycler_act;
@@ -148,6 +149,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
         this.v03_fechaidatru_eve = view.findViewById(R.id.v03_txv_fechaidatru_eve);
         this.v03_fechavueltatru_eve = view.findViewById(R.id.v03_txv_fechavueltatru_eve);
         this.v03_estado_eve = view.findViewById(R.id.v03_txv_estado_eve);
+        this.v03_precio_eve = view.findViewById(R.id.v03_txv_precio_eve);
         this.v03_inscritos_eve = view.findViewById(R.id.v03_txv_inscritos_eve);
 
         this.v03_recycler_act = (RecyclerView) view.findViewById(R.id.v03_rcv_actividades);
@@ -160,14 +162,17 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
 
         //Cargamos el Evento
         v03_titulo_eve.setText(eventoEnProceso.getTitulo_eve());
+
         FirebaseStorage fbs = FirebaseStorage.getInstance();
         StorageReference str = fbs.getReference();
         str.child("Eventos/" + eventoEnProceso.getFoto_eve()).getDownloadUrl().addOnSuccessListener(uri ->
                 Picasso.get().load(uri).into(v03_foto_eve)).addOnFailureListener(exception ->
                 Toast.makeText(getActivity(), "Error de cargar la imagen", Toast.LENGTH_SHORT).show());
+
         v03_fechaidatru_eve.setText(eventoEnProceso.getFechaidatru_eve());
         v03_fechavueltatru_eve.setText(eventoEnProceso.getFechavueltatru_eve());
-        v03_estado_eve.setText("Estado: " + eventoEnProceso.getEstado_eve());
+        v03_estado_eve.setText("Estado del Evento: " + eventoEnProceso.getEstado_eve());
+        v03_precio_eve.setText("Coste: " + eventoEnProceso.getPrecio_eve() + " €");
 
         //Cargamos los Actividades del Evento
         Query query1 = fbf.collection("actividad_act").orderBy("id_eve", Query.Direction.ASCENDING);
@@ -206,7 +211,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
             }
         });
 
-        v03_atras = view.findViewById(R.id.v03_btn_volver);
+        v03_atras = view.findViewById(R.id.v03_btn_atras);
         v03_atras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewAtras) {

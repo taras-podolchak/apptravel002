@@ -1,8 +1,11 @@
 package com.appvisibility.apptravel002.ui.entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
-public class Inscribir_eveprs implements Serializable {
+public class Inscribir_eveprs implements Serializable, Parcelable {
     int id_eveprs;
     int id_eve;
     int id_prs;
@@ -29,6 +32,30 @@ public class Inscribir_eveprs implements Serializable {
         this.estado_eveprs = estado_eveprs;
         this.descestado_eveprs = descestado_eveprs;
     }
+
+    protected Inscribir_eveprs(Parcel in) {
+        id_eveprs = in.readInt();
+        id_eve = in.readInt();
+        id_prs = in.readInt();
+        id_tpr = in.readInt();
+        plazaslibres_eveprs = in.readInt();
+        preferenciaprs_eveprs = in.readInt();
+        noasistio_eveprs = in.readByte() != 0;
+        estado_eveprs = in.readString();
+        descestado_eveprs = in.readString();
+    }
+
+    public static final Creator<Inscribir_eveprs> CREATOR = new Creator<Inscribir_eveprs>() {
+        @Override
+        public Inscribir_eveprs createFromParcel(Parcel in) {
+            return new Inscribir_eveprs(in);
+        }
+
+        @Override
+        public Inscribir_eveprs[] newArray(int size) {
+            return new Inscribir_eveprs[size];
+        }
+    };
 
     public int getId_eveprs() {
         return id_eveprs;
@@ -109,5 +136,23 @@ public class Inscribir_eveprs implements Serializable {
                 ", id_prs=" + id_prs +
                 ", estado_eveprs='" + estado_eveprs + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id_eveprs);
+        dest.writeInt(id_eve);
+        dest.writeInt(id_prs);
+        dest.writeInt(id_tpr);
+        dest.writeInt(plazaslibres_eveprs);
+        dest.writeInt(preferenciaprs_eveprs);
+        dest.writeByte((byte) (noasistio_eveprs ? 1 : 0));
+        dest.writeString(estado_eveprs);
+        dest.writeString(descestado_eveprs);
     }
 }
