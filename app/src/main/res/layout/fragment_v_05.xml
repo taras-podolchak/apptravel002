@@ -82,14 +82,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-
+<!--
                     <Spinner
                         android:id="@+id/v05_spn_solicitaPlazaLibre"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:minHeight="48dp" />
-
+-->
                     <Spinner
                         android:id="@+id/v05_spn_ofertaPlazaLibre"
                         android:layout_width="match_parent"

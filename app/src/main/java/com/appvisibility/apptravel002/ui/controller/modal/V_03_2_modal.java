@@ -1,10 +1,10 @@
 package com.appvisibility.apptravel002.ui.controller.modal;
 
-import static android.content.ContentValues.TAG;
+import static com.appvisibility.apptravel002.ui.service.Inscribir_eveprsService.plazaLibreRenunciarRU;
+import static com.appvisibility.apptravel002.ui.service.Inscribir_eveprsService.plazaLibreSolicitarRU;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,31 +12,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.appvisibility.apptravel002.MainActivity_val;
 import com.appvisibility.apptravel002.R;
-import com.appvisibility.apptravel002.ui.controller.Interfaces.IDAO;
 import com.appvisibility.apptravel002.ui.controller.V_03;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Inscribir_eveprs;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,15 +32,12 @@ import java.util.stream.Collectors;
  * Use the {@link V_03_2_modal#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscribir_eveprs, Object> {
+public class V_03_2_modal extends DialogFragment {
 
     // Campos de xml
     private Button v03_2_adelante, v03_2_atras;
     private TextView v03_2_titulo;
     private TextView v03_2_listaPlazas;
-
-    // Acceso a datos
-    FirebaseFirestore fbf = FirebaseFirestore.getInstance();
 
     // Entities
     private Evento_eve eventoEnProceso;
@@ -66,7 +48,7 @@ public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscrib
     private List<Inscribir_eveprs> inscritosEnCoche  = new ArrayList<>();
     private Persona_prs personaUser;
     public static Persona_prs personaOferente;
-    public Boolean solicitudRealizada = false;
+    public static Boolean solicitudRealizada = false;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -189,74 +171,16 @@ public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscrib
         v03_2_adelante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (Inscribir_eveprs inscritoSolicitante : inscritos) {
-                    if (!solicitudRealizada
-                            && (inscritoSolicitante.getId_prs() == personaUser.getId_prs()
-                            && personaUser.getUsuariotipo_prs() > 0
-                            && personaUser.getUsuariotipo_prs() <= 3
-                            && inscritoSolicitante.getPlazaslibres_eveprs() < 0
-                            && inscritoOferente.getId_prs() != personaUser.getId_prs()
-                            && inscritoOferente.getPlazaslibres_eveprs() >= 1)) {
-                        if (!solicitudRealizada) {
-//https://firebase.google.com/docs/firestore/query-data/queries#java_6
-//https://firebase.google.com/docs/firestore/manage-data/add-data
-//https://stackoverflow.com/questions/68922621/how-to-update-field-in-the-firebase-firestore-document-using-the-collections
-                            /*You cannot query the database and update the documents in a single go. You need to query the collection, get the documents, and right after that perform the update.*/
-                            Task<QuerySnapshot> task1 = fbf.collection("inscribir_eveprs").whereEqualTo("id_eveprs", inscritoSolicitante.getId_eveprs()).get();
-                            Task<QuerySnapshot> task2 = fbf.collection("inscribir_eveprs").whereEqualTo("id_eveprs", inscritoOferente.getId_eveprs()).get();
-                            task1.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        for (QueryDocumentSnapshot qds : task.getResult()) {
-                                            Log.d(TAG, qds.getId() + " => " + qds.getData());
-                                            DocumentReference docRef = qds.getReference();
-                                            docRef.update("plazaslibres_eveprs", inscritoSolicitante.getPlazaslibres_eveprs() + 1);
-                                            docRef.update("id_tpr", inscritoOferente.getId_tpr())
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void unused) {
-                                                        Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                                    }
-                                                });
-                                        }
-                                    }
-                                }
-                            });
-                            task2.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        for (QueryDocumentSnapshot qds : task.getResult()) {
-                                            Log.d(TAG, qds.getId() + " => " + qds.getData());
-                                            DocumentReference docRef = qds.getReference();
-                                            docRef.update("plazaslibres_eveprs", inscritoOferente.getPlazaslibres_eveprs() - 1)
-                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                        @Override
-                                                        public void onSuccess(Void unused) {
-                                                            Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                                        }
-                                                    })
-                                                    .addOnFailureListener(new OnFailureListener() {
-                                                        @Override
-                                                        public void onFailure(@NonNull Exception e) {
-                                                            Log.w(TAG, "Error writing document", e);
-                                                        }
-                                                    });
-                                        }
-                                    }
-                                }
-                            });
-                       }
-                        solicitudRealizada = true;
-                    }
-                }
                 if (solicitudRealizada){
-                    Toast.makeText(getActivity(), "Solicitud de plaza realizada", Toast.LENGTH_LONG).show();
-                } else {
                     Toast.makeText(getActivity(), "La solicitud no reune los requisitos", Toast.LENGTH_LONG).show();
-                }                                           ;
-                solicitudRealizada = false;
+                } else {
+                    solicitudRealizada = plazaLibreSolicitarRU(solicitudRealizada, personaUser, inscritoOferente);
+                    if (solicitudRealizada) {
+                        Toast.makeText(getActivity(), "Solicitud de plaza realizada", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getActivity(), "La solicitud no reune los requisitos", Toast.LENGTH_LONG).show();
+                    }
+                };
                 getDialog().cancel();
             }
         });
@@ -265,76 +189,13 @@ public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscrib
         v03_2_atras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (Inscribir_eveprs inscritoSolicitante : inscritos) {
-                    if (!solicitudRealizada
-                            && (inscritoSolicitante.getId_prs() == personaUser.getId_prs()
-                            && personaUser.getUsuariotipo_prs() > 0
-                            && personaUser.getUsuariotipo_prs() <= 3
-                            && inscritoSolicitante.getPlazaslibres_eveprs() == 0
-                            && inscritoSolicitante.getId_tpr() == inscritoOferente.getId_tpr()
-                            && inscritoOferente.getId_prs() != personaUser.getId_prs()
-                            && inscritoOferente.getPlazaslibres_eveprs() >= 0)) {
-                        if (!solicitudRealizada
-                                && inscritoOferente.getId_tpr() == inscritoOferente.getId_eveprs()) {
-//https://firebase.google.com/docs/firestore/query-data/queries#java_6
-//https://firebase.google.com/docs/firestore/manage-data/add-data
-//https://stackoverflow.com/questions/68922621/how-to-update-field-in-the-firebase-firestore-document-using-the-collections
-                            /*You cannot query the database and update the documents in a single go. You need to query the collection, get the documents, and right after that perform the update.*/
-                            Task<QuerySnapshot> task1 = fbf.collection("inscribir_eveprs").whereEqualTo("id_eveprs", inscritoSolicitante.getId_eveprs()).get();
-                            Task<QuerySnapshot> task2 = fbf.collection("inscribir_eveprs").whereEqualTo("id_eveprs", inscritoOferente.getId_eveprs()).get();
-                            task1.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        for (QueryDocumentSnapshot qds : task.getResult()) {
-                                            Log.d(TAG, qds.getId() + " => " + qds.getData());
-                                            DocumentReference docRef = qds.getReference();
-                                            docRef.update("plazaslibres_eveprs", inscritoSolicitante.getPlazaslibres_eveprs() - 1);
-                                            docRef.update("id_tpr", inscritoSolicitante.getId_eveprs())
-                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                        @Override
-                                                        public void onSuccess(Void unused) {
-                                                            Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                                        }
-                                                    });
-                                        }
-                                    }
-                                }
-                            });
-                            task2.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        for (QueryDocumentSnapshot qds : task.getResult()) {
-                                            Log.d(TAG, qds.getId() + " => " + qds.getData());
-                                            DocumentReference docRef = qds.getReference();
-                                            docRef.update("plazaslibres_eveprs", inscritoOferente.getPlazaslibres_eveprs() + 1)
-                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                        @Override
-                                                        public void onSuccess(Void unused) {
-                                                            Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                                        }
-                                                    })
-                                                    .addOnFailureListener(new OnFailureListener() {
-                                                        @Override
-                                                        public void onFailure(@NonNull Exception e) {
-                                                            Log.w(TAG, "Error writing document", e);
-                                                        }
-                                                    });
-                                        }
-                                    }
-                                }
-                            });
-                        }
-                        solicitudRealizada = true;
-                    }
-                }
-                if (solicitudRealizada){
+                solicitudRealizada = true;
+                solicitudRealizada = plazaLibreRenunciarRU(solicitudRealizada, personaUser, inscritoOferente);
+                if (!solicitudRealizada) {
                     Toast.makeText(getActivity(), "Renuncia de plaza realizada", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(getActivity(), "La renuncia no reune los requisitos", Toast.LENGTH_LONG).show();
-                }                                           ;
-                solicitudRealizada = false;
+                };
                 getDialog().cancel();
             }
         });
@@ -342,34 +203,4 @@ public class V_03_2_modal extends DialogFragment implements IDAO<Object, Inscrib
         return view;
     }//Fin de constructor
 
-    @Override
-    public <T> void tabla1ChangeListener(Query query, List<T> lista, Class<T> tipoObjeto, RecyclerView.Adapter miAdapter) {
-    }
-
-    @Override
-    public <S> void tabla2ChangeListener(Query query, List<S> lista, Class<S> tipoObjeto, RecyclerView.Adapter miAdapter) {
-        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
-                S enProceso;
-                if (error != null) {
-                    Log.e("Error en Firestore", error.getMessage());
-                    return;
-                }
-                lista.clear();
-                for (QueryDocumentSnapshot qds : snapshots) {
-                    enProceso = (S) qds.toObject(tipoObjeto);
-                    lista.add(enProceso);
-                }
-                miAdapter.notifyDataSetChanged();
-
-                Log.d(TAG, "Datos recibidos!");
-                Toast.makeText(getActivity(), "Datos recibidos!", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    @Override
-    public <R> void tabla3ChangeListener(Query query, List<R> lista, Class<R> tipoObjeto, RecyclerView.Adapter miAdapter) {
-    }
 }

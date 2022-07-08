@@ -1,6 +1,7 @@
 package com.appvisibility.apptravel002.ui.controller;
 
 import static com.appvisibility.apptravel002.MainActivity_val.sesionIniciada;
+import static com.appvisibility.apptravel002.ui.service.Inscribir_eveprsService.*;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,6 +16,7 @@ import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
@@ -24,6 +26,7 @@ import androidx.navigation.Navigation;
 
 import com.appvisibility.apptravel002.MainActivity_val;
 import com.appvisibility.apptravel002.R;
+import com.appvisibility.apptravel002.ui.controller.modal.V_03_2_modal;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Inscribir_eveprs;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
@@ -82,8 +85,13 @@ public class V_05 extends Fragment {
     private List<Inscribir_eveprs> inscritos = V_03.inscritos;
     private List<Inscribir_eveprs> inscritoOferentes = new ArrayList<>();
     public static Map<Integer, Persona_prs> map_IdIns_Prs = v03_00_prs_Adapter.map_IdIns_Prs;
+    private Inscribir_eveprs inscritoOferente;
     private Persona_prs personaUser;
+    private int personaUserPlazaAsignada;
     private int id_prs_enProceso;
+    private Boolean solicitudRealizada = V_03_2_modal.solicitudRealizada;
+//    public static Boolean solicitudRealizada = false;
+    public static Inscribir_eveprs inscritoOferenteActual;
 
 //    private Map<Integer, Persona_prs> map_IdIns_Prs = v03_00_prs_Adapter.map_IdIns_Prs;
     private Context mContext;
@@ -238,6 +246,21 @@ public class V_05 extends Fragment {
         // TODO: spinner ofresco coche
         ofrecerPlazasLibres();
 
+// Si hay una Plaza Libre solicitada se muestra
+        for (Inscribir_eveprs ins: inscritos){
+            if(personaUser.getId_prs() == ins.getId_prs()
+                && ins.getId_tpr() != ins.getId_eveprs()){
+                int id_tpr = ins.getId_tpr();
+                for (Inscribir_eveprs ins2: inscritos){
+                    if(id_tpr == ins2.getId_eveprs()){
+                        v05_asignadaPlazaLibre.setText(map_IdIns_Prs.get(ins2.getId_prs()).getApodo_prs());
+                        solicitudRealizada = true;
+                        inscritoOferenteActual = ins2;
+                    }
+                }
+            }
+        }
+
         // TODO: spinner tipo alojamiento
         tipoAlojamientoChangeListener();
 
@@ -301,6 +324,9 @@ public class V_05 extends Fragment {
                 id_prs_enProceso = ins.getId_prs();
                 personaOferentes.add(map_IdIns_Prs.get(id_prs_enProceso));
             }
+            if (ins.getId_prs() == personaUser.getId_prs()){
+                v05_asignadaPlazaLibre.setText(map_IdIns_Prs.get(ins.getId_prs()).getApodo_prs());
+            }
         }
 
         //Organizamos el contenido del AlertDialog modal Selección Simple
@@ -328,8 +354,34 @@ public class V_05 extends Fragment {
                 .setItems(descripcionPlazasLibres, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
                         String datoseleccionado = descripcionPlazasLibres[item];
-                        v05_asignadaPlazaLibre.setText(datoseleccionado);
+//                        v05_asignadaPlazaLibre.setText(datoseleccionado.substring(0, datoseleccionado.indexOf("(")));
                         ((AppCompatActivity) mContext).findViewById(R.id.v05_txv_asignadaPlazaLibre);
+                        inscritoOferente = inscritoOferentes.get(item);
+                            for (Inscribir_eveprs inscritoSolicitante : inscritos) {
+                                if (inscritoSolicitante.getId_prs() == personaUser.getId_prs()){
+                                    if (inscritoSolicitante.getId_tpr() == inscritoOferente.getId_tpr()){
+                                        Toast.makeText(getActivity(), "Ya tienes una plaza solicitada", Toast.LENGTH_LONG).show();
+                                    } else {
+                                        if (solicitudRealizada){
+                                            solicitudRealizada = plazaLibreRenunciarRU(solicitudRealizada, personaUser, inscritoOferenteActual);
+                                            // Debido al uso de onComplete tenemos que alterar algunos valores de los arrayList con el fin de que puedan entrar en los métodos
+                                            inscritoSolicitante.setPlazaslibres_eveprs(inscritoSolicitante.getPlazaslibres_eveprs() - 1);
+                                            inscritoSolicitante.setId_tpr(inscritoSolicitante.getId_eveprs());
+                                            solicitudRealizada = plazaLibreSolicitarRU(solicitudRealizada, personaUser, inscritoOferente);
+                                            if (solicitudRealizada){
+                                                inscritoOferenteActual = inscritoOferente;
+                                                v05_asignadaPlazaLibre.setText(datoseleccionado.substring(0, datoseleccionado.indexOf("(")));
+                                            }
+                                        } else {
+                                            solicitudRealizada = plazaLibreSolicitarRU(solicitudRealizada, personaUser, inscritoOferente);
+                                            if (solicitudRealizada){
+                                                inscritoOferenteActual = inscritoOferente;
+                                                v05_asignadaPlazaLibre.setText(datoseleccionado.substring(0, datoseleccionado.indexOf("(")));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                     }
                 })
                 .create()
@@ -389,6 +441,7 @@ public class V_05 extends Fragment {
 
         ArrayList<String> restriccionesAlimentarias = new ArrayList<>();
         restriccionesAlimentarias.add("Altramúz");
+        restriccionesAlimentarias.add("Apio");
         restriccionesAlimentarias.add("Cacahuete");
         restriccionesAlimentarias.add("Crustáceos");
         restriccionesAlimentarias.add("Glúten");

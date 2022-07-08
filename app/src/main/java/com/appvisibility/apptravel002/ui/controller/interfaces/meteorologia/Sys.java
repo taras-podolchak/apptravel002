@@ -1,4 +1,4 @@
-package com.appvisibility.apptravel002.ui.controller.Interfaces.meteorologia;
+package com.appvisibility.apptravel002.ui.controller.interfaces.meteorologia;
 
 public class Sys {
     private long sunrise;

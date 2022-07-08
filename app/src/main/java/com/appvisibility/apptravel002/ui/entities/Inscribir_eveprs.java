@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Inscribir_eveprs implements Serializable, Parcelable {
     int id_eveprs;
@@ -85,8 +86,8 @@ public class Inscribir_eveprs implements Serializable, Parcelable {
         return id_tpr;
     }
 
-    public void getId_tpr(int id_tpr) {
-        this.id_prs = id_tpr;
+    public void setId_tpr(int id_tpr) {
+        this.id_tpr = id_tpr;
     }
 
     public int getPlazaslibres_eveprs() {

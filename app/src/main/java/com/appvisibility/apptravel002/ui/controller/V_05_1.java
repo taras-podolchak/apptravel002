@@ -17,8 +17,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.appvisibility.apptravel002.R;
-import com.appvisibility.apptravel002.ui.controller.Interfaces.meteorologia.Root;
-import com.appvisibility.apptravel002.ui.controller.Interfaces.meteorologia.WeatherService;
+import com.appvisibility.apptravel002.ui.controller.interfaces.meteorologia.Root;
+import com.appvisibility.apptravel002.ui.controller.interfaces.meteorologia.WeatherService;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
