@@ -80,7 +80,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
 
     // Entities
     public static Evento_eve eventoEnProceso;
-    private List<Persona_prs> personas = new ArrayList<>();
+    public static List<Persona_prs> personas = new ArrayList<>();
     private List<Actividad_act> actividades = new ArrayList<>();
     private List<Actividad_act> actividadesFiltrados = new ArrayList<>();
     public static List<Inscribir_eveprs> inscritos = new ArrayList<>();

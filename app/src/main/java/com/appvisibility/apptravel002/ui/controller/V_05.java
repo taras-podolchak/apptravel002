@@ -2,6 +2,7 @@ package com.appvisibility.apptravel002.ui.controller;
 
 import static com.appvisibility.apptravel002.MainActivity_val.sesionIniciada;
 import static com.appvisibility.apptravel002.ui.service.Inscribir_eveprsService.*;
+import static com.appvisibility.apptravel002.ui.service.Persona_prsService.*;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -35,6 +36,7 @@ import com.appvisibility.apptravel002.ui.service.v03_00_prs_Adapter;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -66,7 +68,6 @@ public class V_05 extends Fragment {
     private Switch v05_cocheSiNo;
     private Button v05_solicitaPlazaLibre;
     private TextView v05_asignadaPlazaLibre;
-//    private Spinner v05_solicitaPlazaLibre;
     private Spinner v05_ofertaPlazaLibre;
     private Spinner v05_tipo_alojamiento;
     private Button v05_indicaRestriccionesAlimentarias;
@@ -77,23 +78,24 @@ public class V_05 extends Fragment {
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
 
     // Entities
-//    private Evento_eve evento;
     private Evento_eve eventoEnProceso;
-//    private List<Persona_prs> personas = new ArrayList<>();
     private List<Persona_prs> personaOferentes = new ArrayList<>();
-//    private List<Persona_prs> inscritos = new ArrayList<>();
     private List<Inscribir_eveprs> inscritos = V_03.inscritos;
     private List<Inscribir_eveprs> inscritoOferentes = new ArrayList<>();
     public static Map<Integer, Persona_prs> map_IdIns_Prs = v03_00_prs_Adapter.map_IdIns_Prs;
     private Inscribir_eveprs inscritoOferente;
+    private Inscribir_eveprs inscritoOferenteActual;
+    private Inscribir_eveprs inscritoSolicitante;
     private Persona_prs personaUser;
-    private int personaUserPlazaAsignada;
+//    private int personaUserPlazaAsignada;
     private int id_prs_enProceso;
-    private Boolean solicitudRealizada = V_03_2_modal.solicitudRealizada;
-//    public static Boolean solicitudRealizada = false;
-    public static Inscribir_eveprs inscritoOferenteActual;
+    private Boolean solicitudPlazaLibreRealizada = V_03_2_modal.solicitudRealizada;
+//    public static Inscribir_eveprs inscritoOferenteActual;
+    private List alimentaciones_prs = new ArrayList();
+    private String alimentacion_prsActual;
+    private String alimentacion_prsNueva = "";
+    private Boolean datosActualizados;
 
-//    private Map<Integer, Persona_prs> map_IdIns_Prs = v03_00_prs_Adapter.map_IdIns_Prs;
     private Context mContext;
 
     // Service
@@ -228,10 +230,14 @@ public class V_05 extends Fragment {
         this.v05_adapter_act = new v03_00_act_Adapter(actividades, mContext);
         this.v05_recycler_act.setAdapter(v03_adapter_act);*/
 
-        // TODO: swich ¿llevas el coche?
+// Switch para mostrar opción Ofrezco Plazas Libres / Necesito Plazas Libres
         v05_cocheSiNo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+                    if (solicitudPlazaLibreRealizada) {
+                        solicitudPlazaLibreRealizada = plazaLibreRenunciarRU(solicitudPlazaLibreRealizada, personaUser, inscritoOferenteActual);
+                        v05_asignadaPlazaLibre.setText("");
+                    }
                     v05_ofertaPlazaLibre.setEnabled(true);
                     v05_solicitaPlazaLibre.setEnabled(false);
                     v05_asignadaPlazaLibre.setEnabled(false);
@@ -243,7 +249,7 @@ public class V_05 extends Fragment {
             }
         });
 
-        // TODO: spinner ofresco coche
+// Spinner para indicar el número de Plazas Libres que se ofrecen
         ofrecerPlazasLibres();
 
 // Si hay una Plaza Libre solicitada se muestra
@@ -254,17 +260,13 @@ public class V_05 extends Fragment {
                 for (Inscribir_eveprs ins2: inscritos){
                     if(id_tpr == ins2.getId_eveprs()){
                         v05_asignadaPlazaLibre.setText(map_IdIns_Prs.get(ins2.getId_prs()).getApodo_prs());
-                        solicitudRealizada = true;
+                        solicitudPlazaLibreRealizada = true;
                         inscritoOferenteActual = ins2;
                     }
                 }
             }
         }
 
-        // TODO: spinner tipo alojamiento
-        tipoAlojamientoChangeListener();
-
-        // Botones
 /*
         v05_foto_eve = view.findViewById(R.id.v05_imv_foto_eve);
         v05_foto_eve.setOnClickListener(new View.OnClickListener() {
@@ -289,10 +291,22 @@ public class V_05 extends Fragment {
             }
         });
 
+        alimentacionR();
+
+        // TODO: spinner tipo alojamiento
+        tipoAlojamientoChangeListener();
+
+        // Botones
         v05_adelante = view.findViewById(R.id.v05_btn_confirmar);
         v05_adelante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                datosActualizados = personaUserU(datosActualizados, personaUser);
+                if (datosActualizados) {
+                    Toast.makeText(getActivity(), "Se han actualizado tus datos", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getActivity(), "No se han podido actualizar tus datos", Toast.LENGTH_LONG).show();
+                }
                 Navigation.findNavController(view).navigate(R.id.action_nav_v05_to_nav_v06);
             }
         });
@@ -316,6 +330,13 @@ public class V_05 extends Fragment {
         inscritoOferentes = inscritos.stream()
             .filter(p->p.getPlazaslibres_eveprs() > 0)
             .collect(Collectors.toList());
+
+        //Identificamos al inscritoSolicitante de Plazas Libres en coche
+        for (Inscribir_eveprs ins : inscritos) {
+            if (ins.getId_prs() == personaUser.getId_prs()){
+                inscritoSolicitante = ins;
+            }
+        }
 
         //Recuperamos los datos de las personas que ofrecen Plazas Libres en el coche
         for(Inscribir_eveprs ins: inscritoOferentes){
@@ -349,39 +370,34 @@ public class V_05 extends Fragment {
 //            bundleInscritoOferentes.putParcelableArrayList("inscritoParaV_05_2", (ArrayList<? extends Parcelable>) inscritoOferentes);
             AlertDialog.Builder modalSimplePlazasLibres = new AlertDialog.Builder(mContext);
             modalSimplePlazasLibres
-                .setIcon(R.drawable.ico_coche_naranja)
+                .setIcon(R.drawable.ico_coche_azul)
                 .setTitle("COCHES CON PLAZAS LIBRES")
                 .setItems(descripcionPlazasLibres, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
                         String datoseleccionado = descripcionPlazasLibres[item];
-//                        v05_asignadaPlazaLibre.setText(datoseleccionado.substring(0, datoseleccionado.indexOf("(")));
                         ((AppCompatActivity) mContext).findViewById(R.id.v05_txv_asignadaPlazaLibre);
                         inscritoOferente = inscritoOferentes.get(item);
-                            for (Inscribir_eveprs inscritoSolicitante : inscritos) {
-                                if (inscritoSolicitante.getId_prs() == personaUser.getId_prs()){
-                                    if (inscritoSolicitante.getId_tpr() == inscritoOferente.getId_tpr()){
-                                        Toast.makeText(getActivity(), "Ya tienes una plaza solicitada", Toast.LENGTH_LONG).show();
-                                    } else {
-                                        if (solicitudRealizada){
-                                            solicitudRealizada = plazaLibreRenunciarRU(solicitudRealizada, personaUser, inscritoOferenteActual);
-                                            // Debido al uso de onComplete tenemos que alterar algunos valores de los arrayList con el fin de que puedan entrar en los métodos
-                                            inscritoSolicitante.setPlazaslibres_eveprs(inscritoSolicitante.getPlazaslibres_eveprs() - 1);
-                                            inscritoSolicitante.setId_tpr(inscritoSolicitante.getId_eveprs());
-                                            solicitudRealizada = plazaLibreSolicitarRU(solicitudRealizada, personaUser, inscritoOferente);
-                                            if (solicitudRealizada){
-                                                inscritoOferenteActual = inscritoOferente;
-                                                v05_asignadaPlazaLibre.setText(datoseleccionado.substring(0, datoseleccionado.indexOf("(")));
-                                            }
-                                        } else {
-                                            solicitudRealizada = plazaLibreSolicitarRU(solicitudRealizada, personaUser, inscritoOferente);
-                                            if (solicitudRealizada){
-                                                inscritoOferenteActual = inscritoOferente;
-                                                v05_asignadaPlazaLibre.setText(datoseleccionado.substring(0, datoseleccionado.indexOf("(")));
-                                            }
-                                        }
-                                    }
+                        if (inscritoSolicitante.getId_tpr() == inscritoOferente.getId_tpr()){
+                            Toast.makeText(getActivity(), "Ya tienes una plaza solicitada", Toast.LENGTH_LONG).show();
+                        } else {
+                            if (solicitudPlazaLibreRealizada){
+                                solicitudPlazaLibreRealizada = plazaLibreRenunciarRU(solicitudPlazaLibreRealizada, personaUser, inscritoOferenteActual);
+                                // Debido al uso de onComplete tenemos que alterar algunos valores de los arrayList con el fin de que puedan entrar en los métodos
+                                inscritoSolicitante.setPlazaslibres_eveprs(inscritoSolicitante.getPlazaslibres_eveprs() - 1);
+                                inscritoSolicitante.setId_tpr(inscritoSolicitante.getId_eveprs());
+                                solicitudPlazaLibreRealizada = plazaLibreSolicitarRU(solicitudPlazaLibreRealizada, personaUser, inscritoOferente);
+                                if (solicitudPlazaLibreRealizada){
+                                    inscritoOferenteActual = inscritoOferente;
+                                    v05_asignadaPlazaLibre.setText(datoseleccionado.substring(0, datoseleccionado.indexOf("(")));
+                                }
+                            } else {
+                                solicitudPlazaLibreRealizada = plazaLibreSolicitarRU(solicitudPlazaLibreRealizada, personaUser, inscritoOferente);
+                                if (solicitudPlazaLibreRealizada){
+                                    inscritoOferenteActual = inscritoOferente;
+                                    v05_asignadaPlazaLibre.setText(datoseleccionado.substring(0, datoseleccionado.indexOf("(")));
                                 }
                             }
+                        }
                     }
                 })
                 .create()
@@ -436,6 +452,19 @@ public class V_05 extends Fragment {
         });*/
     }
 
+    private String alimentacionR(){
+        alimentacion_prsNueva = "";
+// Si el usuario tiene restricciones Alimentarias se muestran
+        alimentacion_prsActual = personaUser.getAlimentacion_prs();
+// https://stackoverflow.com/questions/7488643/how-to-convert-comma-separated-string-to-list
+        alimentaciones_prs = Arrays.asList(alimentacion_prsActual.split("\\s*\\s*-\\s*"));
+        for (Object ali: alimentaciones_prs){
+            alimentacion_prsNueva += ali.toString() + "\n";
+            v05_muestraRestriccionesAlimentarias.setText(alimentacion_prsNueva);
+        }
+        return alimentacion_prsNueva;
+    }
+
     private void indicarRestriccionesAlimentarias(View view) {
         String [] descripcionRestriccionesAlimentarias;
 
@@ -460,28 +489,37 @@ public class V_05 extends Fragment {
 
         //Organizamos el contenido del AlertDialog modal Selección Múltiple
         descripcionRestriccionesAlimentarias = new String[restriccionesAlimentarias.size()];
+        alimentacion_prsNueva = alimentacionR();
+        alimentacion_prsNueva = "";
         for (int i=0; i<restriccionesAlimentarias.size(); i++){
             descripcionRestriccionesAlimentarias[i] = restriccionesAlimentarias.get(i);
-            opcionesRestriccionesAlimentarias[i] = false;
+            if (alimentaciones_prs.contains(restriccionesAlimentarias.get(i))){
+                opcionesRestriccionesAlimentarias[i] = true;
+                alimentacion_prsNueva += descripcionRestriccionesAlimentarias[i] + "\n";
+                v05_muestraRestriccionesAlimentarias.setText(alimentacion_prsNueva);
+            } else {
+                opcionesRestriccionesAlimentarias[i] = false;
+            };
         }
 
         if (sesionIniciada >= view.getResources().getInteger(R.integer.rol_valiente)) {
             AlertDialog.Builder modalMultipleRestriccionesAlimentarias = new AlertDialog.Builder(mContext);
             modalMultipleRestriccionesAlimentarias
-                .setIcon(R.drawable.ico_coche_naranja)
+                .setIcon(R.drawable.foodmealplaterestaurant_109684_azul)
                 .setTitle("RESTRICCIONES ALIMENTARIAS")
                 .setMultiChoiceItems(descripcionRestriccionesAlimentarias, opcionesRestriccionesAlimentarias, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int item, boolean isChecked) {
-                        String seleccionados="";
-                        for (int i = 0; i < opcionesRestriccionesAlimentarias.length; i++)
-                        {
-                            if (opcionesRestriccionesAlimentarias[i] == true)
-                            {
-                                seleccionados += descripcionRestriccionesAlimentarias[i] + "\n";
+                        alimentacion_prsNueva = "";
+                        alimentacion_prsActual = "";
+                        for (int i = 0; i < opcionesRestriccionesAlimentarias.length; i++) {
+                            if (opcionesRestriccionesAlimentarias[i] == true) {
+                                alimentacion_prsNueva += descripcionRestriccionesAlimentarias[i] + "\n";
+                                alimentacion_prsActual += descripcionRestriccionesAlimentarias[i] + " - ";
                             }
                         }
-                        v05_muestraRestriccionesAlimentarias.setText(seleccionados);
+                        personaUser.setAlimentacion_prs(alimentacion_prsActual);
+                        v05_muestraRestriccionesAlimentarias.setText(alimentacion_prsNueva);
                         ((AppCompatActivity) mContext).findViewById(R.id.v05_txv_muestraRestriccionesAlimentarias);
                     }
                 })

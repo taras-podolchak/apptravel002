@@ -27,6 +27,7 @@ public class Persona_prs implements Serializable, Parcelable {
 	private	String	email_prs	;
 	private	String	telefono_prs	;
 	private	String	web_prs	;
+	private String alimentacion_prs ;
 	private	int	usuariotipo_prs	;
 	private	String	fotopropia_prs	;
 	private	String	fotoorg_prs	;
@@ -95,6 +96,7 @@ public class Persona_prs implements Serializable, Parcelable {
 		email_prs = in.readString();
 		telefono_prs = in.readString();
 		web_prs = in.readString();
+		alimentacion_prs = in.readString();
 		usuariotipo_prs = in.readInt();
 		fotopropia_prs = in.readString();
 		fotoorg_prs = in.readString();
@@ -171,6 +173,7 @@ public class Persona_prs implements Serializable, Parcelable {
 	public 	String	getEmail_prs	() {return 	email_prs	;}	public void 	setEmail_prs	(	String	email_prs	) {this.	email_prs=	email_prs	;}
 	public 	String	getTelefono_prs	() {return 	telefono_prs	;}	public void 	setTelefono_prs	(	String	telefono_prs	) {this.	telefono_prs=	telefono_prs	;}
 	public 	String	getWeb_prs	() {return 	web_prs	;}	public void 	setWeb_prs	(	String	web_prs	) {this.	web_prs=	web_prs	;}
+	public 	String	getAlimentacion_prs	() {return 	alimentacion_prs	;}	public void 	setAlimentacion_prs	(	String	alimentacion_prs	) {this.	alimentacion_prs=	alimentacion_prs	;}
 	public 	int	getUsuariotipo_prs	() {return 	usuariotipo_prs	;}	public void 	setUsuariotipo_prs	(	int	usuariotipo_prs	) {this.	usuariotipo_prs=	usuariotipo_prs	;}
 	public 	String	getFotopropia_prs	() {return 	fotopropia_prs	;}	public void 	setFotopropia_prs	(	String	fotopropia_prs	) {this.	fotopropia_prs=	fotopropia_prs	;}
 	public 	String	getFotoorg_prs	() {return 	fotoorg_prs	;}	public void 	setFotoorg_prs	(	String	fotoorg_prs	) {this.	fotoorg_prs=	fotoorg_prs	;}
@@ -237,6 +240,7 @@ public class Persona_prs implements Serializable, Parcelable {
 		builder.append("	private	 [	email_prs=	");	builder.append(	email_prs+	" - ");
 		builder.append("	private	 [	telefono_prs=	");	builder.append(	telefono_prs+	" - ");
 		builder.append("	private	 [	web_prs=	");	builder.append(	web_prs+	" - ");
+		builder.append("	private	 [	alimentacion_prs=	");	builder.append(	alimentacion_prs+	" - ");
 		builder.append("	private	 [	usuariotipo_prs=	");	builder.append(	usuariotipo_prs+	" - ");
 		builder.append("	private	 [	fotopropia_prs=	");	builder.append(	fotopropia_prs+	" - ");
 		builder.append("	private	 [	fotoorg_prs=	");	builder.append(	fotoorg_prs+	" - ");
@@ -310,6 +314,7 @@ public class Persona_prs implements Serializable, Parcelable {
 		dest.writeString(email_prs);
 		dest.writeString(telefono_prs);
 		dest.writeString(web_prs);
+		dest.writeString(alimentacion_prs);
 		dest.writeInt(usuariotipo_prs);
 		dest.writeString(fotopropia_prs);
 		dest.writeString(fotoorg_prs);
