@@ -27,7 +27,7 @@
             android:id="@+id/a_update_act_modal_etx_nombre_act"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/nombre"
+            android:hint="@string/nombre_actividad"
             android:textAlignment="center" />
 
         <EditText

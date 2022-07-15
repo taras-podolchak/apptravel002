@@ -51,21 +51,21 @@
                             android:id="@+id/acv_my_account_etx_nombre_prs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/nombre"
+                            android:hint="@string/nombre_prs"
                             android:inputType="textPersonName" />
 
                         <EditText
                             android:id="@+id/acv_my_account_etx_apellido1_prs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/apellido"
+                            android:hint="@string/apellido1_prs"
                             android:inputType="textPersonName" />
 
                         <EditText
                             android:id="@+id/acv_my_account_etx_apellido2_prs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/segundo_apellido"
+                            android:hint="@string/apellido2_prs"
                             android:inputType="textPersonName" />
                     </LinearLayout>
                 </LinearLayout>
@@ -80,42 +80,42 @@
                     android:id="@+id/acv_my_account_etx_email_prs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/email"
+                    android:hint="@string/email_prs"
                     android:inputType="textEmailAddress" />
 
                 <EditText
                     android:id="@+id/acv_my_account_etx_contrasenna1_prs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/password"
+                    android:hint="@string/contrasenna_prs"
                     android:inputType="textPassword" />
 
                 <EditText
                     android:id="@+id/acv_my_account_etx_contrasenna2_prs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/password"
+                    android:hint="@string/contrasenna_prs"
                     android:inputType="textPassword" />
 
                 <EditText
                     android:id="@+id/acv_my_account_etx_dni_prs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/dni"
+                    android:hint="@string/dni_prs"
                     android:inputType="text" />
 
                 <EditText
                     android:id="@+id/acv_my_account_etx_movil_prs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/telefono"
+                    android:hint="@string/telefono_prs"
                     android:inputType="phone" />
 
                 <EditText
                     android:id="@+id/acv_my_account_etx_contacto1movil_prs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/telefono_emerjencia"
+                    android:hint="@string/movil_prs"
                     android:inputType="phone" />
 
                 <EditText

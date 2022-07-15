@@ -63,12 +63,15 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <EditText
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="¿LLevas el coche?" />
+                        android:enabled="false"
+                        android:gravity="start"
+                        android:inputType="text"
+                        android:text="¿Llevas el coche?"
+                        android:textColor="@color/black" />
 
                     <Switch
                         android:id="@+id/v05_swc_cocheSiNo"
@@ -89,20 +92,28 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:minHeight="48dp" />
--->
+
                     <Spinner
                         android:id="@+id/v05_spn_ofertaPlazaLibre"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:minHeight="48dp" />
+-->
+                    <Button
+                        android:id="@+id/v05_btn_ofrecePlazaLibre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/btn_formato_left"
+                        android:text="Ofrecer Plaza" />
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/v05_spn_ofertaPlazaLibre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="20sp" />
 
                     <Button
                         android:id="@+id/v05_btn_solicitaPlazaLibre"
@@ -119,7 +130,7 @@
                         android:layout_weight="1"
                         android:textSize="20sp" />
                 </LinearLayout>
-
+<!--
                 <Spinner
                     android:id="@+id/v05_spn_tipo_alojamiento"
                     android:layout_width="match_parent"
@@ -133,6 +144,16 @@
                     android:layout_height="wrap_content"
                     android:minHeight="48dp"
                     android:textAlignment="center" />
+-->
+                <TextView
+                    android:id="@+id/v05_txv_alimentacion_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:inputType="textMultiLine|text"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+                    android:textColor="@color/black"
+                    android:textSize="19sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -140,19 +161,20 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/v05_btn_indicaRestriccionesAlimentarias"
+                        android:id="@+id/v05_btn_indicaContacto1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:background="@drawable/btn_formato_left"
-                        android:text="Restricciones \n Alimentarias" />
+                        android:text="Persona Contacto" />
 
                     <TextView
-                        android:id="@+id/v05_txv_muestraRestriccionesAlimentarias"
+                        android:id="@+id/v05_txv_muestraContacto1Nombre"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="20sp" />
+
                 </LinearLayout>
 
                 <TextView
@@ -186,4 +208,18 @@
                 android:text="Confirmar" />
         </LinearLayout>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <Spinner
+            android:id="@+id/v05_2_spn_ContactoCargo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:textAlignment="center" />
+    </LinearLayout>
+
 </LinearLayout>

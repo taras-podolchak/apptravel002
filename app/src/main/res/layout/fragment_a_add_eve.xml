@@ -201,7 +201,7 @@
                             android:id="@+id/a_add_eve_etx_nombre_act1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/nombre"
+                            android:hint="@string/nombre_actividad"
                             android:textAlignment="center" />
 
                         <EditText
@@ -330,7 +330,7 @@
                             android:id="@+id/a_add_eve_etx_nombre_act2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/nombre"
+                            android:hint="@string/nombre_actividad"
                             android:textAlignment="center" />
 
                         <EditText
@@ -459,7 +459,7 @@
                             android:id="@+id/a_add_eve_etx_nombre_act3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/nombre"
+                            android:hint="@string/nombre_actividad"
                             android:textAlignment="center" />
 
                         <EditText
@@ -588,7 +588,7 @@
                             android:id="@+id/a_add_eve_etx_nombre_act4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/nombre"
+                            android:hint="@string/nombre_actividad"
                             android:textAlignment="center" />
 
                         <EditText
@@ -717,7 +717,7 @@
                             android:id="@+id/a_add_eve_etx_nombre_act5"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/nombre"
+                            android:hint="@string/nombre_actividad"
                             android:textAlignment="center" />
 
                         <EditText

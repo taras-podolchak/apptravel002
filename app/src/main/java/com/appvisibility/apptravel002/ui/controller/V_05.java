@@ -2,18 +2,22 @@ package com.appvisibility.apptravel002.ui.controller;
 
 import static com.appvisibility.apptravel002.MainActivity_val.sesionIniciada;
 import static com.appvisibility.apptravel002.ui.service.Inscribir_eveprsService.*;
+import static com.appvisibility.apptravel002.ui.service.Inscribir_eveprsService.plazaLibreRenunciarRU;
 import static com.appvisibility.apptravel002.ui.service.Persona_prsService.*;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -21,7 +25,6 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -46,7 +49,6 @@ import java.util.stream.Collectors;
  * Use the {@link V_05#newInstance} factory method to
  * create an instance of this fragment.
  */
-// public class V_05 extends Fragment implements IDAO<Persona_prs, Object, Object> {
 public class V_05 extends Fragment {
 
     // Rename parameter arguments, choose names that match
@@ -66,13 +68,21 @@ public class V_05 extends Fragment {
 //    private TextView v05_info_completa;
 //    private Spinner v05_lista_personas;
     private Switch v05_cocheSiNo;
+    private Button v05_ofrecePlazaLibre;
+    private Spinner v05_ofertaPlazaLibre;
     private Button v05_solicitaPlazaLibre;
     private TextView v05_asignadaPlazaLibre;
-    private Spinner v05_ofertaPlazaLibre;
-    private Spinner v05_tipo_alojamiento;
-    private Button v05_indicaRestriccionesAlimentarias;
-    private TextView v05_muestraRestriccionesAlimentarias;
-//    private Spinner v05_restricciones_alimentarias;
+    private TextView v05_alimentacion_prs;
+    private Button v05_indicaContacto1;
+    private TextView v05_muestraContacto1Nombre;
+    private Spinner v05_2_opcionesCargo_prs;
+    private EditText v05_2_contacto1nombre_prs;
+    private EditText v05_2_contacto1apellido1_prs;
+    private EditText v05_2_contacto1apellido2_prs;
+    private EditText v05_2_contacto1movil_prs;
+    private EditText v05_2_contacto1telefono_prs;
+    private EditText v05_2_contacto1email_prs;
+    private EditText v05_2_contacto1Movil_prs;
 
     // Acceso a datos
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
@@ -85,15 +95,20 @@ public class V_05 extends Fragment {
     public static Map<Integer, Persona_prs> map_IdIns_Prs = v03_00_prs_Adapter.map_IdIns_Prs;
     private Inscribir_eveprs inscritoOferente;
     private Inscribir_eveprs inscritoOferenteActual;
-    private Inscribir_eveprs inscritoSolicitante;
+    private Inscribir_eveprs inscritoEnProceso;
+    private int plazasOcupadas = -1;
     private Persona_prs personaUser;
 //    private int personaUserPlazaAsignada;
     private int id_prs_enProceso;
     private Boolean solicitudPlazaLibreRealizada = V_03_2_modal.solicitudRealizada;
+    private int plazaslibres_eveprs;
 //    public static Inscribir_eveprs inscritoOferenteActual;
     private List alimentaciones_prs = new ArrayList();
+    private String alimentacion_prsTitulo;
     private String alimentacion_prsActual;
     private String alimentacion_prsNueva = "";
+//    private String cargo_prsActual = "";
+    private String cargo_prsNueva = "";
     private Boolean datosActualizados;
 
     private Context mContext;
@@ -161,13 +176,18 @@ public class V_05 extends Fragment {
 //        v05_foto_eve = view.findViewById(R.id.v05_imv_foto_eve);
 //        v05_info_completa = view.findViewById(R.id.v05_txv_info_completa);
         v05_cocheSiNo = view.findViewById(R.id.v05_swc_cocheSiNo);
-        v05_solicitaPlazaLibre = view.findViewById(R.id.v05_btn_solicitaPlazaLibre);
-        v05_asignadaPlazaLibre = view.findViewById(R.id.v05_txv_asignadaPlazaLibre);
+        v05_cocheSiNo.setChecked(true);
+        v05_ofrecePlazaLibre = view.findViewById(R.id.v05_btn_ofrecePlazaLibre);
+//        v05_ofrecePlazaLibre.setVisibility(View.GONE);
         v05_ofertaPlazaLibre = view.findViewById(R.id.v05_spn_ofertaPlazaLibre);
-        v05_ofertaPlazaLibre.setEnabled(false);
-        v05_tipo_alojamiento = view.findViewById(R.id.v05_spn_tipo_alojamiento);
-        v05_indicaRestriccionesAlimentarias = view.findViewById(R.id.v05_btn_indicaRestriccionesAlimentarias);
-        v05_muestraRestriccionesAlimentarias = view.findViewById(R.id.v05_txv_muestraRestriccionesAlimentarias);
+//        v05_ofertaPlazaLibre.setVisibility(View.GONE);
+        v05_solicitaPlazaLibre = view.findViewById(R.id.v05_btn_solicitaPlazaLibre);
+        v05_solicitaPlazaLibre.setVisibility(View.GONE);
+        v05_asignadaPlazaLibre = view.findViewById(R.id.v05_txv_asignadaPlazaLibre);
+        v05_asignadaPlazaLibre.setVisibility(View.GONE);
+        v05_alimentacion_prs = view.findViewById(R.id.v05_txv_alimentacion_prs);
+        v05_indicaContacto1 = view.findViewById(R.id.v05_btn_indicaContacto1);
+        v05_muestraContacto1Nombre = view.findViewById(R.id.v05_txv_muestraContacto1Nombre);
 
         //Cargamos el Evento
         // EOB: Intentar pasar este método a changeNoListener y eliminar las dos líneas siguientes
@@ -209,10 +229,6 @@ public class V_05 extends Fragment {
         this.v05_recycler_prs.setHasFixedSize(true);
         this.v05_recycler_prs.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
 */
-/*
-        Query query1 = fbf.collection("persona_prs").whereIn("id_prs", Arrays.asList(1, 2, 3, 4, 5, 6));
-        tabla1ChangeListener(query1, personas, Persona_prs.class, null);
-*/
 
 //        personasChangeListener(1);
 
@@ -237,20 +253,42 @@ public class V_05 extends Fragment {
                     if (solicitudPlazaLibreRealizada) {
                         solicitudPlazaLibreRealizada = plazaLibreRenunciarRU(solicitudPlazaLibreRealizada, personaUser, inscritoOferenteActual);
                         v05_asignadaPlazaLibre.setText("");
+                    } else {
+                        plazaslibres_eveprs = 0;
                     }
-                    v05_ofertaPlazaLibre.setEnabled(true);
-                    v05_solicitaPlazaLibre.setEnabled(false);
-                    v05_asignadaPlazaLibre.setEnabled(false);
+                    v05_ofrecePlazaLibre.setVisibility(View.VISIBLE);
+                    v05_ofertaPlazaLibre.setVisibility(View.VISIBLE);
+                    v05_solicitaPlazaLibre.setVisibility(View.GONE);
+                    v05_asignadaPlazaLibre.setVisibility(View.GONE);
+                    v05_ofertaPlazaLibre.setSelection(0);
                 } else {
-                    v05_ofertaPlazaLibre.setEnabled(false);
-                    v05_solicitaPlazaLibre.setEnabled(true);
-                    v05_asignadaPlazaLibre.setEnabled(true);
+                    if (inscritoEnProceso().getPlazaslibres_eveprs() >= 0){
+                        plazasOcupadas();
+                        if (plazasOcupadas > 0){
+                            Toast.makeText(getActivity(), "Hay personas con plaza asignada en tu coche", Toast.LENGTH_LONG).show();
+                        } else {
+                            plazaslibres_eveprs = -1;
+                            solicitudPlazaLibreRealizada = plazaLibreAnularRU(solicitudPlazaLibreRealizada, personaUser, plazaslibres_eveprs);
+                        }
+                    }
+                    v05_ofrecePlazaLibre.setVisibility(View.GONE);
+                    v05_ofertaPlazaLibre.setVisibility(View.GONE);
+                    v05_solicitaPlazaLibre.setVisibility(View.VISIBLE);
+                    v05_asignadaPlazaLibre.setVisibility(View.VISIBLE);
                 }
             }
         });
 
 // Spinner para indicar el número de Plazas Libres que se ofrecen
-        ofrecerPlazasLibres();
+        v05_ofrecePlazaLibre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (solicitudPlazaLibreRealizada) {
+                    solicitudPlazaLibreRealizada = plazaLibreRenunciarRU(solicitudPlazaLibreRealizada, personaUser, inscritoOferenteActual);
+                }
+            ofrecerPlazasLibres();
+            }
+        });
 
 // Si hay una Plaza Libre solicitada se muestra
         for (Inscribir_eveprs ins: inscritos){
@@ -280,11 +318,15 @@ public class V_05 extends Fragment {
         v05_solicitaPlazaLibre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                solicitarPlazaLibre(view);
+                if (plazasOcupadas > 0){
+                    Toast.makeText(getActivity(), "No puedes solicitar plaza al mismo tiempo que tienes personas con plaza asignada en tu coche", Toast.LENGTH_LONG).show();
+                } else {
+                    solicitarPlazaLibre(view);
+                }
             }
         });
 
-        v05_indicaRestriccionesAlimentarias.setOnClickListener(new View.OnClickListener() {
+        v05_alimentacion_prs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 indicarRestriccionesAlimentarias(view);
@@ -293,8 +335,12 @@ public class V_05 extends Fragment {
 
         alimentacionR();
 
-        // TODO: spinner tipo alojamiento
-        tipoAlojamientoChangeListener();
+        v05_indicaContacto1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                indicarContacto(view);
+            }
+        });
 
         // Botones
         v05_adelante = view.findViewById(R.id.v05_btn_confirmar);
@@ -322,6 +368,106 @@ public class V_05 extends Fragment {
         return view;
     }//Fin de constructor
 
+    //Identificamos al inscrito en proceso de Plazas Libres en coche
+    private Inscribir_eveprs inscritoEnProceso (){
+        for (Inscribir_eveprs ins : inscritos) {
+            if (ins.getId_prs() == personaUser.getId_prs()){
+                inscritoEnProceso = ins;
+            }
+        }
+        return inscritoEnProceso;
+    }
+
+    private void plazasOcupadas (){
+        plazasOcupadas = -1;
+        // Contamos cuantas plazas ocupadas tiene el inscritoOferente
+        for (Inscribir_eveprs ins: inscritos){
+            if (ins.getId_tpr() == inscritoEnProceso.getId_tpr()){
+                plazasOcupadas++;
+            }
+        }
+    }
+
+    private void ofrecerPlazasLibres() {
+        inscritoEnProceso = inscritoEnProceso();
+        plazasOcupadas();
+
+        ArrayList<String> ofertaPlazasLibres = new ArrayList<>();
+        ofertaPlazasLibres.add("VIAJO SOLO");
+        ofertaPlazasLibres.add("1 Plaza");
+        ofertaPlazasLibres.add("2 Plazas");
+        ofertaPlazasLibres.add("3 Plazas");
+        ofertaPlazasLibres.add("4 Plazas");
+        ofertaPlazasLibres.add("5 Plazas");
+        ofertaPlazasLibres.add("6 Plazas");
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, ofertaPlazasLibres);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        v05_ofertaPlazaLibre.setAdapter(arrayAdapter);
+// https://stackoverflow.com/questions/10331854/how-to-get-spinner-selected-item-value-to-string
+        final String[] dato = new String[1];
+        dato[0] = ofertaPlazasLibres.get(plazasOcupadas);
+        v05_ofertaPlazaLibre.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                int plazasOcupadas = -1;
+                // Contamos cuantas plazas ocupadas tiene el inscritoOferente
+                for (Inscribir_eveprs ins: inscritos){
+                    if (ins.getId_tpr() == inscritoEnProceso.getId_tpr()){
+                        plazasOcupadas++;
+                    }
+                }
+                if (position < plazasOcupadas){
+                    position = plazasOcupadas;
+                }
+                v05_ofertaPlazaLibre.setSelection(position);
+                Object item = parent.getItemAtPosition(position);
+                if (item.toString().equals("VIAJO SOLO")){
+                    dato[0] = "0";
+                } else {
+                    dato[0] = item.toString().substring(0, item.toString().indexOf(" "));
+                }
+                if (Integer.parseInt(dato[0]) > plazasOcupadas){
+                    plazaLibreOfrecerRU(solicitudPlazaLibreRealizada, personaUser, (Integer.parseInt(dato[0])-plazasOcupadas));
+                } else {
+                    plazaLibreOfrecerRU(solicitudPlazaLibreRealizada, personaUser, 0);
+                }
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+/*
+        int plazaslibres_eveprs = 0;
+        switch (dato[0]) {
+            case "VIAJO SOLO": {plazaslibres_eveprs = 0;break;}
+            case "1 Plaza": {plazaslibres_eveprs = 1;break;}
+            case "2 Plazas": {plazaslibres_eveprs = 2;break;}
+            case "3 Plazas": {plazaslibres_eveprs = 3;break;}
+            case "4 Plazas": {plazaslibres_eveprs = 4;break;}
+            case "5 Plazas": {plazaslibres_eveprs = 5;break;}
+            case "6 Plazas": {plazaslibres_eveprs = 6;break;}
+            default: {plazaslibres_eveprs = 0;}
+        }
+
+        plazaLibreOfrecerRU(solicitudPlazaLibreRealizada, personaUser, plazaslibres_eveprs);
+*/
+//        plazaslibres_eveprs = ofrecerPlazasLibres();
+/*
+        if (solicitudPlazaLibreRealizada){
+            solicitudPlazaLibreRealizada = plazaLibreRenunciarRU(solicitudPlazaLibreRealizada, personaUser, inscritoOferenteActual);
+            // Debido al uso de onComplete tenemos que alterar algunos valores de los arrayList con el fin de que puedan entrar en los métodos
+            inscritoSolicitante.setPlazaslibres_eveprs(inscritoSolicitante.getPlazaslibres_eveprs() - 1);
+            inscritoSolicitante.setId_tpr(inscritoSolicitante.getId_eveprs());
+            solicitudPlazaLibreRealizada = plazaLibreSolicitarRU(solicitudPlazaLibreRealizada, personaUser, inscritoOferente);
+            if (solicitudPlazaLibreRealizada) {
+                inscritoOferenteActual = inscritoOferente;
+//                        v05_asignadaPlazaLibre.setText(datoseleccionado.substring(0, datoseleccionado.indexOf("(")));
+            }
+        } else {
+            plazaLibreOfrecerRU(solicitudPlazaLibreRealizada, personaUser, plazaslibres_eveprs);
+        }
+*/
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void solicitarPlazaLibre(View view) {
         String [] descripcionPlazasLibres;
@@ -332,12 +478,14 @@ public class V_05 extends Fragment {
             .collect(Collectors.toList());
 
         //Identificamos al inscritoSolicitante de Plazas Libres en coche
+        inscritoEnProceso = inscritoEnProceso();
+/*
         for (Inscribir_eveprs ins : inscritos) {
             if (ins.getId_prs() == personaUser.getId_prs()){
-                inscritoSolicitante = ins;
+                inscritoEnProceso = ins;
             }
         }
-
+*/
         //Recuperamos los datos de las personas que ofrecen Plazas Libres en el coche
         for(Inscribir_eveprs ins: inscritoOferentes){
             if (ins.getPlazaslibres_eveprs() > 0
@@ -375,16 +523,16 @@ public class V_05 extends Fragment {
                 .setItems(descripcionPlazasLibres, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
                         String datoseleccionado = descripcionPlazasLibres[item];
-                        ((AppCompatActivity) mContext).findViewById(R.id.v05_txv_asignadaPlazaLibre);
+//                        ((AppCompatActivity) mContext).findViewById(R.id.v05_txv_asignadaPlazaLibre);
                         inscritoOferente = inscritoOferentes.get(item);
-                        if (inscritoSolicitante.getId_tpr() == inscritoOferente.getId_tpr()){
+                        if (inscritoEnProceso.getId_tpr() == inscritoOferente.getId_tpr()){
                             Toast.makeText(getActivity(), "Ya tienes una plaza solicitada", Toast.LENGTH_LONG).show();
                         } else {
                             if (solicitudPlazaLibreRealizada){
                                 solicitudPlazaLibreRealizada = plazaLibreRenunciarRU(solicitudPlazaLibreRealizada, personaUser, inscritoOferenteActual);
                                 // Debido al uso de onComplete tenemos que alterar algunos valores de los arrayList con el fin de que puedan entrar en los métodos
-                                inscritoSolicitante.setPlazaslibres_eveprs(inscritoSolicitante.getPlazaslibres_eveprs() - 1);
-                                inscritoSolicitante.setId_tpr(inscritoSolicitante.getId_eveprs());
+                                inscritoEnProceso.setPlazaslibres_eveprs(inscritoEnProceso.getPlazaslibres_eveprs() - 1);
+                                inscritoEnProceso.setId_tpr(inscritoEnProceso.getId_eveprs());
                                 solicitudPlazaLibreRealizada = plazaLibreSolicitarRU(solicitudPlazaLibreRealizada, personaUser, inscritoOferente);
                                 if (solicitudPlazaLibreRealizada){
                                     inscritoOferenteActual = inscritoOferente;
@@ -406,61 +554,18 @@ public class V_05 extends Fragment {
         personaOferentes.clear();
     }
 
-    private void ofrecerPlazasLibres() {
-        ArrayList<String> ofertaPlazasLibres = new ArrayList<>();
-        ofertaPlazasLibres.add("Ofrezcer plazas:");
-        ofertaPlazasLibres.add("Ofrezco 1 plaza");
-        ofertaPlazasLibres.add("Ofrezco 2 plazas");
-        ofertaPlazasLibres.add("Ofrezco 3 plazas");
-        ofertaPlazasLibres.add("Ofrezco 4 plazas");
-        ofertaPlazasLibres.add("Ofrezco 5 plazas");
-        ofertaPlazasLibres.add("Ofrezco 6 plazas");
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, ofertaPlazasLibres);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        v05_ofertaPlazaLibre.setAdapter(arrayAdapter);
-        /*v05_spinner_lista_personas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String tutorialsName = parent.getItemAtPosition(position).toString();
-                Toast.makeText(parent.getContext(), "Selected: " + tutorialsName, Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });*/
-    }
-
-    private void tipoAlojamientoChangeListener() {
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("Tipo de alojamiento:");
-        arrayList.add("Alojamiento");
-        arrayList.add("Treking");
-        arrayList.add("Autocar");
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, arrayList);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        v05_tipo_alojamiento.setAdapter(arrayAdapter);
-        /*v05_spinner_lista_personas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String tutorialsName = parent.getItemAtPosition(position).toString();
-                Toast.makeText(parent.getContext(), "Selected: " + tutorialsName, Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });*/
-    }
-
+// Convierte un String separado por guiones en un ArrayList
     private String alimentacionR(){
+        alimentacion_prsTitulo = "Restricciones Alimentarias: ";
         alimentacion_prsNueva = "";
 // Si el usuario tiene restricciones Alimentarias se muestran
         alimentacion_prsActual = personaUser.getAlimentacion_prs();
 // https://stackoverflow.com/questions/7488643/how-to-convert-comma-separated-string-to-list
         alimentaciones_prs = Arrays.asList(alimentacion_prsActual.split("\\s*\\s*-\\s*"));
         for (Object ali: alimentaciones_prs){
-            alimentacion_prsNueva += ali.toString() + "\n";
-            v05_muestraRestriccionesAlimentarias.setText(alimentacion_prsNueva);
+            alimentacion_prsNueva += ali.toString() + " - ";
+            v05_alimentacion_prs.setText(Html.fromHtml("<u>"+ alimentacion_prsTitulo + "</u><br>" + alimentacion_prsNueva),
+                    TextView.BufferType.SPANNABLE);
         }
         return alimentacion_prsNueva;
     }
@@ -491,12 +596,13 @@ public class V_05 extends Fragment {
         descripcionRestriccionesAlimentarias = new String[restriccionesAlimentarias.size()];
         alimentacion_prsNueva = alimentacionR();
         alimentacion_prsNueva = "";
-        for (int i=0; i<restriccionesAlimentarias.size(); i++){
+        for (int i=0; i < restriccionesAlimentarias.size(); i++){
             descripcionRestriccionesAlimentarias[i] = restriccionesAlimentarias.get(i);
             if (alimentaciones_prs.contains(restriccionesAlimentarias.get(i))){
                 opcionesRestriccionesAlimentarias[i] = true;
-                alimentacion_prsNueva += descripcionRestriccionesAlimentarias[i] + "\n";
-                v05_muestraRestriccionesAlimentarias.setText(alimentacion_prsNueva);
+                alimentacion_prsNueva += descripcionRestriccionesAlimentarias[i] + " - ";
+                v05_alimentacion_prs.setText(Html.fromHtml("<u>"+ alimentacion_prsTitulo + "</u><br>" + alimentacion_prsNueva),
+                        TextView.BufferType.SPANNABLE);
             } else {
                 opcionesRestriccionesAlimentarias[i] = false;
             };
@@ -505,22 +611,34 @@ public class V_05 extends Fragment {
         if (sesionIniciada >= view.getResources().getInteger(R.integer.rol_valiente)) {
             AlertDialog.Builder modalMultipleRestriccionesAlimentarias = new AlertDialog.Builder(mContext);
             modalMultipleRestriccionesAlimentarias
-                .setIcon(R.drawable.foodmealplaterestaurant_109684_azul)
+                .setIcon(R.drawable.ico_foodmealplaterestaurant_azul)
                 .setTitle("RESTRICCIONES ALIMENTARIAS")
                 .setMultiChoiceItems(descripcionRestriccionesAlimentarias, opcionesRestriccionesAlimentarias, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int item, boolean isChecked) {
-                        alimentacion_prsNueva = "";
+                        alimentacion_prsNueva  = "";
                         alimentacion_prsActual = "";
                         for (int i = 0; i < opcionesRestriccionesAlimentarias.length; i++) {
                             if (opcionesRestriccionesAlimentarias[i] == true) {
-                                alimentacion_prsNueva += descripcionRestriccionesAlimentarias[i] + "\n";
+                                alimentacion_prsNueva += descripcionRestriccionesAlimentarias[i] + " - ";
                                 alimentacion_prsActual += descripcionRestriccionesAlimentarias[i] + " - ";
                             }
                         }
+                    }
+                })
+                .setPositiveButton("Confirmar", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
                         personaUser.setAlimentacion_prs(alimentacion_prsActual);
-                        v05_muestraRestriccionesAlimentarias.setText(alimentacion_prsNueva);
-                        ((AppCompatActivity) mContext).findViewById(R.id.v05_txv_muestraRestriccionesAlimentarias);
+                        v05_alimentacion_prs.setText(Html.fromHtml("<u>"+ alimentacion_prsTitulo + "</u><br>" + alimentacion_prsNueva),
+                                TextView.BufferType.SPANNABLE);
+//                        ((AppCompatActivity) mContext).findViewById(R.id.v05_txv_muestraRestriccionesAlimentarias);
+                    }
+                })
+                .setNegativeButton("Volver", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
                     }
                 })
                 .create()
@@ -528,52 +646,86 @@ public class V_05 extends Fragment {
         }
     }
 
-/*
-    @Override
-    public <T> void tabla1ChangeListener(Query query, List<T> lista, Class<T> tipoObjeto, RecyclerView.Adapter miAdapter) {
-        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException error) {
-                T enProceso;
-                if (error != null) {
-                    Toast.makeText(mContext, "Error en Firestore", Toast.LENGTH_SHORT).show();
-                    return;
+// https://www.youtube.com/watch?v=nlqtyfshUkc&ab_channel=CodingDemos
+    private void indicarContacto(View view) {
+        ArrayList<String> contactoCargo_prs = new ArrayList<>();
+        contactoCargo_prs.add("RELACION:");
+        contactoCargo_prs.add("Pareja");
+        contactoCargo_prs.add("Amistad");
+        contactoCargo_prs.add("Familiar");
+        contactoCargo_prs.add("Trabajo");
+
+        ArrayAdapter<String> arrayAdapter_prs = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, contactoCargo_prs);
+        arrayAdapter_prs.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        ArrayList<String> contactoCargo_sum = new ArrayList<>();
+        contactoCargo_sum.add("CARGO:");
+        contactoCargo_sum.add("Gerencia");
+        contactoCargo_sum.add("Reservas");
+        contactoCargo_sum.add("Facturación");
+
+        ArrayAdapter<String> arrayAdapter_sum = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, contactoCargo_sum);
+        arrayAdapter_sum.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        AlertDialog.Builder modalFormContacto = new AlertDialog.Builder(mContext);
+        View view_prs = getLayoutInflater().inflate(R.layout.fragment_v_05_2_modal, null);
+        v05_2_opcionesCargo_prs = view_prs.findViewById(R.id.v05_2_spn_ContactoCargo);
+        v05_2_contacto1nombre_prs = view_prs.findViewById(R.id.v05_2_etx_ContactoNombre);
+        v05_2_contacto1apellido1_prs = view_prs.findViewById(R.id.v05_2_etx_ContactoApellido1);
+        v05_2_contacto1apellido2_prs = view_prs.findViewById(R.id.v05_2_etx_ContactoApellido2);
+        v05_2_contacto1movil_prs = view_prs.findViewById(R.id.v05_2_etx_ContactoMovil);
+        v05_2_contacto1telefono_prs = view_prs.findViewById(R.id.v05_2_etx_ContactoTelefono);
+        v05_2_contacto1email_prs = view_prs.findViewById(R.id.v05_2_etx_ContactoEmail);
+
+        modalFormContacto.setIcon(R.drawable.ico_contact_book);
+        modalFormContacto.setTitle("PERSONA DE CONTACTO");
+
+        if (sesionIniciada == view.getResources().getInteger(R.integer.rol_valiente)) {
+            v05_2_opcionesCargo_prs.setAdapter(arrayAdapter_prs);
+// https://stackoverflow.com/questions/4622517/hide-a-edittext-make-it-visible-by-clicking-a-menu
+            v05_2_contacto1apellido2_prs.setVisibility(View.GONE);
+            v05_2_contacto1telefono_prs.setVisibility(View.GONE);
+            v05_2_contacto1email_prs.setVisibility(View.GONE);
+            modalFormContacto.setPositiveButton("Confirmar", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        cargo_prsNueva = v05_2_opcionesCargo_prs.getSelectedItem().toString();
+                        if (!cargo_prsNueva.equalsIgnoreCase("RELACION:")) {
+                            personaUser.setContacto1Cargo_prs(cargo_prsNueva);
+                        } else {
+                            cargo_prsNueva = "";
+                            personaUser.setContacto1Cargo_prs(cargo_prsNueva);
+                        }
+                        v05_muestraContacto1Nombre.setText(cargo_prsNueva);
+                    }
+                });
+        } else if (sesionIniciada == view.getResources().getInteger(R.integer.rol_transportecolectivo)
+                || sesionIniciada == view.getResources().getInteger(R.integer.rol_alojamiento)
+                || sesionIniciada == view.getResources().getInteger(R.integer.rol_empresas_trekking)){
+            v05_2_opcionesCargo_prs.setAdapter(arrayAdapter_sum);
+            modalFormContacto.setPositiveButton("Confirmar", new DialogInterface.OnClickListener(){
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    cargo_prsNueva = v05_2_opcionesCargo_prs.getSelectedItem().toString();
+                    if (!cargo_prsNueva.equalsIgnoreCase("CARGO:")) {
+                        personaUser.setContacto1Cargo_prs(cargo_prsNueva);
+                    } else {
+                        cargo_prsNueva = "";
+                        personaUser.setContacto1Cargo_prs(cargo_prsNueva);
+                    }
+                    v05_muestraContacto1Nombre.setText(cargo_prsNueva);
                 }
-                lista.clear();
-                for (QueryDocumentSnapshot qds : snapshots) {
-                    enProceso = (T) qds.toObject(tipoObjeto);
-                    lista.add(enProceso);
+            });
+        }
+
+        modalFormContacto.setNegativeButton("Volver", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
                 }
-
- */
-//                miAdapter.notifyDataSetChanged();
-/*
-                ArrayAdapter<Persona_prs> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, personas);
-                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                v05_lista_personas.setAdapter(arrayAdapter);
- */
-        /*v05_spinner_lista_personas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String tutorialsName = parent.getItemAtPosition(position).toString();
-                Toast.makeText(parent.getContext(), "Selected: " + tutorialsName, Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-*/
-/*
-            }
-        });
+            })
+            .setView(view_prs)
+            .create()
+            .show();
     }
-
-    @Override
-    public <S> void tabla2ChangeListener(Query query, List<S> lista, Class<S> tipoObjeto, RecyclerView.Adapter miAdapter) {
-    }
-
-    @Override
-    public <R> void tabla3ChangeListener(Query query, List<R> lista, Class<R> tipoObjeto, RecyclerView.Adapter miAdapter) {
-    }
-*/
 }

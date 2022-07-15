@@ -25,6 +25,7 @@
     <string name="precio">Precio</string>
     <string name="transporte">Transporte</string>
     <string name="creacion_de_actividades">Creacion de actividades</string>
+    <string name="nombre_actividad">Nombre actividad</string>
     <string name="tipo">Tipo</string>
     <string name="fecha">Fecha</string>
     <string name="distancia">Distancia</string>
@@ -69,20 +70,20 @@
     <string name="renunciar">Renunciar</string>
 
     <!-- pantalla v_04 -->
-    <string name="email">Email</string>
-    <string name="password">Password</string>
+    <string name="contrasenna_prs">Contraseña</string>
     <string name="recordarme">Recordarme</string>
     <string name="olvidaste_tu_contraseña">¿Olvidaste tu contraseña?</string>
     <string name="iniciar_sesion">Iniciar sesion</string>
     <string name="registrarse">Registrarse</string>
 
-    <!-- pantalla v_04_1 -->
-    <string name="nombre">Nombre</string>
-    <string name="apellido">Apellido</string>
-    <string name="segundo_apellido">Segundo apellido</string>
-    <string name="dni">DNI</string>
-    <string name="telefono">Telefono</string>
-    <string name="telefono_emerjencia">Telefono emerjencia</string>
+    <!-- pantalla v_04_1 y v_05_2 -->
+    <string name="nombre_prs">Nombre</string>
+    <string name="apellido1_prs">Primer apellido</string>
+    <string name="apellido2_prs">Segundo apellido</string>
+    <string name="movil_prs">Móvil</string>
+    <string name="telefono_prs">Teléfono</string>
+    <string name="email_prs">eMail</string>
+    <string name="dni_prs">DNI</string>
     <string name="soy_valiente">Soy valiente</string>
     <string name="soy_colaborador">Soy colaborador</string>
     <string name="aceptacion_de_condiciones">Aceptacion de condiciones</string>
