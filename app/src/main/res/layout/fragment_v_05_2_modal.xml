@@ -15,26 +15,45 @@
             android:minHeight="48dp"
             android:textAlignment="textStart" />
 
+        <TextView
+            android:id="@+id/v05_txv_muestraContactoElegidoResultado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Contactos:"
+            android:textSize="20sp"
+            android:visibility="invisible" />
+
+        <AutoCompleteTextView
+            android:id="@+id/v05_2_act_muestraContactoElegido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Contactos"
+            android:completionThreshold="1"
+            android:dropDownAnchor="@id/v05_txv_muestraContactoElegidoResultado"
+            android:completionHint="Selecciona un contacto"
+            android:inputType="textPersonName" />
+
         <EditText
             android:id="@+id/v05_2_etx_ContactoNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/nombre_prs"
-            android:inputType="phone" />
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/v05_2_etx_ContactoApellido1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/apellido1_prs"
-            android:inputType="phone" />
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/v05_2_etx_ContactoApellido2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/apellido2_prs"
-            android:inputType="phone" />
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/v05_2_etx_ContactoMovil"
@@ -55,6 +74,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email_prs"
-            android:inputType="phone" />
+            android:inputType="textEmailAddress" />
 
 </LinearLayout>

@@ -153,6 +153,16 @@ public class Persona_prs implements Serializable, Parcelable {
 		}
 	};
 
+	public Persona_prs(int id_prs, String contacto1nombre_prs, String contacto1apellido1_prs, String contacto1apellido2_prs, String contacto1movil_prs, String contacto1telefono_prs, String contacto1email_prs) {
+		this.id_prs = id_prs;
+		this.contacto1nombre_prs = contacto1nombre_prs;
+		this.contacto1apellido1_prs = contacto1apellido1_prs;
+		this.contacto1apellido2_prs = contacto1apellido2_prs;
+		this.contacto1movil_prs = contacto1movil_prs;
+		this.contacto1telefono_prs = contacto1telefono_prs;
+		this.contacto1email_prs = contacto1email_prs;
+	}
+
 	public 	int	getId_prs	() {return 	id_prs	;}	public void 	setId_prs	(int	id_prs	) {this.	id_prs=	id_prs	;}
 	public 	String	getApodo_prs	() {return 	apodo_prs	;}	public void 	setApodo_prs	(	String	apodo_prs	) {this.	apodo_prs=	apodo_prs	;}
 	public 	String	getContrasenna_prs	() {return 	contrasenna_prs	;}	public void 	setContrasenna_prs	(	String	contrasenna_prs	) {this.	contrasenna_prs=	contrasenna_prs	;}
@@ -357,5 +367,18 @@ public class Persona_prs implements Serializable, Parcelable {
 		dest.writeInt(nps03_prs);
 		dest.writeString(nps03fecha_prs);
 		dest.writeByte((byte) (condicioneslegales_prs ? 1 : 0));
+	}
+
+	public String toStringContacto1() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(	id_prs+	" - ");
+//		builder.append(	contacto1cargo_prs+	" - ");
+		builder.append(	contacto1nombre_prs+	" - ");
+		builder.append(	contacto1apellido1_prs+	" - ");
+		builder.append(	contacto1apellido2_prs+	" - ");
+		builder.append(	contacto1movil_prs+	" - ");
+		builder.append(	contacto1telefono_prs+	" - ");
+		builder.append(	contacto1email_prs+	" - ");
+		return builder.toString();
 	}
 }

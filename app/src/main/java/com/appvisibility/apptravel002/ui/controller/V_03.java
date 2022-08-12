@@ -139,7 +139,6 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
 
         this.id_eve_enProceso = eventoEnProceso.getId_eve();
         bundleEvento.putSerializable("eventoParaV_04", eventoEnProceso);
-        bundleEvento.putSerializable("eventoParaV_04", eventoEnProceso);
         bundleEvento.putSerializable("eventoParaV_05", eventoEnProceso);
         bundleEvento.putSerializable("eventoParaV_05_1", eventoEnProceso);
         bundleEvento.putSerializable("eventoParaV_03_2", eventoEnProceso);

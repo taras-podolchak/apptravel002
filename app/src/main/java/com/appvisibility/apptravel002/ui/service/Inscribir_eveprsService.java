@@ -55,12 +55,12 @@ public class Inscribir_eveprsService {
                                     Inscribir_eveprs inscritoSolicitante = qds.toObject(Inscribir_eveprs.class);
                                     docRef.update("plazaslibres_eveprs", inscritoSolicitante.getPlazaslibres_eveprs() - 1);
                                     docRef.update("id_tpr", inscritoSolicitante.getId_eveprs())
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void unused) {
-                                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                                }
-                                            });
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                            }
+                                        });
                                 }
                             }
                         }
@@ -75,18 +75,18 @@ public class Inscribir_eveprsService {
                                     // La siguiente linea renueva los datos del inscritoOferente para que el método pueda ser utilizado por varias clases
                                     Inscribir_eveprs inscritoOferente = qds.toObject(Inscribir_eveprs.class);
                                     docRef.update("plazaslibres_eveprs", inscritoOferente.getPlazaslibres_eveprs() + 1)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void unused) {
-                                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.w(TAG, "Error writing document", e);
-                                                }
-                                            });
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w(TAG, "Error writing document", e);
+                                            }
+                                        });
                                 }
                             }
                         }
@@ -127,12 +127,12 @@ public class Inscribir_eveprsService {
 //                                    Inscribir_eveprs inscritoSolicitante = qds.toObject(Inscribir_eveprs.class);
                                     docRef.update("plazaslibres_eveprs", inscritoSolicitante.getPlazaslibres_eveprs() + 1);
                                     docRef.update("id_tpr", inscritoOferente.getId_tpr())
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void unused) {
-                                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                                }
-                                            });
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                            }
+                                        });
                                 }
                             }
                         }
@@ -147,18 +147,18 @@ public class Inscribir_eveprsService {
                                     // La siguiente linea renueva los datos del inscritoOferente para que el método pueda ser utilizado por varias clases
                                     Inscribir_eveprs inscritoOferente = qds.toObject(Inscribir_eveprs.class);
                                     docRef.update("plazaslibres_eveprs", inscritoOferente.getPlazaslibres_eveprs() - 1)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void unused) {
-                                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.w(TAG, "Error writing document", e);
-                                                }
-                                            });
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w(TAG, "Error writing document", e);
+                                            }
+                                        });
                                 }
                             }
                         }
@@ -197,12 +197,12 @@ public class Inscribir_eveprsService {
 //                                    int plazaslibres_eveprs = ins.getPlazaslibres_eveprs();
                                     docRef.update("plazaslibres_eveprs", plazaslibres_eveprs);
                                     docRef.update("id_tpr", ins.getId_eveprs())
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void unused) {
-                                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                                }
-                                            });
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                            }
+                                        });
                                 }
                             }
                         }
@@ -241,12 +241,12 @@ public class Inscribir_eveprsService {
 //                                    int plazaslibres_eveprs = ins.getPlazaslibres_eveprs();
                                     docRef.update("plazaslibres_eveprs", plazaslibres_eveprs);
                                     docRef.update("id_tpr", ins.getId_eveprs())
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void unused) {
-                                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                                }
-                                            });
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                            }
+                                        });
                                 }
                             }
                         }

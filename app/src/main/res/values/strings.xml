@@ -156,4 +156,51 @@
     <string name="Fields_cannot_be_empty">Los campos no pueden ser vacíos</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--
+https://www.youtube.com/watch?v=JB3ETK5mh3c&ab_channel=CodinginFlow
+-->
+    <string-array name="ofertaPlazasLibres">
+        <item>"VIAJO SOLO"</item>
+        <item>"1 Plaza"</item>
+        <item>"2 Plazas"</item>
+        <item>"3 Plazas"</item>
+        <item>"4 Plazas"</item>
+        <item>"5 Plazas"</item>
+        <item>"6 Plazas"</item>
+    </string-array>
+
+    <string-array name="restriccionesAlimentarias">
+        <item>"Altramúz"</item>
+        <item>"Apio"</item>
+        <item>"Cacahuete"</item>
+        <item>"Crustáceos"</item>
+        <item>"Glúten"</item>
+        <item>"Huevos"</item>
+        <item>"Lacteos"</item>
+        <item>"Molúscos"</item>
+        <item>"Mostaza"</item>
+        <item>"Pescado"</item>
+        <item>"Sésamo"</item>
+        <item>"Soja"</item>
+        <item>"Sulfitos"</item>
+        <item>"Vegano"</item>
+        <item>"Vegetariano"</item>
+    </string-array>
+
+    <string-array name="contactoCargo_prs">
+        <item>"RELACION:"</item>
+        <item>"Pareja"</item>
+        <item>"Amistad"</item>
+        <item>"Familiar"</item>
+        <item>"Trabajo"</item>
+    </string-array>
+
+    <string-array name="contactoCargo_sum">
+        <item>"CARGO:"</item>
+        <item>"Gerencia"</item>
+        <item>"Reservas"</item>
+        <item>"Facturación"</item>
+    </string-array>
+
 </resources>
