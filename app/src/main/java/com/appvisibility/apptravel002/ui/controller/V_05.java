@@ -10,22 +10,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -41,17 +35,17 @@ import androidx.navigation.Navigation;
 import com.appvisibility.apptravel002.MainActivity_val;
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.controller.modal.V_03_2_modal;
+import com.appvisibility.apptravel002.ui.entities.Contacto_cnt;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Inscribir_eveprs;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
+import com.appvisibility.apptravel002.ui.service.Contacto_cntService;
 import com.appvisibility.apptravel002.ui.service.v03_00_act_Adapter;
 import com.appvisibility.apptravel002.ui.service.v03_00_prs_Adapter;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -82,16 +76,7 @@ public class V_05 extends Fragment {
     private TextView v05_asignadaPlazaLibre;
     private TextView v05_alimentacion_prs;
     private Button v05_indicaContacto1;
-    private Spinner v05_2_opcionesCargo_prs;
-    private AutoCompleteTextView v05_2_muestraContactoElegido;
-    private TextView v05_2_muestraContactoElegidoResultado;
-    private EditText v05_2_contacto1nombre_prs;
-    private EditText v05_2_contacto1apellido1_prs;
-    private EditText v05_2_contacto1apellido2_prs;
-    private EditText v05_2_contacto1movil_prs;
-    private EditText v05_2_contacto1telefono_prs;
-    private EditText v05_2_contacto1email_prs;
-//    private TextView txtcontactos;
+    public static TextView v05_2_muestraContactoElegido;
 
     // Acceso a datos
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
@@ -114,17 +99,8 @@ public class V_05 extends Fragment {
     private String alimentacion_prsTitulo;
     private String alimentacion_prsActual;
     private String alimentacion_prsNueva = "";
-    private String cargo_prsNueva = "";
-    private Persona_prs contacto;
-    private Map<Integer, Persona_prs> contactos = new HashMap<>();;
-    private String contactoNuevaResultado = "";
-    private String contacto1id_prs;
-    private String contacto1nombre_prs;
-    private String contacto1apellido1_prs;
-    private String contacto1apellido2_prs;
-    private String contacto1movil_prs;
-    private String contacto1telefono_prs;
-    private String contacto1email_prs;
+//    private Contacto_cnt contacto = new Contacto_cnt();
+    private Contacto_cntService contactoService = new Contacto_cntService();
     private Boolean datosActualizados;
 
     private Context mContext;
@@ -199,8 +175,7 @@ public class V_05 extends Fragment {
         v05_asignadaPlazaLibre.setVisibility(View.GONE);
         v05_alimentacion_prs = view.findViewById(R.id.v05_txv_alimentacion_prs);
         v05_indicaContacto1 = view.findViewById(R.id.v05_btn_indicaContacto1);
-        v05_2_muestraContactoElegidoResultado = view.findViewById(R.id.v05_txv_muestraContactoElegidoResultado);
-//        txtcontactos = view.findViewById(R.id.txtregistro);
+        v05_2_muestraContactoElegido = view.findViewById(R.id.v05_txv_muestraContactoElegido);
 
         v05_titulo_eve.setText(eventoEnProceso.getTitulo_eve());
 
@@ -295,10 +270,10 @@ public class V_05 extends Fragment {
 
         v05_indicaContacto1.setOnClickListener(new View.OnClickListener() {
             @Override
-
             public void onClick(View view) {
-                indicarContacto(view);
-            }
+                permitirAcceso(view);
+                contactoService.onCreateView(inflater, container, savedInstanceState);
+           }
         });
 
         // Botones
@@ -323,7 +298,6 @@ public class V_05 extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.action_nav_v05_to_nav_v02);
             }
         });
-
         return view;
     }//Fin de constructor
 
@@ -550,330 +524,11 @@ public class V_05 extends Fragment {
         }
     }
 
-// https://www.youtube.com/watch?v=nlqtyfshUkc&ab_channel=CodingDemos
-    private void indicarContacto(View view) {
-
-        String [] contactoCargo_prs = getResources().getStringArray(R.array.contactoCargo_prs);
-/*
-        ArrayList<String> contactoCargo_prs = new ArrayList<>();
-        contactoCargo_prs.add("RELACION:");
-        contactoCargo_prs.add("Pareja");
-        contactoCargo_prs.add("Amistad");
-        contactoCargo_prs.add("Familiar");
-        contactoCargo_prs.add("Trabajo");
-*/
-        ArrayAdapter<String> arrayAdapter_prs = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, contactoCargo_prs);
-        arrayAdapter_prs.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        String [] contactoCargo_sum = getResources().getStringArray(R.array.contactoCargo_sum);
-/*
-        ArrayList<String> contactoCargo_sum = new ArrayList<>();
-        contactoCargo_sum.add("CARGO:");
-        contactoCargo_sum.add("Gerencia");
-        contactoCargo_sum.add("Reservas");
-        contactoCargo_sum.add("Facturación");
-*/
-        ArrayAdapter<String> arrayAdapter_sum = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, contactoCargo_sum);
-        arrayAdapter_sum.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        permitirAcceso();
-
-//        Uri bbdd = ContactsContract.Data.CONTENT_URI;
-        Uri bbdd = ContactsContract.Contacts.CONTENT_URI;
-        String projection[] = new String[] {
-//                ContactsContract.Data.CONTACT_ID,
-                ContactsContract.Contacts._ID,
-//                ContactsContract.Data.RAW_CONTACT_ID,
-                ContactsContract.Contacts.DISPLAY_NAME,
-//                ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME,
-//                ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME,
-        };
-        String selectionClause = null;
-        String selectionArgs[] = null;
-        String sortOrder = ContactsContract.Contacts.DISPLAY_NAME;
-//        String sortOrder = null;
-        Cursor cursor = crearCursor(bbdd, projection, selectionClause, selectionArgs, sortOrder);
-
-// https://stackoverflow.com/questions/4301064/how-to-get-the-first-name-and-last-name-from-android-contacts
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            String contacto1id_prs = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
-//            String contacto1id_prs = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Data.CONTACT_ID));
-//            String contacto1id_prs = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Data.RAW_CONTACT_ID));
-            String contacto1nombre_prs = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
-//            String contacto1nombre_prs = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME));
-//            String contacto1apellido1_prs = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.StructuredName.FAMILY_NAME));
-            contacto = new Persona_prs(Integer.parseInt(contacto1id_prs), contacto1nombre_prs, contacto1apellido1_prs, contacto1apellido2_prs, contacto1movil_prs, contacto1telefono_prs, contacto1email_prs);
-            contactos.put(Integer.parseInt(contacto1id_prs), contacto);
-            cursor.moveToNext();
-        }
-        cursor.close();
-
-        List<String> contactosDescripcion = new ArrayList<>();
-
-        Iterator<Integer> it1 = contactos.keySet().iterator();
-        while (it1.hasNext()) {
-            Integer key = it1.next();
-            contactosDescripcion.add(
-                    contactos.get(key).getId_prs() + " - " +
-                    contactos.get(key).getContacto1Nombre_prs()
-            );
-        }
-
-        ArrayAdapter<String> arrayAdapter_contacto = new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, contactosDescripcion);
-        arrayAdapter_contacto.setDropDownViewResource(android.R.layout.simple_list_item_1);
-
-        AlertDialog.Builder modalFormContacto = new AlertDialog.Builder(mContext);
-        View view_prs = getLayoutInflater().inflate(R.layout.fragment_v_05_2_modal, null);
-        v05_2_opcionesCargo_prs = view_prs.findViewById(R.id.v05_2_spn_ContactoCargo);
-        v05_2_muestraContactoElegido = view_prs.findViewById(R.id.v05_2_act_muestraContactoElegido);
-        v05_2_contacto1nombre_prs = view_prs.findViewById(R.id.v05_2_etx_ContactoNombre);
-        v05_2_contacto1apellido1_prs = view_prs.findViewById(R.id.v05_2_etx_ContactoApellido1);
-        v05_2_contacto1apellido2_prs = view_prs.findViewById(R.id.v05_2_etx_ContactoApellido2);
-        v05_2_contacto1movil_prs = view_prs.findViewById(R.id.v05_2_etx_ContactoMovil);
-        v05_2_contacto1telefono_prs = view_prs.findViewById(R.id.v05_2_etx_ContactoTelefono);
-        v05_2_contacto1email_prs = view_prs.findViewById(R.id.v05_2_etx_ContactoEmail);
-
-        v05_2_muestraContactoElegido.setAdapter(arrayAdapter_contacto);
-
-// https://stackoverflow.com/questions/4819813/how-to-get-text-from-autocompletetextview
-        v05_2_muestraContactoElegido.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
-                v05_2_muestraContactoElegido.setSelection(position);
-                Object item = parent.getItemAtPosition(position);
-                contactoNuevaResultado = (String) item;
-//                Toast.makeText(getActivity(), String.valueOf(position), Toast.LENGTH_LONG).show();
-                Toast.makeText(getActivity(), contactoNuevaResultado, Toast.LENGTH_LONG).show();
-                List<String> contactoNuevaArray = Arrays.asList(contactoNuevaResultado.split("\\s*\\s*-\\s*"));
-                for (int i=0; i <= contactoNuevaArray.size(); i++){
-                    switch (i) {
-                        case 0: {contacto1id_prs = contactoNuevaArray.get(i); break;}
-                        case 1: {v05_2_contacto1nombre_prs.setText(contactoNuevaArray.get(i)); break;}
-                        default: {contactoNuevaResultado = " ";}
-                    }
-                }
-
-                Uri bbdd = ContactsContract.Data.CONTENT_URI;
-                String projection[] = null;
-                String selectionClause = ContactsContract.Data.CONTACT_ID+ " = ?";
-//                String selectionClause = ContactsContract.Contacts._ID+ " = ?";
-                String selectionArgs[] = new String[]{contacto1id_prs};
-                String sortOrder = null;
-                Cursor cursor = crearCursor(bbdd, projection, selectionClause, selectionArgs, sortOrder);
-
-                if (cursor.moveToFirst()) {
-                    contacto1nombre_prs = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Data.DISPLAY_NAME_ALTERNATIVE));
-                    contactoNuevaArray = Arrays.asList(contacto1nombre_prs.split("\\s*,\\s*"));
-                    for (int i=0; i <= contactoNuevaArray.size(); i++){
-                        switch (i) {
-                            case 0: {contacto1apellido1_prs = contactoNuevaArray.get(i); break;}
-                            case 1: {contacto1nombre_prs = contactoNuevaArray.get(i); break;}
-                            default: {contactoNuevaResultado = " ";}
-                        }
-                    }
-                    contactos.get(Integer.parseInt(contacto1id_prs)).setContacto1Nombre_prs(contacto1nombre_prs);
-                    v05_2_contacto1nombre_prs.setText(contactos.get(Integer.parseInt(contacto1id_prs)).getContacto1Nombre_prs());
-//                    contacto1apellido1_prs = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Data.DATA2));
-                    contactos.get(Integer.parseInt(contacto1id_prs)).setContacto1Apellido1_prs(contacto1apellido1_prs);
-                    v05_2_contacto1apellido1_prs.setText(contactos.get(Integer.parseInt(contacto1id_prs)).getContacto1Apellido1_prs());
-//                    contacto1apellido2_prs = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Data.DISPLAY_NAME));
-//                    contactos.get(Integer.parseInt(contacto1id_prs)).setContacto1Apellido2_prs(contacto1apellido2_prs);
-//                    v05_2_contacto1apellido2_prs.setText(contactos.get(Integer.parseInt(contacto1id_prs)).getContacto1Apellido2_prs());
-                }
-                cursor.close();
-
-                Uri bbdd2 = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
-                String projection2[] = new String[] {
-                        ContactsContract.CommonDataKinds.Phone.DATA,
-                };
-                String selectionClause2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID+ " = ?";
-//                String selectionClause = ContactsContract.Contacts._ID+ " = ?";
-                String selectionArgs2[] = new String[]{contacto1id_prs};
-                String sortOrder2 = null;
-                Cursor cursor2 = crearCursor(bbdd2, projection2, selectionClause2, selectionArgs2, sortOrder2);
-
-                cursor2.moveToFirst();
-                while (!cursor2.isAfterLast()) {
-                    contacto1telefono_prs = contactos.get(Integer.parseInt(contacto1id_prs)).getContacto1Telefono_prs();
-                    contacto1movil_prs = contactos.get(Integer.parseInt(contacto1id_prs)).getContacto1Movil_prs();
-                    if (contacto1telefono_prs == null) {
-                        contacto1telefono_prs = cursor2.getString(cursor2.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DATA1)).replaceAll(" ", "");
-                        contactos.get(Integer.parseInt(contacto1id_prs)).setContacto1Telefono_prs(contacto1telefono_prs);
-                        v05_2_contacto1telefono_prs.setText(contactos.get(Integer.parseInt(contacto1id_prs)).getContacto1Telefono_prs());
-                    } else {
-                        if (!(cursor2.getString(cursor2.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DATA1)).replaceAll(" ", "")).equalsIgnoreCase(contacto1telefono_prs.replaceAll(" ", "")));{
-                            if (contacto1movil_prs == null) {
-                                contacto1movil_prs = cursor2.getString(cursor2.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DATA1)).replaceAll(" ", "");
-                                contactos.get(Integer.parseInt(contacto1id_prs)).setContacto1Movil_prs(contacto1movil_prs);
-                                v05_2_contacto1movil_prs.setText(contactos.get(Integer.parseInt(contacto1id_prs)).getContacto1Movil_prs());
-                            }
-                        }
-                    }
-                    cursor2.moveToNext();
-                }
-                cursor2.close();
-
-                Uri bbdd3 = ContactsContract.CommonDataKinds.Email.CONTENT_URI;
-//                Uri bbdd3 = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
-//                Uri bbdd = ContactsContract.Contacts.CONTENT_URI;
-                String projection3[] = null;
-                String selectionClause3 = ContactsContract.CommonDataKinds.Email.CONTACT_ID+ " = ?";
-//                String selectionClause = ContactsContract.Contacts._ID+ " = ?";
-                String selectionArgs3[] = new String[]{contacto1id_prs};
-                String sortOrder3 = null;
-                Cursor cursor3 = crearCursor(bbdd3, projection3, selectionClause3, selectionArgs3, sortOrder3);
-
-//                if (cursor3.moveToFirst()) {
-                cursor3.moveToFirst();
-                while (!cursor3.isAfterLast()) {
-                    contacto1email_prs = contactos.get(Integer.parseInt(contacto1id_prs)).getContacto1Email_prs();
-                    if (contacto1email_prs == null) {
-                        contacto1email_prs = cursor3.getString(cursor3.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Email.DATA1)).replaceAll(" ", "");
-                        contactos.get(Integer.parseInt(contacto1id_prs)).setContacto1Email_prs(contacto1email_prs);
-                        v05_2_contacto1email_prs.setText(contactos.get(Integer.parseInt(contacto1id_prs)).getContacto1Email_prs());
-                    }
-                    cursor3.moveToNext();
-                }
-                cursor3.close();
-
-// https://stackoverflow.com/questions/8805937/retrieving-phone-number-from-contact-id-android
-/*
-                Uri bbdd3 = ContactsContract.CommonDataKinds.Email.CONTENT_URI;
-//                Uri bbdd3 = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
-//                Uri bbdd = ContactsContract.Contacts.CONTENT_URI;
-                String projection3[] = null;
-                String selectionClause3 = ContactsContract.CommonDataKinds.Email.CONTACT_ID+ " = ?";
-//                String selectionClause = ContactsContract.Contacts._ID+ " = ?";
-                String selectionArgs3[] = new String[]{contacto1id_prs};
-                String sortOrder3 = null;
-                Cursor cursor3 = crearCursor(bbdd3, projection3, selectionClause3, selectionArgs3, sortOrder3);
-
-//                if (cursor3.moveToFirst()) {
-                cursor3.moveToFirst();
-                while (!cursor3.isAfterLast()) {
-                    for(int i=0; i< cursor3.getColumnCount(); i++){
-//                        Toast.makeText(getActivity(), cursor3.getColumnName(i) + ": " + cursor3.getString(i), Toast.LENGTH_LONG).show();
-                        Log.i("CONTACTSTAG17", cursor3.getColumnName(i) + ": " + cursor3.getString(i));
-                    }
-                    cursor3.moveToNext();
-                }
-                cursor3.close();
-*/
-/*
-                Uri bbdd = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
-//              Uri bbdd = ContactsContract.Data.CONTENT_URI,
-                String projection[] = new String[] {
-                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
-//                        ContactsContract.Data._ID,
-                        ContactsContract.Contacts.DISPLAY_NAME,
-                        ContactsContract.CommonDataKinds.Phone.NUMBER,
-                        ContactsContract.CommonDataKinds.Email.DISPLAY_NAME,
-                };
-                String selectionClause = ContactsContract.CommonDataKinds.Phone.CONTACT_ID+ " = ?";
-                String selectionArgs[] = new String[]{contacto1id_prs};
-                String sortOrder = ContactsContract.Contacts.DISPLAY_NAME + " ASC";
-                Cursor cursor = crearCursor(bbdd, projection, selectionClause, selectionArgs, sortOrder);
-
-                cursor.moveToFirst();
-                while (!cursor.isAfterLast()) {
-                    if (cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.CONTACT_ID)).equalsIgnoreCase(contacto1id_prs)) {
-                        contacto1id_prs = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.CONTACT_ID));
-                        contacto1nombre_prs = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-                        contacto1movil_prs = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                        contacto1telefono_prs = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                        if (!contacto1movil_prs.equalsIgnoreCase("0")) {
-                            contactos.get(Integer.parseInt(contacto1id_prs)).setContacto1Movil_prs(contacto1movil_prs);
-                            v05_2_contacto1movil_prs.setText(contactos.get(Integer.parseInt(contacto1id_prs)).getContacto1Movil_prs());
-                        }
-                        if (!contacto1telefono_prs.equalsIgnoreCase("0")) {
-                            contactos.get(Integer.parseInt(contacto1id_prs)).setContacto1Telefono_prs(contacto1telefono_prs);
-                            v05_2_contacto1telefono_prs.setText(contactos.get(Integer.parseInt(contacto1id_prs)).getContacto1Telefono_prs());
-                        }
-                        Toast.makeText(getActivity(), contacto1id_prs+" * "+contacto1nombre_prs+" * "+contacto1movil_prs, Toast.LENGTH_LONG).show();
-                    }
-                    cursor.moveToNext();
-                }
-                cursor.close();
- */
-
-                if (contacto1nombre_prs != ""){
-                    v05_2_muestraContactoElegido.setVisibility(View.GONE);
-                }
-//                Toast.makeText(getActivity(), ((Persona_prs) item).toStringContacto1(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-        modalFormContacto.setIcon(R.drawable.ico_contact_book);
-        modalFormContacto.setTitle("PERSONA DE CONTACTO");
-
-        if (sesionIniciada == view.getResources().getInteger(R.integer.rol_transportecolectivo)) {
-            v05_2_opcionesCargo_prs.setAdapter(arrayAdapter_prs);
-// https://stackoverflow.com/questions/4622517/hide-a-edittext-make-it-visible-by-clicking-a-menu
-            v05_2_contacto1apellido2_prs.setVisibility(View.GONE);
-            v05_2_contacto1telefono_prs.setVisibility(View.GONE);
-            v05_2_contacto1email_prs.setVisibility(View.GONE);
-            modalFormContacto.setPositiveButton("Confirmar", new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        cargo_prsNueva = v05_2_opcionesCargo_prs.getSelectedItem().toString();
-                        if (!cargo_prsNueva.equalsIgnoreCase("RELACION:")) {
-                            personaUser.setContacto1Cargo_prs(cargo_prsNueva);
-// https://www.youtube.com/watch?v=JB3ETK5mh3c&ab_channel=CodinginFlow
-// autocomplete form with contact android youtube
-                            personaUser.setContacto1Nombre_prs(contactoNuevaResultado);
-                        } else {
-                            cargo_prsNueva = "";
-                            personaUser.setContacto1Cargo_prs(cargo_prsNueva);
-                        }
-                        Toast.makeText(getActivity(), "*"+contactoNuevaResultado+"*", Toast.LENGTH_LONG).show();
-                    }
-                });
-        } else if (sesionIniciada == view.getResources().getInteger(R.integer.rol_valiente)
-                || sesionIniciada == view.getResources().getInteger(R.integer.rol_alojamiento)
-                || sesionIniciada == view.getResources().getInteger(R.integer.rol_empresas_trekking)){
-            v05_2_opcionesCargo_prs.setAdapter(arrayAdapter_sum);
-            modalFormContacto.setPositiveButton("Confirmar", new DialogInterface.OnClickListener(){
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    cargo_prsNueva = v05_2_opcionesCargo_prs.getSelectedItem().toString();
-                    if (!cargo_prsNueva.equalsIgnoreCase("CARGO:")) {
-                        personaUser.setContacto1Cargo_prs(cargo_prsNueva);
-                    } else {
-                        cargo_prsNueva = "";
-                        personaUser.setContacto1Cargo_prs(cargo_prsNueva);
-                    }
-                    v05_2_muestraContactoElegidoResultado.setText(contactoNuevaResultado);
-                }
-            });
-        }
-
-        modalFormContacto.setNegativeButton("Volver", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            })
-            .setView(view_prs)
-            .create()
-            .show();
-    }
-
-    public void permitirAcceso (){
-        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+    private void permitirAcceso (View view){
+        if (ContextCompat.checkSelfPermission(view.getContext(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) mContext, Manifest.permission.READ_CONTACTS)) {
             } else {
-                ActivityCompat.requestPermissions((Activity) mContext, new String[]{Manifest.permission.READ_CONTACTS}, 1);}}}
-
-    private Cursor crearCursor(Uri bbdd, String projection[], String selectionClause, String selectionArgs[], String sortOrder) {
-// https://stackoverflow.com/questions/24108998/getcontentresolver-is-not-working
-        Cursor cursor = mContext.getContentResolver().query(
-                bbdd,
-                projection,
-                selectionClause,
-                selectionArgs,
-                sortOrder,
-                null
-        );
-        return cursor;
+                ActivityCompat.requestPermissions((Activity) mContext, new String[]{Manifest.permission.READ_CONTACTS}, 1);}}
     }
+
 }

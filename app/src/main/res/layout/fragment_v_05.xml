@@ -166,10 +166,10 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:background="@drawable/btn_formato_left"
-                        android:text="Persona Contacto" />
+                        android:text="Contacto" />
 
                     <TextView
-                        android:id="@+id/v05_txv_muestraContactoElegidoResultado"
+                        android:id="@+id/v05_txv_muestraContactoElegido"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

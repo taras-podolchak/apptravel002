@@ -16,7 +16,7 @@
             android:textAlignment="textStart" />
 
         <TextView
-            android:id="@+id/v05_txv_muestraContactoElegidoResultado"
+            android:id="@+id/v05_txv_contactoElegidoResultado"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -25,12 +25,12 @@
             android:visibility="invisible" />
 
         <AutoCompleteTextView
-            android:id="@+id/v05_2_act_muestraContactoElegido"
+            android:id="@+id/v05_2_act_contactoElegido"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Contactos"
             android:completionThreshold="1"
-            android:dropDownAnchor="@id/v05_txv_muestraContactoElegidoResultado"
+            android:dropDownAnchor="@id/v05_txv_contactoElegidoResultado"
             android:completionHint="Selecciona un contacto"
             android:inputType="textPersonName" />
 
