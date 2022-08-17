@@ -276,6 +276,8 @@ public class V_05 extends Fragment {
            }
         });
 
+        v05_2_muestraContactoElegido.setText(personaUser.getContacto1Nombre_prs() + " " + personaUser.getContacto1Apellido1_prs());
+
         // Botones
         v05_adelante = view.findViewById(R.id.v05_btn_confirmar);
         v05_adelante.setOnClickListener(new View.OnClickListener() {
@@ -524,6 +526,7 @@ public class V_05 extends Fragment {
         }
     }
 
+// Solicita autorización de acceso a la agenda de contactos del móvil
     private void permitirAcceso (View view){
         if (ContextCompat.checkSelfPermission(view.getContext(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) mContext, Manifest.permission.READ_CONTACTS)) {

@@ -66,8 +66,15 @@ public class Persona_prsService {
                     for (QueryDocumentSnapshot qds : task.getResult()) {
                         Log.d(TAG, qds.getId() + " => " + qds.getData());
                         DocumentReference docRef = qds.getReference();
-                        docRef.update("alimentacion_prs", personaUser.getAlimentacion_prs())
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        docRef.update("alimentacion_prs", personaUser.getAlimentacion_prs());
+                        docRef.update("contacto1cargo_prs", personaUser.getContacto1Cargo_prs());
+                        docRef.update("contacto1nombre_prs", personaUser.getContacto1Nombre_prs());
+                        docRef.update("contacto1apellido1_prs", personaUser.getContacto1Apellido1_prs());
+                        docRef.update("contacto1apellido2_prs", personaUser.getContacto1Apellido2_prs());
+                        docRef.update("contacto1movil_prs", personaUser.getContacto1Movil_prs());
+                        docRef.update("contacto1telefono_prs", personaUser.getContacto1Telefono_prs());
+                        docRef.update("contacto1email_prs", personaUser.getContacto1Email_prs())
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
                                     Log.d(TAG, "DocumentSnapshot successfully updated!");
