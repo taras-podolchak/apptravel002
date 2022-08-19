@@ -35,7 +35,6 @@ import androidx.navigation.Navigation;
 import com.appvisibility.apptravel002.MainActivity_val;
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.controller.modal.V_03_2_modal;
-import com.appvisibility.apptravel002.ui.entities.Contacto_cnt;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Inscribir_eveprs;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
@@ -76,7 +75,11 @@ public class V_05 extends Fragment {
     private TextView v05_asignadaPlazaLibre;
     private TextView v05_alimentacion_prs;
     private Button v05_indicaContacto1;
-    public static TextView v05_2_muestraContactoElegido;
+    private Button v05_indicaContacto2;
+    private Button v05_indicaContacto3;
+    public static TextView v05_2_muestraContacto1Elegido;
+    public static TextView v05_2_muestraContacto2Elegido;
+    public static TextView v05_2_muestraContacto3Elegido;
 
     // Acceso a datos
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
@@ -162,11 +165,11 @@ public class V_05 extends Fragment {
         Bundle bundleEvento = getArguments();
         eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_05");
 
-        bundleEvento.putSerializable("eventoParaV_05_1", eventoEnProceso);
+//        bundleEvento.putSerializable("eventoParaV_03", eventoEnProceso);
+        bundleEvento.putSerializable("eventoParaV_02", eventoEnProceso);
 
         v05_titulo_eve = view.findViewById(R.id.v05_txv_titulo_eve);
         v05_cocheSiNo = view.findViewById(R.id.v05_swc_cocheSiNo);
-        v05_cocheSiNo.setChecked(true);
         v05_ofrecePlazaLibre = view.findViewById(R.id.v05_btn_ofrecePlazaLibre);
         v05_ofertaPlazaLibre = view.findViewById(R.id.v05_spn_ofertaPlazaLibre);
         v05_solicitaPlazaLibre = view.findViewById(R.id.v05_btn_solicitaPlazaLibre);
@@ -175,10 +178,41 @@ public class V_05 extends Fragment {
         v05_asignadaPlazaLibre.setVisibility(View.GONE);
         v05_alimentacion_prs = view.findViewById(R.id.v05_txv_alimentacion_prs);
         v05_indicaContacto1 = view.findViewById(R.id.v05_btn_indicaContacto1);
-        v05_2_muestraContactoElegido = view.findViewById(R.id.v05_txv_muestraContactoElegido);
+        v05_indicaContacto2 = view.findViewById(R.id.v05_btn_indicaContacto2);
+        v05_indicaContacto3 = view.findViewById(R.id.v05_btn_indicaContacto3);
+        v05_2_muestraContacto1Elegido = view.findViewById(R.id.v05_txv_muestraContacto1Elegido);
+        v05_2_muestraContacto2Elegido = view.findViewById(R.id.v05_txv_muestraContacto2Elegido);
+        v05_2_muestraContacto3Elegido = view.findViewById(R.id.v05_txv_muestraContacto3Elegido);
 
         v05_titulo_eve.setText(eventoEnProceso.getTitulo_eve());
 
+        inscritoEnProceso();
+
+        if (inscritoEnProceso.getPlazaslibres_eveprs() < 0) {
+            v05_cocheSiNo.setChecked(false);
+            v05_ofrecePlazaLibre.setVisibility(View.GONE);
+            v05_ofertaPlazaLibre.setVisibility(View.GONE);
+            v05_solicitaPlazaLibre.setVisibility(View.VISIBLE);
+            v05_asignadaPlazaLibre.setVisibility(View.VISIBLE);
+        } else {
+            v05_cocheSiNo.setChecked(true);
+            v05_ofrecePlazaLibre.setVisibility(View.VISIBLE);
+            v05_ofertaPlazaLibre.setVisibility(View.VISIBLE);
+            v05_solicitaPlazaLibre.setVisibility(View.GONE);
+            v05_asignadaPlazaLibre.setVisibility(View.GONE);
+            ofrecerPlazasLibres();
+            v05_ofertaPlazaLibre.setSelection(inscritoEnProceso.getPlazaslibres_eveprs());
+        }
+
+            v05_indicaContacto2.setVisibility(View.GONE);
+            v05_2_muestraContacto2Elegido.setVisibility(View.GONE);
+            v05_indicaContacto3.setVisibility(View.GONE);
+            v05_2_muestraContacto3Elegido.setVisibility(View.GONE);
+
+            mostrarBotonContacto();
+
+// https://stackoverflow.com/questions/45712826/how-to-draw-a-horizontal-line-between-two-linearlayouts-in-android
+// Linea de separación
 // Switch para mostrar opción Ofrezco Plazas Libres / Necesito Plazas Libres
         v05_cocheSiNo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -272,11 +306,38 @@ public class V_05 extends Fragment {
             @Override
             public void onClick(View view) {
                 permitirAcceso(view);
+                Contacto_cntService.newInstance("Contacto1", null);
                 contactoService.onCreateView(inflater, container, savedInstanceState);
+                mostrarBotonContacto();
            }
         });
 
-        v05_2_muestraContactoElegido.setText(personaUser.getContacto1Nombre_prs() + " " + personaUser.getContacto1Apellido1_prs());
+        v05_2_muestraContacto1Elegido.setText(personaUser.getContacto1Nombre_prs() + " " + personaUser.getContacto1Apellido1_prs());
+
+        v05_indicaContacto2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                permitirAcceso(view);
+                Contacto_cntService.newInstance("Contacto2", null);
+                contactoService.onCreateView(inflater, container, savedInstanceState);
+                mostrarBotonContacto();
+            }
+        });
+
+        v05_2_muestraContacto1Elegido.setText(personaUser.getContacto1Nombre_prs() + " " + personaUser.getContacto1Apellido1_prs());
+
+        v05_indicaContacto3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                permitirAcceso(view);
+                Contacto_cntService.newInstance("Contacto3", null);
+                contactoService.onCreateView(inflater, container, savedInstanceState);
+            }
+        });
+
+        v05_2_muestraContacto1Elegido.setText(personaUser.getContacto1Nombre_prs() + " " + personaUser.getContacto1Apellido1_prs());
+        v05_2_muestraContacto2Elegido.setText(personaUser.getContacto2Nombre_prs() + " " + personaUser.getContacto2Apellido1_prs());
+        v05_2_muestraContacto3Elegido.setText(personaUser.getContacto3Nombre_prs() + " " + personaUser.getContacto3Apellido1_prs());
 
         // Botones
         v05_adelante = view.findViewById(R.id.v05_btn_confirmar);
@@ -297,7 +358,8 @@ public class V_05 extends Fragment {
         v05_atras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_nav_v05_to_nav_v02);
+                Toast.makeText(getActivity(), "No se han actualizado tus datos", Toast.LENGTH_LONG).show();
+                Navigation.findNavController(view).navigate(R.id.action_nav_v05_to_nav_v03);
             }
         });
         return view;
@@ -410,7 +472,7 @@ public class V_05 extends Fragment {
             }
         }
 
-        if (sesionIniciada >= view.getResources().getInteger(R.integer.rol_transportecolectivo)) {
+        if (sesionIniciada < view.getResources().getInteger(R.integer.rol_transportecolectivo)) {
 // https://stackoverflow.com/questions/42436012/how-to-put-the-arraylist-into-bundle
 // Valiente: Enviamos a la ventana modal el listado de personasEnCoche correspondiente al id_prs (Persona) seleccionado
 //            Bundle bundleInscritoOferentes = new Bundle();
@@ -455,17 +517,22 @@ public class V_05 extends Fragment {
 
 // Convierte un String separado por guiones en un ArrayList
     private String alimentacionR(){
-        alimentacion_prsTitulo = "Restricciones Alimentarias: ";
+//        alimentacion_prsTitulo = "Restricciones Alimentarias: ";
+        alimentacion_prsTitulo = "";
         alimentacion_prsNueva = "";
 // Si el usuario tiene restricciones Alimentarias se muestran
         alimentacion_prsActual = personaUser.getAlimentacion_prs();
 // https://stackoverflow.com/questions/7488643/how-to-convert-comma-separated-string-to-list
+// https://regexr.com/346hf
+// Separar los saltos de línea no funciona
+//        alimentaciones_prs = Arrays.asList(alimentacion_prsActual.split("^[\\n]*$"));
         alimentaciones_prs = Arrays.asList(alimentacion_prsActual.split("\\s*\\s*-\\s*"));
         for (Object ali: alimentaciones_prs){
             alimentacion_prsNueva += ali.toString() + " - ";
-            v05_alimentacion_prs.setText(Html.fromHtml("<u>"+ alimentacion_prsTitulo + "</u><br>" + alimentacion_prsNueva),
-                    TextView.BufferType.SPANNABLE);
-        }
+            v05_alimentacion_prs.setText(Html.fromHtml("<u>"+ alimentacion_prsTitulo + "</u><br>" + alimentacion_prsNueva));
+//            v05_alimentacion_prs.setText(Html.fromHtml(alimentacion_prsNueva+"<br>"), TextView.BufferType.SPANNABLE);
+        };
+        v05_alimentacion_prs.setText(alimentacion_prsNueva);
         return alimentacion_prsNueva;
     }
 
@@ -474,18 +541,18 @@ public class V_05 extends Fragment {
         boolean[] opcionesRestriccionesAlimentarias =new boolean[restriccionesAlimentarias.length];
 
         //Organizamos el contenido del AlertDialog modal Selección Múltiple
-        alimentacion_prsNueva = alimentacionR();
         alimentacion_prsNueva = "";
         for (int i=0; i < restriccionesAlimentarias.length; i++){
             restriccionesAlimentarias[i] = restriccionesAlimentarias[i];
             if (alimentaciones_prs.contains(restriccionesAlimentarias[i])){
                 opcionesRestriccionesAlimentarias[i] = true;
                 alimentacion_prsNueva += restriccionesAlimentarias[i] + " - ";
-                v05_alimentacion_prs.setText(Html.fromHtml("<u>"+ alimentacion_prsTitulo + "</u><br>" + alimentacion_prsNueva),
-                        TextView.BufferType.SPANNABLE);
             } else {
                 opcionesRestriccionesAlimentarias[i] = false;
             };
+//            v05_alimentacion_prs.setText(Html.fromHtml("<u>"+ alimentacion_prsTitulo + "</u><br>" + alimentacion_prsNueva));
+            v05_alimentacion_prs.setText(Html.fromHtml(alimentacion_prsNueva), TextView.BufferType.SPANNABLE);
+//            v05_alimentacion_prs.setText(alimentacion_prsNueva);
         }
 
         if (sesionIniciada >= view.getResources().getInteger(R.integer.rol_valiente)) {
@@ -532,6 +599,20 @@ public class V_05 extends Fragment {
             if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) mContext, Manifest.permission.READ_CONTACTS)) {
             } else {
                 ActivityCompat.requestPermissions((Activity) mContext, new String[]{Manifest.permission.READ_CONTACTS}, 1);}}
+    }
+
+    public void mostrarBotonContacto() {
+        if (!personaUser.getContacto1Cargo_prs().equalsIgnoreCase("") &&
+                !personaUser.getContacto1Cargo_prs().equalsIgnoreCase("")) {
+            v05_indicaContacto2.setVisibility(View.VISIBLE);
+            v05_2_muestraContacto2Elegido.setVisibility(View.VISIBLE);
+        }
+
+        if (!personaUser.getContacto2Cargo_prs().equalsIgnoreCase("") &&
+                !personaUser.getContacto2Cargo_prs().equalsIgnoreCase("")) {
+            v05_indicaContacto3.setVisibility(View.VISIBLE);
+            v05_2_muestraContacto3Elegido.setVisibility(View.VISIBLE);
+        }
     }
 
 }

@@ -55,6 +55,13 @@ public class Persona_prs implements Serializable, Parcelable {
 	private	String	contacto2movil_prs	;
 	private	String	contacto2telefono_prs	;
 	private	String	contacto2email_prs	;
+	private	String	contacto3cargo_prs	;
+	private	String	contacto3nombre_prs	;
+	private	String	contacto3apellido1_prs	;
+	private	String	contacto3apellido2_prs	;
+	private	String	contacto3movil_prs	;
+	private	String	contacto3telefono_prs	;
+	private	String	contacto3email_prs	;
 	private	int	preferencia_prs	;
 	private	int	fiabilidadpre_prs	;
 	private	int	valoracionorgpre_prs	;
@@ -124,6 +131,13 @@ public class Persona_prs implements Serializable, Parcelable {
 		contacto2movil_prs = in.readString();
 		contacto2telefono_prs = in.readString();
 		contacto2email_prs = in.readString();
+		contacto3cargo_prs = in.readString();
+		contacto3nombre_prs = in.readString();
+		contacto3apellido1_prs = in.readString();
+		contacto3apellido2_prs = in.readString();
+		contacto3movil_prs = in.readString();
+		contacto3telefono_prs = in.readString();
+		contacto3email_prs = in.readString();
 		preferencia_prs = in.readInt();
 		fiabilidadpre_prs = in.readInt();
 		valoracionorgpre_prs = in.readInt();
@@ -211,6 +225,13 @@ public class Persona_prs implements Serializable, Parcelable {
 	public 	String	getContacto2Movil_prs	() {return 	contacto2movil_prs	;}	public void 	setContacto2Movil_prs	(	String	contacto2movil_prs	) {this.	contacto2movil_prs=	contacto2movil_prs	;}
 	public 	String	getContacto2Telefono_prs	() {return 	contacto2telefono_prs	;}	public void 	setContacto2Telefono_prs	(	String	contacto2telefono_prs	) {this.	contacto2telefono_prs=	contacto2telefono_prs	;}
 	public 	String	getContacto2Email_prs	() {return 	contacto2email_prs	;}	public void 	setContacto2Email_prs	(	String	contacto2email_prs	) {this.	contacto2email_prs=	contacto2email_prs	;}
+	public 	String	getContacto3Cargo_prs	() {return 	contacto3cargo_prs	;}	public void 	setContacto3Cargo_prs	(	String	contacto3cargo_prs	) {this.	contacto3cargo_prs=	contacto3cargo_prs	;}
+	public 	String	getContacto3Nombre_prs	() {return 	contacto3nombre_prs	;}	public void 	setContacto3Nombre_prs	(	String	contacto3nombre_prs	) {this.	contacto3nombre_prs=	contacto3nombre_prs	;}
+	public 	String	getContacto3Apellido1_prs	() {return 	contacto3apellido1_prs	;}	public void 	setContacto3Apellido1_prs	(	String	contacto3apellido1_prs	) {this.	contacto3apellido1_prs=	contacto3apellido1_prs	;}
+	public 	String	getContacto3Apellido2_prs	() {return 	contacto3apellido2_prs	;}	public void 	setContacto3Apellido2_prs	(	String	contacto3apellido2_prs	) {this.	contacto3apellido2_prs=	contacto3apellido2_prs	;}
+	public 	String	getContacto3Movil_prs	() {return 	contacto3movil_prs	;}	public void 	setContacto3Movil_prs	(	String	contacto3movil_prs	) {this.	contacto3movil_prs=	contacto3movil_prs	;}
+	public 	String	getContacto3Telefono_prs	() {return 	contacto3telefono_prs	;}	public void 	setContacto3Telefono_prs	(	String	contacto3telefono_prs	) {this.	contacto3telefono_prs=	contacto3telefono_prs	;}
+	public 	String	getContacto3Email_prs	() {return 	contacto3email_prs	;}	public void 	setContacto3Email_prs	(	String	contacto3email_prs	) {this.	contacto3email_prs=	contacto3email_prs	;}
 	public 	int	getPreferencia_prs	() {return 	preferencia_prs	;}	public void 	setPreferencia_prs	(	int	preferencia_prs	) {this.	preferencia_prs=	preferencia_prs	;}
 	public 	int	getFiabilidadpre_prs	() {return 	fiabilidadpre_prs	;}	public void 	setFiabilidadpre_prs	(	int	fiabilidadpre_prs	) {this.	fiabilidadpre_prs=	fiabilidadpre_prs	;}
 	public 	int	getValoracionorgpre_prs	() {return 	valoracionorgpre_prs	;}	public void 	setValoracionorgpre_prs	(	int	valoracionorgpre_prs	) {this.	valoracionorgpre_prs=	valoracionorgpre_prs	;}
@@ -278,6 +299,13 @@ public class Persona_prs implements Serializable, Parcelable {
 		builder.append("	private	 [	contacto2movil_prs=	");	builder.append(	contacto2movil_prs+	" - ");
 		builder.append("	private	 [	contacto2telefono_prs=	");	builder.append(	contacto2telefono_prs+	" - ");
 		builder.append("	private	 [	contacto2email_prs=	");	builder.append(	contacto2email_prs+	" - ");
+		builder.append("	private	 [	contacto3cargo_prs=	");	builder.append(	contacto3cargo_prs+	" - ");
+		builder.append("	private	 [	contacto3nombre_prs=	");	builder.append(	contacto3nombre_prs+	" - ");
+		builder.append("	private	 [	contacto3apellido1_prs=	");	builder.append(	contacto3apellido1_prs+	" - ");
+		builder.append("	private	 [	contacto3apellido2_prs=	");	builder.append(	contacto3apellido2_prs+	" - ");
+		builder.append("	private	 [	contacto3movil_prs=	");	builder.append(	contacto3movil_prs+	" - ");
+		builder.append("	private	 [	contacto3telefono_prs=	");	builder.append(	contacto3telefono_prs+	" - ");
+		builder.append("	private	 [	contacto3email_prs=	");	builder.append(	contacto3email_prs+	" - ");
 		builder.append("	private	 [	preferencia_prs=	");	builder.append(	preferencia_prs+	" - ");
 		builder.append("	private	 [	fiabilidadpre_prs=	");	builder.append(	fiabilidadpre_prs+	" - ");
 		builder.append("	private	 [	valoracionorgpre_prs=	");	builder.append(	valoracionorgpre_prs+	" - ");
@@ -352,6 +380,13 @@ public class Persona_prs implements Serializable, Parcelable {
 		dest.writeString(contacto2movil_prs);
 		dest.writeString(contacto2telefono_prs);
 		dest.writeString(contacto2email_prs);
+		dest.writeString(contacto3cargo_prs);
+		dest.writeString(contacto3nombre_prs);
+		dest.writeString(contacto3apellido1_prs);
+		dest.writeString(contacto3apellido2_prs);
+		dest.writeString(contacto3movil_prs);
+		dest.writeString(contacto3telefono_prs);
+		dest.writeString(contacto3email_prs);
 		dest.writeInt(preferencia_prs);
 		dest.writeInt(fiabilidadpre_prs);
 		dest.writeInt(valoracionorgpre_prs);

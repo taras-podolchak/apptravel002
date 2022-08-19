@@ -73,7 +73,21 @@ public class Persona_prsService {
                         docRef.update("contacto1apellido2_prs", personaUser.getContacto1Apellido2_prs());
                         docRef.update("contacto1movil_prs", personaUser.getContacto1Movil_prs());
                         docRef.update("contacto1telefono_prs", personaUser.getContacto1Telefono_prs());
-                        docRef.update("contacto1email_prs", personaUser.getContacto1Email_prs())
+                        docRef.update("contacto1email_prs", personaUser.getContacto1Email_prs());
+                        docRef.update("contacto2cargo_prs", personaUser.getContacto2Cargo_prs());
+                        docRef.update("contacto2nombre_prs", personaUser.getContacto2Nombre_prs());
+                        docRef.update("contacto2apellido1_prs", personaUser.getContacto2Apellido1_prs());
+                        docRef.update("contacto2apellido2_prs", personaUser.getContacto2Apellido2_prs());
+                        docRef.update("contacto2movil_prs", personaUser.getContacto2Movil_prs());
+                        docRef.update("contacto2telefono_prs", personaUser.getContacto2Telefono_prs());
+                        docRef.update("contacto2email_prs", personaUser.getContacto2Email_prs());
+                        docRef.update("contacto3cargo_prs", personaUser.getContacto3Cargo_prs());
+                        docRef.update("contacto3nombre_prs", personaUser.getContacto3Nombre_prs());
+                        docRef.update("contacto3apellido1_prs", personaUser.getContacto3Apellido1_prs());
+                        docRef.update("contacto3apellido2_prs", personaUser.getContacto3Apellido2_prs());
+                        docRef.update("contacto3movil_prs", personaUser.getContacto3Movil_prs());
+                        docRef.update("contacto3telefono_prs", personaUser.getContacto3Telefono_prs());
+                        docRef.update("contacto3email_prs", personaUser.getContacto3Email_prs())
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {

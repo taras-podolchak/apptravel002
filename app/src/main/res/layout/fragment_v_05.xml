@@ -58,6 +58,27 @@
                     android:layout_height="wrap_content"
                     android:minHeight="48dp" />
 -->
+<!--
+https://stackoverflow.com/questions/45712826/how-to-draw-a-horizontal-line-between-two-linearlayouts-in-android
+-->
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/corp_azul" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom|center_horizontal"
+                    android:text="TRANSPORTE"
+                    android:textSize="18sp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -85,7 +106,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-<!--
+                    <!--
                     <Spinner
                         android:id="@+id/v05_spn_solicitaPlazaLibre"
                         android:layout_width="match_parent"
@@ -111,10 +132,15 @@
                     <Spinner
                         android:id="@+id/v05_spn_ofertaPlazaLibre"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal|center_vertical"
                         android:textSize="20sp" />
+                </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
                     <Button
                         android:id="@+id/v05_btn_solicitaPlazaLibre"
                         android:layout_width="wrap_content"
@@ -126,34 +152,68 @@
                     <TextView
                         android:id="@+id/v05_txv_asignadaPlazaLibre"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
                         android:textSize="20sp" />
                 </LinearLayout>
-<!--
-                <Spinner
-                    android:id="@+id/v05_spn_tipo_alojamiento"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="48dp"
-                    android:textAlignment="center" />
 
-                <Spinner
-                    android:id="@+id/v05_spn_restricciones_allimentarias"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/corp_azul" />
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="48dp"
-                    android:textAlignment="center" />
--->
+                    android:gravity="bottom|center_horizontal"
+                    android:text="RESTRICCIONES ALIMENTARIAS"
+                    android:textSize="18sp" />
+
+                <!--
+                                <Spinner
+                                    android:id="@+id/v05_spn_tipo_alojamiento"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:minHeight="48dp"
+                                    android:textAlignment="center" />
+
+                                <Spinner
+                                    android:id="@+id/v05_spn_restricciones_allimentarias"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:minHeight="48dp"
+                                    android:textAlignment="center" />
+                -->
                 <TextView
                     android:id="@+id/v05_txv_alimentacion_prs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="start"
+                    android:gravity="center_horizontal"
                     android:inputType="textMultiLine|text"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
                     android:textColor="@color/black"
                     android:textSize="19sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/corp_azul" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom|center_horizontal"
+                    android:text="PERSONA DE CONTACTO"
+                    android:textSize="18sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -166,17 +226,87 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:background="@drawable/btn_formato_left"
-                        android:text="Contacto" />
+                        android:text="#1 Contacto" />
 
                     <TextView
-                        android:id="@+id/v05_txv_muestraContactoElegido"
+                        android:id="@+id/v05_txv_muestraContacto1Elegido"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="center_horizontal"
+                        android:gravity="center_horizontal|center_vertical"
                         android:textSize="20sp" />
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/v05_btn_indicaContacto2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/btn_formato_left"
+                        android:text="#2 Contacto" />
+
+                    <TextView
+                        android:id="@+id/v05_txv_muestraContacto2Elegido"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <Button
+                        android:id="@+id/v05_btn_indicaContacto3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/btn_formato_left"
+                        android:text="#3 Contacto" />
+
+                    <TextView
+                        android:id="@+id/v05_txv_muestraContacto3Elegido"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/v05_txv_recomendacionContacto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom|center_horizontal"
+                    android:text="Por prevención recomendamos facilitar, al menos, un contacto."
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/corp_azul" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom|center_horizontal"
+                    android:text="PAGOS"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="match_parent"
