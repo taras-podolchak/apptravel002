@@ -106,7 +106,7 @@ public class Inscribir_eveprsService {
                     && (inscritoSolicitante.getId_prs() == personaUser.getId_prs()
                     && personaUser.getUsuariotipo_prs() > 0
                     && personaUser.getUsuariotipo_prs() <= 3
-                    && inscritoSolicitante.getPlazaslibres_eveprs() < 0
+                    && inscritoSolicitante.getPlazaslibres_eveprs() <= 0
                     && inscritoOferente.getId_prs() != personaUser.getId_prs()
                     && inscritoOferente.getPlazaslibres_eveprs() >= 1)) {
                 if (!solicitudRealizada) {
@@ -125,7 +125,9 @@ public class Inscribir_eveprsService {
                                     DocumentReference docRef = qds.getReference();
                                     // La siguiente linea renueva los datos del inscritoOferente para que el método pueda ser utilizado por varias clases
 //                                    Inscribir_eveprs inscritoSolicitante = qds.toObject(Inscribir_eveprs.class);
-                                    docRef.update("plazaslibres_eveprs", inscritoSolicitante.getPlazaslibres_eveprs() + 1);
+                                    if (inscritoSolicitante.getPlazaslibres_eveprs() < 0){
+                                        docRef.update("plazaslibres_eveprs", inscritoSolicitante.getPlazaslibres_eveprs() + 1);
+                                    }
                                     docRef.update("id_tpr", inscritoOferente.getId_tpr())
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override

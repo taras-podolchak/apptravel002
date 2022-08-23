@@ -165,7 +165,7 @@ public class V_05 extends Fragment {
         Bundle bundleEvento = getArguments();
         eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_05");
 
-//        bundleEvento.putSerializable("eventoParaV_03", eventoEnProceso);
+        bundleEvento.putSerializable("eventoParaV_03", eventoEnProceso);
         bundleEvento.putSerializable("eventoParaV_02", eventoEnProceso);
 
         v05_titulo_eve = view.findViewById(R.id.v05_txv_titulo_eve);
@@ -173,9 +173,7 @@ public class V_05 extends Fragment {
         v05_ofrecePlazaLibre = view.findViewById(R.id.v05_btn_ofrecePlazaLibre);
         v05_ofertaPlazaLibre = view.findViewById(R.id.v05_spn_ofertaPlazaLibre);
         v05_solicitaPlazaLibre = view.findViewById(R.id.v05_btn_solicitaPlazaLibre);
-        v05_solicitaPlazaLibre.setVisibility(View.GONE);
         v05_asignadaPlazaLibre = view.findViewById(R.id.v05_txv_asignadaPlazaLibre);
-        v05_asignadaPlazaLibre.setVisibility(View.GONE);
         v05_alimentacion_prs = view.findViewById(R.id.v05_txv_alimentacion_prs);
         v05_indicaContacto1 = view.findViewById(R.id.v05_btn_indicaContacto1);
         v05_indicaContacto2 = view.findViewById(R.id.v05_btn_indicaContacto2);
@@ -187,29 +185,30 @@ public class V_05 extends Fragment {
         v05_titulo_eve.setText(eventoEnProceso.getTitulo_eve());
 
         inscritoEnProceso();
-
         if (inscritoEnProceso.getPlazaslibres_eveprs() < 0) {
+// Hace visible las opciones NO llevo coche
             v05_cocheSiNo.setChecked(false);
             v05_ofrecePlazaLibre.setVisibility(View.GONE);
             v05_ofertaPlazaLibre.setVisibility(View.GONE);
             v05_solicitaPlazaLibre.setVisibility(View.VISIBLE);
             v05_asignadaPlazaLibre.setVisibility(View.VISIBLE);
+        } else if (inscritoEnProceso.getPlazaslibres_eveprs() == 0 &&
+          inscritoEnProceso.getId_tpr() != inscritoEnProceso.getId_eveprs()){
+// Hace visible las opciones SI llevo coche y NO ofrezco Plazas Libres
+            v05_cocheSiNo.setChecked(true);
+            v05_ofrecePlazaLibre.setVisibility(View.GONE);
+            v05_ofertaPlazaLibre.setVisibility(View.GONE);
+            v05_solicitaPlazaLibre.setVisibility(View.VISIBLE);
+            v05_asignadaPlazaLibre.setVisibility(View.VISIBLE);
         } else {
+// Hace visible las opciones SI llevo coche y SI ofrezco Plazas Libres
             v05_cocheSiNo.setChecked(true);
             v05_ofrecePlazaLibre.setVisibility(View.VISIBLE);
             v05_ofertaPlazaLibre.setVisibility(View.VISIBLE);
             v05_solicitaPlazaLibre.setVisibility(View.GONE);
             v05_asignadaPlazaLibre.setVisibility(View.GONE);
             ofrecerPlazasLibres();
-            v05_ofertaPlazaLibre.setSelection(inscritoEnProceso.getPlazaslibres_eveprs());
         }
-
-            v05_indicaContacto2.setVisibility(View.GONE);
-            v05_2_muestraContacto2Elegido.setVisibility(View.GONE);
-            v05_indicaContacto3.setVisibility(View.GONE);
-            v05_2_muestraContacto3Elegido.setVisibility(View.GONE);
-
-            mostrarBotonContacto();
 
 // https://stackoverflow.com/questions/45712826/how-to-draw-a-horizontal-line-between-two-linearlayouts-in-android
 // Linea de separación
@@ -227,7 +226,6 @@ public class V_05 extends Fragment {
                     v05_ofertaPlazaLibre.setVisibility(View.VISIBLE);
                     v05_solicitaPlazaLibre.setVisibility(View.GONE);
                     v05_asignadaPlazaLibre.setVisibility(View.GONE);
-                    v05_ofertaPlazaLibre.setSelection(0);
                 } else {
                     if (inscritoEnProceso().getPlazaslibres_eveprs() >= 0){
                         plazasOcupadas();
@@ -359,7 +357,7 @@ public class V_05 extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "No se han actualizado tus datos", Toast.LENGTH_LONG).show();
-                Navigation.findNavController(view).navigate(R.id.action_nav_v05_to_nav_v03);
+                Navigation.findNavController(view).navigate(R.id.action_nav_v05_to_nav_v03, bundleEvento);
             }
         });
         return view;
@@ -407,6 +405,11 @@ public class V_05 extends Fragment {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, ofertaPlazasLibres);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         v05_ofertaPlazaLibre.setAdapter(arrayAdapter);
+// https://stackoverflow.com/questions/37481951/how-to-get-and-set-selected-item-from-spinner-using-sharedpreferences
+// Recupera spinner anterior
+//        v05_ofertaPlazaLibre.getSelectedItemPosition();
+        int indexOfPreviousSelection = inscritoEnProceso.getPlazaslibres_eveprs();
+        v05_ofertaPlazaLibre.setSelection(indexOfPreviousSelection);
 // https://stackoverflow.com/questions/10331854/how-to-get-spinner-selected-item-value-to-string
         final String[] dato = new String[1];
         dato[0] = ofertaPlazasLibres[plazasOcupadas];

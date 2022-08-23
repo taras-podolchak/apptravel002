@@ -398,12 +398,12 @@ public class Contacto_cntService extends Fragment {
             modalFormContacto.setIcon(R.drawable.ico_contact_book);
             modalFormContacto.setTitle("PERSONA DE CONTACTO");
 
-            if (sesionIniciada == view.getResources().getInteger(R.integer.rol_transportecolectivo)) {
+            if (sesionIniciada ==  view.getResources().getInteger(R.integer.rol_valiente)) {
                 v05_2_cargo_cnt.setAdapter(arrayAdapter_prs);
 // https://stackoverflow.com/questions/37481951/how-to-get-and-set-selected-item-from-spinner-using-sharedpreferences
 // Recupera spinner anterior
                 v05_2_cargo_cnt.getSelectedItemPosition();
-                int indexOfPreviousSelection = arrayAdapter_sum.getPosition(contactoEnProceso.getCargo_cnt());
+                int indexOfPreviousSelection = arrayAdapter_prs.getPosition(contactoEnProceso.getCargo_cnt());
                 v05_2_cargo_cnt.setSelection(indexOfPreviousSelection);
 // https://stackoverflow.com/questions/4622517/hide-a-edittext-make-it-visible-by-clicking-a-menu
                 v05_2_apellido2_cnt.setVisibility(View.GONE);
@@ -441,29 +441,29 @@ public class Contacto_cntService extends Fragment {
 // https://stackoverflow.com/questions/42397915/how-to-pass-string-from-one-fragment-to-another-in-android
 // Permite mostrar en la pantalla padre el resultado de la selección de un contacto de la agenda
 
-                    switch (contactoNumero){
-                        case ("Contacto1"): {
-                            V_05.newInstance(contacto1ElegidoResultado, null);
-                            V_05.v05_2_muestraContacto1Elegido.setText(contacto1ElegidoResultado);
-                            break;
+                        switch (contactoNumero){
+                            case ("Contacto1"): {
+                                V_05.newInstance(contacto1ElegidoResultado, null);
+                                V_05.v05_2_muestraContacto1Elegido.setText(contacto1ElegidoResultado);
+                                break;
+                            }
+                            case ("Contacto2"): {
+                                V_05.newInstance(contacto2ElegidoResultado, null);
+                                V_05.v05_2_muestraContacto2Elegido.setText(contacto2ElegidoResultado);
+                                break;
+                            }
+                            case ("Contacto3"): {
+                                V_05.newInstance(contacto3ElegidoResultado, null);
+                                V_05.v05_2_muestraContacto3Elegido.setText(contacto3ElegidoResultado);
+                                break;
+                            }
                         }
-                        case ("Contacto2"): {
-                            V_05.newInstance(contacto2ElegidoResultado, null);
-                            V_05.v05_2_muestraContacto2Elegido.setText(contacto2ElegidoResultado);
-                            break;
-                        }
-                        case ("Contacto3"): {
-                            V_05.newInstance(contacto3ElegidoResultado, null);
-                            V_05.v05_2_muestraContacto3Elegido.setText(contacto3ElegidoResultado);
-                            break;
-                        }
-                    }
 
 //                        V_05.newInstance(contactoElegidoResultado, null);
 //                        V_05.v05_2_muestraContacto1Elegido.setText(contactoElegidoResultado);
                     }
                 });
-            } else if (sesionIniciada == view.getResources().getInteger(R.integer.rol_valiente)
+            } else if (sesionIniciada == view.getResources().getInteger(R.integer.rol_transportecolectivo)
                     || sesionIniciada == view.getResources().getInteger(R.integer.rol_alojamiento)
                     || sesionIniciada == view.getResources().getInteger(R.integer.rol_empresas_trekking)){
                 v05_2_cargo_cnt.setAdapter(arrayAdapter_sum);
@@ -472,12 +472,16 @@ public class Contacto_cntService extends Fragment {
                 v05_2_cargo_cnt.getSelectedItemPosition();
                 int indexOfPreviousSelection = arrayAdapter_sum.getPosition(contactoEnProceso.getCargo_cnt());
                 v05_2_cargo_cnt.setSelection(indexOfPreviousSelection);
+// https://stackoverflow.com/questions/4622517/hide-a-edittext-make-it-visible-by-clicking-a-menu
                 modalFormContacto.setPositiveButton("Confirmar", new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         cargo_cnt = v05_2_cargo_cnt.getSelectedItem().toString();
                         contactoEnProceso.setCargo_cnt(cargo_cnt);
+// https://www.youtube.com/watch?v=JB3ETK5mh3c&ab_channel=CodinginFlow
+// autocomplete form with contact android youtube
                         if (!cargo_cnt.equalsIgnoreCase("CARGO:")) {
+                            contactoEnProceso = new Contacto_cnt(Integer.parseInt(id_cnt), cargo_cnt, nombre_cnt, apellido1_cnt, apellido2_cnt, movil_cnt, telefono_cnt, email_cnt);
                             switch (contactoNumero){
                                 case ("Contacto1"): {
                                     volcarContacto1(view);
@@ -497,6 +501,8 @@ public class Contacto_cntService extends Fragment {
                         } else {
                             Toast.makeText(view.getContext(), "El contacto no se guarda por falta de datos", Toast.LENGTH_LONG).show();
                         }
+// https://stackoverflow.com/questions/42397915/how-to-pass-string-from-one-fragment-to-another-in-android
+// Permite mostrar en la pantalla padre el resultado de la selección de un contacto de la agenda
 
                         switch (contactoNumero){
                             case ("Contacto1"): {
