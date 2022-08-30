@@ -1,6 +1,8 @@
 package com.appvisibility.apptravel002.ui.entities;
 
-public class Contacto_cnt {
+import java.io.Serializable;
+
+public class Contacto_cnt implements Serializable {
 
 	private	int	id_cnt	;
 	private	String cargo_cnt;

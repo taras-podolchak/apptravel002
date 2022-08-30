@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/drawable-v24/btn_formato_right.xml" value="0.1445" />
+        <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/drawable-v24/etx_alerta_validacion.xml" value="0.1" />
         <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/drawable/v01_boton_formato_l.xml" value="0.1" />
         <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/drawable/v01_boton_formato_r.xml" value="0.1" />
         <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/layout/activity_main.xml" value="0.18" />
@@ -35,6 +37,7 @@
         <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_05_1.xml" value="0.1" />
         <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_05_2_modal.xml" value="0.1" />
         <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_05_2_modal_cnt.xml" value="0.1" />
+        <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_05_2_modal_cnt_vld_borrar.xml" value="0.1" />
         <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_05_2b_modal.xml" value="0.1" />
         <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/layout/fragment_v_06.xml" value="0.1" />
         <entry key="..\:/Users/Quique/AndroidStudioProjects/apptravel002/app/src/main/res/layout/nav_header_main.xml" value="0.18" />

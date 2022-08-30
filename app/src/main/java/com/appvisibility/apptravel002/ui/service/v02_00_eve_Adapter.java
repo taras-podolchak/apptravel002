@@ -86,68 +86,68 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Evento_eve eveEnProceso = new Evento_eve();
-        eveEnProceso.setId_eve(eventos.get(position).getId_eve());
-        eveEnProceso.setTitulo_eve(eventos.get(position).getTitulo_eve());
-        eveEnProceso.setNparticipantes_eve(eventos.get(position).getNparticipantes_eve());
-        eveEnProceso.setFechapagosennal_eve(eventos.get(position).getFechapagosennal_eve());
-        eveEnProceso.setFechapagototal_eve(eventos.get(position).getFechapagototal_eve());
-        eveEnProceso.setPrecio_eve(eventos.get(position).getPrecio_eve());
-        eveEnProceso.setFoto_eve(eventos.get(position).getFoto_eve());
-        eveEnProceso.setDescgeneral_eve(eventos.get(position).getDescgeneral_eve());
-        eveEnProceso.setDescrecomendaciones_eve(eventos.get(position).getDescrecomendaciones_eve());
-        eveEnProceso.setDescseguridad_eve(eventos.get(position).getDescseguridad_eve());
-        eveEnProceso.setNivel_eve(eventos.get(position).getNivel_eve());
-        eveEnProceso.setTransportetipo_eve(eventos.get(position).getTransportetipo_eve());
-        eveEnProceso.setFechaidatru_eve(eventos.get(position).getFechaidatru_eve());
-        eveEnProceso.setSalidaidatru_eve(eventos.get(position).getSalidaidatru_eve());
-        eveEnProceso.setSalidacoordenadastru_eve(eventos.get(position).getSalidacoordenadastru_eve());
-        eveEnProceso.setLlegadaidatru_eve(eventos.get(position).getLlegadaidatru_eve());
-        eveEnProceso.setLlegadacoordenadastru_eve(eventos.get(position).getLlegadacoordenadastru_eve());
-        eveEnProceso.setDistanciaidatru_eve(eventos.get(position).getDistanciaidatru_eve());
-        eveEnProceso.setFechavueltatru_eve(eventos.get(position).getFechavueltatru_eve());
-        eveEnProceso.setSalidavueltatru_eve(eventos.get(position).getSalidavueltatru_eve());
-        eveEnProceso.setLlegadavueltatru_eve(eventos.get(position).getLlegadavueltatru_eve());
-        eveEnProceso.setDistanciavueltatru_eve(eventos.get(position).getDistanciavueltatru_eve());
-        eveEnProceso.setEstado_eve(eventos.get(position).getEstado_eve());
-        eveEnProceso.setDescestado_eve(eventos.get(position).getDescestado_eve());
+        Evento_eve eventoEnProceso = new Evento_eve();
+        eventoEnProceso.setId_eve(eventos.get(position).getId_eve());
+        eventoEnProceso.setTitulo_eve(eventos.get(position).getTitulo_eve());
+        eventoEnProceso.setNparticipantes_eve(eventos.get(position).getNparticipantes_eve());
+        eventoEnProceso.setFechapagosennal_eve(eventos.get(position).getFechapagosennal_eve());
+        eventoEnProceso.setFechapagototal_eve(eventos.get(position).getFechapagototal_eve());
+        eventoEnProceso.setPrecio_eve(eventos.get(position).getPrecio_eve());
+        eventoEnProceso.setFoto_eve(eventos.get(position).getFoto_eve());
+        eventoEnProceso.setDescgeneral_eve(eventos.get(position).getDescgeneral_eve());
+        eventoEnProceso.setDescrecomendaciones_eve(eventos.get(position).getDescrecomendaciones_eve());
+        eventoEnProceso.setDescseguridad_eve(eventos.get(position).getDescseguridad_eve());
+        eventoEnProceso.setNivel_eve(eventos.get(position).getNivel_eve());
+        eventoEnProceso.setTransportetipo_eve(eventos.get(position).getTransportetipo_eve());
+        eventoEnProceso.setFechaidatru_eve(eventos.get(position).getFechaidatru_eve());
+        eventoEnProceso.setSalidaidatru_eve(eventos.get(position).getSalidaidatru_eve());
+        eventoEnProceso.setSalidacoordenadastru_eve(eventos.get(position).getSalidacoordenadastru_eve());
+        eventoEnProceso.setLlegadaidatru_eve(eventos.get(position).getLlegadaidatru_eve());
+        eventoEnProceso.setLlegadacoordenadastru_eve(eventos.get(position).getLlegadacoordenadastru_eve());
+        eventoEnProceso.setDistanciaidatru_eve(eventos.get(position).getDistanciaidatru_eve());
+        eventoEnProceso.setFechavueltatru_eve(eventos.get(position).getFechavueltatru_eve());
+        eventoEnProceso.setSalidavueltatru_eve(eventos.get(position).getSalidavueltatru_eve());
+        eventoEnProceso.setLlegadavueltatru_eve(eventos.get(position).getLlegadavueltatru_eve());
+        eventoEnProceso.setDistanciavueltatru_eve(eventos.get(position).getDistanciavueltatru_eve());
+        eventoEnProceso.setEstado_eve(eventos.get(position).getEstado_eve());
+        eventoEnProceso.setDescestado_eve(eventos.get(position).getDescestado_eve());
 
-        holder.v02_titulo_eve.setText(eveEnProceso.getTitulo_eve());
+        holder.v02_titulo_eve.setText(eventoEnProceso.getTitulo_eve());
         FirebaseStorage fbs = FirebaseStorage.getInstance();
         StorageReference str = fbs.getReference();
-        str.child("Eventos/" + eveEnProceso.getFoto_eve()).getDownloadUrl().addOnSuccessListener(uri -> Picasso.get().load(uri).into(holder.v02_foto_eve)).addOnFailureListener(new OnFailureListener() {
+        str.child("Eventos/" + eventoEnProceso.getFoto_eve()).getDownloadUrl().addOnSuccessListener(uri -> Picasso.get().load(uri).into(holder.v02_foto_eve)).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 Toast.makeText(context.getApplicationContext(), "Error a la hora de cargar la imagen", Toast.LENGTH_SHORT).show();
             }
         });
-        holder.v02_fechaidatru_eve.setText(eveEnProceso.getFechaidatru_eve());
-        holder.v02_fechavueltatru_eve.setText(eveEnProceso.getFechavueltatru_eve());
-        holder.v02_nivel_eve.setText("Nivel: " + eveEnProceso.getNivel_eve());
+        holder.v02_fechaidatru_eve.setText(eventoEnProceso.getFechaidatru_eve());
+        holder.v02_fechavueltatru_eve.setText(eventoEnProceso.getFechavueltatru_eve());
+        holder.v02_nivel_eve.setText("Nivel: " + eventoEnProceso.getNivel_eve());
         if (accion == context.getResources().getInteger(R.integer.accion_rellenar_formulario)) {
             asignacionDeLosCamposDeAAddEve();
             holder.v02_estado_eve.setVisibility(View.VISIBLE);
-            if (eveEnProceso.getEstado_eve().equalsIgnoreCase("Confirmado")) {
+            if (eventoEnProceso.getEstado_eve().equalsIgnoreCase("Confirmado")) {
                 holder.v02_estado_eve.setTextColor(context.getResources().getColor(R.color.administradorVerdeColor));
-            } else if (eveEnProceso.getEstado_eve().equalsIgnoreCase("Pendiente")) {
+            } else if (eventoEnProceso.getEstado_eve().equalsIgnoreCase("Pendiente")) {
                 holder.v02_estado_eve.setTextColor(context.getResources().getColor(android.R.color.holo_orange_dark));
-            } else if (eveEnProceso.getEstado_eve().equalsIgnoreCase("Cancelado")) {
+            } else if (eventoEnProceso.getEstado_eve().equalsIgnoreCase("Cancelado")) {
                 holder.v02_estado_eve.setTextColor(context.getResources().getColor(R.color.red));
             }
-            holder.v02_estado_eve.setText("Estado: " + eveEnProceso.getEstado_eve());
+            holder.v02_estado_eve.setText("Estado: " + eventoEnProceso.getEstado_eve());
         }
-        holder.v02_transportetipo_eve.setText(eveEnProceso.getTransportetipo_eve());
-        holder.v02_nparticipantes_eve.setText("Participantes: " + eveEnProceso.getNparticipantes_eve());
+        holder.v02_transportetipo_eve.setText(eventoEnProceso.getTransportetipo_eve());
+        holder.v02_nparticipantes_eve.setText("Participantes: " + eventoEnProceso.getNparticipantes_eve());
 
         //corto click por el item
         // https://stackoverflow.com/questions/42266436/passing-objects-between-fragments
         holder.v02_cdv_eventos.setOnClickListener(v -> {
             if (accion == v.getResources().getInteger(R.integer.accion_a_v_03)) {
-                bundleEvento.putSerializable("eventoParaV_03", eveEnProceso);
+                bundleEvento.putSerializable("eventoParaV_03", eventoEnProceso);
                 Navigation.findNavController(v).navigate(R.id.nav_v03, bundleEvento);
             } else if (accion == v.getResources().getInteger(R.integer.accion_rellenar_formulario)) {
-                idEve = eveEnProceso.getId_eve();
-                rellenacionDeLosCamposDeAAddEve(eveEnProceso);
+                idEve = eventoEnProceso.getId_eve();
+                rellenacionDeLosCamposDeAAddEve(eventoEnProceso);
             }
         });
 
@@ -157,16 +157,16 @@ public class v02_00_eve_Adapter extends RecyclerView.Adapter<v02_00_eve_Adapter.
                 AlertDialog dialogo = new AlertDialog
                         .Builder(v1.getContext())
                         .setPositiveButton("Activar evento", (dialog, which) -> {
-                            eveEnProceso.setEstado_eve("activado");
-                            fbf.collection("evento_eve").document(Integer.toString(eveEnProceso.getId_eve())).set(eveEnProceso);
+                            eventoEnProceso.setEstado_eve("activado");
+                            fbf.collection("evento_eve").document(Integer.toString(eventoEnProceso.getId_eve())).set(eventoEnProceso);
                             Toast.makeText(v1.getContext(), "Evento activado!", Toast.LENGTH_SHORT).show();
                         })
                         .setNegativeButton("Desactivar evento", (dialog, which) -> {
-                            eveEnProceso.setEstado_eve("desactivado");
-                            fbf.collection("evento_eve").document(Integer.toString(eveEnProceso.getId_eve())).set(eveEnProceso);
+                            eventoEnProceso.setEstado_eve("desactivado");
+                            fbf.collection("evento_eve").document(Integer.toString(eventoEnProceso.getId_eve())).set(eventoEnProceso);
                             Toast.makeText(v1.getContext(), "Evento desactivado!", Toast.LENGTH_SHORT).show();
                         })
-                        .setNeutralButton("Eliminar evento", (dialog, which) -> fbf.collection("evento_eve").document(Integer.toString(eveEnProceso.getId_eve()))
+                        .setNeutralButton("Eliminar evento", (dialog, which) -> fbf.collection("evento_eve").document(Integer.toString(eventoEnProceso.getId_eve()))
                                 .delete()
                                 .addOnSuccessListener(aVoid -> {
                                     Toast.makeText(v1.getContext(), "Evento eliminado con éxito!", Toast.LENGTH_SHORT).show();

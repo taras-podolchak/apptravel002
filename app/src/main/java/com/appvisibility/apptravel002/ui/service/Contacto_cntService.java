@@ -1,10 +1,15 @@
 package com.appvisibility.apptravel002.ui.service;
 
 import static com.appvisibility.apptravel002.MainActivity_val.sesionIniciada;
+import static com.appvisibility.apptravel002.ui.service.Persona_prsService.personaUserU;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -18,9 +23,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appvisibility.apptravel002.MainActivity_val;
@@ -55,13 +60,13 @@ public class Contacto_cntService extends Fragment {
 
     // Campos de xml
     private AutoCompleteTextView v05_2_contactoElegido;
-    private Spinner v05_2_cargo_cnt;
-    private EditText v05_2_nombre_cnt;
-    private EditText v05_2_apellido1_cnt;
-    private EditText v05_2_apellido2_cnt;
-    private EditText v05_2_movil_cnt;
-    private EditText v05_2_telefono_cnt;
-    private EditText v05_2_email_cnt;
+    public static Spinner v05_2_cargo_cnt;
+    public static EditText v05_2_nombre_cnt;
+    public static EditText v05_2_apellido1_cnt;
+    public static EditText v05_2_apellido2_cnt;
+    public static EditText v05_2_movil_cnt;
+    public static EditText v05_2_telefono_cnt;
+    public static EditText v05_2_email_cnt;
 
     // Entities
     private Persona_prs personaUser;
@@ -71,16 +76,21 @@ public class Contacto_cntService extends Fragment {
     public String contacto1ElegidoResultado;
     public String contacto2ElegidoResultado;
     public String contacto3ElegidoResultado;
-    private String id_cnt = "";
+    private String id_cnt;
     private String idNueva_cnt;
     private Boolean nuevoContacto = false;
-    private String cargo_cnt = "";
+    private String tituloListaCargo_cnt;
+    private String cargo_cnt;
     private String nombre_cnt;
     private String apellido1_cnt;
     private String apellido2_cnt;
     private String movil_cnt;
     private String telefono_cnt;
     private String email_cnt;
+    private Boolean validacion;
+    private ArrayAdapter<String> arrayAdapter_prs;
+    private ArrayAdapter<String> arrayAdapter_sum;
+    private Boolean datosActualizados;
 
     private Context mContext;
 
@@ -119,19 +129,35 @@ public class Contacto_cntService extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_05_2_modal_cnt, container, false);
-        View view2 = inflater.inflate(R.layout.fragment_v_05, container, false);
 
-        //https://stackoverflow.com/questions/12739909/send-data-from-activity-to-fragment-in-android
-        /* So, to pass data from the MotherActivity to such a Fragment you will need to create private Strings/Bundles above the onCreate of your Mother activity - which you can fill with the data you want to pass to the fragments, and pass them on via a method created after the onCreate (here called getMyData()).*/
-        //Recuperamos los datos del Usuario activo
-
+//https://stackoverflow.com/questions/12739909/send-data-from-activity-to-fragment-in-android
+/* So, to pass data from the MotherActivity to such a Fragment you will need to create private Strings/Bundles above the onCreate of your Mother activity - which you can fill with the data you want to pass to the fragments, and pass them on via a method created after the onCreate (here called getMyData()).*/
+//Recuperamos los datos del Usuario activo
         MainActivity_val activity = (MainActivity_val) view.getContext();
         Bundle bundlePersonaUser = activity.getUser();
         personaUser = (Persona_prs) bundlePersonaUser.getSerializable("User");
-//        contactoEnProceso = (Contacto_cnt) bundleContacto.getSerializable("contactoParaV_05");
 
-        // https://www.youtube.com/watch?v=nlqtyfshUkc&ab_channel=CodingDemos
-            String [] contactocargo_prs = view.getResources().getStringArray(R.array.contactoCargo_prs);
+        Bundle bundleContacto = new Bundle();
+
+        v05_2_contactoElegido = view.findViewById(R.id.v05_2_act_contactoElegido);
+//            v05_2_contactoElegidoResultado = view.findViewById(R.id.v05_txv_contactoElegidoResultado);
+        v05_2_cargo_cnt = view.findViewById(R.id.v05_2_spn_ContactoCargo);
+        v05_2_nombre_cnt = view.findViewById(R.id.v05_2_etx_ContactoNombre);
+        v05_2_apellido1_cnt = view.findViewById(R.id.v05_2_etx_ContactoApellido1);
+        v05_2_apellido2_cnt = view.findViewById(R.id.v05_2_etx_ContactoApellido2);
+        v05_2_movil_cnt = view.findViewById(R.id.v05_2_etx_ContactoMovil);
+        v05_2_telefono_cnt = view.findViewById(R.id.v05_2_etx_ContactoTelefono);
+        v05_2_email_cnt = view.findViewById(R.id.v05_2_etx_ContactoEmail);
+
+        recuperarContactoActual(view, contactoNumero);
+
+//            recuperarContacto1Actual(view);
+        contactoEnProceso = new Contacto_cnt(Integer.parseInt(id_cnt), cargo_cnt,  nombre_cnt, apellido1_cnt, apellido2_cnt, movil_cnt, telefono_cnt, email_cnt);
+        mostrarContactoEnProceso(view);
+        bundleContacto.putSerializable("contactoParaValidacion", contactoEnProceso);
+
+// https://www.youtube.com/watch?v=nlqtyfshUkc&ab_channel=CodingDemos
+        String [] contactocargo_prs = view.getResources().getStringArray(R.array.contactoCargo_prs);
 /*
         ArrayList<String> contactocargo_prs = new ArrayList<>();
         contactocargo_prs.add("RELACION:");
@@ -140,10 +166,10 @@ public class Contacto_cntService extends Fragment {
         contactocargo_prs.add("Familiar");
         contactocargo_prs.add("Trabajo");
 */
-            ArrayAdapter<String> arrayAdapter_prs = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, contactocargo_prs);
-            arrayAdapter_prs.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapter_prs = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, contactocargo_prs);
+        arrayAdapter_prs.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-            String [] contactocargo_sum = view.getResources().getStringArray(R.array.contactoCargo_sum);
+        String [] contactocargo_sum = view.getResources().getStringArray(R.array.contactoCargo_sum);
 /*
         ArrayList<String> contactocargo_sum = new ArrayList<>();
         contactocargo_sum.add("CARGO:");
@@ -151,8 +177,8 @@ public class Contacto_cntService extends Fragment {
         contactocargo_sum.add("Reservas");
         contactocargo_sum.add("Facturación");
 */
-            ArrayAdapter<String> arrayAdapter_sum = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, contactocargo_sum);
-            arrayAdapter_sum.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapter_sum = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, contactocargo_sum);
+        arrayAdapter_sum.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 //            permitirAcceso(view);
 
@@ -176,7 +202,14 @@ public class Contacto_cntService extends Fragment {
                 contactos.put(Integer.parseInt(id_cnt), contactoEnProceso);
                 cursor.moveToNext();
             }
+//            limpiarContacto(view);
+//            contactos.put(-1, contactoEnProceso);
             cursor.close();
+
+// Después de haber utilizado contactoEnProceso para cargar la lista de contactos en el mapa, devolvemos a contactoEnProceso los valores actuales para que en caso de que no haya ninguna selección de nuevo contacto acaben apareciendo en pantalla los datos del último contacto que pasó por el cursor
+            recuperarContactoActual(view, contactoNumero);
+            contactoEnProceso = new Contacto_cnt(Integer.parseInt(id_cnt), cargo_cnt,  nombre_cnt, apellido1_cnt, apellido2_cnt, movil_cnt, telefono_cnt, email_cnt);
+            mostrarContactoEnProceso(view);
 
             List<String> contactosDescripcion = new ArrayList<>();
 
@@ -193,46 +226,12 @@ public class Contacto_cntService extends Fragment {
             arrayAdapter_contacto.setDropDownViewResource(android.R.layout.simple_list_item_1);
 
             AlertDialog.Builder modalFormContacto = new AlertDialog.Builder(view.getContext());
-            v05_2_contactoElegido = view.findViewById(R.id.v05_2_act_contactoElegido);
-//            v05_2_contactoElegidoResultado = view.findViewById(R.id.v05_txv_contactoElegidoResultado);
-            v05_2_cargo_cnt = view.findViewById(R.id.v05_2_spn_ContactoCargo);
-            v05_2_nombre_cnt = view.findViewById(R.id.v05_2_etx_ContactoNombre);
-            v05_2_apellido1_cnt = view.findViewById(R.id.v05_2_etx_ContactoApellido1);
-            v05_2_apellido2_cnt = view.findViewById(R.id.v05_2_etx_ContactoApellido2);
-            v05_2_movil_cnt = view.findViewById(R.id.v05_2_etx_ContactoMovil);
-            v05_2_telefono_cnt = view.findViewById(R.id.v05_2_etx_ContactoTelefono);
-            v05_2_email_cnt = view.findViewById(R.id.v05_2_etx_ContactoEmail);
-/*
-            cargo_cnt = personaUser.getContacto1Cargo_prs();
-            nombre_cnt = personaUser.getContacto1Nombre_prs();
-            apellido1_cnt = personaUser.getContacto1Apellido1_prs();
-            apellido2_cnt = personaUser.getContacto1Apellido2_prs();
-            movil_cnt = personaUser.getContacto1Movil_prs();
-            telefono_cnt = personaUser.getContacto1Telefono_prs();
-            email_cnt = personaUser.getContacto1Email_prs();
-            contactoEnProceso = new Contacto_cnt(Integer.parseInt(id_cnt), cargo_cnt, nombre_cnt, apellido1_cnt, apellido2_cnt, movil_cnt, telefono_cnt, email_cnt);
-*/
-        switch (contactoNumero){
-            case ("Contacto1"): {
-                recuperarContacto1Actual(view);
-                break;
-            }
-            case ("Contacto2"): {
-                recuperarContacto2Actual(view);
-                break;
-            }
-            case ("Contacto3"): {
-                recuperarContacto3Actual(view);
-                break;
-            }
-        }
-
-//            recuperarContacto1Actual(view);
-            mostrarContactoEnProceso(view);
 
             v05_2_contactoElegido.setAdapter(arrayAdapter_contacto);
 
 // https://stackoverflow.com/questions/4819813/how-to-get-text-from-autocompletetextview
+// https://www.youtube.com/watch?v=JB3ETK5mh3c&ab_channel=CodinginFlow
+// autocomplete form with contact android youtube
             v05_2_contactoElegido.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
                     v05_2_contactoElegido.setSelection(position);
@@ -251,7 +250,8 @@ public class Contacto_cntService extends Fragment {
                             case 1: {
                                 v05_2_nombre_cnt.setText(contactoNuevaArray.get(i)); break;}
                             default: {
-                                contactoElegido = " ";}
+                                v05_2_nombre_cnt.setText("");
+                            }
                         }
                     }
 
@@ -385,12 +385,22 @@ public class Contacto_cntService extends Fragment {
                     }
                     cursor3.close();
 
+                    cargo_cnt = (cargo_cnt == null)? "":cargo_cnt;
+                    nombre_cnt = (nombre_cnt == null)? "":nombre_cnt;
+                    apellido1_cnt = (apellido1_cnt == null)? "":apellido1_cnt;
+                    apellido2_cnt = (apellido2_cnt == null)? "":apellido2_cnt;
+                    movil_cnt = (movil_cnt == null)? "":movil_cnt;
+                    telefono_cnt = (telefono_cnt == null)? "":telefono_cnt;
+                    email_cnt = (email_cnt == null)? "":email_cnt;
                     contactoEnProceso = new Contacto_cnt(Integer.parseInt(id_cnt), cargo_cnt, nombre_cnt, apellido1_cnt, apellido2_cnt, movil_cnt, telefono_cnt, email_cnt);
                     mostrarContactoEnProceso(view);
+                    bundleContacto.putSerializable("contactoParaValidacion", contactoEnProceso);
 
                     nuevoContacto = false;
                     if (nombre_cnt != ""){
                         v05_2_contactoElegido.setVisibility(View.GONE);
+                    } else {
+                        limpiarContacto(view);
                     }
                 }
             });
@@ -398,7 +408,8 @@ public class Contacto_cntService extends Fragment {
             modalFormContacto.setIcon(R.drawable.ico_contact_book);
             modalFormContacto.setTitle("PERSONA DE CONTACTO");
 
-            if (sesionIniciada ==  view.getResources().getInteger(R.integer.rol_valiente)) {
+            if (sesionIniciada == view.getResources().getInteger(R.integer.rol_transportecolectivo)) {
+                tituloListaCargo_cnt = "RELACION:";
                 v05_2_cargo_cnt.setAdapter(arrayAdapter_prs);
 // https://stackoverflow.com/questions/37481951/how-to-get-and-set-selected-item-from-spinner-using-sharedpreferences
 // Recupera spinner anterior
@@ -407,127 +418,20 @@ public class Contacto_cntService extends Fragment {
                 v05_2_cargo_cnt.setSelection(indexOfPreviousSelection);
 // https://stackoverflow.com/questions/4622517/hide-a-edittext-make-it-visible-by-clicking-a-menu
                 v05_2_apellido2_cnt.setVisibility(View.GONE);
-                v05_2_telefono_cnt.setVisibility(View.GONE);
                 v05_2_email_cnt.setVisibility(View.GONE);
-
-                modalFormContacto.setPositiveButton("Confirmar", new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        cargo_cnt = v05_2_cargo_cnt.getSelectedItem().toString();
-                        contactoEnProceso.setCargo_cnt(cargo_cnt);
-// https://www.youtube.com/watch?v=JB3ETK5mh3c&ab_channel=CodinginFlow
-// autocomplete form with contact android youtube
-                        if (!cargo_cnt.equalsIgnoreCase("RELACION:")) {
-                            contactoEnProceso = new Contacto_cnt(Integer.parseInt(id_cnt), cargo_cnt, nombre_cnt, apellido1_cnt, apellido2_cnt, movil_cnt, telefono_cnt, email_cnt);
-                            switch (contactoNumero){
-                                case ("Contacto1"): {
-                                    volcarContacto1(view);
-                                    break;
-                                }
-                                case ("Contacto2"): {
-                                    volcarContacto2(view);
-                                    break;
-                                }
-                                case ("Contacto3"): {
-                                    volcarContacto3(view);
-                                    break;
-                                }
-                            }
-
-//                            volcarContacto(view);
-                        } else {
-                            Toast.makeText(view.getContext(), "El contacto no se guarda por falta de datos", Toast.LENGTH_LONG).show();
-                        }
-// https://stackoverflow.com/questions/42397915/how-to-pass-string-from-one-fragment-to-another-in-android
-// Permite mostrar en la pantalla padre el resultado de la selección de un contacto de la agenda
-
-                        switch (contactoNumero){
-                            case ("Contacto1"): {
-                                V_05.newInstance(contacto1ElegidoResultado, null);
-                                V_05.v05_2_muestraContacto1Elegido.setText(contacto1ElegidoResultado);
-                                break;
-                            }
-                            case ("Contacto2"): {
-                                V_05.newInstance(contacto2ElegidoResultado, null);
-                                V_05.v05_2_muestraContacto2Elegido.setText(contacto2ElegidoResultado);
-                                break;
-                            }
-                            case ("Contacto3"): {
-                                V_05.newInstance(contacto3ElegidoResultado, null);
-                                V_05.v05_2_muestraContacto3Elegido.setText(contacto3ElegidoResultado);
-                                break;
-                            }
-                        }
-
-//                        V_05.newInstance(contactoElegidoResultado, null);
-//                        V_05.v05_2_muestraContacto1Elegido.setText(contactoElegidoResultado);
-                    }
-                });
-            } else if (sesionIniciada == view.getResources().getInteger(R.integer.rol_transportecolectivo)
+            } else if (sesionIniciada == view.getResources().getInteger(R.integer.rol_valiente)
                     || sesionIniciada == view.getResources().getInteger(R.integer.rol_alojamiento)
-                    || sesionIniciada == view.getResources().getInteger(R.integer.rol_empresas_trekking)){
+                    || sesionIniciada == view.getResources().getInteger(R.integer.rol_empresas_trekking)) {
+                tituloListaCargo_cnt = "CARGO:";
                 v05_2_cargo_cnt.setAdapter(arrayAdapter_sum);
 // https://stackoverflow.com/questions/37481951/how-to-get-and-set-selected-item-from-spinner-using-sharedpreferences
 // Recupera spinner anterior
                 v05_2_cargo_cnt.getSelectedItemPosition();
                 int indexOfPreviousSelection = arrayAdapter_sum.getPosition(contactoEnProceso.getCargo_cnt());
                 v05_2_cargo_cnt.setSelection(indexOfPreviousSelection);
-// https://stackoverflow.com/questions/4622517/hide-a-edittext-make-it-visible-by-clicking-a-menu
-                modalFormContacto.setPositiveButton("Confirmar", new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        cargo_cnt = v05_2_cargo_cnt.getSelectedItem().toString();
-                        contactoEnProceso.setCargo_cnt(cargo_cnt);
-// https://www.youtube.com/watch?v=JB3ETK5mh3c&ab_channel=CodinginFlow
-// autocomplete form with contact android youtube
-                        if (!cargo_cnt.equalsIgnoreCase("CARGO:")) {
-                            contactoEnProceso = new Contacto_cnt(Integer.parseInt(id_cnt), cargo_cnt, nombre_cnt, apellido1_cnt, apellido2_cnt, movil_cnt, telefono_cnt, email_cnt);
-                            switch (contactoNumero){
-                                case ("Contacto1"): {
-                                    volcarContacto1(view);
-                                    break;
-                                }
-                                case ("Contacto2"): {
-                                    volcarContacto2(view);
-                                    break;
-                                }
-                                case ("Contacto3"): {
-                                    volcarContacto3(view);
-                                    break;
-                                }
-                            }
-
-//                            volcarContacto(view);
-                        } else {
-                            Toast.makeText(view.getContext(), "El contacto no se guarda por falta de datos", Toast.LENGTH_LONG).show();
-                        }
-// https://stackoverflow.com/questions/42397915/how-to-pass-string-from-one-fragment-to-another-in-android
-// Permite mostrar en la pantalla padre el resultado de la selección de un contacto de la agenda
-
-                        switch (contactoNumero){
-                            case ("Contacto1"): {
-                                V_05.newInstance(contacto1ElegidoResultado, null);
-                                V_05.v05_2_muestraContacto1Elegido.setText(contacto1ElegidoResultado);
-                                break;
-                            }
-                            case ("Contacto2"): {
-                                V_05.newInstance(contacto2ElegidoResultado, null);
-                                V_05.v05_2_muestraContacto2Elegido.setText(contacto2ElegidoResultado);
-                                break;
-                            }
-                            case ("Contacto3"): {
-                                V_05.newInstance(contacto3ElegidoResultado, null);
-                                V_05.v05_2_muestraContacto3Elegido.setText(contacto3ElegidoResultado);
-                                break;
-                            }
-                        }
-
-//                        V_05.newInstance(contactoElegidoResultado, null);
-//                        V_05.v05_2_muestraContacto1Elegido.setText(contactoElegidoResultado);
-                    }
-                });
             }
 
+            modalFormContacto.setPositiveButton("Confirmar", null);
             modalFormContacto.setNegativeButton("Volver", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -535,8 +439,116 @@ public class Contacto_cntService extends Fragment {
                     }
                 })
                 .setView(view)
-                .create()
-                .show();
+                .create();
+
+// https://stackoverflow.com/questions/2620444/how-to-prevent-a-dialog-from-closing-when-a-button-is-clicked
+// https://stackoverflow.com/questions/42214856/alertdialog-setonshowlistener-never-called
+// Modificamos la funcionalidad del positiveButton para que no salga de la ventana modal sin validar los campos del formulario
+            final AlertDialog positiveButtonCambiado = modalFormContacto.create();
+            positiveButtonCambiado.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialogInterface) {
+                    Button button = positiveButtonCambiado.getButton(AlertDialog.BUTTON_POSITIVE);
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            prepararValidacion(view, tituloListaCargo_cnt);
+                            bundleContacto.putSerializable("contactoParaValidacion", contactoEnProceso);
+                            Validacion_vldService.newInstance(bundleContacto, tituloListaCargo_cnt);
+// https://www.android--code.com/2015/08/android-edittext-border-color_20.html
+// https://stackoverflow.com/questions/34075131/how-to-set-a-button-border-color-programmatically-in-android
+// You can create a layout for this. in your code
+                            if (!Validacion_vldService.validarCargo()) {
+                                v05_2_cargo_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+//                                v05_2_cargo_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                                validacion = false;
+                            } else {
+                                v05_2_cargo_cnt.setBackgroundResource(0);
+                                validacion = true;
+                            }
+// Si el nombre está vacío se limpian todos los campos del formulario
+                            if (!Validacion_vldService.validarNombre()) {
+                                v05_2_nombre_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                                validacion = false;
+                                limpiarContacto(view);
+                                mostrarContactoEnProceso(view);
+                            } else {
+                                if (!Validacion_vldService.validarApellido1()) {
+                                    v05_2_apellido1_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                                    validacion = false;
+                                } else {
+                                    v05_2_apellido1_cnt.setBackgroundResource(0);
+                                    validacion = !validacion? false: true;
+                                }
+/*
+                                if (!Validacion_vldService.validarApellido2()) {
+                                    v05_2_apellido2_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                                    validacion = false;
+                                } else {
+                                    validacion = !validacion? false: true;
+                                }
+ */
+                                if (!Validacion_vldService.validarMovil()) {
+                                    v05_2_movil_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                                    validacion = false;
+                                } else {
+                                    v05_2_movil_cnt.setBackgroundResource(0);
+                                    validacion = !validacion? false: true;
+                                }
+                                if (!Validacion_vldService.validarTelefono()) {
+                                    v05_2_telefono_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                                    validacion = false;
+                                } else {
+                                    v05_2_telefono_cnt.setBackgroundResource(0);
+                                    validacion = !validacion? false: true;
+                                }
+                                if (!Validacion_vldService.validarEmail()) {
+                                    v05_2_email_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                                    validacion = false;
+                                } else {
+                                    v05_2_email_cnt.setBackgroundResource(0);
+                                    validacion = !validacion? false: true;
+                                }
+                            }
+                            if (!validacion){
+                                Toast.makeText(view.getContext(), "El contacto no se guarda por falta de datos", Toast.LENGTH_LONG).show();
+                            } else {
+                                validacion = false;
+                                volcarContacto(view, contactoNumero);
+                                datosActualizados = personaUserU(datosActualizados, personaUser);
+                                Toast.makeText(view.getContext(), "El contacto se ha guardado satisfactoriamente", Toast.LENGTH_LONG).show();
+                                mostrarBotonContacto();
+                                positiveButtonCambiado.dismiss();
+                            }
+
+// https://stackoverflow.com/questions/42397915/how-to-pass-string-from-one-fragment-to-another-in-android
+// Permite mostrar en la pantalla padre el resultado de la selección de un contacto de la agenda
+                            switch (contactoNumero){
+                                case ("Contacto1"): {
+                                    V_05.newInstance(contacto1ElegidoResultado, null);
+                                    V_05.v05_2_muestraContacto1Elegido.setText(contacto1ElegidoResultado);
+                                    break;
+                                }
+                                case ("Contacto2"): {
+                                    V_05.newInstance(contacto2ElegidoResultado, null);
+                                    V_05.v05_2_muestraContacto2Elegido.setText(contacto2ElegidoResultado);
+                                    break;
+                                }
+                                case ("Contacto3"): {
+                                    V_05.newInstance(contacto3ElegidoResultado, null);
+                                    V_05.v05_2_muestraContacto3Elegido.setText(contacto3ElegidoResultado);
+                                    break;
+                                }
+                            }
+
+//                        V_05.newInstance(contactoElegidoResultado, null);
+//                        V_05.v05_2_muestraContacto1Elegido.setText(contactoElegidoResultado);
+//                        alertDialog.dismiss();
+                        }
+                    });
+                }
+            });
+            positiveButtonCambiado.show();
         return view;
     }//Fin de constructor
 
@@ -553,37 +565,43 @@ public class Contacto_cntService extends Fragment {
         return cursor;
     }
 
-    public void volcarContacto1(View view){
-        personaUser.setContacto1Cargo_prs(contactoEnProceso.getCargo_cnt());
-        personaUser.setContacto1Nombre_prs(contactoEnProceso.getNombre_cnt());
-        personaUser.setContacto1Apellido1_prs(contactoEnProceso.getApellido1_cnt());
-        personaUser.setContacto1Apellido2_prs(contactoEnProceso.getApellido2_cnt());
-        personaUser.setContacto1Movil_prs(contactoEnProceso.getMovil_cnt());
-        personaUser.setContacto1Telefono_prs(contactoEnProceso.getTelefono_cnt());
-        personaUser.setContacto1Email_prs(contactoEnProceso.getEmail_cnt());
-        contacto1ElegidoResultado = contactoEnProceso.getNombre_cnt()+" "+contactoEnProceso.getApellido1_cnt();
-    }
-
-    public void volcarContacto2(View view){
-        personaUser.setContacto2Cargo_prs(contactoEnProceso.getCargo_cnt());
-        personaUser.setContacto2Nombre_prs(contactoEnProceso.getNombre_cnt());
-        personaUser.setContacto2Apellido1_prs(contactoEnProceso.getApellido1_cnt());
-        personaUser.setContacto2Apellido2_prs(contactoEnProceso.getApellido2_cnt());
-        personaUser.setContacto2Movil_prs(contactoEnProceso.getMovil_cnt());
-        personaUser.setContacto2Telefono_prs(contactoEnProceso.getTelefono_cnt());
-        personaUser.setContacto2Email_prs(contactoEnProceso.getEmail_cnt());
-        contacto2ElegidoResultado = contactoEnProceso.getNombre_cnt()+" "+contactoEnProceso.getApellido1_cnt();
-    }
-
-    public void volcarContacto3(View view){
-        personaUser.setContacto3Cargo_prs(contactoEnProceso.getCargo_cnt());
-        personaUser.setContacto3Nombre_prs(contactoEnProceso.getNombre_cnt());
-        personaUser.setContacto3Apellido1_prs(contactoEnProceso.getApellido1_cnt());
-        personaUser.setContacto3Apellido2_prs(contactoEnProceso.getApellido2_cnt());
-        personaUser.setContacto3Movil_prs(contactoEnProceso.getMovil_cnt());
-        personaUser.setContacto3Telefono_prs(contactoEnProceso.getTelefono_cnt());
-        personaUser.setContacto3Email_prs(contactoEnProceso.getEmail_cnt());
-        contacto3ElegidoResultado = contactoEnProceso.getNombre_cnt()+" "+contactoEnProceso.getApellido1_cnt();
+    public void volcarContacto(View view, String contactoNumero) {
+        id_cnt = "-1";
+        switch (contactoNumero) {
+            case ("Contacto1"): {
+                personaUser.setContacto1Cargo_prs(contactoEnProceso.getCargo_cnt());
+                personaUser.setContacto1Nombre_prs(contactoEnProceso.getNombre_cnt());
+                personaUser.setContacto1Apellido1_prs(contactoEnProceso.getApellido1_cnt());
+                personaUser.setContacto1Apellido2_prs(contactoEnProceso.getApellido2_cnt());
+                personaUser.setContacto1Movil_prs(contactoEnProceso.getMovil_cnt());
+                personaUser.setContacto1Telefono_prs(contactoEnProceso.getTelefono_cnt());
+                personaUser.setContacto1Email_prs(contactoEnProceso.getEmail_cnt());
+                contacto1ElegidoResultado = contactoEnProceso.getNombre_cnt() + " " + contactoEnProceso.getApellido1_cnt();
+                break;
+            }
+            case ("Contacto2"): {
+                personaUser.setContacto2Cargo_prs(contactoEnProceso.getCargo_cnt());
+                personaUser.setContacto2Nombre_prs(contactoEnProceso.getNombre_cnt());
+                personaUser.setContacto2Apellido1_prs(contactoEnProceso.getApellido1_cnt());
+                personaUser.setContacto2Apellido2_prs(contactoEnProceso.getApellido2_cnt());
+                personaUser.setContacto2Movil_prs(contactoEnProceso.getMovil_cnt());
+                personaUser.setContacto2Telefono_prs(contactoEnProceso.getTelefono_cnt());
+                personaUser.setContacto2Email_prs(contactoEnProceso.getEmail_cnt());
+                contacto2ElegidoResultado = contactoEnProceso.getNombre_cnt() + " " + contactoEnProceso.getApellido1_cnt();
+                break;
+            }
+            case ("Contacto3"): {
+                personaUser.setContacto3Cargo_prs(contactoEnProceso.getCargo_cnt());
+                personaUser.setContacto3Nombre_prs(contactoEnProceso.getNombre_cnt());
+                personaUser.setContacto3Apellido1_prs(contactoEnProceso.getApellido1_cnt());
+                personaUser.setContacto3Apellido2_prs(contactoEnProceso.getApellido2_cnt());
+                personaUser.setContacto3Movil_prs(contactoEnProceso.getMovil_cnt());
+                personaUser.setContacto3Telefono_prs(contactoEnProceso.getTelefono_cnt());
+                personaUser.setContacto3Email_prs(contactoEnProceso.getEmail_cnt());
+                contacto3ElegidoResultado = contactoEnProceso.getNombre_cnt() + " " + contactoEnProceso.getApellido1_cnt();
+                break;
+            }
+        }
     }
 
     public void limpiarContacto(View view){
@@ -597,37 +615,60 @@ public class Contacto_cntService extends Fragment {
         contactoEnProceso.setEmail_cnt("");
     }
 
-    public void recuperarContacto1Actual(View view) {
-        contactoEnProceso.setId_cnt(-1);
-        contactoEnProceso.setCargo_cnt(personaUser.getContacto1Cargo_prs());
-        contactoEnProceso.setNombre_cnt(personaUser.getContacto1Nombre_prs());
-        contactoEnProceso.setApellido1_cnt(personaUser.getContacto1Apellido1_prs());
-        contactoEnProceso.setApellido2_cnt(personaUser.getContacto1Apellido2_prs());
-        contactoEnProceso.setMovil_cnt(personaUser.getContacto1Movil_prs());
-        contactoEnProceso.setTelefono_cnt(personaUser.getContacto1Telefono_prs());
-        contactoEnProceso.setEmail_cnt(personaUser.getContacto1Email_prs());
+    public void prepararValidacion(View view, String tituloListaCargo_cnt){
+        int indexOfPreviousSelection = v05_2_cargo_cnt.getSelectedItemPosition();
+        switch (tituloListaCargo_cnt) {
+            case ("RELACION:"): {
+                contactoEnProceso.setCargo_cnt(arrayAdapter_prs.getItem(indexOfPreviousSelection));
+                break;
+            }
+            case ("CARGO:"): {
+                contactoEnProceso.setCargo_cnt(arrayAdapter_sum.getItem(indexOfPreviousSelection));
+                break;
+            }
+        }
+        contactoEnProceso.setNombre_cnt(v05_2_nombre_cnt.getText().toString());
+        contactoEnProceso.setApellido1_cnt(v05_2_apellido1_cnt.getText().toString());
+        contactoEnProceso.setApellido2_cnt(v05_2_apellido2_cnt.getText().toString());
+        contactoEnProceso.setMovil_cnt(v05_2_movil_cnt.getText().toString());
+        contactoEnProceso.setTelefono_cnt(v05_2_telefono_cnt.getText().toString());
+        contactoEnProceso.setEmail_cnt(v05_2_email_cnt.getText().toString());
     }
 
-    public void recuperarContacto2Actual(View view) {
-        contactoEnProceso.setId_cnt(-1);
-        contactoEnProceso.setCargo_cnt(personaUser.getContacto2Cargo_prs());
-        contactoEnProceso.setNombre_cnt(personaUser.getContacto2Nombre_prs());
-        contactoEnProceso.setApellido1_cnt(personaUser.getContacto2Apellido1_prs());
-        contactoEnProceso.setApellido2_cnt(personaUser.getContacto2Apellido2_prs());
-        contactoEnProceso.setMovil_cnt(personaUser.getContacto2Movil_prs());
-        contactoEnProceso.setTelefono_cnt(personaUser.getContacto2Telefono_prs());
-        contactoEnProceso.setEmail_cnt(personaUser.getContacto2Email_prs());
-    }
-
-    public void recuperarContacto3Actual(View view) {
-        contactoEnProceso.setId_cnt(-1);
-        contactoEnProceso.setCargo_cnt(personaUser.getContacto3Cargo_prs());
-        contactoEnProceso.setNombre_cnt(personaUser.getContacto3Nombre_prs());
-        contactoEnProceso.setApellido1_cnt(personaUser.getContacto3Apellido1_prs());
-        contactoEnProceso.setApellido2_cnt(personaUser.getContacto3Apellido2_prs());
-        contactoEnProceso.setMovil_cnt(personaUser.getContacto3Movil_prs());
-        contactoEnProceso.setTelefono_cnt(personaUser.getContacto3Telefono_prs());
-        contactoEnProceso.setEmail_cnt(personaUser.getContacto3Email_prs());
+    public void recuperarContactoActual(View view, String contactoNumero) {
+        id_cnt = "-1";
+        switch (contactoNumero) {
+            case ("Contacto1"): {
+                cargo_cnt = (personaUser.getContacto1Cargo_prs() == null)? "" : personaUser.getContacto1Cargo_prs();
+                nombre_cnt = (personaUser.getContacto1Nombre_prs() == null)? "" : personaUser.getContacto1Nombre_prs();
+                apellido1_cnt = (personaUser.getContacto1Apellido1_prs() == null)? "" : personaUser.getContacto1Apellido1_prs();
+                apellido2_cnt = (personaUser.getContacto1Apellido2_prs() == null)? "" : personaUser.getContacto1Apellido2_prs();
+                movil_cnt = (personaUser.getContacto1Movil_prs() == null)? "" : personaUser.getContacto1Movil_prs();
+                telefono_cnt = (personaUser.getContacto1Telefono_prs() == null)? "" : personaUser.getContacto1Telefono_prs();
+                email_cnt = (personaUser.getContacto1Email_prs() == null)? "" : personaUser.getContacto1Email_prs();
+                break;
+            }
+            case ("Contacto2"): {
+                cargo_cnt = (personaUser.getContacto2Cargo_prs() == null)? "" : personaUser.getContacto2Cargo_prs();
+                nombre_cnt = (personaUser.getContacto2Nombre_prs() == null)? "" : personaUser.getContacto2Nombre_prs();
+                apellido1_cnt = (personaUser.getContacto2Apellido1_prs() == null)? "" : personaUser.getContacto2Apellido1_prs();
+                apellido2_cnt = (personaUser.getContacto2Apellido2_prs() == null)? "" : personaUser.getContacto2Apellido2_prs();
+                movil_cnt = (personaUser.getContacto2Movil_prs() == null)? "" : personaUser.getContacto2Movil_prs();
+                telefono_cnt = (personaUser.getContacto2Telefono_prs() == null)? "" : personaUser.getContacto2Telefono_prs();
+                email_cnt = (personaUser.getContacto2Email_prs() == null)? "" : personaUser.getContacto2Email_prs();
+                break;
+            }
+            case ("Contacto3"): {
+                cargo_cnt = (personaUser.getContacto3Cargo_prs() == null)? "" : personaUser.getContacto3Cargo_prs();
+                nombre_cnt = (personaUser.getContacto3Nombre_prs() == null)? "" : personaUser.getContacto3Nombre_prs();
+                apellido1_cnt = (personaUser.getContacto3Apellido1_prs() == null)? "" : personaUser.getContacto3Apellido1_prs();
+                apellido2_cnt = (personaUser.getContacto3Apellido2_prs() == null)? "" : personaUser.getContacto3Apellido2_prs();
+                movil_cnt = (personaUser.getContacto3Movil_prs() == null)? "" : personaUser.getContacto3Movil_prs();
+                telefono_cnt = (personaUser.getContacto3Telefono_prs() == null)? "" : personaUser.getContacto3Telefono_prs();
+                email_cnt = (personaUser.getContacto3Email_prs() == null)? "" : personaUser.getContacto3Email_prs();
+                break;
+            }
+        }
     }
 
     public void mostrarContactoEnProceso (View view) {
@@ -637,6 +678,20 @@ public class Contacto_cntService extends Fragment {
         v05_2_movil_cnt.setText(contactoEnProceso.getMovil_cnt());
         v05_2_telefono_cnt.setText(contactoEnProceso.getTelefono_cnt());
         v05_2_email_cnt.setText(contactoEnProceso.getEmail_cnt());
+    }
+
+    public void mostrarBotonContacto() {
+        if (!personaUser.getContacto1Cargo_prs().equalsIgnoreCase("") &&
+                !personaUser.getContacto1Cargo_prs().equalsIgnoreCase("")) {
+            V_05.v05_indicaContacto2.setVisibility(View.VISIBLE);
+            V_05.v05_2_muestraContacto2Elegido.setVisibility(View.VISIBLE);
+        }
+
+        if (!personaUser.getContacto2Cargo_prs().equalsIgnoreCase("") &&
+                !personaUser.getContacto2Cargo_prs().equalsIgnoreCase("")) {
+            V_05.v05_indicaContacto3.setVisibility(View.VISIBLE);
+            V_05.v05_2_muestraContacto3Elegido.setVisibility(View.VISIBLE);
+        }
     }
 
 }

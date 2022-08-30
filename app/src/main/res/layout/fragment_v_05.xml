@@ -339,13 +339,13 @@ https://stackoverflow.com/questions/45712826/how-to-draw-a-horizontal-line-betwe
                 android:text="@string/volver" />
 
             <Button
-                android:id="@+id/v05_btn_confirmar"
+                android:id="@+id/v05_btn_adelante"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="2"
                 android:background="@drawable/btn_formato_right"
-                android:text="Confirmar" />
+                android:text="@string/adelante" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout

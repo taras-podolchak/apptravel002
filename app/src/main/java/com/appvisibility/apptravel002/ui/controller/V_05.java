@@ -75,8 +75,8 @@ public class V_05 extends Fragment {
     private TextView v05_asignadaPlazaLibre;
     private TextView v05_alimentacion_prs;
     private Button v05_indicaContacto1;
-    private Button v05_indicaContacto2;
-    private Button v05_indicaContacto3;
+    public static Button v05_indicaContacto2;
+    public static Button v05_indicaContacto3;
     public static TextView v05_2_muestraContacto1Elegido;
     public static TextView v05_2_muestraContacto2Elegido;
     public static TextView v05_2_muestraContacto3Elegido;
@@ -104,6 +104,8 @@ public class V_05 extends Fragment {
     private String alimentacion_prsNueva = "";
 //    private Contacto_cnt contacto = new Contacto_cnt();
     private Contacto_cntService contactoService = new Contacto_cntService();
+    private String nombre_cnt;
+    private String apellido1_cnt;
     private Boolean datosActualizados;
 
     private Context mContext;
@@ -210,6 +212,11 @@ public class V_05 extends Fragment {
             ofrecerPlazasLibres();
         }
 
+        v05_indicaContacto2.setVisibility(View.GONE);
+        v05_2_muestraContacto2Elegido.setVisibility(View.GONE);
+        v05_indicaContacto3.setVisibility(View.GONE);
+        v05_2_muestraContacto3Elegido.setVisibility(View.GONE);
+
 // https://stackoverflow.com/questions/45712826/how-to-draw-a-horizontal-line-between-two-linearlayouts-in-android
 // Linea de separación
 // Switch para mostrar opción Ofrezco Plazas Libres / Necesito Plazas Libres
@@ -306,7 +313,7 @@ public class V_05 extends Fragment {
                 permitirAcceso(view);
                 Contacto_cntService.newInstance("Contacto1", null);
                 contactoService.onCreateView(inflater, container, savedInstanceState);
-                mostrarBotonContacto();
+//                mostrarBotonContacto();
            }
         });
 
@@ -318,7 +325,7 @@ public class V_05 extends Fragment {
                 permitirAcceso(view);
                 Contacto_cntService.newInstance("Contacto2", null);
                 contactoService.onCreateView(inflater, container, savedInstanceState);
-                mostrarBotonContacto();
+//                mostrarBotonContacto();
             }
         });
 
@@ -333,12 +340,18 @@ public class V_05 extends Fragment {
             }
         });
 
+
+        mostrarBotonContacto();
         v05_2_muestraContacto1Elegido.setText(personaUser.getContacto1Nombre_prs() + " " + personaUser.getContacto1Apellido1_prs());
-        v05_2_muestraContacto2Elegido.setText(personaUser.getContacto2Nombre_prs() + " " + personaUser.getContacto2Apellido1_prs());
-        v05_2_muestraContacto3Elegido.setText(personaUser.getContacto3Nombre_prs() + " " + personaUser.getContacto3Apellido1_prs());
+        nombre_cnt = (personaUser.getContacto2Nombre_prs() == null)? "" : personaUser.getContacto2Nombre_prs();
+        apellido1_cnt = (personaUser.getContacto2Apellido1_prs() == null)? "" : personaUser.getContacto2Apellido1_prs();
+        v05_2_muestraContacto2Elegido.setText(nombre_cnt + " " + apellido1_cnt);
+        nombre_cnt = (personaUser.getContacto3Nombre_prs() == null)? "" : personaUser.getContacto3Nombre_prs();
+        apellido1_cnt = (personaUser.getContacto3Apellido1_prs() == null)? "" : personaUser.getContacto3Apellido1_prs();
+        v05_2_muestraContacto3Elegido.setText(nombre_cnt + " " + apellido1_cnt);
 
         // Botones
-        v05_adelante = view.findViewById(R.id.v05_btn_confirmar);
+        v05_adelante = view.findViewById(R.id.v05_btn_adelante);
         v05_adelante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
