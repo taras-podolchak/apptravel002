@@ -6,10 +6,6 @@ import static com.appvisibility.apptravel002.ui.service.Persona_prsService.perso
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RectShape;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -149,6 +145,14 @@ public class Contacto_cntService extends Fragment {
         v05_2_telefono_cnt = view.findViewById(R.id.v05_2_etx_ContactoTelefono);
         v05_2_email_cnt = view.findViewById(R.id.v05_2_etx_ContactoEmail);
 
+        List <String> cargosAsignados = new ArrayList<>();
+        cargo_cnt = (personaUser.getContacto1Cargo_prs() == null)? "" : personaUser.getContacto1Cargo_prs();
+        cargosAsignados.add(cargo_cnt);
+        cargo_cnt = (personaUser.getContacto2Cargo_prs() == null)? "" : personaUser.getContacto2Cargo_prs();
+        cargosAsignados.add(cargo_cnt);
+        cargo_cnt = (personaUser.getContacto3Cargo_prs() == null)? "" : personaUser.getContacto3Cargo_prs();
+        cargosAsignados.add(cargo_cnt);
+
         recuperarContactoActual(view, contactoNumero);
 
 //            recuperarContacto1Actual(view);
@@ -170,16 +174,16 @@ public class Contacto_cntService extends Fragment {
         arrayAdapter_prs.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         String [] contactocargo_sum = view.getResources().getStringArray(R.array.contactoCargo_sum);
-/*
-        ArrayList<String> contactocargo_sum = new ArrayList<>();
-        contactocargo_sum.add("CARGO:");
-        contactocargo_sum.add("Gerencia");
-        contactocargo_sum.add("Reservas");
-        contactocargo_sum.add("Facturación");
-*/
+
         arrayAdapter_sum = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, contactocargo_sum);
         arrayAdapter_sum.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
+/*
+// https://stackoverflow.com/questions/112503/how-do-i-remove-objects-from-an-array-in-java
+                List<String> contactocargo_sum = new ArrayList<String>(Arrays.asList(contactocargo_sum));
+                for (String crg: cargosAsignados) {
+                    contactocargo_sum.removeAll(Arrays.asList(crg));
+                }
+*/
 //            permitirAcceso(view);
 
             Uri bbdd = ContactsContract.Contacts.CONTENT_URI;
@@ -423,6 +427,7 @@ public class Contacto_cntService extends Fragment {
                     || sesionIniciada == view.getResources().getInteger(R.integer.rol_alojamiento)
                     || sesionIniciada == view.getResources().getInteger(R.integer.rol_empresas_trekking)) {
                 tituloListaCargo_cnt = "CARGO:";
+                V_05.v05_recomendacionContacto.setVisibility(View.GONE);
                 v05_2_cargo_cnt.setAdapter(arrayAdapter_sum);
 // https://stackoverflow.com/questions/37481951/how-to-get-and-set-selected-item-from-spinner-using-sharedpreferences
 // Recupera spinner anterior
@@ -460,11 +465,19 @@ public class Contacto_cntService extends Fragment {
 // You can create a layout for this. in your code
                             if (!Validacion_vldService.validarCargo()) {
                                 v05_2_cargo_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
-//                                v05_2_cargo_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
                                 validacion = false;
                             } else {
-                                v05_2_cargo_cnt.setBackgroundResource(0);
-                                validacion = true;
+// Evitamos que haya cargos duplicados (esto no afecta a las Relaciones)
+                                if (cargosAsignados.contains(contactoEnProceso.getCargo_cnt()) &&
+                                        !contactoEnProceso.getCargo_cnt().equalsIgnoreCase(cargo_cnt) &&
+                                        tituloListaCargo_cnt.equalsIgnoreCase("CARGO:")) {
+                                    v05_2_cargo_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                                    Toast.makeText(view.getContext(), "El cargo elegido ya estaba asignado", Toast.LENGTH_LONG).show();
+                                    validacion = false;
+                                } else {
+                                    v05_2_cargo_cnt.setBackgroundResource(0);
+                                    validacion = true;
+                                }
                             }
 // Si el nombre está vacío se limpian todos los campos del formulario
                             if (!Validacion_vldService.validarNombre()) {
@@ -511,7 +524,7 @@ public class Contacto_cntService extends Fragment {
                                 }
                             }
                             if (!validacion){
-                                Toast.makeText(view.getContext(), "El contacto no se guarda por falta de datos", Toast.LENGTH_LONG).show();
+                                Toast.makeText(view.getContext(), "El contacto no se puede guardar, datos incorrectos", Toast.LENGTH_LONG).show();
                             } else {
                                 validacion = false;
                                 volcarContacto(view, contactoNumero);

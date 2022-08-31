@@ -80,6 +80,7 @@ public class V_05 extends Fragment {
     public static TextView v05_2_muestraContacto1Elegido;
     public static TextView v05_2_muestraContacto2Elegido;
     public static TextView v05_2_muestraContacto3Elegido;
+    public static TextView v05_recomendacionContacto;
 
     // Acceso a datos
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
@@ -183,6 +184,7 @@ public class V_05 extends Fragment {
         v05_2_muestraContacto1Elegido = view.findViewById(R.id.v05_txv_muestraContacto1Elegido);
         v05_2_muestraContacto2Elegido = view.findViewById(R.id.v05_txv_muestraContacto2Elegido);
         v05_2_muestraContacto3Elegido = view.findViewById(R.id.v05_txv_muestraContacto3Elegido);
+        v05_recomendacionContacto = view.findViewById(R.id.v05_txv_recomendacionContacto);
 
         v05_titulo_eve.setText(eventoEnProceso.getTitulo_eve());
 
