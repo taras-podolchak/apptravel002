@@ -319,10 +319,12 @@ public class Contacto_cntService extends Fragment {
                     }
                     cursor2.moveToFirst();
                     List<String> telefonos = new ArrayList<>();
+// https://stackoverflow.com/questions/9295621/string-how-to-replace-multiple-possible-characters-with-a-single-character
+// Regex para sustituir varios caracteres de distinto tipo al mismo tiempo en un String
                     while (!cursor2.isAfterLast()) {
                         movil_cnt = contactoEnProceso.getMovil_cnt();
                         if (nuevoContacto && (movil_cnt == null || movil_cnt.equalsIgnoreCase(""))) {
-                            movil_cnt = cursor2.getString(cursor2.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DATA1)).replaceAll(" ", "");
+                            movil_cnt = cursor2.getString(cursor2.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DATA1)).replaceAll("[\\s()-]", "");
                             if (!telefonos.contains(movil_cnt)){
                                 telefonos.add(movil_cnt);
                             }
@@ -335,7 +337,7 @@ public class Contacto_cntService extends Fragment {
                                 case 1: {
 // https://regexr.com/346hf
 // Diferenciar si el número es un movil
-                                    if (telefonos.get(0).matches("^[+]*(\\d{2})*[6]\\d{8,10}$")){
+                                    if (telefonos.get(0).matches("^[+]*((?:\\s*\\d){2,3})*(\\s)*[6](?:\\s*\\d){8,10}$")){
                                         movil_cnt = telefonos.get(0);
                                         telefono_cnt = "";
                                     } else {
@@ -344,7 +346,7 @@ public class Contacto_cntService extends Fragment {
                                     }
                                     break;}
                                 default: {
-                                    if (telefonos.get(0).matches("^[+]*(\\d{2})*[6]\\d{8,10}$")) {
+                                    if (telefonos.get(0).matches("^[+]*((?:\\s*\\d){2,3})*(\\s)*[6](?:\\s*\\d){8,10}$")) {
                                         movil_cnt = telefonos.get(0);
                                         telefono_cnt = telefonos.get(1);
                                     } else {
@@ -375,7 +377,7 @@ public class Contacto_cntService extends Fragment {
                     while (!cursor3.isAfterLast()) {
                         email_cnt = contactoEnProceso.getEmail_cnt();
                         if (nuevoContacto && (email_cnt == null || email_cnt.equalsIgnoreCase(""))) {
-                            email_cnt = cursor3.getString(cursor3.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Email.DATA1)).replaceAll(" ", "");
+                            email_cnt = cursor3.getString(cursor3.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Email.DATA1)).replaceAll("[\\s()-]", "");
                             if (email_cnt == null || email_cnt.equalsIgnoreCase("")) {
                                 email_cnt = "";
                             }
@@ -529,7 +531,11 @@ public class Contacto_cntService extends Fragment {
                                 validacion = false;
                                 volcarContacto(view, contactoNumero);
                                 datosActualizados = personaUserU(datosActualizados, personaUser);
-                                Toast.makeText(view.getContext(), "El contacto se ha guardado satisfactoriamente", Toast.LENGTH_LONG).show();
+                                if (datosActualizados){
+                                    Toast.makeText(view.getContext(), "El contacto se ha guardado satisfactoriamente", Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(view.getContext(), "El contacto no se han podido guardar", Toast.LENGTH_LONG).show();
+                                }
                                 mostrarBotonContacto();
                                 positiveButtonCambiado.dismiss();
                             }
@@ -586,8 +592,8 @@ public class Contacto_cntService extends Fragment {
                 personaUser.setContacto1Nombre_prs(contactoEnProceso.getNombre_cnt());
                 personaUser.setContacto1Apellido1_prs(contactoEnProceso.getApellido1_cnt());
                 personaUser.setContacto1Apellido2_prs(contactoEnProceso.getApellido2_cnt());
-                personaUser.setContacto1Movil_prs(contactoEnProceso.getMovil_cnt());
-                personaUser.setContacto1Telefono_prs(contactoEnProceso.getTelefono_cnt());
+                personaUser.setContacto1Movil_prs(contactoEnProceso.getMovil_cnt().replaceAll("[\\s()-]", ""));
+                personaUser.setContacto1Telefono_prs(contactoEnProceso.getTelefono_cnt().replaceAll("[\\s()-]", ""));
                 personaUser.setContacto1Email_prs(contactoEnProceso.getEmail_cnt());
                 contacto1ElegidoResultado = contactoEnProceso.getNombre_cnt() + " " + contactoEnProceso.getApellido1_cnt();
                 break;
@@ -597,8 +603,8 @@ public class Contacto_cntService extends Fragment {
                 personaUser.setContacto2Nombre_prs(contactoEnProceso.getNombre_cnt());
                 personaUser.setContacto2Apellido1_prs(contactoEnProceso.getApellido1_cnt());
                 personaUser.setContacto2Apellido2_prs(contactoEnProceso.getApellido2_cnt());
-                personaUser.setContacto2Movil_prs(contactoEnProceso.getMovil_cnt());
-                personaUser.setContacto2Telefono_prs(contactoEnProceso.getTelefono_cnt());
+                personaUser.setContacto2Movil_prs(contactoEnProceso.getMovil_cnt().replaceAll("[\\s()-]", ""));
+                personaUser.setContacto2Telefono_prs(contactoEnProceso.getTelefono_cnt().replaceAll("[\\s()-]", ""));
                 personaUser.setContacto2Email_prs(contactoEnProceso.getEmail_cnt());
                 contacto2ElegidoResultado = contactoEnProceso.getNombre_cnt() + " " + contactoEnProceso.getApellido1_cnt();
                 break;
@@ -608,8 +614,8 @@ public class Contacto_cntService extends Fragment {
                 personaUser.setContacto3Nombre_prs(contactoEnProceso.getNombre_cnt());
                 personaUser.setContacto3Apellido1_prs(contactoEnProceso.getApellido1_cnt());
                 personaUser.setContacto3Apellido2_prs(contactoEnProceso.getApellido2_cnt());
-                personaUser.setContacto3Movil_prs(contactoEnProceso.getMovil_cnt());
-                personaUser.setContacto3Telefono_prs(contactoEnProceso.getTelefono_cnt());
+                personaUser.setContacto3Movil_prs(contactoEnProceso.getMovil_cnt().replaceAll("[\\s()-]", ""));
+                personaUser.setContacto3Telefono_prs(contactoEnProceso.getTelefono_cnt().replaceAll("[\\s()-]", ""));
                 personaUser.setContacto3Email_prs(contactoEnProceso.getEmail_cnt());
                 contacto3ElegidoResultado = contactoEnProceso.getNombre_cnt() + " " + contactoEnProceso.getApellido1_cnt();
                 break;

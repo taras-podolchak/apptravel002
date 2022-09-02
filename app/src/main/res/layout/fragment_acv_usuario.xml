@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_para_persona"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ui.controller.ACV_usuario">
+
+    <LinearLayout
+        android:id="@+id/acv_my_account_LinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="20dp"
+        android:background="@drawable/contenedor_blanco_radius4"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="Mi Cuenta"
+            android:textSize="30sp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/acv_usuario_imv_fotopropia_prs"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <EditText
+                            android:id="@+id/acv_usuario_etx_nombre_prs"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/nombre_prs"
+                            android:inputType="textPersonName" />
+
+                        <EditText
+                            android:id="@+id/acv_usuario_etx_apellido1_prs"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/apellido1_prs"
+                            android:inputType="textPersonName" />
+
+                        <EditText
+                            android:id="@+id/acv_usuario_etx_apellido2_prs"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/apellido2_prs"
+                            android:inputType="textPersonName" />
+                    </LinearLayout>
+                </LinearLayout>
+                <EditText
+                    android:id="@+id/acv_usuario_etx_apodo_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/apodo"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/acv_usuario_etx_contrasenna1_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/contrasenna_prs"
+                    android:inputType="textPassword" />
+
+                <EditText
+                    android:id="@+id/acv_usuario_etx_contrasenna2_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/contrasenna_prs"
+                    android:inputType="textPassword" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/corp_azul" />
+
+                <EditText
+                    android:id="@+id/acv_usuario_etx_actividadtipo_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="actividadtipo_prs"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/acv_usuario_etx_documentotipo_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="documentotipo_prs"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/acv_usuario_etx_dni_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/dni_prs"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/acv_usuario_etx_razonsocial_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="razonsocial_prs"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/acv_usuario_etx_numerocta_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="numerocta_prs"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/acv_usuario_etx_direccion_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/direccion"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/acv_usuario_etx_localidad_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/localidad"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/acv_usuario_etx_cpostal_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/cpostal"
+                    android:inputType="number" />
+
+                <EditText
+                    android:id="@+id/acv_usuario_etx_pais_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/pais"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/acv_usuario_etx_movil_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="movil_prs"
+                    android:inputType="phone" />
+
+                <EditText
+                    android:id="@+id/acv_usuario_etx_email_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email_prs"
+                    android:inputType="textEmailAddress" />
+
+                <EditText
+                    android:id="@+id/acv_usuario_etx_telefono_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="telefono_prs"
+                    android:inputType="textEmailAddress" />
+
+                <EditText
+                    android:id="@+id/acv_usuario_etx_web_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="web_prs"
+                    android:inputType="textEmailAddress" />
+
+                <EditText
+                    android:id="@+id/acv_usuario_etx_contacto1movil_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/movil_prs"
+                    android:inputType="phone" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/corp_azul" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom|center_horizontal"
+                    android:text="RESTRICCIONES ALIMENTARIAS"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/acv_usuario_txv_alimentacion_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:inputType="textMultiLine|text"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+                    android:textColor="@color/black"
+                    android:textSize="19sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/corp_azul" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/seguro" />
+
+                    <Switch
+                        android:id="@+id/acv_usuario_swc_federado_prs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2" />
+
+                    <Switch
+                        android:id="@+id/acv_usuario_swc_seguro_prs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/acv_usuario_etx_segurocompannia_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="segurocompannia_prs"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/acv_usuario_etx_seguropoliza_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/seguropoliza"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/acv_usuario_etx_fechacaducidadseguro_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="fechacaducidadseguro_prs"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/acv_usuario_etx_fechaalta_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="fechaalta_prs"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/acv_usuario_etx_antiguedad_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="antiguedad_prs"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/acv_usuario_etx_fechabaja_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="fechabaja_prs"
+                    android:inputType="text" />
+
+                <Switch
+                    android:id="@+id/acv_usuario_swc_solicitabaja_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2" />
+
+                <TextView
+                    android:id="@+id/acv_usuario_txv_preferencia_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="preferencia_prs"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/acv_usuario_txv_fiabilidadpre_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="fiabilidadpre_prs"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/acv_usuario_txv_valoracionorgpre_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="valoracionorgpre_prs"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/acv_usuario_txv_antiguedadpre_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="antiguedadpre_prs"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/acv_usuario_txv_volumencomprapre_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="volumencomprapre_prs"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/acv_usuario_txv_cochepre_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="cochepre_prs"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/acv_usuario_txv_nrelacionespre_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="nrelacionespre_prs"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/acv_usuario_txv_nps01_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="nps01_prs"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/acv_usuario_txv_nps01fecha_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="nps01fecha_prs"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/acv_usuario_txv_nps02_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="nps02_prs"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/acv_usuario_txv_nps02fecha_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="nps02fecha_prs"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/acv_usuario_txv_nps03_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="nps03_prs"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/acv_usuario_txv_nps03fecha_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="nps03fecha_prs"
+                    android:textSize="20sp" />
+
+                <Switch
+                    android:id="@+id/acv_usuario_swc_condicioneslegales_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/acv_usuario_btn_atras"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="2"
+                android:background="@drawable/btn_formato_left"
+                android:text="@string/volver" />
+
+            <Button
+                android:id="@+id/acv_usuario_btn_adelante"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="2"
+                android:background="@drawable/btn_formato_right"
+                android:text="@string/guardar" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

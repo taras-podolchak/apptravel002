@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.entities.Contacto_cnt;
@@ -29,7 +30,8 @@ public class Validacion_vldService extends Fragment {
     private static String tituloListaCargo_cnt;
 
     // TODO: Rename and change types of parameters
-    private Contacto_cnt mParam1;
+//    private Contacto_cnt mParam1;
+    private String mParam1;
     private String mParam2;
 
     // Entities
@@ -64,7 +66,7 @@ public class Validacion_vldService extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = (Contacto_cnt) getArguments().getSerializable(String.valueOf(ARG_PARAM1));
+            mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }//Fin de constructor
@@ -112,9 +114,10 @@ public class Validacion_vldService extends Fragment {
     }
 
     public static Boolean validarMovil() {
+// Regex Teléfono Movil: Prefijo de país seguido de un 6 más 8-10 dígitos
         if (contactoEnProceso.getMovil_cnt().equalsIgnoreCase("") ||
                 contactoEnProceso.getMovil_cnt() == null ||
-                !contactoEnProceso.getMovil_cnt().matches("^[+]*(\\d{2,3})*[6]\\d{8,10}$")) {
+                !contactoEnProceso.getMovil_cnt().matches("^([+]*(\\s)*(\\d{2,3}))*\\s*[6](?:\\s*\\d){8,10}$")) {
             return false;
         } else {
             return true;
@@ -122,7 +125,7 @@ public class Validacion_vldService extends Fragment {
     }
 
     public static Boolean validarTelefono() {
-        if (!contactoEnProceso.getTelefono_cnt().matches("^[+]*(\\d{11,14})*$")) {
+        if (!contactoEnProceso.getTelefono_cnt().matches("^[+]*(\\d{10,14})*$")) {
             return false;
         } else {
             return true;
@@ -132,7 +135,7 @@ public class Validacion_vldService extends Fragment {
     public static Boolean validarEmail() {
         if (contactoEnProceso.getEmail_cnt().equalsIgnoreCase("") ||
                 contactoEnProceso.getEmail_cnt() == null ||
-                !contactoEnProceso.getEmail_cnt().matches("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$")) {
+                !contactoEnProceso.getEmail_cnt().matches("^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$")) {
             return false;
         } else {
             return true;

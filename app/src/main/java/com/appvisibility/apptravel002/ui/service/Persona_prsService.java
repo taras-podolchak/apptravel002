@@ -66,6 +66,7 @@ public class Persona_prsService {
                     for (QueryDocumentSnapshot qds : task.getResult()) {
                         Log.d(TAG, qds.getId() + " => " + qds.getData());
                         DocumentReference docRef = qds.getReference();
+                        docRef.update("localidad_prs", personaUser.getLocalidad_prs());
                         docRef.update("alimentacion_prs", personaUser.getAlimentacion_prs());
                         docRef.update("contacto1cargo_prs", personaUser.getContacto1Cargo_prs());
                         docRef.update("contacto1nombre_prs", personaUser.getContacto1Nombre_prs());

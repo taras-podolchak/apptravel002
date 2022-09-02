@@ -22,6 +22,14 @@
         android:gravity="bottom"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/v05_txv_titulo_eve"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:textSize="20sp" />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,47 +38,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="15dp"
                 android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/v05_txv_titulo_eve"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:gravity="center"
-                    android:textSize="20sp" />
-<!--
-                <ImageView
-                    android:id="@+id/v05_imv_foto_eve"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-                <TextView
-                    android:id="@+id/v05_txv_info_completa"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center" />
-
-                <Spinner
-                    android:id="@+id/v05_spn_lista_personas"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="48dp" />
--->
-<!--
-https://stackoverflow.com/questions/45712826/how-to-draw-a-horizontal-line-between-two-linearlayouts-in-android
--->
-
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@color/corp_azul" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -158,6 +127,9 @@ https://stackoverflow.com/questions/45712826/how-to-draw-a-horizontal-line-betwe
                         android:textSize="20sp" />
                 </LinearLayout>
 
+<!--
+https://stackoverflow.com/questions/45712826/how-to-draw-a-horizontal-line-between-two-linearlayouts-in-android
+-->
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"

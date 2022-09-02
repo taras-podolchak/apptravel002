@@ -12,7 +12,6 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,13 +37,13 @@ import com.appvisibility.apptravel002.ui.controller.modal.V_03_2_modal;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Inscribir_eveprs;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
+import com.appvisibility.apptravel002.ui.service.Alimentacion_aliService;
 import com.appvisibility.apptravel002.ui.service.Contacto_cntService;
 import com.appvisibility.apptravel002.ui.service.v03_00_act_Adapter;
 import com.appvisibility.apptravel002.ui.service.v03_00_prs_Adapter;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -73,7 +72,7 @@ public class V_05 extends Fragment {
     private Spinner v05_ofertaPlazaLibre;
     private Button v05_solicitaPlazaLibre;
     private TextView v05_asignadaPlazaLibre;
-    private TextView v05_alimentacion_prs;
+    public static TextView v05_alimentacion_prs;
     private Button v05_indicaContacto1;
     public static Button v05_indicaContacto2;
     public static Button v05_indicaContacto3;
@@ -99,10 +98,13 @@ public class V_05 extends Fragment {
     private int id_prs_enProceso;
     private Boolean solicitudPlazaLibreRealizada = V_03_2_modal.solicitudRealizada;
     private int plazaslibres_eveprs;
+    private Alimentacion_aliService alimentacion = new Alimentacion_aliService();
+
     private List alimentaciones_prs = new ArrayList();
     private String alimentacion_prsTitulo;
     private String alimentacion_prsActual;
-    private String alimentacion_prsNueva = "";
+    private String alimentacionEnProceso = "";
+
 //    private Contacto_cnt contacto = new Contacto_cnt();
     private Contacto_cntService contactoService = new Contacto_cntService();
     private String nombre_cnt;
@@ -300,14 +302,17 @@ public class V_05 extends Fragment {
             }
         });
 
+        Alimentacion_aliService.newInstance(null, bundlePersonaUser);
+        alimentacion.alimentacionR();
+        v05_alimentacion_prs.setText(Alimentacion_aliService.alimentacionSpanned);
         v05_alimentacion_prs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                indicarRestriccionesAlimentarias(view);
+                alimentacion.indicarRestriccionesAlimentarias(view);
             }
         });
 
-        alimentacionR();
+//        alimentacionR();
 
         v05_indicaContacto1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -531,84 +536,6 @@ public class V_05 extends Fragment {
                 .show();
         }
         personaOferentes.clear();
-    }
-
-// Convierte un String separado por guiones en un ArrayList
-    private String alimentacionR(){
-//        alimentacion_prsTitulo = "Restricciones Alimentarias: ";
-        alimentacion_prsTitulo = "";
-        alimentacion_prsNueva = "";
-// Si el usuario tiene restricciones Alimentarias se muestran
-        alimentacion_prsActual = personaUser.getAlimentacion_prs();
-// https://stackoverflow.com/questions/7488643/how-to-convert-comma-separated-string-to-list
-// https://regexr.com/346hf
-// Separar los saltos de línea no funciona
-//        alimentaciones_prs = Arrays.asList(alimentacion_prsActual.split("^[\\n]*$"));
-        alimentaciones_prs = Arrays.asList(alimentacion_prsActual.split("\\s*\\s*-\\s*"));
-        for (Object ali: alimentaciones_prs){
-            alimentacion_prsNueva += ali.toString() + " - ";
-            v05_alimentacion_prs.setText(Html.fromHtml("<u>"+ alimentacion_prsTitulo + "</u><br>" + alimentacion_prsNueva));
-//            v05_alimentacion_prs.setText(Html.fromHtml(alimentacion_prsNueva+"<br>"), TextView.BufferType.SPANNABLE);
-        };
-        v05_alimentacion_prs.setText(alimentacion_prsNueva);
-        return alimentacion_prsNueva;
-    }
-
-    private void indicarRestriccionesAlimentarias(View view) {
-        String [] restriccionesAlimentarias = getResources().getStringArray(R.array.restriccionesAlimentarias);
-        boolean[] opcionesRestriccionesAlimentarias =new boolean[restriccionesAlimentarias.length];
-
-        //Organizamos el contenido del AlertDialog modal Selección Múltiple
-        alimentacion_prsNueva = "";
-        for (int i=0; i < restriccionesAlimentarias.length; i++){
-            restriccionesAlimentarias[i] = restriccionesAlimentarias[i];
-            if (alimentaciones_prs.contains(restriccionesAlimentarias[i])){
-                opcionesRestriccionesAlimentarias[i] = true;
-                alimentacion_prsNueva += restriccionesAlimentarias[i] + " - ";
-            } else {
-                opcionesRestriccionesAlimentarias[i] = false;
-            };
-//            v05_alimentacion_prs.setText(Html.fromHtml("<u>"+ alimentacion_prsTitulo + "</u><br>" + alimentacion_prsNueva));
-            v05_alimentacion_prs.setText(Html.fromHtml(alimentacion_prsNueva), TextView.BufferType.SPANNABLE);
-//            v05_alimentacion_prs.setText(alimentacion_prsNueva);
-        }
-
-        if (sesionIniciada >= view.getResources().getInteger(R.integer.rol_valiente)) {
-            AlertDialog.Builder modalMultipleRestriccionesAlimentarias = new AlertDialog.Builder(mContext);
-            modalMultipleRestriccionesAlimentarias
-                .setIcon(R.drawable.ico_foodmealplaterestaurant_azul)
-                .setTitle("RESTRICCIONES ALIMENTARIAS")
-                .setMultiChoiceItems(restriccionesAlimentarias, opcionesRestriccionesAlimentarias, new DialogInterface.OnMultiChoiceClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int item, boolean isChecked) {
-                        alimentacion_prsNueva  = "";
-                        alimentacion_prsActual = "";
-                        for (int i = 0; i < opcionesRestriccionesAlimentarias.length; i++) {
-                            if (opcionesRestriccionesAlimentarias[i] == true) {
-                                alimentacion_prsNueva += restriccionesAlimentarias[i] + " - ";
-                                alimentacion_prsActual += restriccionesAlimentarias[i] + " - ";
-                            }
-                        }
-                    }
-                })
-                .setPositiveButton("Confirmar", new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        personaUser.setAlimentacion_prs(alimentacion_prsActual);
-                        v05_alimentacion_prs.setText(Html.fromHtml("<u>"+ alimentacion_prsTitulo + "</u><br>" + alimentacion_prsNueva),
-                                TextView.BufferType.SPANNABLE);
-//                        ((AppCompatActivity) mContext).findViewById(R.id.v05_txv_muestraRestriccionesAlimentarias);
-                    }
-                })
-                .setNegativeButton("Volver", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .create()
-                .show();
-        }
     }
 
 // Solicita autorización de acceso a la agenda de contactos del móvil
