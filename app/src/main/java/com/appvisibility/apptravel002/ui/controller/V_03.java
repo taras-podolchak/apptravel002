@@ -106,10 +106,10 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
     // Rename and change types and number of parameters
     public static V_03 newInstance(String param1, String param2) {
         V_03 fragment = new V_03();
-        Bundle bundle = new Bundle();
-        bundle.putString(ARG_PARAM1, param1);
-        bundle.putString(ARG_PARAM2, param2);
-        fragment.setArguments(bundle);
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -159,7 +159,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
         this.v03_recycler_prs.setHasFixedSize(true);
         this.v03_recycler_prs.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
 
-        //Cargamos el Evento
+        //Recuperamos el Evento
         v03_titulo_eve.setText(eventoEnProceso.getTitulo_eve());
 
         FirebaseStorage fbs = FirebaseStorage.getInstance();

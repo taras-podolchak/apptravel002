@@ -67,7 +67,7 @@ public class V_05_1 extends Fragment implements OnMapReadyCallback {
         View view = inflater.inflate(R.layout.fragment_v_05_1, container, false);
 
         Bundle bundleEvento = getArguments();
-        //Cargamos el Evento
+        //Recuperamos el Evento
         eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_05_1");
         int id_eve_bundle = eventoEnProceso.getId_eve();
         bundleEvento.putSerializable("eventoParaV_05", eventoEnProceso);
@@ -92,7 +92,7 @@ public class V_05_1 extends Fragment implements OnMapReadyCallback {
         lbl_nubes = view.findViewById(R.id.lbl_nubes);
         lbl_visibilidad = view.findViewById(R.id.lbl_visibilidad);
 
-        //Cargamos el Evento
+        //Recuperamos el Evento
         // EOB: Intentar pasar este método a changeNoListener y eliminar las dos líneas siguientes
 //        List<Evento_eve> eventos = new ArrayList<>();
 //        v02_00_eve_Adapter v02_adapter_eve = null;

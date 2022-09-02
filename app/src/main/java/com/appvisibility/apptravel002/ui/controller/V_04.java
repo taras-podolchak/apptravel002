@@ -80,10 +80,10 @@ public class V_04 extends Fragment {
     // TODO: Rename and change types and number of parameters
     public static V_04 newInstance(String param1, String param2) {
         V_04 fragment = new V_04();
-        Bundle bundel = new Bundle();
-        bundel.putString(ARG_PARAM1, param1);
-        bundel.putString(ARG_PARAM2, param2);
-        fragment.setArguments(bundel);
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
         return fragment;
     }
 

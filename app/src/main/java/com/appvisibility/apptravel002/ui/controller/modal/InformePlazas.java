@@ -66,18 +66,22 @@ public class InformePlazas extends DialogFragment implements IDAO<Object, Inscri
     public static final String ARG_MESSAGE = "InformePlazas.Message";
     public static final String ARG_BOTON_ATRAS = "InformePlazas.Message";
     public static final String ARG_BOTON_ADELANTE = "InformePlazas.Message";
+    private static final String ARG_PARAM2 = "param2";
+
+    private Bundle mBundlePersonaUser;
 
     public InformePlazas() {
     }
 
-    public static DialogFragment newInstance(String title, String message, String botonAtras, String botonAdelante) {
+    public static DialogFragment newInstance(String title, String message, String botonAtras, String botonAdelante, Bundle bundlePersonaUser) {
         InformePlazas fragment = new InformePlazas();
-        Bundle bundle = new Bundle();
-        bundle.putString(InformePlazas.ARG_TITLE, title);
-        bundle.putString(InformePlazas.ARG_MESSAGE, message);
-        bundle.putString(InformePlazas.ARG_BOTON_ATRAS, botonAtras);
-        bundle.putString(InformePlazas.ARG_BOTON_ADELANTE, botonAdelante);
-        fragment.setArguments(bundle);
+        Bundle args = new Bundle();
+        args.putString(InformePlazas.ARG_TITLE, title);
+        args.putString(InformePlazas.ARG_MESSAGE, message);
+        args.putString(InformePlazas.ARG_BOTON_ATRAS, botonAtras);
+        args.putString(InformePlazas.ARG_BOTON_ADELANTE, botonAdelante);
+        args.putBundle(InformePlazas.ARG_PARAM2, bundlePersonaUser);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -89,13 +93,17 @@ public class InformePlazas extends DialogFragment implements IDAO<Object, Inscri
         String message = args.getString(ARG_MESSAGE);
         String botonAtras = args.getString(ARG_BOTON_ATRAS);
         String botonAdelante = args.getString(ARG_BOTON_ADELANTE);
+        mBundlePersonaUser = getArguments().getBundle(ARG_PARAM2);
 
-        //https://stackoverflow.com/questions/12739909/send-data-from-activity-to-fragment-in-android
-        /* So, to pass data from the MotherActivity to such a Fragment you will need to create private Strings/Bundles above the onCreate of your Mother activity - which you can fill with the data you want to pass to the fragments, and pass them on via a method created after the onCreate (here called getMyData()).*/
-        //Recuperamos los datos del Usuario activo
+//https://stackoverflow.com/questions/12739909/send-data-from-activity-to-fragment-in-android
+/* So, to pass data from the MotherActivity to such a Fragment you will need to create private Strings/Bundles above the onCreate of your Mother activity - which you can fill with the data you want to pass to the fragments, and pass them on via a method created after the onCreate (here called getMyData()).*/
+//Recuperamos los datos del Usuario activo
+/*
         MainActivity_val activity = (MainActivity_val) getActivity();
         Bundle bundlePersonaUser = activity.getUser();
         personaUser = (Persona_prs) bundlePersonaUser.getSerializable("User");
+*/
+        personaUser = (Persona_prs) mBundlePersonaUser.getSerializable("User");
 
         Bundle bundlePersonasEnCoche = getArguments();
         //Recuperamos las Plazas del Coche

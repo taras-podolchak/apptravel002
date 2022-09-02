@@ -16,7 +16,6 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import com.appvisibility.apptravel002.MainActivity_val;
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.controller.V_03;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
@@ -50,14 +49,14 @@ public class V_03_2_modal extends DialogFragment {
     public static Persona_prs personaOferente;
     public static Boolean solicitudRealizada = false;
 
-    // TODO: Rename parameter arguments, choose names that match
+    // Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+    // Rename and change types of parameters
     private String mParam1;
-    private String mParam2;
+    private Bundle mBundlePersonaUser;
 
     public V_03_2_modal() {
         // Required empty public constructor    
@@ -68,16 +67,16 @@ public class V_03_2_modal extends DialogFragment {
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param bundlePersonaUser Parameter 2.
      * @return A new instance of fragment V_03_2_modal.
      */
-    // TODO: Rename and change types and number of parameters
-    public static V_03_2_modal newInstance(String param1, String param2) {
+    // Rename and change types and number of parameters
+    public static V_03_2_modal newInstance(String param1, Bundle bundlePersonaUser) {
         V_03_2_modal fragment = new V_03_2_modal();
-        Bundle bundle = new Bundle();
-        bundle.putString(ARG_PARAM1, param1);
-        bundle.putString(ARG_PARAM2, param2);
-        fragment.setArguments(bundle);
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putBundle(ARG_PARAM2, bundlePersonaUser);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -86,7 +85,7 @@ public class V_03_2_modal extends DialogFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mBundlePersonaUser = getArguments().getBundle(ARG_PARAM2);
         }
     }
 
@@ -95,12 +94,15 @@ public class V_03_2_modal extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_03_2_modal, container, false);
 
-        //https://stackoverflow.com/questions/12739909/send-data-from-activity-to-fragment-in-android
-        /* So, to pass data from the MotherActivity to such a Fragment you will need to create private Strings/Bundles above the onCreate of your Mother activity - which you can fill with the data you want to pass to the fragments, and pass them on via a method created after the onCreate (here called getMyData()).*/
-        //Recuperamos los datos del Usuario activo
+//https://stackoverflow.com/questions/12739909/send-data-from-activity-to-fragment-in-android
+/* So, to pass data from the MotherActivity to such a Fragment you will need to create private Strings/Bundles above the onCreate of your Mother activity - which you can fill with the data you want to pass to the fragments, and pass them on via a method created after the onCreate (here called getMyData()).*/
+//Recuperamos los datos del Usuario activo
+/*
         MainActivity_val activity = (MainActivity_val) getActivity();
         Bundle bundlePersonaUser = activity.getUser();
         personaUser = (Persona_prs) bundlePersonaUser.getSerializable("User");
+*/
+        personaUser = (Persona_prs) mBundlePersonaUser.getSerializable("User");
 
         Bundle bundlePersonasEnCoche = getArguments();
         //Recuperamos las Plazas del Coche

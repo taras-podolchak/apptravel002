@@ -62,7 +62,7 @@ public class V_05 extends Fragment {
 
     // Rename and change types of parameters
     private String mParam1;
-    private String mParam2;
+    private Bundle mBundlePersonaUser;
 
     // Campos de xml
     private Button v05_adelante, v05_atras;
@@ -126,16 +126,16 @@ public class V_05 extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param bundlePersonaUser Parameter 2.
      * @return A new instance of fragment V_05.
      */
     // Rename and change types and number of parameters
-    public static V_05 newInstance(String param1, String param2) {
+    public static V_05 newInstance(String param1, Bundle bundlePersonaUser) {
         V_05 fragment = new V_05();
-        Bundle bundle = new Bundle();
-        bundle.putString(ARG_PARAM1, param1);
-        bundle.putString(ARG_PARAM2, param2);
-        fragment.setArguments(bundle);
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putBundle(ARG_PARAM2, bundlePersonaUser);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -144,7 +144,7 @@ public class V_05 extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mBundlePersonaUser = getArguments().getBundle(ARG_PARAM2);
         }
     }
 
@@ -159,14 +159,19 @@ public class V_05 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_05, container, false);
 
-        //https://stackoverflow.com/questions/12739909/send-data-from-activity-to-fragment-in-android
-        /* So, to pass data from the MotherActivity to such a Fragment you will need to create private Strings/Bundles above the onCreate of your Mother activity - which you can fill with the data you want to pass to the fragments, and pass them on via a method created after the onCreate (here called getMyData()).*/
-        //Recuperamos los datos del Usuario activo
+//https://stackoverflow.com/questions/12739909/send-data-from-activity-to-fragment-in-android
+/* So, to pass data from the MotherActivity to such a Fragment you will need to create private Strings/Bundles above the onCreate of your Mother activity - which you can fill with the data you want to pass to the fragments, and pass them on via a method created after the onCreate (here called getMyData()).*/
+//Recuperamos los datos del Usuario activo
+/*
         MainActivity_val activity = (MainActivity_val) getActivity();
         Bundle bundlePersonaUser = activity.getUser();
         personaUser = (Persona_prs) bundlePersonaUser.getSerializable("User");
+*/
+        MainActivity_val activity = (MainActivity_val) getActivity();
+        mBundlePersonaUser = activity.getUser();
+        personaUser = (Persona_prs) mBundlePersonaUser.getSerializable("User");
 
-        //Cargamos el Evento
+        //Recuperamos el Evento
         Bundle bundleEvento = getArguments();
         eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_05");
 
@@ -302,7 +307,7 @@ public class V_05 extends Fragment {
             }
         });
 
-        Alimentacion_aliService.newInstance(null, bundlePersonaUser);
+        Alimentacion_aliService.newInstance(null, mBundlePersonaUser);
         alimentacion.alimentacionR();
         v05_alimentacion_prs.setText(Alimentacion_aliService.alimentacionSpanned);
         v05_alimentacion_prs.setOnClickListener(new View.OnClickListener() {

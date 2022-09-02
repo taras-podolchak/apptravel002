@@ -44,14 +44,14 @@ import java.util.Map;
  */
 public class Contacto_cntService extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
+    // Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private static String contactoNumero;
+//    private static String mContactoNumero;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
+    // Rename and change types of parameters
+    private static String mContactoNumero;
     private String mParam2;
 
     // Campos de xml
@@ -98,18 +98,18 @@ public class Contacto_cntService extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
+     * @param contactoNumero Parameter 1.
      * @param param2 Parameter 2.
      * @return A new instance of fragment Contacto_cnt.
      */
-    // TODO: Rename and change types and number of parameters
-    public static Contacto_cntService newInstance(String param1, String param2) {
+    // Rename and change types and number of parameters
+    public static Contacto_cntService newInstance(String contactoNumero, String param2) {
         Contacto_cntService fragment = new Contacto_cntService();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM1, contactoNumero);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
-        contactoNumero = param1;
+        mContactoNumero = contactoNumero;
         return fragment;
     }
 
@@ -117,7 +117,7 @@ public class Contacto_cntService extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            mContactoNumero = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -153,7 +153,7 @@ public class Contacto_cntService extends Fragment {
         cargo_cnt = (personaUser.getContacto3Cargo_prs() == null)? "" : personaUser.getContacto3Cargo_prs();
         cargosAsignados.add(cargo_cnt);
 
-        recuperarContactoActual(view, contactoNumero);
+        recuperarContactoActual(view, mContactoNumero);
 
 //            recuperarContacto1Actual(view);
         contactoEnProceso = new Contacto_cnt(Integer.parseInt(id_cnt), cargo_cnt,  nombre_cnt, apellido1_cnt, apellido2_cnt, movil_cnt, telefono_cnt, email_cnt);
@@ -211,7 +211,7 @@ public class Contacto_cntService extends Fragment {
             cursor.close();
 
 // Después de haber utilizado contactoEnProceso para cargar la lista de contactos en el mapa, devolvemos a contactoEnProceso los valores actuales para que en caso de que no haya ninguna selección de nuevo contacto acaben apareciendo en pantalla los datos del último contacto que pasó por el cursor
-            recuperarContactoActual(view, contactoNumero);
+            recuperarContactoActual(view, mContactoNumero);
             contactoEnProceso = new Contacto_cnt(Integer.parseInt(id_cnt), cargo_cnt,  nombre_cnt, apellido1_cnt, apellido2_cnt, movil_cnt, telefono_cnt, email_cnt);
             mostrarContactoEnProceso(view);
 
@@ -529,7 +529,7 @@ public class Contacto_cntService extends Fragment {
                                 Toast.makeText(view.getContext(), "El contacto no se puede guardar, datos incorrectos", Toast.LENGTH_LONG).show();
                             } else {
                                 validacion = false;
-                                volcarContacto(view, contactoNumero);
+                                volcarContacto(view, mContactoNumero);
                                 datosActualizados = personaUserU(datosActualizados, personaUser);
                                 if (datosActualizados){
                                     Toast.makeText(view.getContext(), "El contacto se ha guardado satisfactoriamente", Toast.LENGTH_LONG).show();
@@ -542,7 +542,7 @@ public class Contacto_cntService extends Fragment {
 
 // https://stackoverflow.com/questions/42397915/how-to-pass-string-from-one-fragment-to-another-in-android
 // Permite mostrar en la pantalla padre el resultado de la selección de un contacto de la agenda
-                            switch (contactoNumero){
+                            switch (mContactoNumero){
                                 case ("Contacto1"): {
                                     V_05.newInstance(contacto1ElegidoResultado, null);
                                     V_05.v05_2_muestraContacto1Elegido.setText(contacto1ElegidoResultado);

@@ -95,14 +95,14 @@ public class ACV_usuario extends Fragment {
     private Boolean datosActualizados;
     private Alimentacion_aliService alimentacion = new Alimentacion_aliService();
 
-    // TODO: Rename parameter arguments, choose names that match
+    // Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+    // Rename and change types of parameters
     private String mParam1;
-    private String mParam2;
+    private Bundle mBundlePersonaUser;
 
     private Context mContext;
 
@@ -115,15 +115,15 @@ public class ACV_usuario extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param bundlePersonaUser Parameter 2.
      * @return A new instance of fragment ACV_my_account.
      */
-    // TODO: Rename and change types and number of parameters
-    public static ACV_usuario newInstance(String param1, String param2) {
+    // Rename and change types and number of parameters
+    public static ACV_usuario newInstance(String param1, Bundle bundlePersonaUser) {
         ACV_usuario fragment = new ACV_usuario();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putBundle(ARG_PARAM2, bundlePersonaUser);
         fragment.setArguments(args);
         return fragment;
     }
@@ -133,7 +133,7 @@ public class ACV_usuario extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mBundlePersonaUser = getArguments().getBundle(ARG_PARAM2);
         }
     }
 
@@ -147,12 +147,17 @@ public class ACV_usuario extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_acv_usuario, container, false);
 
-        //https://stackoverflow.com/questions/12739909/send-data-from-activity-to-fragment-in-android
-        /* So, to pass data from the MotherActivity to such a Fragment you will need to create private Strings/Bundles above the onCreate of your Mother activity - which you can fill with the data you want to pass to the fragments, and pass them on via a method created after the onCreate (here called getMyData()).*/
-        //Recuperamos los datos del Usuario activo
+//https://stackoverflow.com/questions/12739909/send-data-from-activity-to-fragment-in-android
+/* So, to pass data from the MotherActivity to such a Fragment you will need to create private Strings/Bundles above the onCreate of your Mother activity - which you can fill with the data you want to pass to the fragments, and pass them on via a method created after the onCreate (here called getMyData()).*/
+//Recuperamos los datos del Usuario activo
+/*
         MainActivity_val activity = (MainActivity_val) getActivity();
         Bundle bundlePersonaUser = activity.getUser();
         personaUser = (Persona_prs) bundlePersonaUser.getSerializable("User");
+*/
+        MainActivity_val activity = (MainActivity_val) getActivity();
+        mBundlePersonaUser = activity.getUser();
+        personaUser = (Persona_prs) mBundlePersonaUser.getSerializable("User");
 
         idPersona = getArguments().getString("idPersona");
 
@@ -220,7 +225,7 @@ public class ACV_usuario extends Fragment {
                     }
                 });
 
-        Alimentacion_aliService.newInstance(null, bundlePersonaUser);
+        Alimentacion_aliService.newInstance(null, mBundlePersonaUser);
         alimentacion.alimentacionR();
         acv_usuario_alimentacion_prs.setText(Alimentacion_aliService.alimentacionSpanned);
         acv_usuario_alimentacion_prs.setOnClickListener(new View.OnClickListener() {

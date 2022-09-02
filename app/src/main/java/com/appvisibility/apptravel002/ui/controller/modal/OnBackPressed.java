@@ -21,10 +21,10 @@ public class OnBackPressed extends DialogFragment {
 
     public static DialogFragment newInstance(String title, String message) {
         OnBackPressed fragment = new OnBackPressed();
-        Bundle bundle = new Bundle();
-        bundle.putString(OnBackPressed.ARG_TITLE, title);
-        bundle.putString(OnBackPressed.ARG_MESSAGE, message);
-        fragment.setArguments(bundle);
+        Bundle args = new Bundle();
+        args.putString(OnBackPressed.ARG_TITLE, title);
+        args.putString(OnBackPressed.ARG_MESSAGE, message);
+        fragment.setArguments(args);
         return fragment;
     }
 

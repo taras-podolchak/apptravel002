@@ -71,10 +71,10 @@ public class V_02 extends Fragment implements IDAO<Evento_eve, Object, Object> {
     // TODO: Rename and change types and number of parameters
     public static V_02 newInstance(String param1, String param2) {
         V_02 fragment = new V_02();
-        Bundle bundle = new Bundle();
-        bundle.putString(ARG_PARAM1, param1);
-        bundle.putString(ARG_PARAM2, param2);
-        fragment.setArguments(bundle);
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
         return fragment;
     }
 
