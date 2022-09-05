@@ -137,7 +137,7 @@ public class Contacto_cntService extends Fragment {
 
         v05_2_contactoElegido = view.findViewById(R.id.v05_2_act_contactoElegido);
 //            v05_2_contactoElegidoResultado = view.findViewById(R.id.v05_txv_contactoElegidoResultado);
-        v05_2_cargo_cnt = view.findViewById(R.id.v05_2_spn_ContactoCargo);
+        v05_2_cargo_cnt = view.findViewById(R.id.v05_2_spn_contactoCargo);
         v05_2_nombre_cnt = view.findViewById(R.id.v05_2_etx_ContactoNombre);
         v05_2_apellido1_cnt = view.findViewById(R.id.v05_2_etx_ContactoApellido1);
         v05_2_apellido2_cnt = view.findViewById(R.id.v05_2_etx_ContactoApellido2);
@@ -161,425 +161,431 @@ public class Contacto_cntService extends Fragment {
         bundleContacto.putSerializable("contactoParaValidacion", contactoEnProceso);
 
 // https://www.youtube.com/watch?v=nlqtyfshUkc&ab_channel=CodingDemos
-        String [] contactocargo_prs = view.getResources().getStringArray(R.array.contactoCargo_prs);
+        String [] contactocargos_prs = view.getResources().getStringArray(R.array.contactoCargos_prs);
 /*
-        ArrayList<String> contactocargo_prs = new ArrayList<>();
-        contactocargo_prs.add("RELACION:");
-        contactocargo_prs.add("Pareja");
-        contactocargo_prs.add("Amistad");
-        contactocargo_prs.add("Familiar");
-        contactocargo_prs.add("Trabajo");
+        ArrayList<String> contactocargos_prs = new ArrayList<>();
+        contactocargos_prs.add("RELACION:");
+        contactocargos_prs.add("Pareja");
+        contactocargos_prs.add("Amistad");
+        contactocargos_prs.add("Familiar");
+        contactocargos_prs.add("Trabajo");
 */
-        arrayAdapter_prs = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, contactocargo_prs);
+        arrayAdapter_prs = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, contactocargos_prs);
         arrayAdapter_prs.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        String [] contactocargo_sum = view.getResources().getStringArray(R.array.contactoCargo_sum);
+        String [] contactocargos_sum = view.getResources().getStringArray(R.array.contactoCargos_sum);
 
-        arrayAdapter_sum = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, contactocargo_sum);
+        arrayAdapter_sum = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, contactocargos_sum);
         arrayAdapter_sum.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 /*
 // https://stackoverflow.com/questions/112503/how-do-i-remove-objects-from-an-array-in-java
-                List<String> contactocargo_sum = new ArrayList<String>(Arrays.asList(contactocargo_sum));
-                for (String crg: cargosAsignados) {
-                    contactocargo_sum.removeAll(Arrays.asList(crg));
-                }
+            List<String> contactocargos_sum = new ArrayList<String>(Arrays.asList(contactocargos_sum));
+            for (String crg: cargosAsignados) {
+                contactocargos_sum.removeAll(Arrays.asList(crg));
+            }
 */
 //            permitirAcceso(view);
 
-            Uri bbdd = ContactsContract.Contacts.CONTENT_URI;
-            String projection[] = new String[] {
-                    ContactsContract.Contacts._ID,
-                    ContactsContract.Contacts.DISPLAY_NAME,
-            };
-            String selectionClause = null;
-            String selectionArgs[] = null;
-            String sortOrder = ContactsContract.Contacts.DISPLAY_NAME;
+        Uri bbdd = ContactsContract.Contacts.CONTENT_URI;
+        String projection[] = new String[] {
+                ContactsContract.Contacts._ID,
+                ContactsContract.Contacts.DISPLAY_NAME,
+        };
+        String selectionClause = null;
+        String selectionArgs[] = null;
+        String sortOrder = ContactsContract.Contacts.DISPLAY_NAME;
 //        String sortOrder = null;
-            Cursor cursor = crearCursor(view, bbdd, projection, selectionClause, selectionArgs, sortOrder);
+        Cursor cursor = crearCursor(view, bbdd, projection, selectionClause, selectionArgs, sortOrder);
 
 // https://stackoverflow.com/questions/4301064/how-to-get-the-first-name-and-last-name-from-android-contacts
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                id_cnt = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
-                nombre_cnt = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
-                contactoEnProceso = new Contacto_cnt (Integer.parseInt(id_cnt), cargo_cnt, nombre_cnt, apellido1_cnt, apellido2_cnt, movil_cnt, telefono_cnt, email_cnt);
-                contactos.put(Integer.parseInt(id_cnt), contactoEnProceso);
-                cursor.moveToNext();
-            }
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            id_cnt = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
+            nombre_cnt = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
+            contactoEnProceso = new Contacto_cnt (Integer.parseInt(id_cnt), cargo_cnt, nombre_cnt, apellido1_cnt, apellido2_cnt, movil_cnt, telefono_cnt, email_cnt);
+            contactos.put(Integer.parseInt(id_cnt), contactoEnProceso);
+            cursor.moveToNext();
+        }
 //            limpiarContacto(view);
 //            contactos.put(-1, contactoEnProceso);
-            cursor.close();
+        cursor.close();
 
 // Después de haber utilizado contactoEnProceso para cargar la lista de contactos en el mapa, devolvemos a contactoEnProceso los valores actuales para que en caso de que no haya ninguna selección de nuevo contacto acaben apareciendo en pantalla los datos del último contacto que pasó por el cursor
-            recuperarContactoActual(view, mContactoNumero);
-            contactoEnProceso = new Contacto_cnt(Integer.parseInt(id_cnt), cargo_cnt,  nombre_cnt, apellido1_cnt, apellido2_cnt, movil_cnt, telefono_cnt, email_cnt);
-            mostrarContactoEnProceso(view);
+        recuperarContactoActual(view, mContactoNumero);
+        contactoEnProceso = new Contacto_cnt(Integer.parseInt(id_cnt), cargo_cnt,  nombre_cnt, apellido1_cnt, apellido2_cnt, movil_cnt, telefono_cnt, email_cnt);
+        mostrarContactoEnProceso(view);
 
-            List<String> contactosDescripcion = new ArrayList<>();
+        List<String> contactosDescripcion = new ArrayList<>();
 
-            Iterator<Integer> it1 = contactos.keySet().iterator();
-            while (it1.hasNext()) {
-                Integer key = it1.next();
-                contactosDescripcion.add(
-                    contactos.get(key).getId_cnt() + " - " +
-                    contactos.get(key).getNombre_cnt()
-                );
-            }
+        Iterator<Integer> it1 = contactos.keySet().iterator();
+        while (it1.hasNext()) {
+            Integer key = it1.next();
+            contactosDescripcion.add(
+                contactos.get(key).getId_cnt() + " - " +
+                contactos.get(key).getNombre_cnt()
+            );
+        }
 
-            ArrayAdapter<String> arrayAdapter_contacto = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, contactosDescripcion);
-            arrayAdapter_contacto.setDropDownViewResource(android.R.layout.simple_list_item_1);
+        ArrayAdapter<String> arrayAdapter_contacto = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, contactosDescripcion);
+        arrayAdapter_contacto.setDropDownViewResource(android.R.layout.simple_list_item_1);
 
-            AlertDialog.Builder modalFormContacto = new AlertDialog.Builder(view.getContext());
+        AlertDialog.Builder modalFormContacto = new AlertDialog.Builder(view.getContext());
 
-            v05_2_contactoElegido.setAdapter(arrayAdapter_contacto);
+        v05_2_contactoElegido.setAdapter(arrayAdapter_contacto);
 
 // https://stackoverflow.com/questions/4819813/how-to-get-text-from-autocompletetextview
 // https://www.youtube.com/watch?v=JB3ETK5mh3c&ab_channel=CodinginFlow
 // autocomplete form with contact android youtube
-            v05_2_contactoElegido.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
-                    v05_2_contactoElegido.setSelection(position);
-                    Object item = parent.getItemAtPosition(position);
-                    contactoElegido = (String) item;
-                    List<String> contactoNuevaArray = Arrays.asList(contactoElegido.split("\\s*\\s*-\\s*"));
-                    for (int i=0; i <= contactoNuevaArray.size(); i++){
-                        switch (i) {
-                            case 0: {
-                                idNueva_cnt = contactoNuevaArray.get(i);
-                                if (!idNueva_cnt.equalsIgnoreCase(id_cnt)){
-                                    nuevoContacto = true;
-                                    limpiarContacto(view);
-                                }
-                                break;}
-                            case 1: {
-                                v05_2_nombre_cnt.setText(contactoNuevaArray.get(i)); break;}
-                            default: {
-                                v05_2_nombre_cnt.setText("");
+        v05_2_contactoElegido.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
+                v05_2_contactoElegido.setSelection(position);
+                Object item = parent.getItemAtPosition(position);
+                contactoElegido = (String) item;
+                List<String> contactoNuevaArray = Arrays.asList(contactoElegido.split("\\s*\\s*-\\s*"));
+                for (int i=0; i <= contactoNuevaArray.size(); i++){
+                    switch (i) {
+                        case 0: {
+                            idNueva_cnt = contactoNuevaArray.get(i);
+                            if (!idNueva_cnt.equalsIgnoreCase(id_cnt)){
+                                nuevoContacto = true;
+                                limpiarContacto(view);
                             }
+                            break;}
+                        case 1: {
+                            v05_2_nombre_cnt.setText(contactoNuevaArray.get(i)); break;}
+                        default: {
+                            v05_2_nombre_cnt.setText("");
                         }
                     }
+                }
 
 //                    Toast.makeText(view.getContext(), id_cnt +"-->"+ idNueva_cnt, Toast.LENGTH_LONG).show();
-                    id_cnt = idNueva_cnt;
+                id_cnt = idNueva_cnt;
 
-                    Uri bbdd = ContactsContract.Data.CONTENT_URI;
-                    String projection[] = new String[] {
-                            ContactsContract.Data.CONTACT_ID,
-                            ContactsContract.Data.MIMETYPE,
-                            ContactsContract.Data.DISPLAY_NAME_ALTERNATIVE,
-                            ContactsContract.Data.DATA1,
-                    };
-                    String selectionClause = ContactsContract.Data.CONTACT_ID+ " = ?";
-                    String selectionArgs[] = new String[]{id_cnt};
-                    String sortOrder = null;
-                    Cursor cursor1 = crearCursor(view, bbdd, projection, selectionClause, selectionArgs, sortOrder);
+                Uri bbdd = ContactsContract.Data.CONTENT_URI;
+                String projection[] = new String[] {
+                        ContactsContract.Data.CONTACT_ID,
+                        ContactsContract.Data.MIMETYPE,
+                        ContactsContract.Data.DISPLAY_NAME_ALTERNATIVE,
+                        ContactsContract.Data.DATA1,
+                };
+                String selectionClause = ContactsContract.Data.CONTACT_ID+ " = ?";
+                String selectionArgs[] = new String[]{id_cnt};
+                String sortOrder = null;
+                Cursor cursor1 = crearCursor(view, bbdd, projection, selectionClause, selectionArgs, sortOrder);
 
-                    if (cursor1.moveToFirst()) {
-                        nombre_cnt = cursor1.getString(cursor1.getColumnIndexOrThrow(ContactsContract.Data.DISPLAY_NAME_ALTERNATIVE));
-                        if (nombre_cnt.contains(",")){
-                            contactoNuevaArray = Arrays.asList(nombre_cnt.split("\\s*,\\s*"));
-                            for (int i=0; i <= contactoNuevaArray.size(); i++){
-                                switch (i) {
-                                    case 0: {
-                                        apellido1_cnt = contactoNuevaArray.get(i); break;}
-                                    case 1: {
-                                        nombre_cnt = contactoNuevaArray.get(i); break;}
-                                    default: {
-                                        contactoElegido = "Error: Contacto sin identificar";}
-                                }
+                if (cursor1.moveToFirst()) {
+                    nombre_cnt = cursor1.getString(cursor1.getColumnIndexOrThrow(ContactsContract.Data.DISPLAY_NAME_ALTERNATIVE));
+                    if (nombre_cnt.contains(",")){
+                        contactoNuevaArray = Arrays.asList(nombre_cnt.split("\\s*,\\s*"));
+                        for (int i=0; i <= contactoNuevaArray.size(); i++){
+                            switch (i) {
+                                case 0: {
+                                    apellido1_cnt = contactoNuevaArray.get(i); break;}
+                                case 1: {
+                                    nombre_cnt = contactoNuevaArray.get(i); break;}
+                                default: {
+                                    contactoElegido = "Error: Contacto sin identificar";}
                             }
-                        } else {
-                            apellido1_cnt = "";
                         }
+                    } else {
+                        apellido1_cnt = "";
+                    }
 
 // https://stackoverflow.com/questions/8805937/retrieving-phone-number-from-contact-id-android
 // Permite ver en el log los datos que estamos capturado
 /*
-                        for(int i=0; i< cursor1.getColumnCount(); i++) {
-                            Log.i("CONTACTSTAG21", cursor1.getColumnName(i) + ": " + cursor1.getString(i));
-                        }
- */
-                        cursor1.moveToNext();
+                    for(int i=0; i< cursor1.getColumnCount(); i++) {
+                        Log.i("CONTACTSTAG21", cursor1.getColumnName(i) + ": " + cursor1.getString(i));
                     }
-                    cursor1.close();
+*/
+                    cursor1.moveToNext();
+                }
+                cursor1.close();
 
-                    Uri bbdd2 = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
-                    String projection2[] = new String[] {
-                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
-                            ContactsContract.CommonDataKinds.Phone.DATA,
-                    };
-                    String selectionClause2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID+ " = ?";
-                    String selectionArgs2[] = new String[]{id_cnt};
-                    String sortOrder2 = null;
-                    Cursor cursor2 = crearCursor(view, bbdd2, projection2, selectionClause2, selectionArgs2, sortOrder2);
+                Uri bbdd2 = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
+                String projection2[] = new String[] {
+                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
+                        ContactsContract.CommonDataKinds.Phone.DATA,
+                };
+                String selectionClause2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID+ " = ?";
+                String selectionArgs2[] = new String[]{id_cnt};
+                String sortOrder2 = null;
+                Cursor cursor2 = crearCursor(view, bbdd2, projection2, selectionClause2, selectionArgs2, sortOrder2);
 
-                    if (!cursor2.moveToFirst()) {
-                        movil_cnt = "";
-                        telefono_cnt = "";
-                    }
-                    cursor2.moveToFirst();
-                    List<String> telefonos = new ArrayList<>();
+                if (!cursor2.moveToFirst()) {
+                    movil_cnt = "";
+                    telefono_cnt = "";
+                }
+                cursor2.moveToFirst();
+                List<String> telefonos = new ArrayList<>();
 // https://stackoverflow.com/questions/9295621/string-how-to-replace-multiple-possible-characters-with-a-single-character
 // Regex para sustituir varios caracteres de distinto tipo al mismo tiempo en un String
-                    while (!cursor2.isAfterLast()) {
-                        movil_cnt = contactoEnProceso.getMovil_cnt();
-                        if (nuevoContacto && (movil_cnt == null || movil_cnt.equalsIgnoreCase(""))) {
-                            movil_cnt = cursor2.getString(cursor2.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DATA1)).replaceAll("[\\s()-]", "");
-                            if (!telefonos.contains(movil_cnt)){
-                                telefonos.add(movil_cnt);
-                            }
-                            int i = telefonos.size();
-                            switch (i) {
-                                case 0: {
-                                    movil_cnt = "";
-                                    telefono_cnt = "";
-                                    break;}
-                                case 1: {
+                while (!cursor2.isAfterLast()) {
+                    movil_cnt = contactoEnProceso.getMovil_cnt();
+                    if (nuevoContacto && (movil_cnt == null || movil_cnt.equalsIgnoreCase(""))) {
+                        movil_cnt = cursor2.getString(cursor2.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DATA1)).replaceAll("[\\s()-]", "");
+                        if (!telefonos.contains(movil_cnt)){
+                            telefonos.add(movil_cnt);
+                        }
+                        int i = telefonos.size();
+                        switch (i) {
+                            case 0: {
+                                movil_cnt = "";
+                                telefono_cnt = "";
+                                break;}
+                            case 1: {
 // https://regexr.com/346hf
 // Diferenciar si el número es un movil
-                                    if (telefonos.get(0).matches("^[+]*((?:\\s*\\d){2,3})*(\\s)*[6](?:\\s*\\d){8,10}$")){
-                                        movil_cnt = telefonos.get(0);
-                                        telefono_cnt = "";
-                                    } else {
-                                        movil_cnt = "";
-                                        telefono_cnt = telefonos.get(0);
-                                    }
-                                    break;}
-                                default: {
-                                    if (telefonos.get(0).matches("^[+]*((?:\\s*\\d){2,3})*(\\s)*[6](?:\\s*\\d){8,10}$")) {
-                                        movil_cnt = telefonos.get(0);
-                                        telefono_cnt = telefonos.get(1);
-                                    } else {
-                                        movil_cnt = telefonos.get(1);
-                                        telefono_cnt = telefonos.get(0);
-                                    }
+                                if (telefonos.get(0).matches("^[+]*((?:\\s*\\d){2,3})*(\\s)*[6](?:\\s*\\d){8,10}$")){
+                                    movil_cnt = telefonos.get(0);
+                                    telefono_cnt = "";
+                                } else {
+                                    movil_cnt = "";
+                                    telefono_cnt = telefonos.get(0);
+                                }
+                                break;}
+                            default: {
+                                if (telefonos.get(0).matches("^[+]*((?:\\s*\\d){2,3})*(\\s)*[6](?:\\s*\\d){8,10}$")) {
+                                    movil_cnt = telefonos.get(0);
+                                    telefono_cnt = telefonos.get(1);
+                                } else {
+                                    movil_cnt = telefonos.get(1);
+                                    telefono_cnt = telefonos.get(0);
                                 }
                             }
                         }
-                        cursor2.moveToNext();
                     }
-                    cursor2.close();
-
-                    Uri bbdd3 = ContactsContract.CommonDataKinds.Email.CONTENT_URI;
-                    String projection3[] = new String[] {
-                            ContactsContract.CommonDataKinds.Email.CONTACT_ID,
-                            ContactsContract.CommonDataKinds.Email.DATA,
-                    };
-                    String selectionClause3 = ContactsContract.CommonDataKinds.Email.CONTACT_ID+ " = ?";
-                    String selectionArgs3[] = new String[]{id_cnt};
-                    String sortOrder3 = null;
-                    Cursor cursor3 = crearCursor(view, bbdd3, projection3, selectionClause3, selectionArgs3, sortOrder3);
-
-                    if (!cursor3.moveToFirst()) {
-                        email_cnt = "";
-                    }
-                    cursor3.moveToFirst();
-                    while (!cursor3.isAfterLast()) {
-                        email_cnt = contactoEnProceso.getEmail_cnt();
-                        if (nuevoContacto && (email_cnt == null || email_cnt.equalsIgnoreCase(""))) {
-                            email_cnt = cursor3.getString(cursor3.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Email.DATA1)).replaceAll("[\\s()-]", "");
-                            if (email_cnt == null || email_cnt.equalsIgnoreCase("")) {
-                                email_cnt = "";
-                            }
-                        }
-/*
-                        for(int i=0; i< cursor3.getColumnCount(); i++){
-                            Log.i("CONTACTSTAG21", cursor3.getColumnName(i) + ": " + cursor3.getString(i));
-                        }
- */
-                        cursor3.moveToNext();
-                    }
-                    cursor3.close();
-
-                    cargo_cnt = (cargo_cnt == null)? "":cargo_cnt;
-                    nombre_cnt = (nombre_cnt == null)? "":nombre_cnt;
-                    apellido1_cnt = (apellido1_cnt == null)? "":apellido1_cnt;
-                    apellido2_cnt = (apellido2_cnt == null)? "":apellido2_cnt;
-                    movil_cnt = (movil_cnt == null)? "":movil_cnt;
-                    telefono_cnt = (telefono_cnt == null)? "":telefono_cnt;
-                    email_cnt = (email_cnt == null)? "":email_cnt;
-                    contactoEnProceso = new Contacto_cnt(Integer.parseInt(id_cnt), cargo_cnt, nombre_cnt, apellido1_cnt, apellido2_cnt, movil_cnt, telefono_cnt, email_cnt);
-                    mostrarContactoEnProceso(view);
-                    bundleContacto.putSerializable("contactoParaValidacion", contactoEnProceso);
-
-                    nuevoContacto = false;
-                    if (nombre_cnt != ""){
-                        v05_2_contactoElegido.setVisibility(View.GONE);
-                    } else {
-                        limpiarContacto(view);
-                    }
+                    cursor2.moveToNext();
                 }
-            });
+                cursor2.close();
 
-            modalFormContacto.setIcon(R.drawable.ico_contact_book);
-            modalFormContacto.setTitle("PERSONA DE CONTACTO");
+                Uri bbdd3 = ContactsContract.CommonDataKinds.Email.CONTENT_URI;
+                String projection3[] = new String[] {
+                        ContactsContract.CommonDataKinds.Email.CONTACT_ID,
+                        ContactsContract.CommonDataKinds.Email.DATA,
+                };
+                String selectionClause3 = ContactsContract.CommonDataKinds.Email.CONTACT_ID+ " = ?";
+                String selectionArgs3[] = new String[]{id_cnt};
+                String sortOrder3 = null;
+                Cursor cursor3 = crearCursor(view, bbdd3, projection3, selectionClause3, selectionArgs3, sortOrder3);
 
-            if (sesionIniciada == view.getResources().getInteger(R.integer.rol_transportecolectivo)) {
-                tituloListaCargo_cnt = "RELACION:";
-                v05_2_cargo_cnt.setAdapter(arrayAdapter_prs);
-// https://stackoverflow.com/questions/37481951/how-to-get-and-set-selected-item-from-spinner-using-sharedpreferences
-// Recupera spinner anterior
-                v05_2_cargo_cnt.getSelectedItemPosition();
-                int indexOfPreviousSelection = arrayAdapter_prs.getPosition(contactoEnProceso.getCargo_cnt());
-                v05_2_cargo_cnt.setSelection(indexOfPreviousSelection);
-// https://stackoverflow.com/questions/4622517/hide-a-edittext-make-it-visible-by-clicking-a-menu
-                v05_2_apellido2_cnt.setVisibility(View.GONE);
-                v05_2_email_cnt.setVisibility(View.GONE);
-            } else if (sesionIniciada == view.getResources().getInteger(R.integer.rol_valiente)
-                    || sesionIniciada == view.getResources().getInteger(R.integer.rol_alojamiento)
-                    || sesionIniciada == view.getResources().getInteger(R.integer.rol_empresas_trekking)) {
-                tituloListaCargo_cnt = "CARGO:";
-                V_05.v05_recomendacionContacto.setVisibility(View.GONE);
-                v05_2_cargo_cnt.setAdapter(arrayAdapter_sum);
-// https://stackoverflow.com/questions/37481951/how-to-get-and-set-selected-item-from-spinner-using-sharedpreferences
-// Recupera spinner anterior
-                v05_2_cargo_cnt.getSelectedItemPosition();
-                int indexOfPreviousSelection = arrayAdapter_sum.getPosition(contactoEnProceso.getCargo_cnt());
-                v05_2_cargo_cnt.setSelection(indexOfPreviousSelection);
-            }
-
-            modalFormContacto.setPositiveButton("Confirmar", null);
-            modalFormContacto.setNegativeButton("Volver", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                if (!cursor3.moveToFirst()) {
+                    email_cnt = "";
+                }
+                cursor3.moveToFirst();
+                while (!cursor3.isAfterLast()) {
+                    email_cnt = contactoEnProceso.getEmail_cnt();
+                    if (nuevoContacto && (email_cnt == null || email_cnt.equalsIgnoreCase(""))) {
+                        email_cnt = cursor3.getString(cursor3.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Email.DATA1)).replaceAll("[\\s()-]", "");
+                        if (email_cnt == null || email_cnt.equalsIgnoreCase("")) {
+                            email_cnt = "";
+                        }
                     }
-                })
-                .setView(view)
-                .create();
+/*
+                    for(int i=0; i< cursor3.getColumnCount(); i++){
+                        Log.i("CONTACTSTAG21", cursor3.getColumnName(i) + ": " + cursor3.getString(i));
+                    }
+*/
+                    cursor3.moveToNext();
+                }
+                cursor3.close();
+
+                cargo_cnt = (cargo_cnt == null)? "":cargo_cnt;
+                nombre_cnt = (nombre_cnt == null)? "":nombre_cnt;
+                apellido1_cnt = (apellido1_cnt == null)? "":apellido1_cnt;
+                apellido2_cnt = (apellido2_cnt == null)? "":apellido2_cnt;
+                movil_cnt = (movil_cnt == null)? "":movil_cnt;
+                telefono_cnt = (telefono_cnt == null)? "":telefono_cnt;
+                email_cnt = (email_cnt == null)? "":email_cnt;
+                contactoEnProceso = new Contacto_cnt(Integer.parseInt(id_cnt), cargo_cnt, nombre_cnt, apellido1_cnt, apellido2_cnt, movil_cnt, telefono_cnt, email_cnt);
+                mostrarContactoEnProceso(view);
+                bundleContacto.putSerializable("contactoParaValidacion", contactoEnProceso);
+
+                nuevoContacto = false;
+                if (nombre_cnt != ""){
+                    v05_2_contactoElegido.setVisibility(View.GONE);
+                } else {
+                    limpiarContacto(view);
+                }
+            }
+        });
+
+        modalFormContacto.setIcon(R.drawable.ico_contact_book);
+        modalFormContacto.setTitle("PERSONA DE CONTACTO");
+
+        if (sesionIniciada == view.getResources().getInteger(R.integer.rol_valiente)) {
+            tituloListaCargo_cnt = "RELACION:";
+
+            int indexOfPreviousSelection;
+            v05_2_cargo_cnt.setAdapter(arrayAdapter_prs);
+// https://stackoverflow.com/questions/37481951/how-to-get-and-set-selected-item-from-spinner-using-sharedpreferences
+// Recupera spinner anterior
+            v05_2_cargo_cnt.getSelectedItemPosition();
+            indexOfPreviousSelection = arrayAdapter_prs.getPosition(contactoEnProceso.getCargo_cnt());
+            v05_2_cargo_cnt.setSelection(indexOfPreviousSelection);
+
+// https://stackoverflow.com/questions/4622517/hide-a-edittext-make-it-visible-by-clicking-a-menu
+            v05_2_apellido2_cnt.setVisibility(View.GONE);
+            v05_2_email_cnt.setVisibility(View.GONE);
+        } else if (sesionIniciada == view.getResources().getInteger(R.integer.rol_transportecolectivo)
+                || sesionIniciada == view.getResources().getInteger(R.integer.rol_alojamiento)
+                || sesionIniciada == view.getResources().getInteger(R.integer.rol_empresas_trekking)) {
+            tituloListaCargo_cnt = "CARGO:";
+
+            int indexOfPreviousSelection;
+            V_05.v05_recomendacionContacto.setVisibility(View.GONE);
+            v05_2_cargo_cnt.setAdapter(arrayAdapter_sum);
+// https://stackoverflow.com/questions/37481951/how-to-get-and-set-selected-item-from-spinner-using-sharedpreferences
+// Recupera spinner anterior
+            v05_2_cargo_cnt.getSelectedItemPosition();
+            indexOfPreviousSelection = arrayAdapter_sum.getPosition(contactoEnProceso.getCargo_cnt());
+            v05_2_cargo_cnt.setSelection(indexOfPreviousSelection);
+        }
+
+        modalFormContacto.setPositiveButton("Confirmar", null);
+        modalFormContacto.setNegativeButton("Volver", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            })
+            .setView(view)
+            .create();
 
 // https://stackoverflow.com/questions/2620444/how-to-prevent-a-dialog-from-closing-when-a-button-is-clicked
 // https://stackoverflow.com/questions/42214856/alertdialog-setonshowlistener-never-called
 // Modificamos la funcionalidad del positiveButton para que no salga de la ventana modal sin validar los campos del formulario
-            final AlertDialog positiveButtonCambiado = modalFormContacto.create();
-            positiveButtonCambiado.setOnShowListener(new DialogInterface.OnShowListener() {
-                @Override
-                public void onShow(DialogInterface dialogInterface) {
-                    Button button = positiveButtonCambiado.getButton(AlertDialog.BUTTON_POSITIVE);
-                    button.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            prepararValidacion(view, tituloListaCargo_cnt);
-                            bundleContacto.putSerializable("contactoParaValidacion", contactoEnProceso);
-                            Validacion_vldService.newInstance(bundleContacto, tituloListaCargo_cnt);
+        final AlertDialog positiveButtonCambiado = modalFormContacto.create();
+        positiveButtonCambiado.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                Button button = positiveButtonCambiado.getButton(AlertDialog.BUTTON_POSITIVE);
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        prepararValidacion(view, tituloListaCargo_cnt);
+                        bundleContacto.putSerializable("contactoParaValidacion", contactoEnProceso);
+                        Validacion_vldService.newInstance(bundleContacto, tituloListaCargo_cnt, null);
 // https://www.android--code.com/2015/08/android-edittext-border-color_20.html
 // https://stackoverflow.com/questions/34075131/how-to-set-a-button-border-color-programmatically-in-android
 // You can create a layout for this. in your code
-                            if (!Validacion_vldService.validarCargo()) {
-                                v05_2_cargo_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
-                                validacion = false;
-                            } else {
+                        if (!Validacion_vldService.validarCargo()) {
+                            v05_2_cargo_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                            validacion = false;
+                        } else {
 // Evitamos que haya cargos duplicados (esto no afecta a las Relaciones)
-                                if (cargosAsignados.contains(contactoEnProceso.getCargo_cnt()) &&
-                                        !contactoEnProceso.getCargo_cnt().equalsIgnoreCase(cargo_cnt) &&
-                                        tituloListaCargo_cnt.equalsIgnoreCase("CARGO:")) {
-                                    v05_2_cargo_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
-                                    Toast.makeText(view.getContext(), "El cargo elegido ya estaba asignado", Toast.LENGTH_LONG).show();
-                                    validacion = false;
-                                } else {
-                                    v05_2_cargo_cnt.setBackgroundResource(0);
-                                    validacion = true;
-                                }
+                            if (cargosAsignados.contains(contactoEnProceso.getCargo_cnt()) &&
+                                    !contactoEnProceso.getCargo_cnt().equalsIgnoreCase(cargo_cnt) &&
+                                    tituloListaCargo_cnt.equalsIgnoreCase("CARGO:")) {
+                                v05_2_cargo_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                                Toast.makeText(view.getContext(), "El cargo elegido ya estaba asignado", Toast.LENGTH_LONG).show();
+                                validacion = false;
+                            } else {
+                                v05_2_cargo_cnt.setBackgroundResource(0);
+                                validacion = true;
                             }
+                        }
 // Si el nombre está vacío se limpian todos los campos del formulario
-                            if (!Validacion_vldService.validarNombre()) {
-                                v05_2_nombre_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                        if (!Validacion_vldService.validarNombreContacto()) {
+                            v05_2_nombre_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                            validacion = false;
+                            limpiarContacto(view);
+                            mostrarContactoEnProceso(view);
+                        } else {
+                            if (!Validacion_vldService.validarApellido1()) {
+                                v05_2_apellido1_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
                                 validacion = false;
-                                limpiarContacto(view);
-                                mostrarContactoEnProceso(view);
                             } else {
-                                if (!Validacion_vldService.validarApellido1()) {
-                                    v05_2_apellido1_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
-                                    validacion = false;
-                                } else {
-                                    v05_2_apellido1_cnt.setBackgroundResource(0);
-                                    validacion = !validacion? false: true;
-                                }
+                                v05_2_apellido1_cnt.setBackgroundResource(0);
+                                validacion = !validacion? false: true;
+                            }
 /*
-                                if (!Validacion_vldService.validarApellido2()) {
-                                    v05_2_apellido2_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
-                                    validacion = false;
-                                } else {
-                                    validacion = !validacion? false: true;
-                                }
- */
-                                if (!Validacion_vldService.validarMovil()) {
-                                    v05_2_movil_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
-                                    validacion = false;
-                                } else {
-                                    v05_2_movil_cnt.setBackgroundResource(0);
-                                    validacion = !validacion? false: true;
-                                }
-                                if (!Validacion_vldService.validarTelefono()) {
-                                    v05_2_telefono_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
-                                    validacion = false;
-                                } else {
-                                    v05_2_telefono_cnt.setBackgroundResource(0);
-                                    validacion = !validacion? false: true;
-                                }
-                                if (!Validacion_vldService.validarEmail()) {
-                                    v05_2_email_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
-                                    validacion = false;
-                                } else {
-                                    v05_2_email_cnt.setBackgroundResource(0);
-                                    validacion = !validacion? false: true;
-                                }
-                            }
-                            if (!validacion){
-                                Toast.makeText(view.getContext(), "El contacto no se puede guardar, datos incorrectos", Toast.LENGTH_LONG).show();
-                            } else {
+                            if (!Validacion_vldService.validarApellido2()) {
+                                v05_2_apellido2_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
                                 validacion = false;
-                                volcarContacto(view, mContactoNumero);
-                                datosActualizados = personaUserU(datosActualizados, personaUser);
-                                if (datosActualizados){
-                                    Toast.makeText(view.getContext(), "El contacto se ha guardado satisfactoriamente", Toast.LENGTH_LONG).show();
-                                } else {
-                                    Toast.makeText(view.getContext(), "El contacto no se han podido guardar", Toast.LENGTH_LONG).show();
-                                }
-                                mostrarBotonContacto();
-                                positiveButtonCambiado.dismiss();
+                            } else {
+                                v05_2_apellido2_prs.setBackgroundResource(0);
+                                validacion = !validacion? false: true;
                             }
+*/
+                            if (!Validacion_vldService.validarMovil()) {
+                                v05_2_movil_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                                validacion = false;
+                            } else {
+                                v05_2_movil_cnt.setBackgroundResource(0);
+                                validacion = !validacion? false: true;
+                            }
+                            if (!Validacion_vldService.validarTelefono()) {
+                                v05_2_telefono_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                                validacion = false;
+                            } else {
+                                v05_2_telefono_cnt.setBackgroundResource(0);
+                                validacion = !validacion? false: true;
+                            }
+                            if (!Validacion_vldService.validarEmail()) {
+                                v05_2_email_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                                validacion = false;
+                            } else {
+                                v05_2_email_cnt.setBackgroundResource(0);
+                                validacion = !validacion? false: true;
+                            }
+                        }
+                        if (!validacion){
+                            Toast.makeText(view.getContext(), "El contacto no se puede guardar, datos incorrectos", Toast.LENGTH_LONG).show();
+                        } else {
+                            validacion = false;
+                            volcarContacto(view, mContactoNumero);
+                            datosActualizados = personaUserU(datosActualizados, personaUser);
+                            if (datosActualizados){
+                                Toast.makeText(view.getContext(), "El contacto se ha guardado satisfactoriamente", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(view.getContext(), "El contacto no se han podido guardar", Toast.LENGTH_LONG).show();
+                            }
+                            mostrarBotonContacto();
+                            positiveButtonCambiado.dismiss();
+                        }
 
 // https://stackoverflow.com/questions/42397915/how-to-pass-string-from-one-fragment-to-another-in-android
 // Permite mostrar en la pantalla padre el resultado de la selección de un contacto de la agenda
-                            switch (mContactoNumero){
-                                case ("Contacto1"): {
-                                    V_05.newInstance(contacto1ElegidoResultado, null);
-                                    V_05.v05_2_muestraContacto1Elegido.setText(contacto1ElegidoResultado);
-                                    break;
-                                }
-                                case ("Contacto2"): {
-                                    V_05.newInstance(contacto2ElegidoResultado, null);
-                                    V_05.v05_2_muestraContacto2Elegido.setText(contacto2ElegidoResultado);
-                                    break;
-                                }
-                                case ("Contacto3"): {
-                                    V_05.newInstance(contacto3ElegidoResultado, null);
-                                    V_05.v05_2_muestraContacto3Elegido.setText(contacto3ElegidoResultado);
-                                    break;
-                                }
+                        switch (mContactoNumero){
+                            case ("Contacto1"): {
+                                V_05.newInstance(contacto1ElegidoResultado, null);
+                                V_05.v05_2_muestraContacto1Elegido.setText(contacto1ElegidoResultado);
+                                break;
                             }
+                            case ("Contacto2"): {
+                                V_05.newInstance(contacto2ElegidoResultado, null);
+                                V_05.v05_2_muestraContacto2Elegido.setText(contacto2ElegidoResultado);
+                                break;
+                            }
+                            case ("Contacto3"): {
+                                V_05.newInstance(contacto3ElegidoResultado, null);
+                                V_05.v05_2_muestraContacto3Elegido.setText(contacto3ElegidoResultado);
+                                break;
+                            }
+                        }
 
 //                        V_05.newInstance(contactoElegidoResultado, null);
 //                        V_05.v05_2_muestraContacto1Elegido.setText(contactoElegidoResultado);
 //                        alertDialog.dismiss();
-                        }
-                    });
-                }
-            });
-            positiveButtonCambiado.show();
+                    }
+                });
+            }
+        });
+        positiveButtonCambiado.show();
         return view;
     }//Fin de constructor
 
     private Cursor crearCursor(View view, Uri bbdd, String projection[], String selectionClause, String selectionArgs[], String sortOrder) {
 // https://stackoverflow.com/questions/24108998/getcontentresolver-is-not-working
         Cursor cursor = view.getContext().getContentResolver().query(
-                bbdd,
-                projection,
-                selectionClause,
-                selectionArgs,
-                sortOrder,
-                null
+            bbdd,
+            projection,
+            selectionClause,
+            selectionArgs,
+            sortOrder,
+            null
         );
         return cursor;
     }

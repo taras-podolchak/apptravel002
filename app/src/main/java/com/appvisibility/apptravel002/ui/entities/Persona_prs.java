@@ -14,6 +14,7 @@ public class Persona_prs implements Serializable, Parcelable {
 	private	String	actividadtipo_prs	;
 	private	String	documentotipo_prs	;
 	private	String	dni_prs	;
+	private	String	nacionalidad_prs	;
 	private	String	nombre_prs	;
 	private	String	apellido1_prs	;
 	private	String	apellido2_prs	;
@@ -90,6 +91,7 @@ public class Persona_prs implements Serializable, Parcelable {
 		actividadtipo_prs = in.readString();
 		documentotipo_prs = in.readString();
 		dni_prs = in.readString();
+		nacionalidad_prs = in.readString();
 		nombre_prs = in.readString();
 		apellido1_prs = in.readString();
 		apellido2_prs = in.readString();
@@ -166,7 +168,7 @@ public class Persona_prs implements Serializable, Parcelable {
 			return new Persona_prs[size];
 		}
 	};
-
+/*
 	public Persona_prs(int id_prs, String contacto1nombre_prs, String contacto1apellido1_prs, String contacto1apellido2_prs, String contacto1movil_prs, String contacto1telefono_prs, String contacto1email_prs) {
 		this.id_prs = id_prs;
 		this.contacto1nombre_prs = contacto1nombre_prs;
@@ -176,14 +178,30 @@ public class Persona_prs implements Serializable, Parcelable {
 		this.contacto1telefono_prs = contacto1telefono_prs;
 		this.contacto1email_prs = contacto1email_prs;
 	}
+*/
+	public Persona_prs(String apodo_prs, String nombre_prs, String apellido1_prs, String apellido2_prs, String contrasenna_prs, Boolean recordarcontrasenna_prs, String actividadtipo_prs, String documentotipo_prs, String dni_prs, String nacionalidad_prs, String razonsocial_prs, String numerocta_prs) {
+		this.apodo_prs = apodo_prs;
+		this.nombre_prs = nombre_prs;
+		this.apellido1_prs = apellido1_prs;
+		this.apellido2_prs = apellido2_prs;
+		this.contrasenna_prs = contrasenna_prs;
+		this.recordarcontrasenna_prs = recordarcontrasenna_prs;
+		this.actividadtipo_prs = actividadtipo_prs;
+		this.documentotipo_prs = documentotipo_prs;
+		this.dni_prs = dni_prs;
+		this.nacionalidad_prs = nacionalidad_prs;
+		this.razonsocial_prs = razonsocial_prs;
+		this.numerocta_prs = numerocta_prs;
+	}
 
 	public 	int	getId_prs	() {return 	id_prs	;}	public void 	setId_prs	(int	id_prs	) {this.	id_prs=	id_prs	;}
 	public 	String	getApodo_prs	() {return 	apodo_prs	;}	public void 	setApodo_prs	(	String	apodo_prs	) {this.	apodo_prs=	apodo_prs	;}
 	public 	String	getContrasenna_prs	() {return 	contrasenna_prs	;}	public void 	setContrasenna_prs	(	String	contrasenna_prs	) {this.	contrasenna_prs=	contrasenna_prs	;}
-	public 	boolean	getRecordarcontrasenna_prs	() {return 	recordarcontrasenna_prs	;}	public void 	setRecordarcontrasenna_prs	(	boolean	recordarcontrasenna_prs	) {this.	recordarcontrasenna_prs=	recordarcontrasenna_prs	;}
+	public boolean isRecordarcontrasenna_prs() {return recordarcontrasenna_prs;}	public void setRecordarcontrasenna_prs(boolean recordarcontrasenna_prs) {this.recordarcontrasenna_prs = recordarcontrasenna_prs;}
 	public 	String	getActividadtipo_prs	() {return 	actividadtipo_prs	;}	public void 	setActividadtipo_prs	(	String	actividadtipo_prs	) {this.	actividadtipo_prs=	actividadtipo_prs	;}
 	public 	String	getDocumentotipo_prs	() {return 	documentotipo_prs	;}	public void 	setDocumentotipo_prs	(	String	documentotipo_prs	) {this.	documentotipo_prs=	documentotipo_prs	;}
 	public 	String	getDni_prs	() {return 	dni_prs	;}	public void 	setDni_prs	(	String	dni_prs	) {this.	dni_prs=	dni_prs	;}
+	public 	String	getNacionalidad_prs	() {return 	nacionalidad_prs	;}	public void 	setNacionalidad_prs	(	String	nacionalidad_prs	) {this.	nacionalidad_prs=	nacionalidad_prs	;}
 	public 	String	getNombre_prs	() {return 	nombre_prs	;}	public void 	setNombre_prs	(	String	nombre_prs	) {this.	nombre_prs=	nombre_prs	;}
 	public 	String	getApellido1_prs	() {return 	apellido1_prs	;}	public void 	setApellido1_prs	(	String	apellido1_prs	) {this.	apellido1_prs=	apellido1_prs	;}
 	public 	String	getApellido2_prs	() {return 	apellido2_prs	;}	public void 	setApellido2_prs	(	String	apellido2_prs	) {this.	apellido2_prs=	apellido2_prs	;}
@@ -258,6 +276,7 @@ public class Persona_prs implements Serializable, Parcelable {
 		builder.append("	private	 [	actividadtipo_prs=	");	builder.append(	actividadtipo_prs+	" - ");
 		builder.append("	private	 [	documentotipo_prs=	");	builder.append(	documentotipo_prs+	" - ");
 		builder.append("	private	 [	dni_prs=	");	builder.append(	dni_prs+	" - ");
+		builder.append("	private	 [	nacionalidad_prs=	");	builder.append(	nacionalidad_prs+	" - ");
 		builder.append("	private	 [	nombre_prs=	");	builder.append(	nombre_prs+	" - ");
 		builder.append("	private	 [	apellido1_prs=	");	builder.append(	apellido1_prs+	" - ");
 		builder.append("	private	 [	apellido2_prs=	");	builder.append(	apellido2_prs+	" - ");
@@ -339,6 +358,7 @@ public class Persona_prs implements Serializable, Parcelable {
 		dest.writeString(actividadtipo_prs);
 		dest.writeString(documentotipo_prs);
 		dest.writeString(dni_prs);
+		dest.writeString(nacionalidad_prs);
 		dest.writeString(nombre_prs);
 		dest.writeString(apellido1_prs);
 		dest.writeString(apellido2_prs);

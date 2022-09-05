@@ -1,9 +1,5 @@
 package com.appvisibility.apptravel002.ui.service;
 
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,10 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.entities.Contacto_cnt;
+import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,10 +28,11 @@ public class Validacion_vldService extends Fragment {
     // TODO: Rename and change types of parameters
 //    private Contacto_cnt mParam1;
     private String mParam1;
-    private String mParam2;
+    private String mTituloListaCargo_cnt;
 
     // Entities
     private static Contacto_cnt contactoEnProceso;
+    private static Persona_prs identidadEnProceso;
 
     public Validacion_vldService() {
         // Required empty public constructor
@@ -45,18 +42,23 @@ public class Validacion_vldService extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param2 Parameter 2.
+     * @param tituloListaCargo_cnt Parameter 2.
      * @return A new instance of fragment Validacion_vldService.
      */
     // TODO: Rename and change types and number of parameters
-    public static Validacion_vldService newInstance(Bundle bundleContacto, String param2) {
+    public static Validacion_vldService newInstance(Bundle bundleContacto, String tituloListaCargo_cnt, Bundle bundleIdentidad) {
         Validacion_vldService fragment = new Validacion_vldService();
-        contactoEnProceso = (Contacto_cnt) bundleContacto.getSerializable("contactoParaValidacion");
-        tituloListaCargo_cnt = param2;
+        if (bundleContacto != null) {
+            contactoEnProceso = (Contacto_cnt) bundleContacto.getSerializable("contactoParaValidacion");
+        }
+        tituloListaCargo_cnt = tituloListaCargo_cnt;
+        if (bundleIdentidad != null) {
+            identidadEnProceso = (Persona_prs)  bundleIdentidad.getSerializable("identidadParaValidacion");
+        }
 /*
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM2, tituloListaCargo_cnt);
         fragment.setArguments(args);
  */
         return fragment;
@@ -67,7 +69,7 @@ public class Validacion_vldService extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mTituloListaCargo_cnt = getArguments().getString(ARG_PARAM2);
         }
     }//Fin de constructor
 
@@ -76,6 +78,52 @@ public class Validacion_vldService extends Fragment {
         View view = inflater.inflate(R.layout.fragment_v_05_2_modal_cnt, container, false);
         // Inflate the layout for this fragment
         return view;
+    }
+// TODO
+    public static Boolean validarApodo() {
+        if (identidadEnProceso.getApodo_prs().equalsIgnoreCase("") ||
+                identidadEnProceso.getApodo_prs() == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+// TODO
+    public static Boolean validarNombre() {
+        if (identidadEnProceso.getNombre_prs().equalsIgnoreCase("") ||
+                identidadEnProceso.getNombre_prs() == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+// TODO
+    public static Boolean validarContrasenna() {
+        if (identidadEnProceso.getContrasenna_prs().equalsIgnoreCase("") ||
+                identidadEnProceso.getContrasenna_prs() == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+// TODO
+    public static Boolean validarDni() {
+        if (identidadEnProceso.getDni_prs().equalsIgnoreCase("") ||
+                identidadEnProceso.getDni_prs() == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+// TODO
+    public static Boolean validarNumerocta() {
+        if (identidadEnProceso.getNumerocta_prs().equalsIgnoreCase("") ||
+                identidadEnProceso.getNumerocta_prs() == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public static Boolean validarCargo() {
@@ -86,7 +134,7 @@ public class Validacion_vldService extends Fragment {
         }
     }
 
-    public static Boolean validarNombre() {
+    public static Boolean validarNombreContacto() {
         if (contactoEnProceso.getNombre_cnt().equalsIgnoreCase("") ||
                 contactoEnProceso.getNombre_cnt() == null) {
             return false;

@@ -99,12 +99,12 @@ public class Alimentacion_aliService extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_acv_usuario, container, false);
+        View view = null;
         return view;
     }
 
     // Convierte un String separado por guiones en un ArrayList
-    public Spanned alimentacionR(){
+    public Spanned mostrarAlimentacionEnProceso(){
 //        alimentacion_prsTitulo = "Restricciones Alimentarias: ";
         alimentacion_prsTitulo = "";
         alimentacionEnProceso = "";

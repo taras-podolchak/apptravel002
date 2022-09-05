@@ -76,14 +76,48 @@
     <string name="iniciar_sesion">Iniciar sesion</string>
     <string name="registrarse">Registrarse</string>
 
-    <!-- pantalla v_04_1 y v_05_2 -->
+    <!-- pantalla v_04_1 y v_05_2
+    pantalla ACV_usuario
+    -->
+    <string name="apodo_prs">Apodo</string>
     <string name="nombre_prs">Nombre</string>
     <string name="apellido1_prs">Primer apellido</string>
     <string name="apellido2_prs">Segundo apellido</string>
+    <string name="contrasennaConfirmar_prs">Contraseña</string>
+    <string name="recordarcontrasenna_prs">Recordar contraseña</string>
+    <string name="actividadtipo_prs">Actividad preferente</string>
+    <string name="documentotipo_prs">Tipo de documento</string>
+    <string name="dni_prs">DNI</string>
+    <string name="nacionalidad_prs">Nacionalidad</string>
+    <string name="razonsocial_prs">Razón social</string>
+    <string name="numerocta_prs">Número cuenta</string>
     <string name="movil_prs">Móvil</string>
     <string name="telefono_prs">Teléfono</string>
+    <string name="web_prs">Web</string>
     <string name="email_prs">eMail</string>
-    <string name="dni_prs">DNI</string>
+    <string name="direccion_prs">Direccion</string>
+    <string name="localidad_prs">Localidad</string>
+    <string name="cpostal_prs">Código postal</string>
+    <string name="pais_prs">País</string>
+    <string name="segurocompannia_prs">Compañía de seguros</string>
+    <string name="seguropoliza_prs">Número de póliza</string>
+    <string name="fechacaducidadseguro_prs">Caducidad del seguro</string>
+    <string name="fechaalta_prs">Fecha de alta</string>
+    <string name="antiguedad_prs">Antiguedad</string>
+    <string name="fechabaja_prs">Fecha de baja</string>
+    <string name="preferencia_prs">Preferencia General</string>
+    <string name="fiabilidadpre_prs">Preferencia: Fiabilidad</string>
+    <string name="valoracionorgpre_prs">Preferencia: Colaboración</string>
+    <string name="antiguedadpre_prs">Preferencia: Antigüedad</string>
+    <string name="volumencomprapre_prs">Preferencia: Volumen</string>
+    <string name="cochepre_prs">Preferencia: Coche</string>
+    <string name="nrelacionespre_prs">Preferencia: Relaciones</string>
+    <string name="nps01fecha_prs">Fecha NPS #1</string>
+    <string name="nps01_prs">NPS #1</string>
+    <string name="nps02fecha_prs">Fecha NPS #2</string>
+    <string name="nps02_prs">NPS #2</string>
+    <string name="nps03fecha_prs">Fecha NPS #3</string>
+    <string name="nps03_prs">NPS #3</string>
     <string name="soy_valiente">Soy valiente</string>
     <string name="soy_colaborador">Soy colaborador</string>
     <string name="aceptacion_de_condiciones">Aceptacion de condiciones</string>
@@ -106,15 +140,16 @@
     <!-- v03_00_act_Adapter -->
     <integer name="accion_a_web">0</integer>
 
-    <!-- pantalla ACV_my_account -->
+    <!-- pantalla ACV_usuario
     <string name="apodo">Apodo</string>
     <string name="direccion">Direccion</string>
     <string name="localidad">Localidad</string>
     <string name="cpostal">Código postal</string>
-    <string name="pais">Pais</string>
+    <string name="pais">País</string>
     <string name="seguro">Seguro</string>
-    <string name="seguropoliza">Seguro poliza</string>
-    <string name="fechacaducidadseguro">fecha caducidad de seguro</string>
+    <string name="seguropoliza">Número póliza</string>
+    <string name="fechacaducidadseguro">Caducidad del seguro</string>
+-->
 
     <!-- tipos de usuarios -->
     <integer name="rol_no_iniciada">0</integer>
@@ -159,6 +194,20 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string-array name="documentoTipos_prs">
+        <item>"DNI"</item>
+        <item>"NIE"</item>
+        <item>"Pasaporte"</item>
+        <item>"NIF"</item>
+    </string-array>
+
+    <string-array name="actividadTipos_prs">
+        <item>"Senderismo"</item>
+        <item>"Alpinismo"</item>
+        <item>"Escalada"</item>
+        <item>"Ferrata"</item>
+    </string-array>
+
     <!--
 https://www.youtube.com/watch?v=JB3ETK5mh3c&ab_channel=CodinginFlow
 -->
@@ -190,7 +239,7 @@ https://www.youtube.com/watch?v=JB3ETK5mh3c&ab_channel=CodinginFlow
         <item>"Vegetariano"</item>
     </string-array>
 
-    <string-array name="contactoCargo_prs">
+    <string-array name="contactoCargos_prs">
         <item>"RELACION:"</item>
         <item>"Pareja"</item>
         <item>"Amistad"</item>
@@ -198,7 +247,7 @@ https://www.youtube.com/watch?v=JB3ETK5mh3c&ab_channel=CodinginFlow
         <item>"Trabajo"</item>
     </string-array>
 
-    <string-array name="contactoCargo_sum">
+    <string-array name="contactoCargos_sum">
         <item>"CARGO:"</item>
         <item>"Gerencia"</item>
         <item>"Reservas"</item>

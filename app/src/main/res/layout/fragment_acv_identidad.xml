@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <EditText
+        android:id="@+id/v01_1_etx_apodo_prs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/apodo_prs"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/v01_1_etx_nombre_prs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/nombre_prs"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/v01_1_etx_apellido1_prs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/apellido1_prs"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/v01_1_etx_apellido2_prs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/apellido2_prs"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/v01_1_etx_contrasenna_prs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/contrasenna_prs"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/v01_1_etx_contrasennaConfirmar_prs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/contrasennaConfirmar_prs"
+        android:inputType="textPassword" />
+
+    <Switch
+        android:id="@+id/v01_1_swc_recordarcontrasenna_prs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5" />
+
+    <Spinner
+        android:id="@+id/v05_2_spn_contactoCargo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="textStart"
+        android:textSize="24sp" />
+
+    <Spinner
+        android:id="@+id/v01_1_spn_actividadtipo_prs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="textStart"
+        android:textSize="24sp" />
+
+    <Spinner
+        android:id="@+id/v01_1_spn_documentotipo_prs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="textStart"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/v01_1_etx_dni_prs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/dni_prs"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/v01_1_etx_nacionalidad_prs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/nacionalidad_prs"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/v01_1_etx_razonsocial_prs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/razonsocial_prs"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/v01_1_etx_numerocta_prs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/numerocta_prs"
+        android:inputType="text" />
+
+</LinearLayout>

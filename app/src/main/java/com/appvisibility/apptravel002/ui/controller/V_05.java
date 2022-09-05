@@ -54,7 +54,6 @@ import java.util.stream.Collectors;
  * create an instance of this fragment.
  */
 public class V_05 extends Fragment {
-
     // Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -308,7 +307,7 @@ public class V_05 extends Fragment {
         });
 
         Alimentacion_aliService.newInstance(null, mBundlePersonaUser);
-        alimentacion.alimentacionR();
+        alimentacion.mostrarAlimentacionEnProceso();
         v05_alimentacion_prs.setText(Alimentacion_aliService.alimentacionSpanned);
         v05_alimentacion_prs.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -316,8 +315,6 @@ public class V_05 extends Fragment {
                 alimentacion.indicarRestriccionesAlimentarias(view);
             }
         });
-
-//        alimentacionR();
 
         v05_indicaContacto1.setOnClickListener(new View.OnClickListener() {
             @Override

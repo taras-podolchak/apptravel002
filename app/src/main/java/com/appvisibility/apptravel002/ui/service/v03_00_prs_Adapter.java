@@ -99,7 +99,7 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
         personaEnProceso.setId_prs(id_prs_enProceso);
         personaEnProceso.setApodo_prs(personasInscritos.get(position).getApodo_prs());
         personaEnProceso.setContrasenna_prs(personasInscritos.get(position).getContrasenna_prs());
-        personaEnProceso.setRecordarcontrasenna_prs(personasInscritos.get(position).getRecordarcontrasenna_prs());
+        personaEnProceso.setRecordarcontrasenna_prs(personasInscritos.get(position).isRecordarcontrasenna_prs());
         personaEnProceso.setActividadtipo_prs(personasInscritos.get(position).getActividadtipo_prs());
         personaEnProceso.setDocumentotipo_prs(personasInscritos.get(position).getDocumentotipo_prs());
         personaEnProceso.setDni_prs(personasInscritos.get(position).getDni_prs());
