@@ -194,11 +194,34 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string-array name="prefijosApellidos">
+        <item>"de"</item>
+        <item>"d"</item>
+        <item>"del"</item>
+        <item>"la"</item>
+        <item>"l"</item>
+        <item>"el"</item>
+        <item>"de la"</item>
+        <item>"de l"</item>
+        <item>"de el"</item>
+        <item>"i"</item>
+        <item>"y"</item>
+        <item>"un"</item>
+        <item>"una"</item>
+        <item>"uno"</item>
+        <item>"en"</item>
+        <item>"por"</item>
+        <item>"von"</item>
+        <item>"vom"</item>
+        <item>"-"</item>
+        <item>"'"</item>
+    </string-array>
+
     <string-array name="documentoTipos_prs">
         <item>"DNI"</item>
         <item>"NIE"</item>
-        <item>"Pasaporte"</item>
         <item>"NIF"</item>
+        <item>"Pasaporte"</item>
     </string-array>
 
     <string-array name="actividadTipos_prs">

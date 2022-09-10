@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -22,8 +23,10 @@ import android.widget.Toast;
 import com.appvisibility.apptravel002.MainActivity_val;
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.controller.ACV_usuario;
-import com.appvisibility.apptravel002.ui.controller.V_05;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -136,6 +139,8 @@ public class Identidad_idtService extends Fragment {
         v01_1_razonsocial_prs = view.findViewById(R.id.v01_1_etx_razonsocial_prs);
         v01_1_numerocta_prs = view.findViewById(R.id.v01_1_etx_numerocta_prs);
 
+        v01_1_nacionalidad_prs.setVisibility(View.GONE);
+
         recuperarIdentidadActual(view);
 
         identidadEnProceso = new Persona_prs(apodo_prs, nombre_prs, apellido1_prs, apellido2_prs, contrasenna_prs, recordarcontrasenna_prs, actividadtipo_prs, documentotipo_prs, dni_prs, nacionalidad_prs, razonsocial_prs, numerocta_prs);
@@ -154,40 +159,23 @@ public class Identidad_idtService extends Fragment {
 
         AlertDialog.Builder modalFormIdentificación = new AlertDialog.Builder(view.getContext());
 
-        apodo_prs = (apodo_prs == null)? "":apodo_prs;
-        nombre_prs = (nombre_prs == null)? "":nombre_prs;
-        apellido1_prs = (apellido1_prs == null)? "":apellido1_prs;
-        apellido2_prs = (apellido2_prs == null)? "":apellido2_prs;
-        contrasenna_prs = (contrasenna_prs == null)? "":contrasenna_prs;
-//        recordarcontrasenna_prs = (recordarcontrasenna_prs == false)? false:true;
+        modalFormIdentificación.setIcon(R.drawable.ico_carnetoutline_blue);
+        modalFormIdentificación.setTitle("IDENTIDAD");
 
         int indexOfPreviousSelection;
         v01_1_actividadtipo_prs.setAdapter(arrayAdapter_act);
 // https://stackoverflow.com/questions/37481951/how-to-get-and-set-selected-item-from-spinner-using-sharedpreferences
 // Recupera spinner anterior
         v01_1_actividadtipo_prs.getSelectedItemPosition();
-        indexOfPreviousSelection = arrayAdapter_act.getPosition(personaUser.getActividadtipo_prs());
+        indexOfPreviousSelection = arrayAdapter_act.getPosition(identidadEnProceso.getActividadtipo_prs());
         v01_1_actividadtipo_prs.setSelection(indexOfPreviousSelection);
 
         v01_1_documentotipo_prs.setAdapter(arrayAdapter_idt);
 // https://stackoverflow.com/questions/37481951/how-to-get-and-set-selected-item-from-spinner-using-sharedpreferences
 // Recupera spinner anterior
         v01_1_documentotipo_prs.getSelectedItemPosition();
-        indexOfPreviousSelection = arrayAdapter_idt.getPosition(personaUser.getActividadtipo_prs());
+        indexOfPreviousSelection = arrayAdapter_idt.getPosition(identidadEnProceso.getDocumentotipo_prs());
         v01_1_documentotipo_prs.setSelection(indexOfPreviousSelection);
-
-//        actividadtipo_prs = (actividadtipos_prs[indexOfPreviousSelection] == null)? "":actividadtipo_prs;
-//        documentotipo_prs = (documentotipos_prs[indexOfPreviousSelection] == null)? "":documentotipo_prs;
-        dni_prs = (dni_prs == null)? "":dni_prs;
-        nacionalidad_prs = (nacionalidad_prs == null)? "":nacionalidad_prs;
-        razonsocial_prs = (razonsocial_prs == null)? "":razonsocial_prs;
-        numerocta_prs = (numerocta_prs == null)? "":numerocta_prs;
-        identidadEnProceso = new Persona_prs(apodo_prs, nombre_prs, apellido1_prs, apellido2_prs, contrasenna_prs, recordarcontrasenna_prs, actividadtipo_prs, documentotipo_prs, dni_prs, nacionalidad_prs, razonsocial_prs, numerocta_prs);
-        mostrarIdentidadEnProceso(view);
-        bundleIdentidad.putSerializable("identidadParaValidacion", identidadEnProceso);
-
-        modalFormIdentificación.setIcon(R.drawable.ico_carnetoutline_blue);
-        modalFormIdentificación.setTitle("IDENTIDAD");
 
         if (sesionIniciada == view.getResources().getInteger(R.integer.rol_transportecolectivo)) {
 // https://stackoverflow.com/questions/4622517/hide-a-edittext-make-it-visible-by-clicking-a-menu
@@ -221,62 +209,24 @@ public class Identidad_idtService extends Fragment {
                     @Override
                     public void onClick(View view) {
                         prepararValidacion(view, null);
-                        bundleIdentidad.putSerializable("personaUserParaValidacion", personaUser);
+                        bundleIdentidad.putSerializable("identidadParaValidacion", identidadEnProceso);
                         Validacion_vldService.newInstance(null, null, bundleIdentidad);
-// https://www.android--code.com/2015/08/android-edittext-border-color_20.html
-// https://stackoverflow.com/questions/34075131/how-to-set-a-button-border-color-programmatically-in-android
-// You can create a layout for this. in your code
-                        if (!Validacion_vldService.validarApodo()) {
-                            v01_1_apodo_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
-                            validacion = false;
-                        } else {
-                            v01_1_apodo_prs.setBackgroundResource(0);
-                            validacion = !validacion? false: true;
-                        }
-                        if (!Validacion_vldService.validarNombre()) {
-                            v01_1_nombre_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
-                            validacion = false;
-                        } else {
-                            v01_1_nombre_prs.setBackgroundResource(0);
-                            validacion = !validacion? false: true;
-                        }
-                        if (!Validacion_vldService.validarApellido1()) {
-                            v01_1_apellido1_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
-                            validacion = false;
-                        } else {
-                            v01_1_apellido1_prs.setBackgroundResource(0);
-                            validacion = !validacion? false: true;
-                        }
-/*
-                            if (!Validacion_vldService.validarApellido2()) {
-                                v01_1_apellido2_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
-                                validacion = false;
-                            } else {
-                                v01_1_apellido2_prs.setBackgroundResource(0);
-                                validacion = !validacion? false: true;
-                            }
-*/
-                        if (!Validacion_vldService.validarContrasenna()) {
-                            v01_1_contrasenna_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
-                            validacion = false;
-                        } else {
-                            v01_1_contrasenna_prs.setBackgroundResource(0);
-                            validacion = !validacion? false: true;
-                        }
-                        if (!Validacion_vldService.validarDni()) {
-                            v01_1_dni_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
-                            validacion = false;
-                        } else {
-                            v01_1_dni_prs.setBackgroundResource(0);
-                            validacion = !validacion? false: true;
-                        }
-                        if (!Validacion_vldService.validarNumerocta()) {
-                            v01_1_numerocta_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
-                            validacion = false;
-                        } else {
-                            v01_1_numerocta_prs.setBackgroundResource(0);
-                            validacion = !validacion? false: true;
-                        }
+                        validacion = secuenciaDeValidacion(view);
+                        mostrarIdentidadEnProceso(view);
+
+// https://stackoverflow.com/questions/42397915/how-to-pass-string-from-one-fragment-to-another-in-android
+// Permite mostrar en la pantalla padre los datos filtrados del formulario
+                        ACV_usuario.newInstance(null, null);
+                        ACV_usuario.acv_usuario_apodo_prs.setText(identidadEnProceso.getApodo_prs());
+                        ACV_usuario.acv_usuario_nombre_prs.setText(identidadEnProceso.getNombre_prs());
+                        ACV_usuario.acv_usuario_apellido1_prs.setText(identidadEnProceso.getApellido1_prs());
+                        ACV_usuario.acv_usuario_apellido2_prs.setText(identidadEnProceso.getApellido2_prs());
+                        ACV_usuario.acv_usuario_actividadtipo_prs.setText(identidadEnProceso.getActividadtipo_prs());
+                        ACV_usuario.acv_usuario_documentotipo_prs_lbl.setText(identidadEnProceso.getDocumentotipo_prs());
+                        ACV_usuario.acv_usuario_dni_prs.setText(identidadEnProceso.getDni_prs());
+                        ACV_usuario.acv_usuario_razonsocial_prs.setText(identidadEnProceso.getRazonsocial_prs());
+                        ACV_usuario.acv_usuario_numerocta_prs.setText(identidadEnProceso.getNumerocta_prs());
+
                         if (!validacion){
                             Toast.makeText(view.getContext(), "La identificación no se puede guardar, datos incorrectos", Toast.LENGTH_LONG).show();
                         } else {
@@ -293,12 +243,48 @@ public class Identidad_idtService extends Fragment {
 
 // https://stackoverflow.com/questions/42397915/how-to-pass-string-from-one-fragment-to-another-in-android
 // Permite mostrar en la pantalla padre el resultado de la selección de un contacto de la agenda
+/*
                         ACV_usuario.newInstance(null, null);
-                        ACV_usuario.acv_usuario_nombre_prs.setText(identidadEnProceso.getNombre_prs());
+                        ACV_usuario.acv_usuario_txv_direccion_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_txv_localidad_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_txv_cpostal_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_txv_pais_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_txv_movil_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_txv_email_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_txv_telefono_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_txv_web_prs.setText(identidadEnProceso.getNumerocta_prs());
 
-//                        V_05.newInstance(contactoElegidoResultado, null);
-//                        V_05.v05_2_muestraContacto1Elegido.setText(contactoElegidoResultado);
-//                        alertDialog.dismiss();
+                        ACV_usuario.acv_usuario_numerocta_prs.setText(identidadEnProceso.getNumerocta_prs());
+
+                        ACV_usuario.acv_usuario_txv_alimentacion_prs.setText(identidadEnProceso.getNumerocta_prs());
+
+                        ACV_usuario.acv_usuario_swc_federado_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_swc_seguro_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_txv_segurocompannia_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_txv_seguropoliza_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_txv_fechacaducidadseguro_prs.setText(identidadEnProceso.getNumerocta_prs());
+
+                        ACV_usuario.acv_usuario_txv_fechaalta_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_txv_antiguedad_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_swc_condicioneslegales_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_swc_solicitabaja_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_txv_fechabaja_prs.setText(identidadEnProceso.getNumerocta_prs());
+
+                        ACV_usuario.acv_usuario_txv_preferencia_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_txv_fiabilidadpre_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_txv_valoracionorgpre_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_txv_antiguedadpre_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_txv_volumencomprapre_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_txv_cochepre_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_txv_nrelacionespre_prs.setText(identidadEnProceso.getNumerocta_prs());
+
+                        ACV_usuario.acv_usuario_txv_nps01fecha_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_txv_nps01_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_txv_nps02fecha_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_txv_nps02_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_txv_nps03fecha_prs.setText(identidadEnProceso.getNumerocta_prs());
+                        ACV_usuario.acv_usuario_txv_nps03_prs.setText(identidadEnProceso.getNumerocta_prs());
+ */
                     }
                 });
             }
@@ -314,26 +300,36 @@ public class Identidad_idtService extends Fragment {
         personaUser.setApellido1_prs(identidadEnProceso.getApellido1_prs());
         personaUser.setApellido2_prs(identidadEnProceso.getApellido2_prs());
         personaUser.setContrasenna_prs(identidadEnProceso.getContrasenna_prs());
-        personaUser.setRecordarcontrasenna_prs(identidadEnProceso.isRecordarcontrasenna_prs());
-        personaUser.setActividadtipo_prs(identidadEnProceso.getActividadtipo_prs());
-        personaUser.setDocumentotipo_prs(identidadEnProceso.getDocumentotipo_prs());
-        personaUser.setDni_prs(identidadEnProceso.getDni_prs());
+        if (identidadEnProceso.isRecordarcontrasenna_prs()) {
+            personaUser.setRecordarcontrasenna_prs(true);
+        } else {
+            personaUser.setRecordarcontrasenna_prs(false);
+        }
+        int indexOfPreviousSelection = v01_1_actividadtipo_prs.getSelectedItemPosition();
+        personaUser.setActividadtipo_prs(arrayAdapter_act.getItem(indexOfPreviousSelection));
+        indexOfPreviousSelection = v01_1_documentotipo_prs.getSelectedItemPosition();
+        personaUser.setDocumentotipo_prs(arrayAdapter_idt.getItem(indexOfPreviousSelection));
+        personaUser.setDni_prs(identidadEnProceso.getDni_prs().replaceAll("[\\s()-]", ""));
         personaUser.setNacionalidad_prs(identidadEnProceso.getNacionalidad_prs());
         personaUser.setRazonsocial_prs(identidadEnProceso.getRazonsocial_prs());
-        personaUser.setNumerocta_prs(identidadEnProceso.getNumerocta_prs());
-//        contacto1ElegidoResultado = identidadEnProceso.getNombre_prs() + " " + identidadEnProceso.getApellido1_prs();
+        personaUser.setNumerocta_prs(identidadEnProceso.getNumerocta_prs().replaceAll("[\\s()-]", ""));
     }
 
     public void prepararValidacion(View view, String innecesarioAqui){
-        int indexOfPreviousSelection;
         identidadEnProceso.setApodo_prs(v01_1_apodo_prs.getText().toString());
-        identidadEnProceso.setNombre_prs(v01_1_nombre_prs.getText().toString());
-        identidadEnProceso.setApellido1_prs(v01_1_apellido1_prs.getText().toString());
-        identidadEnProceso.setApellido2_prs(v01_1_apellido2_prs.getText().toString());
+        identidadEnProceso.setNombre_prs(limpiarApellido(view, v01_1_nombre_prs.getText().toString()));
+        identidadEnProceso.setApellido1_prs(limpiarApellido(view, v01_1_apellido1_prs.getText().toString()));
+        identidadEnProceso.setApellido2_prs(limpiarApellido(view, v01_1_apellido2_prs.getText().toString()));
         identidadEnProceso.setContrasenna_prs(v01_1_contrasenna_prs.getText().toString());
-//        identidadEnProceso.setRecordarcontrasenna_prs(v01_1_recordarcontrasenna_prs.setChecked(true));
-        indexOfPreviousSelection = v01_1_actividadtipo_prs.getSelectedItemPosition();
+        if (v01_1_recordarcontrasenna_prs.isChecked()) {
+            identidadEnProceso.setRecordarcontrasenna_prs(true);
+        } else {
+            identidadEnProceso.setRecordarcontrasenna_prs(false);
+        }
+        int indexOfPreviousSelection = v01_1_actividadtipo_prs.getSelectedItemPosition();
+        identidadEnProceso.setActividadtipo_prs(arrayAdapter_act.getItem(indexOfPreviousSelection));
         indexOfPreviousSelection = v01_1_documentotipo_prs.getSelectedItemPosition();
+        identidadEnProceso.setDocumentotipo_prs(arrayAdapter_idt.getItem(indexOfPreviousSelection));
         identidadEnProceso.setDni_prs(v01_1_dni_prs.getText().toString());
         identidadEnProceso.setNacionalidad_prs(v01_1_nacionalidad_prs.getText().toString());
         identidadEnProceso.setRazonsocial_prs(v01_1_razonsocial_prs.getText().toString());
@@ -361,12 +357,157 @@ public class Identidad_idtService extends Fragment {
         v01_1_apellido1_prs.setText(identidadEnProceso.getApellido1_prs());
         v01_1_apellido2_prs.setText(identidadEnProceso.getApellido2_prs());
         v01_1_contrasenna_prs.setText(identidadEnProceso.getContrasenna_prs());
-//        v01_1_actividadtipo_prs.setText(identidadEnProceso.getActividadtipo_prs());
- //       v01_1_documentotipo_prs.setText(identidadEnProceso.getDocumentotipo_prs());
+        if (identidadEnProceso.isRecordarcontrasenna_prs()) {
+            v01_1_recordarcontrasenna_prs.setChecked(true);
+        } else {
+            v01_1_recordarcontrasenna_prs.setChecked(false);
+        }
         v01_1_dni_prs.setText(identidadEnProceso.getDni_prs());
         v01_1_nacionalidad_prs.setText(identidadEnProceso.getNacionalidad_prs());
         v01_1_razonsocial_prs.setText(identidadEnProceso.getRazonsocial_prs());
         v01_1_numerocta_prs.setText(identidadEnProceso.getNumerocta_prs());
     }
 
+    public String limpiarApellido(View view, String cadena) {
+        List<String> prefijosApellidos = Arrays.asList(view.getResources().getStringArray(R.array.prefijosApellidos));
+        String apellidoLimpio = cadena.trim();
+        apellidoLimpio = apellidoLimpio.toLowerCase();
+        apellidoLimpio = apellidoLimpio.replaceAll("-", " ### ");
+        apellidoLimpio = apellidoLimpio.replaceAll("'", " €€€ ");
+        List<String> apellidoArray = Arrays.asList(apellidoLimpio.split("[\\s()/]"));
+        apellidoLimpio = "";
+        for (int i=0; i <= apellidoArray.size()-1; i++){
+            if (apellidoArray.get(i).matches("^[\\s.()/]$")) {
+                apellidoArray.remove(i);
+            }
+            if (!prefijosApellidos.contains(apellidoArray.get(i))
+                    && !apellidoArray.get(i).contains("€€€")
+                    && !apellidoArray.get(i).contains("###")
+                    && !apellidoArray.get(i).equalsIgnoreCase("")
+            ) {
+                apellidoLimpio += String.valueOf(apellidoArray.get(i).charAt(0)).toUpperCase() + apellidoArray.get(i).substring(1) + " ";
+            } else if (apellidoArray.get(i).contains("###")) {
+                apellidoLimpio += "-";
+            } else if (apellidoArray.get(i).contains("€€€")) {
+                apellidoLimpio += "'";
+            } else if (prefijosApellidos.contains(apellidoArray.get(i))) {
+                apellidoLimpio += String.valueOf(apellidoArray.get(i)) + " ";
+            } else {
+                apellidoLimpio += "";
+            }
+        }
+        apellidoLimpio = apellidoLimpio.replaceAll(" -", "-");
+        apellidoLimpio = apellidoLimpio.replaceAll(" '", "'");
+        apellidoLimpio = apellidoLimpio.trim();
+        return apellidoLimpio;
+    }
+
+    public Boolean secuenciaDeValidacion(View view) {
+        Boolean validacion = false;
+// https://www.android--code.com/2015/08/android-edittext-border-color_20.html
+// https://stackoverflow.com/questions/34075131/how-to-set-a-button-border-color-programmatically-in-android
+// You can create a layout for this. in your code
+        if (!Validacion_vldService.validarApodo()) {
+            v01_1_apodo_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
+            validacion = false;
+        } else {
+            v01_1_apodo_prs.setBackgroundResource(0);
+            validacion = true;
+        }
+        if (!Validacion_vldService.validarNombre()) {
+            v01_1_nombre_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
+            validacion = false;
+        } else {
+            v01_1_nombre_prs.setBackgroundResource(0);
+            validacion = !validacion? false: true;
+        }
+        if (!Validacion_vldService.validarApellido1()) {
+            v01_1_apellido1_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
+            validacion = false;
+        } else {
+            v01_1_apellido1_prs.setBackgroundResource(0);
+            validacion = !validacion? false: true;
+        }
+        if (!Validacion_vldService.validarApellido2()) {
+            v01_1_apellido2_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
+            validacion = false;
+        } else {
+            v01_1_apellido2_prs.setBackgroundResource(0);
+            validacion = !validacion? false: true;
+        }
+        if (!Validacion_vldService.validarContrasenna()) {
+            v01_1_contrasenna_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
+            validacion = false;
+            Toast.makeText(view.getContext(), "La contraseña debe contener al menos 8 caracteres incluyendo números, mayúsculas, minúsculas y caracteres especiales", Toast.LENGTH_LONG).show();
+        } else {
+            v01_1_contrasenna_prs.setBackgroundResource(0);
+            validacion = !validacion? false: true;
+        }
+        contrasennaConfirmar_prs = (String.valueOf(v01_1_contrasennaConfirmar_prs.getText()) == null)? "" : String.valueOf(v01_1_contrasennaConfirmar_prs.getText());
+        if (!contrasenna_prs.equals(contrasennaConfirmar_prs)) {
+            v01_1_contrasenna_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
+            v01_1_contrasennaConfirmar_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
+            validacion = false;
+        } else {
+            v01_1_contrasenna_prs.setBackgroundResource(0);
+            v01_1_contrasennaConfirmar_prs.setBackgroundResource(0);
+            validacion = !validacion? false: true;
+        }
+
+        int indexOfPreviousSelection = v01_1_documentotipo_prs.getSelectedItemPosition();
+        switch (identidadEnProceso.getDocumentotipo_prs()) {
+            case ("DNI"): {
+                if (!Validacion_vldService.validarDni()) {
+                    v01_1_dni_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                    validacion = false;
+                } else {
+                    v01_1_dni_prs.setBackgroundResource(0);
+                    validacion = !validacion? false: true;
+                }
+                break;
+            }
+            case ("NIE"): case ("NIF"): {
+                if (!Validacion_vldService.validarNieNif()) {
+                    v01_1_dni_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                    validacion = false;
+                } else {
+                    v01_1_nacionalidad_prs.setVisibility(View.VISIBLE);
+                    v01_1_nacionalidad_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                    if (!Validacion_vldService.validarNacionalidad()) {
+                        v01_1_nacionalidad_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                        validacion = false;
+                    } else {
+                        v01_1_nacionalidad_prs.setBackgroundResource(0);
+                        validacion = !validacion? false: true;
+                    }
+                }
+                break;
+            }
+            default: {
+                if (!Validacion_vldService.validarPasaporte()) {
+                    v01_1_dni_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                    validacion = false;
+                } else {
+                    v01_1_nacionalidad_prs.setVisibility(View.VISIBLE);
+                    v01_1_nacionalidad_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                    if (!Validacion_vldService.validarNacionalidad()) {
+                        v01_1_nacionalidad_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                        validacion = false;
+                    } else {
+                        v01_1_nacionalidad_prs.setBackgroundResource(0);
+                        validacion = !validacion? false: true;
+                    }
+                }
+                break;
+            }
+        }
+        if (!Validacion_vldService.validarNumerocta()) {
+            v01_1_numerocta_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
+            validacion = false;
+        } else {
+            v01_1_numerocta_prs.setBackgroundResource(0);
+            validacion = !validacion? false: true;
+        }
+        return validacion;
+    }
 }

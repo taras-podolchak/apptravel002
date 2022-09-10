@@ -103,14 +103,13 @@ public class Alimentacion_aliService extends Fragment {
         return view;
     }
 
-    // Convierte un String separado por guiones en un ArrayList
+// Convierte un String separado por guiones en un ArrayList
     public Spanned mostrarAlimentacionEnProceso(){
 //        alimentacion_prsTitulo = "Restricciones Alimentarias: ";
         alimentacion_prsTitulo = "";
         alimentacionEnProceso = "";
 // Si el usuario tiene restricciones Alimentarias se recupera
         recuperarAlimentacionActual();
-//        alimentacion_prsActual = personaUser.getAlimentacion_prs();
 // https://stackoverflow.com/questions/7488643/how-to-convert-comma-separated-string-to-list
 // https://regexr.com/346hf
 // Separar los saltos de línea no funciona
@@ -120,9 +119,11 @@ public class Alimentacion_aliService extends Fragment {
         V_05.newInstance(null, null);
         for (Object ali: alimentaciones_prs){
             alimentacionEnProceso += ali.toString() + " - ";
+// https://stackoverflow.com/questions/7806709/remove-trailing-comma-from-comma-separated-string
 //            v05_alimentacion_prs.setText(Html.fromHtml(alimentacionEnProceso+"<br>"), TextView.BufferType.SPANNABLE);
-            alimentacionSpanned = Html.fromHtml("<u>"+ alimentacion_prsTitulo + "</u><br>" + alimentacionEnProceso);
+            alimentacionSpanned = Html.fromHtml("<u>"+ alimentacion_prsTitulo + "</u><br>" + alimentacionEnProceso.replaceAll(" - $", ""));
         };
+//        alimentacionEnProceso.replaceAll("- $", "");
         return alimentacionSpanned;
     }
 
@@ -141,60 +142,59 @@ public class Alimentacion_aliService extends Fragment {
             };
         }
 
-        if (sesionIniciada >= view.getResources().getInteger(R.integer.rol_valiente)) {
+        if (sesionIniciada >= view.getResources().getInteger(R.integer.rol_valiente)
+            || sesionIniciada == view.getResources().getInteger(R.integer.rol_empresas_trekking)) {
             AlertDialog.Builder modalMultipleRestriccionesAlimentarias = new AlertDialog.Builder(view.getContext());
             modalMultipleRestriccionesAlimentarias
-                    .setIcon(R.drawable.ico_foodmealplaterestaurant_azul)
-                    .setTitle("RESTRICCIONES ALIMENTARIAS")
-                    .setMultiChoiceItems(restriccionesAlimentarias, opcionesRestriccionesAlimentarias, new DialogInterface.OnMultiChoiceClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int item, boolean isChecked) {
-                            alimentacionEnProceso  = "";
-                            alimentacion_prsActual = "";
-                            for (int i = 0; i < opcionesRestriccionesAlimentarias.length; i++) {
-                                if (opcionesRestriccionesAlimentarias[i] == true) {
-                                    alimentacionEnProceso += restriccionesAlimentarias[i] + " - ";
-                                    alimentacion_prsActual += restriccionesAlimentarias[i] + " - ";
-                                }
+                .setIcon(R.drawable.ico_foodmealplaterestaurant_azul)
+                .setTitle("RESTRICCIONES ALIMENTARIAS")
+                .setMultiChoiceItems(restriccionesAlimentarias, opcionesRestriccionesAlimentarias, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item, boolean isChecked) {
+                        alimentacionEnProceso  = "";
+                        for (int i = 0; i < opcionesRestriccionesAlimentarias.length; i++) {
+                            if (opcionesRestriccionesAlimentarias[i] == true) {
+                                alimentacionEnProceso += restriccionesAlimentarias[i] + " - ";
                             }
                         }
-                    })
-                    .setPositiveButton("Confirmar", new DialogInterface.OnClickListener(){
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            volcarAlimentacion();
+                    }
+                })
+                .setPositiveButton("Confirmar", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        volcarAlimentacion();
 
-                            if (ACV_usuario.acv_usuario_alimentacion_prs != null){
-                                ACV_usuario.acv_usuario_alimentacion_prs.setText(Html.fromHtml("<u>"+ alimentacion_prsTitulo + "</u><br>" + alimentacionEnProceso),
-                                        TextView.BufferType.SPANNABLE);
-                            }
+                        if (ACV_usuario.acv_usuario_alimentacion_prs != null){
+                            ACV_usuario.acv_usuario_alimentacion_prs.setText(Html.fromHtml("<u>"+ alimentacion_prsTitulo + "</u><br>" + alimentacionEnProceso.replaceAll(" - $", "")),
+                                    TextView.BufferType.SPANNABLE);
+                        }
 
-                            if (V_05.v05_alimentacion_prs != null){
-                                V_05.v05_alimentacion_prs.setText(Html.fromHtml("<u>"+ alimentacion_prsTitulo + "</u><br>" + alimentacionEnProceso),
-                                        TextView.BufferType.SPANNABLE);
-                            }
-                            datosActualizados = personaUserU(datosActualizados, personaUser);
-                            if (datosActualizados) {
-                                Toast.makeText(view.getContext(), "Las Restricciones Alimentarias se han guardado satisfactoriamente", Toast.LENGTH_LONG).show();
-                            } else {
-                                Toast.makeText(view.getContext(), "Las Restricciones Alimentarias no se han podido guardar", Toast.LENGTH_LONG).show();
-                            }
+                        if (V_05.v05_alimentacion_prs != null){
+                            V_05.v05_alimentacion_prs.setText(Html.fromHtml("<u>"+ alimentacion_prsTitulo + "</u><br>" + alimentacionEnProceso.replaceAll(" - $", "")),
+                                    TextView.BufferType.SPANNABLE);
+                        }
+                        datosActualizados = personaUserU(datosActualizados, personaUser);
+                        if (datosActualizados) {
+                            Toast.makeText(view.getContext(), "Las Restricciones Alimentarias se han guardado satisfactoriamente", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(view.getContext(), "Las Restricciones Alimentarias no se han podido guardar", Toast.LENGTH_LONG).show();
+                        }
 //                        ((AppCompatActivity) mContext).findViewById(R.id.v05_txv_muestraRestriccionesAlimentarias);
-                        }
-                    })
-                    .setNegativeButton("Volver", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .create()
-                    .show();
+                    }
+                })
+                .setNegativeButton("Volver", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create()
+                .show();
         }
     }
 
     public void volcarAlimentacion() {
-        personaUser.setAlimentacion_prs(alimentacion_prsActual);
+        personaUser.setAlimentacion_prs(alimentacionEnProceso.replaceAll(" - $", ""));
     }
 
     public void recuperarAlimentacionActual() {

@@ -71,9 +71,9 @@ public class Persona_prsService {
                         docRef.update("apellido1_prs", personaUser.getApellido1_prs());
                         docRef.update("apellido2_prs", personaUser.getApellido2_prs());
                         docRef.update("contrasenna_prs", personaUser.getContrasenna_prs());
-//                        docRef.update("recordarcontrasenna_prs", personaUser.isRecordarcontrasenna_prs());
+                        docRef.update("recordarcontrasenna_prs", personaUser.isRecordarcontrasenna_prs());
                         docRef.update("actividadtipo_prs", personaUser.getActividadtipo_prs());
-                        docRef.update("documentaciontipo_prs", personaUser.getDocumentotipo_prs());
+                        docRef.update("documentotipo_prs", personaUser.getDocumentotipo_prs());
                         docRef.update("dni_prs", personaUser.getDni_prs());
                         docRef.update("nacionalidad_prs", personaUser.getNacionalidad_prs());
                         docRef.update("razonsocial_prs", personaUser.getRazonsocial_prs());

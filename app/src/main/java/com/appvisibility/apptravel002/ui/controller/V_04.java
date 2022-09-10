@@ -98,7 +98,6 @@ public class V_04 extends Fragment {
 
     @Override
     public void onAttach(Context context) {
-
         super.onAttach(context);
         mContext = context;
     }

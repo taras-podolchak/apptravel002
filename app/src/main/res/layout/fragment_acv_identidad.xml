@@ -50,18 +50,25 @@
         android:hint="@string/contrasennaConfirmar_prs"
         android:inputType="textPassword" />
 
-    <Switch
-        android:id="@+id/v01_1_swc_recordarcontrasenna_prs"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="5" />
+        android:orientation="horizontal">
 
-    <Spinner
-        android:id="@+id/v05_2_spn_contactoCargo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="textStart"
-        android:textSize="24sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="11dp"
+            android:textSize="18sp"
+            android:text="¿Recordar contraseña?"  />
+
+        <Switch
+            android:id="@+id/v01_1_swc_recordarcontrasenna_prs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5" />
+    </LinearLayout>
 
     <Spinner
         android:id="@+id/v01_1_spn_actividadtipo_prs"
@@ -70,19 +77,28 @@
         android:textAlignment="textStart"
         android:textSize="24sp" />
 
-    <Spinner
-        android:id="@+id/v01_1_spn_documentotipo_prs"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="textStart"
-        android:textSize="24sp" />
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/v01_1_etx_dni_prs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/dni_prs"
-        android:inputType="text" />
+        <Spinner
+            android:id="@+id/v01_1_spn_documentotipo_prs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:textAlignment="textStart"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/v01_1_etx_dni_prs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center_horizontal"
+            android:hint="@string/dni_prs"
+            android:inputType="text" />
+    </LinearLayout>
 
     <EditText
         android:id="@+id/v01_1_etx_nacionalidad_prs"

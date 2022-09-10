@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +41,7 @@ public class ACV_usuario extends Fragment {
 
     // Campos de xml
     private Button acv_adelante, acv_atras;
-    private ImageView acv_usuario_fotopropia_prs;
+    public static ImageView acv_usuario_fotopropia_prs;
     public static LinearLayout acv_usuario_identidad1;
     public static LinearLayout acv_usuario_identidad2;
     public static TextView acv_usuario_apodo_prs;
@@ -51,10 +50,11 @@ public class ACV_usuario extends Fragment {
     public static TextView acv_usuario_apellido2_prs;
 //    public static TextView acv_usuario_contrasenna1_prs;
 //    private TextView acv_usuario_contrasenna2_prs;
-    public Spinner acv_usuario_spn_actividadtipo_prs;
-    public Spinner acv_usuario_spn_documentotipo_prs;
-    public TextView acv_usuario_actividadtipo_prs;
-    public TextView acv_usuario_documentotipo_prs;
+//    public Spinner acv_usuario_spn_actividadtipo_prs;
+//    public Spinner acv_usuario_spn_documentotipo_prs;
+    public TextView acv_usuario_actividadtipo_prs_lbl;
+    public static TextView acv_usuario_actividadtipo_prs;
+    public static TextView acv_usuario_documentotipo_prs_lbl;
     public static TextView acv_usuario_dni_prs;
     public static TextView acv_usuario_razonsocial_prs;
     public static TextView acv_usuario_numerocta_prs;
@@ -66,7 +66,9 @@ public class ACV_usuario extends Fragment {
     public static TextView acv_usuario_email_prs;
     public static TextView acv_usuario_telefono_prs;
     public static TextView acv_usuario_web_prs;
+    public LinearLayout acv_usuario_alimentacion;
     public static TextView acv_usuario_alimentacion_prs;
+    public LinearLayout acv_usuario_seguros;
     public Switch acv_usuario_federado_prs;
     public Switch acv_usuario_seguro_prs;
     public static TextView acv_usuario_segurocompannia_prs;
@@ -76,6 +78,7 @@ public class ACV_usuario extends Fragment {
     public static TextView acv_usuario_antiguedad_prs;
     public static TextView acv_usuario_fechabaja_prs;
     public Switch acv_usuario_solicitabaja_prs;
+    public LinearLayout acv_usuario_preferencia;
     public static TextView acv_usuario_preferencia_prs;
     public static TextView acv_usuario_fiabilidadpre_prs;
     public static TextView acv_usuario_valoracionorgpre_prs;
@@ -83,6 +86,7 @@ public class ACV_usuario extends Fragment {
     public static TextView acv_usuario_volumencomprapre_prs;
     public static TextView acv_usuario_cochepre_prs;
     public static TextView acv_usuario_nrelacionespre_prs;
+    public LinearLayout acv_usuario_calidad;
     public static TextView acv_usuario_nps01_prs;
     public static TextView acv_usuario_nps01fecha_prs;
     public static TextView acv_usuario_nps02_prs;
@@ -192,8 +196,9 @@ public class ACV_usuario extends Fragment {
 //        acv_usuario_contrasenna2_prs = view.findViewById(R.id.acv_usuario_txv_contrasenna2_prs);
 
         acv_usuario_identidad2 = view.findViewById(R.id.acv_usuario_lly_identidad2);
+        acv_usuario_actividadtipo_prs_lbl = view.findViewById(R.id.acv_usuario_txv_actividadtipo_prs_lbl);
         acv_usuario_actividadtipo_prs = view.findViewById(R.id.acv_usuario_txv_actividadtipo_prs);
-        acv_usuario_documentotipo_prs = view.findViewById(R.id.acv_usuario_txv_documentotipo_prs);
+        acv_usuario_documentotipo_prs_lbl = view.findViewById(R.id.acv_usuario_txv_documentotipo_prs_lbl);
         acv_usuario_dni_prs = view.findViewById(R.id.acv_usuario_txv_dni_prs);
         acv_usuario_razonsocial_prs = view.findViewById(R.id.acv_usuario_txv_razonsocial_prs);
         acv_usuario_numerocta_prs = view.findViewById(R.id.acv_usuario_txv_numerocta_prs);
@@ -206,7 +211,9 @@ public class ACV_usuario extends Fragment {
         acv_usuario_email_prs = view.findViewById(R.id.acv_usuario_txv_email_prs);
         acv_usuario_telefono_prs = view.findViewById(R.id.acv_usuario_txv_telefono_prs);
         acv_usuario_web_prs = view.findViewById(R.id.acv_usuario_txv_web_prs);
+        acv_usuario_alimentacion = view.findViewById(R.id.acv_usuario_lly_alimentacion);
         acv_usuario_alimentacion_prs = view.findViewById(R.id.acv_usuario_txv_alimentacion_prs);
+        acv_usuario_seguros = view.findViewById(R.id.acv_usuario_lly_seguros);
         acv_usuario_federado_prs = view.findViewById(R.id.acv_usuario_swc_federado_prs);
         acv_usuario_seguro_prs = view.findViewById(R.id.acv_usuario_swc_seguro_prs);
         acv_usuario_segurocompannia_prs = view.findViewById(R.id.acv_usuario_txv_segurocompannia_prs);
@@ -216,6 +223,7 @@ public class ACV_usuario extends Fragment {
         acv_usuario_antiguedad_prs = view.findViewById(R.id.acv_usuario_txv_antiguedad_prs);
         acv_usuario_fechabaja_prs = view.findViewById(R.id.acv_usuario_txv_fechabaja_prs);
         acv_usuario_solicitabaja_prs = view.findViewById(R.id.acv_usuario_swc_solicitabaja_prs);
+        acv_usuario_preferencia = view.findViewById(R.id.acv_usuario_lly_preferencia);
         acv_usuario_preferencia_prs = view.findViewById(R.id.acv_usuario_txv_preferencia_prs);
         acv_usuario_fiabilidadpre_prs = view.findViewById(R.id.acv_usuario_txv_fiabilidadpre_prs);
         acv_usuario_valoracionorgpre_prs = view.findViewById(R.id.acv_usuario_txv_valoracionorgpre_prs);
@@ -223,6 +231,7 @@ public class ACV_usuario extends Fragment {
         acv_usuario_volumencomprapre_prs = view.findViewById(R.id.acv_usuario_txv_volumencomprapre_prs);
         acv_usuario_cochepre_prs = view.findViewById(R.id.acv_usuario_txv_cochepre_prs);
         acv_usuario_nrelacionespre_prs = view.findViewById(R.id.acv_usuario_txv_nrelacionespre_prs);
+        acv_usuario_calidad = view.findViewById(R.id.acv_usuario_lly_calidad);
         acv_usuario_nps01_prs = view.findViewById(R.id.acv_usuario_txv_nps01_prs);
         acv_usuario_nps01fecha_prs = view.findViewById(R.id.acv_usuario_txv_nps01fecha_prs);
         acv_usuario_nps02_prs = view.findViewById(R.id.acv_usuario_txv_nps02_prs);
@@ -239,14 +248,19 @@ public class ACV_usuario extends Fragment {
             acv_usuario_localidad_prs.setVisibility(View.GONE);
             acv_usuario_cpostal_prs.setVisibility(View.GONE);
             acv_usuario_pais_prs.setVisibility(View.GONE);
+            acv_usuario_telefono_prs.setVisibility(View.GONE);
             acv_usuario_web_prs.setVisibility(View.GONE);
-            acv_usuario_razonsocial_prs.setVisibility(View.GONE);
         } else if (sesionIniciada == view.getResources().getInteger(R.integer.rol_valiente)
-                || sesionIniciada == view.getResources().getInteger(R.integer.rol_alojamiento)
-                || sesionIniciada == view.getResources().getInteger(R.integer.rol_empresas_trekking)) {
-//            V_05.v05_recomendacionContacto.setVisibility(View.GONE);
+                || sesionIniciada == view.getResources().getInteger(R.integer.rol_alojamiento)) {
+//            acv_usuario_actividadtipo_prs_lbl.setVisibility(View.GONE);
+            acv_usuario_actividadtipo_prs.setVisibility(View.GONE);
+            acv_usuario_alimentacion.setVisibility(View.GONE);
+            acv_usuario_seguros.setVisibility(View.GONE);
+            acv_usuario_preferencia.setVisibility(View.GONE);
+            acv_usuario_calidad.setVisibility(View.GONE);
+        } else if (sesionIniciada == view.getResources().getInteger(R.integer.rol_empresas_trekking)) {
+            acv_usuario_calidad.setVisibility(View.GONE);
         }
-
 
         fbf.collection("persona_prs").document(idPersona)
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -288,6 +302,7 @@ public class ACV_usuario extends Fragment {
         acv_usuario_alimentacion_prs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                alimentacion.mostrarAlimentacionEnProceso();
                 alimentacion.indicarRestriccionesAlimentarias(view);
             }
         });
@@ -321,14 +336,12 @@ public class ACV_usuario extends Fragment {
                 Picasso.get().load(uri).into(acv_usuario_fotopropia_prs)).addOnFailureListener(exception ->
             Toast.makeText(getActivity(), "GET IMAGE FAILED", Toast.LENGTH_SHORT).show());
         acv_usuario_apodo_prs.setText(usuarioEnProceso.getApodo_prs());
-        // acv_usuario_contrasenna1_prs.setText(usuarioEnProceso.contr
-        // acv_usuario_contrasenna2_prs.setText(usuarioEnProceso.
         acv_usuario_nombre_prs.setText(usuarioEnProceso.getNombre_prs());
         acv_usuario_apellido1_prs.setText(usuarioEnProceso.getApellido1_prs());
         acv_usuario_apellido2_prs.setText(usuarioEnProceso.getApellido2_prs());
 
         acv_usuario_actividadtipo_prs.setText(personaUser.getActividadtipo_prs());
-        acv_usuario_documentotipo_prs.setText(personaUser.getDocumentotipo_prs());
+        acv_usuario_documentotipo_prs_lbl.setText(personaUser.getDocumentotipo_prs());
 /*
         int indexOfPreviousSelection;
         acv_usuario_spn_actividadtipo_prs.setAdapter(arrayAdapter_act);

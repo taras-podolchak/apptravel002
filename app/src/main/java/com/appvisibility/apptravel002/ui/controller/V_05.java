@@ -312,6 +312,7 @@ public class V_05 extends Fragment {
         v05_alimentacion_prs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                alimentacion.mostrarAlimentacionEnProceso();
                 alimentacion.indicarRestriccionesAlimentarias(view);
             }
         });

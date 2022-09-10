@@ -414,7 +414,7 @@ public class Contacto_cntService extends Fragment {
         modalFormContacto.setIcon(R.drawable.ico_contact_book);
         modalFormContacto.setTitle("PERSONA DE CONTACTO");
 
-        if (sesionIniciada == view.getResources().getInteger(R.integer.rol_valiente)) {
+        if (sesionIniciada == view.getResources().getInteger(R.integer.rol_transportecolectivo)) {
             tituloListaCargo_cnt = "RELACION:";
 
             int indexOfPreviousSelection;
@@ -428,7 +428,7 @@ public class Contacto_cntService extends Fragment {
 // https://stackoverflow.com/questions/4622517/hide-a-edittext-make-it-visible-by-clicking-a-menu
             v05_2_apellido2_cnt.setVisibility(View.GONE);
             v05_2_email_cnt.setVisibility(View.GONE);
-        } else if (sesionIniciada == view.getResources().getInteger(R.integer.rol_transportecolectivo)
+        } else if (sesionIniciada == view.getResources().getInteger(R.integer.rol_valiente)
                 || sesionIniciada == view.getResources().getInteger(R.integer.rol_alojamiento)
                 || sesionIniciada == view.getResources().getInteger(R.integer.rol_empresas_trekking)) {
             tituloListaCargo_cnt = "CARGO:";
@@ -467,87 +467,10 @@ public class Contacto_cntService extends Fragment {
                         prepararValidacion(view, tituloListaCargo_cnt);
                         bundleContacto.putSerializable("contactoParaValidacion", contactoEnProceso);
                         Validacion_vldService.newInstance(bundleContacto, tituloListaCargo_cnt, null);
-// https://www.android--code.com/2015/08/android-edittext-border-color_20.html
-// https://stackoverflow.com/questions/34075131/how-to-set-a-button-border-color-programmatically-in-android
-// You can create a layout for this. in your code
-                        if (!Validacion_vldService.validarCargo()) {
-                            v05_2_cargo_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
-                            validacion = false;
-                        } else {
-// Evitamos que haya cargos duplicados (esto no afecta a las Relaciones)
-                            if (cargosAsignados.contains(contactoEnProceso.getCargo_cnt()) &&
-                                    !contactoEnProceso.getCargo_cnt().equalsIgnoreCase(cargo_cnt) &&
-                                    tituloListaCargo_cnt.equalsIgnoreCase("CARGO:")) {
-                                v05_2_cargo_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
-                                Toast.makeText(view.getContext(), "El cargo elegido ya estaba asignado", Toast.LENGTH_LONG).show();
-                                validacion = false;
-                            } else {
-                                v05_2_cargo_cnt.setBackgroundResource(0);
-                                validacion = true;
-                            }
-                        }
-// Si el nombre está vacío se limpian todos los campos del formulario
-                        if (!Validacion_vldService.validarNombreContacto()) {
-                            v05_2_nombre_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
-                            validacion = false;
-                            limpiarContacto(view);
-                            mostrarContactoEnProceso(view);
-                        } else {
-                            if (!Validacion_vldService.validarApellido1()) {
-                                v05_2_apellido1_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
-                                validacion = false;
-                            } else {
-                                v05_2_apellido1_cnt.setBackgroundResource(0);
-                                validacion = !validacion? false: true;
-                            }
-/*
-                            if (!Validacion_vldService.validarApellido2()) {
-                                v05_2_apellido2_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
-                                validacion = false;
-                            } else {
-                                v05_2_apellido2_prs.setBackgroundResource(0);
-                                validacion = !validacion? false: true;
-                            }
-*/
-                            if (!Validacion_vldService.validarMovil()) {
-                                v05_2_movil_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
-                                validacion = false;
-                            } else {
-                                v05_2_movil_cnt.setBackgroundResource(0);
-                                validacion = !validacion? false: true;
-                            }
-                            if (!Validacion_vldService.validarTelefono()) {
-                                v05_2_telefono_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
-                                validacion = false;
-                            } else {
-                                v05_2_telefono_cnt.setBackgroundResource(0);
-                                validacion = !validacion? false: true;
-                            }
-                            if (!Validacion_vldService.validarEmail()) {
-                                v05_2_email_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
-                                validacion = false;
-                            } else {
-                                v05_2_email_cnt.setBackgroundResource(0);
-                                validacion = !validacion? false: true;
-                            }
-                        }
-                        if (!validacion){
-                            Toast.makeText(view.getContext(), "El contacto no se puede guardar, datos incorrectos", Toast.LENGTH_LONG).show();
-                        } else {
-                            validacion = false;
-                            volcarContacto(view, mContactoNumero);
-                            datosActualizados = personaUserU(datosActualizados, personaUser);
-                            if (datosActualizados){
-                                Toast.makeText(view.getContext(), "El contacto se ha guardado satisfactoriamente", Toast.LENGTH_LONG).show();
-                            } else {
-                                Toast.makeText(view.getContext(), "El contacto no se han podido guardar", Toast.LENGTH_LONG).show();
-                            }
-                            mostrarBotonContacto();
-                            positiveButtonCambiado.dismiss();
-                        }
+                        validacion = secuenciaDeValidacion(view, cargosAsignados);
 
 // https://stackoverflow.com/questions/42397915/how-to-pass-string-from-one-fragment-to-another-in-android
-// Permite mostrar en la pantalla padre el resultado de la selección de un contacto de la agenda
+// Permite mostrar en la pantalla padre los datos filtrados del formulario
                         switch (mContactoNumero){
                             case ("Contacto1"): {
                                 V_05.newInstance(contacto1ElegidoResultado, null);
@@ -565,10 +488,24 @@ public class Contacto_cntService extends Fragment {
                                 break;
                             }
                         }
-
 //                        V_05.newInstance(contactoElegidoResultado, null);
 //                        V_05.v05_2_muestraContacto1Elegido.setText(contactoElegidoResultado);
 //                        alertDialog.dismiss();
+
+                        if (!validacion){
+                            Toast.makeText(view.getContext(), "El contacto no se puede guardar, datos incorrectos", Toast.LENGTH_LONG).show();
+                        } else {
+                            validacion = false;
+                            volcarContacto(view, mContactoNumero);
+                            datosActualizados = personaUserU(datosActualizados, personaUser);
+                            if (datosActualizados){
+                                Toast.makeText(view.getContext(), "El contacto se ha guardado satisfactoriamente", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(view.getContext(), "El contacto no se han podido guardar", Toast.LENGTH_LONG).show();
+                            }
+                            mostrarBotonContacto();
+                            positiveButtonCambiado.dismiss();
+                        }
                     }
                 });
             }
@@ -719,4 +656,72 @@ public class Contacto_cntService extends Fragment {
         }
     }
 
+    public Boolean secuenciaDeValidacion (View view, List <String> cargosAsignados) {
+        Boolean validacion = false;
+// https://www.android--code.com/2015/08/android-edittext-border-color_20.html
+// https://stackoverflow.com/questions/34075131/how-to-set-a-button-border-color-programmatically-in-android
+// You can create a layout for this. in your code
+        if (!Validacion_vldService.validarCargoContacto()) {
+            v05_2_cargo_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+            validacion = false;
+        } else {
+// Evitamos que haya cargos duplicados (esto no afecta a las Relaciones)
+            if (cargosAsignados.contains(contactoEnProceso.getCargo_cnt()) &&
+                    !contactoEnProceso.getCargo_cnt().equalsIgnoreCase(cargo_cnt) &&
+                    tituloListaCargo_cnt.equalsIgnoreCase("CARGO:")) {
+                v05_2_cargo_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                Toast.makeText(view.getContext(), "El cargo elegido ya estaba asignado", Toast.LENGTH_LONG).show();
+                validacion = false;
+            } else {
+                v05_2_cargo_cnt.setBackgroundResource(0);
+                validacion = true;
+            }
+        }
+// Si el nombre está vacío se limpian todos los campos del formulario
+        if (!Validacion_vldService.validarNombreContacto()) {
+            v05_2_nombre_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+            validacion = false;
+            limpiarContacto(view);
+            mostrarContactoEnProceso(view);
+        } else {
+            if (!Validacion_vldService.validarApellido1Contacto()) {
+                v05_2_apellido1_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                validacion = false;
+            } else {
+                v05_2_apellido1_cnt.setBackgroundResource(0);
+                validacion = !validacion? false: true;
+            }
+/*
+                            if (!Validacion_vldService.validarApellido2Contacto()) {
+                                v05_2_apellido2_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                                validacion = false;
+                            } else {
+                                v05_2_apellido2_prs.setBackgroundResource(0);
+                                validacion = !validacion? false: true;
+                            }
+*/
+            if (!Validacion_vldService.validarMovilContacto()) {
+                v05_2_movil_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                validacion = false;
+            } else {
+                v05_2_movil_cnt.setBackgroundResource(0);
+                validacion = !validacion? false: true;
+            }
+            if (!Validacion_vldService.validarTelefonoContacto()) {
+                v05_2_telefono_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                validacion = false;
+            } else {
+                v05_2_telefono_cnt.setBackgroundResource(0);
+                validacion = !validacion? false: true;
+            }
+            if (!Validacion_vldService.validarEmailContacto()) {
+                v05_2_email_cnt.setBackgroundResource(R.drawable.etx_alerta_validacion);
+                validacion = false;
+            } else {
+                v05_2_email_cnt.setBackgroundResource(0);
+                validacion = !validacion? false: true;
+            }
+        }
+        return validacion;
+    }
 }
