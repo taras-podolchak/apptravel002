@@ -68,7 +68,6 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
     // Entities
     private List<Evento_eve> eventos = new ArrayList<>();
     private List<Actividad_act> actividades = new ArrayList<>();
-    private Context mContext;
     // private Evento_eve eventoEnProceso;
     // private Actividad_act actividadEnProceso;
     private int id_new_eve;
@@ -76,6 +75,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
     private Uri imageUri;
     private boolean subirNewFoto = false;
 
+    private Context mContext;
 
     // Service
     private v02_00_eve_Adapter v02_adapter_eve;
@@ -225,6 +225,7 @@ public class A_add_eve extends Fragment implements IDAO<Evento_eve, Object, Obje
         asignacionDeLosCamposDeAAddEve(view);
 
         //RecyclerView de los eventos
+        //Referenciamos los views
         this.v02_recycler_eve = view.findViewById(R.id.a_add_eve_rcv_eventos);
         this.v02_recycler_eve.setHasFixedSize(true);
         this.v02_recycler_eve.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));

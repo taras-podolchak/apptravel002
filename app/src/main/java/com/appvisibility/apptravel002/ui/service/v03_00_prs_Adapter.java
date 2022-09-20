@@ -157,7 +157,7 @@ https://stackoverflow.com/questions/70287093/cannot-create-map-from-two-connecte
         personaEnProceso.setNps02Fecha_prs(personasInscritos.get(position).getNps02Fecha_prs());
         personaEnProceso.setNps03_prs(personasInscritos.get(position).getNps03_prs());
         personaEnProceso.setNps03Fecha_prs(personasInscritos.get(position).getNps03Fecha_prs());
-        personaEnProceso.setCondicioneslegales_prs(personasInscritos.get(position).getCondicioneslegales_prs());
+        personaEnProceso.setCondicioneslegales_prs(personasInscritos.get(position).isCondicioneslegales_prs());
 
         str.child("Valientes/" + personaEnProceso.getFotopropia_prs()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override

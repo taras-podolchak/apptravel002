@@ -113,10 +113,10 @@
                 </RadioGroup>
 
                 <CheckBox
-                    android:id="@+id/v04_1_ckb_condicioneslegales_prs"
+                    android:id="@+id/v04_ckb_condicioneslegales_prs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/aceptacion_de_condiciones" />
+                    android:text="@string/condicioneslegales_prs" />
             </LinearLayout>
         </ScrollView>
 

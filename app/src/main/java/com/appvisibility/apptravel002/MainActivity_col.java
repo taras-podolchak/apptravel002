@@ -20,6 +20,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.appvisibility.apptravel002.databinding.ActivityMainColBinding;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
+import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +32,11 @@ public class MainActivity_col extends AppCompatActivity implements NavigationVie
     private ActivityMainColBinding binding;
     private FirebaseAuth fba = FirebaseAuth.getInstance();
     private NavController navController;
+
+    // Entities
+    public static Evento_eve eventoEnProceso;
+    private Persona_prs personaUser = new Persona_prs();
+    private Bundle id_eve_bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,23 +66,29 @@ public class MainActivity_col extends AppCompatActivity implements NavigationVie
             mNavigationView.setNavigationItemSelectedListener(this);
         }//el codigo intocable
 
-        //recuperamos el bundle
         Intent intent = getIntent();
-        int acceso = intent.getIntExtra("abrirEnMainActivity_col", 0);
-        Evento_eve evento_eve_get = (Evento_eve) intent.getSerializableExtra("eventoParaV_05");
+        //Recuperamos el Evento
+        int accion = intent.getIntExtra("accion_col", 0);
+        eventoEnProceso = (Evento_eve) intent.getSerializableExtra("eventoParaV_05");
+        //Recuperamos el Usuario
+        personaUser = (Persona_prs) intent.getSerializableExtra("User");
 
-        Bundle id_eve_bundle_put = new Bundle();
-        id_eve_bundle_put.putInt("accesoParaV_04", acceso);
-        id_eve_bundle_put.putSerializable("eventoParaV_05", evento_eve_get);
+        id_eve_bundle = new Bundle();
+        id_eve_bundle.putInt("accesoParaV_04", accion);
+        id_eve_bundle.putSerializable("eventoParaV_05", eventoEnProceso);
 
-        if (acceso == -1)
-            navController.navigate(R.id.nav_v04, id_eve_bundle_put);
-        else if (acceso == 0)
+        int id_prs = (personaUser == null)? 0 : personaUser.getId_prs();
+
+        if (accion == -1) {
+            navController.navigate(R.id.nav_v04, id_eve_bundle);
+        } else if (accion > 0 && id_prs == -1) {
+            navController.navigate(R.id.nav_identidad, id_eve_bundle);
+        } else if (accion > 0 && id_prs > 0) {
+            navController.navigate(R.id.nav_v05, id_eve_bundle);
+        } else {
             navController.navigate(R.id.nav_v01);
-        else
-            navController.navigate(R.id.nav_v05, id_eve_bundle_put);
-
-    }
+        }
+    }//Fin de constructor
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -128,20 +140,20 @@ public class MainActivity_col extends AppCompatActivity implements NavigationVie
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://amigosmontanawo.eboe62.com/")));
         if (id == R.id.colaborador) {
             if (sesionIniciada == getResources().getInteger(R.integer.rol_no_iniciada)) {
-                startActivity(new Intent(this, MainActivity_col.class).putExtra("abrirEnMainActivity_col", getResources().getInteger(R.integer.accion_a_v04)));
+                startActivity(new Intent(this, MainActivity_col.class).putExtra("accion_col", getResources().getInteger(R.integer.accion_a_v04)));
                 Toast.makeText(this, "Inicie la sesion por favor", Toast.LENGTH_SHORT).show();
             } else if (sesionIniciada == getResources().getInteger(R.integer.rol_colaborador)) {
-                startActivity(new Intent(this, MainActivity_col.class).putExtra("abrirEnMainActivity_col", getResources().getInteger(R.integer.accion_a_v01)));
+                startActivity(new Intent(this, MainActivity_col.class).putExtra("accion_col", getResources().getInteger(R.integer.accion_a_v01)));
             } else {
                 Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
             }
         }
         if (id == R.id.administrador) {
             if (sesionIniciada == getResources().getInteger(R.integer.rol_no_iniciada)) {
-                startActivity(new Intent(this, MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", getResources().getInteger(R.integer.accion_a_v04)));
+                startActivity(new Intent(this, MainActivity_adm.class).putExtra("accion_adm", getResources().getInteger(R.integer.accion_a_v04)));
                 Toast.makeText(this, "Inicie la sesion por favor", Toast.LENGTH_SHORT).show();
             } else if (sesionIniciada == getResources().getInteger(R.integer.rol_administrador)) {
-                startActivity(new Intent(this, MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", getResources().getInteger(R.integer.accion_a_v01)));
+                startActivity(new Intent(this, MainActivity_adm.class).putExtra("accion_adm", getResources().getInteger(R.integer.accion_a_v01)));
             } else {
                 Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
             }

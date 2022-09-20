@@ -16,6 +16,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import com.appvisibility.apptravel002.MainActivity_val;
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.controller.V_03;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
@@ -56,7 +57,7 @@ public class V_03_2_modal extends DialogFragment {
 
     // Rename and change types of parameters
     private String mParam1;
-    private Bundle mBundlePersonaUser;
+    private String mParam2;
 
     public V_03_2_modal() {
         // Required empty public constructor    
@@ -71,11 +72,11 @@ public class V_03_2_modal extends DialogFragment {
      * @return A new instance of fragment V_03_2_modal.
      */
     // Rename and change types and number of parameters
-    public static V_03_2_modal newInstance(String param1, Bundle bundlePersonaUser) {
+    public static V_03_2_modal newInstance(String param1, String param2) {
         V_03_2_modal fragment = new V_03_2_modal();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putBundle(ARG_PARAM2, bundlePersonaUser);
+        args.putString(ARG_PARAM1, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -84,8 +85,8 @@ public class V_03_2_modal extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mBundlePersonaUser = getArguments().getBundle(ARG_PARAM2);
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -97,12 +98,9 @@ public class V_03_2_modal extends DialogFragment {
 //https://stackoverflow.com/questions/12739909/send-data-from-activity-to-fragment-in-android
 /* So, to pass data from the MotherActivity to such a Fragment you will need to create private Strings/Bundles above the onCreate of your Mother activity - which you can fill with the data you want to pass to the fragments, and pass them on via a method created after the onCreate (here called getMyData()).*/
 //Recuperamos los datos del Usuario activo
-/*
         MainActivity_val activity = (MainActivity_val) getActivity();
         Bundle bundlePersonaUser = activity.getUser();
         personaUser = (Persona_prs) bundlePersonaUser.getSerializable("User");
-*/
-        personaUser = (Persona_prs) mBundlePersonaUser.getSerializable("User");
 
         Bundle bundlePersonasEnCoche = getArguments();
         //Recuperamos las Plazas del Coche
@@ -143,6 +141,7 @@ public class V_03_2_modal extends DialogFragment {
         eventoEnProceso = V_03.eventoEnProceso;
         bundleEvento.putSerializable("eventoParaV_03", eventoEnProceso);
 
+        //Referenciamos los views
         v03_2_titulo = view.findViewById(R.id.v03_2_txv_titulo);
         v03_2_titulo.setText("COCHE DE " + personaOferente.getApodo_prs().toUpperCase());
 

@@ -15,24 +15,28 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Persona_prsService {
     private static List<Persona_prs> personas = V_03.personas;
 
+
 // TODO: BORRAR ESTE ES INNECESARIO AL TENER UN BUNDLE personaUser en V_05
 // ***************************
-    public static Persona_prs personaUserR(Persona_prs personaUser) {
-        // Acceso a datos
-        FirebaseFirestore fbf = FirebaseFirestore.getInstance();
-        final Persona_prs[] persona = new Persona_prs[1];
 //https://firebase.google.com/docs/firestore/query-data/queries#java_6
 //https://firebase.google.com/docs/firestore/manage-data/add-data
 //https://stackoverflow.com/questions/68922621/how-to-update-field-in-the-firebase-firestore-document-using-the-collections
-        /*You cannot query the database and update the documents in a single go. You need to query the collection, get the documents, and right after that perform the update.*/
+// Acceso a datos
+/*You cannot query the database and update the documents in a single go. You need to query the collection, get the documents, and right after that perform the update.*/
+/*
+    public static Persona_prs personaUserR(Persona_prs personaUser) {
+        FirebaseFirestore fbf = FirebaseFirestore.getInstance();
+        final Persona_prs[] persona = new Persona_prs[1];
         Task<QuerySnapshot> task1 = fbf.collection("persona_prs").whereEqualTo("id_prs", personaUser.getId_prs()).get();
         task1.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -47,9 +51,36 @@ public class Persona_prsService {
         });
         return persona[0];
     }
+*/
 // TODO: BORRAR ESTE METODO ES INNECESARIO AL TENER UN BUNDLE personaUser en V_05
 // ***************************
 
+// Proporciona el id_prs libre (max+1)
+    public static int personaUserR2 () {
+        // Acceso a datos
+        FirebaseFirestore fbf = FirebaseFirestore.getInstance();
+        List<Persona_prs> lista = new ArrayList<>();
+        Task<QuerySnapshot> task1 = fbf.collection("persona_prs").orderBy("id_prs", Query.Direction.DESCENDING).get();
+        final int[] numero = new int[1];
+        task1.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                Persona_prs enProceso;
+                lista.clear();
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot qds : task.getResult()) {
+                        Log.d(TAG, qds.getId() + " => " + qds.getData());
+                        enProceso = (Persona_prs) qds.toObject(Persona_prs.class);
+                        lista.add(enProceso);
+                    }
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+                numero[0] = lista.get(0).getId_prs()+1;
+            }
+        });
+        return numero[0];
+    }
 
     public static Boolean personaUserU(Boolean datosActualizados, Persona_prs personaUser) {
         // Acceso a datos
@@ -100,7 +131,8 @@ public class Persona_prsService {
                         docRef.update("contacto3apellido2_prs", personaUser.getContacto3Apellido2_prs());
                         docRef.update("contacto3movil_prs", personaUser.getContacto3Movil_prs());
                         docRef.update("contacto3telefono_prs", personaUser.getContacto3Telefono_prs());
-                        docRef.update("contacto3email_prs", personaUser.getContacto3Email_prs())
+                        docRef.update("contacto3email_prs", personaUser.getContacto3Email_prs());
+                        docRef.update("condicioneslegales_prs", personaUser.isRecordarcontrasenna_prs())
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
@@ -114,4 +146,5 @@ public class Persona_prsService {
         datosActualizados = true;
         return datosActualizados;
     }
+
 }

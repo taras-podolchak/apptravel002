@@ -40,7 +40,7 @@ public class Alimentacion_aliService extends Fragment {
 
     // Rename and change types of parameters
     private String mParam1;
-    private Bundle mBundlePersonaUser;
+    private static Bundle mBundlePersonaUser;
 
     // Campos de xml
 
@@ -50,9 +50,8 @@ public class Alimentacion_aliService extends Fragment {
     private String alimentacion_prsTitulo;
     private String alimentacion_prsActual;
     private String alimentacionEnProceso = "";
-    private Boolean datosActualizados;
+    private boolean datosActualizados;
     public static Spanned alimentacionSpanned;
-
     private Context mContext;
 
     public Alimentacion_aliService() {
@@ -74,6 +73,7 @@ public class Alimentacion_aliService extends Fragment {
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putBundle(ARG_PARAM2, bundlePersonaUser);
+        mBundlePersonaUser = bundlePersonaUser;
         fragment.setArguments(args);
 
 //https://stackoverflow.com/questions/12739909/send-data-from-activity-to-fragment-in-android
@@ -92,8 +92,8 @@ public class Alimentacion_aliService extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mBundlePersonaUser = getArguments().getBundle(ARG_PARAM2);
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mBundlePersonaUser = getArguments().getBundle(ARG_PARAM2);
         }
     }
 
@@ -115,8 +115,8 @@ public class Alimentacion_aliService extends Fragment {
 // Separar los saltos de línea no funciona
 //        alimentaciones_prs = Arrays.asList(alimentacion_prsActual.split("^[\\n]*$"));
         alimentaciones_prs = Arrays.asList(alimentacion_prsActual.split("\\s*\\s*-\\s*"));
-        ACV_usuario.newInstance(null, null);
-        V_05.newInstance(null, null);
+        ACV_usuario.newInstance(null, mBundlePersonaUser);
+        V_05.newInstance(null, mBundlePersonaUser);
         for (Object ali: alimentaciones_prs){
             alimentacionEnProceso += ali.toString() + " - ";
 // https://stackoverflow.com/questions/7806709/remove-trailing-comma-from-comma-separated-string

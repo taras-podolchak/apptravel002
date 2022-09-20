@@ -22,12 +22,14 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.appvisibility.apptravel002.MainActivity_val;
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.controller.interfaces.IDAO;
 import com.appvisibility.apptravel002.ui.entities.Actividad_act;
 import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Inscribir_eveprs;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
+import com.appvisibility.apptravel002.ui.service.Identidad_idtService;
 import com.appvisibility.apptravel002.ui.service.v03_00_act_Adapter;
 import com.appvisibility.apptravel002.ui.service.v03_00_prs_Adapter;
 import com.google.firebase.firestore.EventListener;
@@ -79,7 +81,9 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
     FirebaseFirestore fbf = FirebaseFirestore.getInstance();
 
     // Entities
+    private Persona_prs personaUser;
     public static Evento_eve eventoEnProceso;
+    private Identidad_idtService identidadService = new Identidad_idtService();
     public static List<Persona_prs> personas = new ArrayList<>();
     private List<Actividad_act> actividades = new ArrayList<>();
     private List<Actividad_act> actividadesFiltrados = new ArrayList<>();
@@ -117,8 +121,8 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -132,6 +136,13 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_v_03, container, false);
+
+//https://stackoverflow.com/questions/12739909/send-data-from-activity-to-fragment-in-android
+/* So, to pass data from the MotherActivity to such a Fragment you will need to create private Strings/Bundles above the onCreate of your Mother activity - which you can fill with the data you want to pass to the fragments, and pass them on via a method created after the onCreate (here called getMyData()).*/
+//Recuperamos los datos del Usuario activo
+        MainActivity_val activity = (MainActivity_val) getActivity();
+        Bundle bundlePersonaUser = activity.getUser();
+        personaUser = (Persona_prs) bundlePersonaUser.getSerializable("User");
 
         //Recuperamos el Evento
         Bundle bundleEvento = getArguments();
@@ -182,6 +193,7 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
             //activamos los
             v03_inscritos_eve.setVisibility(View.VISIBLE);
             v03_recycler_prs.setVisibility(View.VISIBLE);
+        }
 
             //Cargamos todos los Inscritos
             Query query2 = fbf.collection("inscribir_eveprs").whereEqualTo("id_eve", id_eve_enProceso);
@@ -190,7 +202,6 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
             //Cargamos todas las Personas
             Query query3 = fbf.collection("persona_prs").orderBy("id_prs", Query.Direction.DESCENDING);
             tabla3ChangeListener(query3, personas, Persona_prs.class, null);
-        }
 
         // Botones
         v03_foto_eve = view.findViewById(R.id.v03_imv_foto_eve);
@@ -206,7 +217,12 @@ public class V_03 extends Fragment implements IDAO<Actividad_act, Inscribir_evep
             if (sesionIniciada == getResources().getInteger(R.integer.rol_no_iniciada)) {
                 Navigation.findNavController(viewAdelante).navigate(R.id.action_nav_v03_to_nav_v04, bundleEvento);
             } else {
-                Navigation.findNavController(viewAdelante).navigate(R.id.action_nav_v03_to_nav_v05, bundleEvento);
+                if (personaUser.getId_prs() == -1) {
+                    Identidad_idtService.newInstance(null, bundlePersonaUser);
+                    identidadService.onCreateView(inflater, container, savedInstanceState);
+                } else {
+                    Navigation.findNavController(viewAdelante).navigate(R.id.action_nav_v03_to_nav_v05, bundleEvento);
+                }
             }
         });
 

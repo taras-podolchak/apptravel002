@@ -36,6 +36,13 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
     public static int sesionIniciada = 0;
     private NavController navController;
 
+    // Entities
+    public static Evento_eve eventoEnProceso;
+    private Persona_prs personaUser = new Persona_prs();
+    private Bundle bundleEvento;
+    private Bundle bundlePersonaUser;
+    private int id_prs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,28 +76,36 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
             mNavigationView.setNavigationItemSelectedListener(this);
         }
 
-        //recuperamos el bundle
         Intent intent = getIntent();
-        int acceso = intent.getIntExtra("abrirEnMainActivity_val", 0);
-        Evento_eve evento_eve_get = (Evento_eve) intent.getSerializableExtra("eventoParaV_05");
+        //Recuperamos el Evento
+        int accion = intent.getIntExtra("accion_val", 0);
+        eventoEnProceso = (Evento_eve) intent.getSerializableExtra("eventoParaV_05");
+        //Recuperamos el Usuario
+//        personaUser = (Persona_prs) intent.getSerializableExtra("User");
 
-        Bundle id_eve_bundle_put = new Bundle();
-        id_eve_bundle_put.putInt("accesoParaV_04", acceso);
-        id_eve_bundle_put.putSerializable("eventoParaV_05", evento_eve_get);
+        bundleEvento = new Bundle();
+//        bundleEvento.putInt("accesoParaV_04", accion);
+        bundleEvento.putSerializable("eventoParaV_05", eventoEnProceso);
 
-        if (acceso == -1)
-            navController.navigate(R.id.nav_v04, id_eve_bundle_put);
-        else if (acceso == 0)
+        int id_prs = (personaUser == null)? 0 : personaUser.getId_prs();
+        id_prs = intent.getIntExtra("id_prs", 0);
+
+        if (accion == -1) {
+            navController.navigate(R.id.nav_v04, bundleEvento);
+        } else if (accion > 0 && id_prs == -1) {
+            navController.navigate(R.id.nav_identidad, bundleEvento);
+        } else if (accion > 0 && id_prs > 0) {
+            navController.navigate(R.id.nav_v05, bundleEvento);
+        } else {
             navController.navigate(R.id.nav_v01);
-        else
-            navController.navigate(R.id.nav_v05, id_eve_bundle_put);
+        }
     }//Fin de constructor
 
     //Generamos un bundle con los datos del Usuario activo
     public Bundle getUser() {
-        Bundle bundelPersonaUser = new Bundle();
-        bundelPersonaUser.putSerializable("User", personaTipo);
-        return bundelPersonaUser;
+        bundlePersonaUser = new Bundle();
+        bundlePersonaUser.putSerializable("User", personaTipo);
+        return bundlePersonaUser;
     }
 
     @Override
@@ -116,36 +131,40 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
             //obtenemos la Uid del registro de la bbdd FirebaseAuth
             FirebaseUser user = fba.getCurrentUser();
             String uid = user.getUid();
+/*
+            Task<DocumentSnapshot> task = fbf.collection("persona_prs").document(uid).get();
+            task.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
 
-            //buscamos en FirebaseFirestore el documento con esa Uid
-            DocumentReference docRef = fbf.collection("persona_prs").document(uid);
-            docRef.get().addOnCompleteListener(task1 -> {
-                if (task1.isSuccessful()) {
-                    DocumentSnapshot document = task1.getResult();
-                    if (document.exists()) {
+                            //recuperamos la persona
+                            personaTipo = document.toObject(Persona_prs.class);
 
-                        //recuperamos la persona
-                        personaTipo = document.toObject(Persona_prs.class);
+                            setTitle(personaTipo.getEmail_prs());
 
-                        setTitle(personaTipo.getEmail_prs());
-
-                        //si es valiente
-                        if (personaTipo.getUsuariotipo_prs() == getResources().getInteger(R.integer.rol_valiente)) {
-                            sesionIniciada = personaTipo.getUsuariotipo_prs();
-                        }
-                        //si es colaborador
-                        else if (personaTipo.getUsuariotipo_prs() == getResources().getInteger(R.integer.rol_colaborador)) {
-                            sesionIniciada = personaTipo.getUsuariotipo_prs();
-                            startActivity(new Intent(this, MainActivity_col.class).putExtra("abrirEnMainActivity_col", 0));
-                        }
-                        //si es administrador
-                        else if (personaTipo.getUsuariotipo_prs() == getResources().getInteger(R.integer.rol_administrador)) {
-                            sesionIniciada = personaTipo.getUsuariotipo_prs();
-                            startActivity(new Intent(this, MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", 0));
+                            //si es valiente
+                            if (personaTipo.getUsuariotipo_prs() == getResources().getInteger(R.integer.rol_valiente)) {
+                                sesionIniciada = personaTipo.getUsuariotipo_prs();
+                            }
+                            //si es colaborador
+                            else if (personaTipo.getUsuariotipo_prs() == getResources().getInteger(R.integer.rol_colaborador)) {
+                                sesionIniciada = personaTipo.getUsuariotipo_prs();
+                                startActivity(new Intent(this, MainActivity_col.class).putExtra("accion_col", 0));
+                            }
+                            //si es administrador
+                            else if (personaTipo.getUsuariotipo_prs() == getResources().getInteger(R.integer.rol_administrador)) {
+                                sesionIniciada = personaTipo.getUsuariotipo_prs();
+                                startActivity(new Intent(this, MainActivity_adm.class).putExtra("accion_adm", 0));
+                            }
                         }
                     }
                 }
             });
+*/
+            iniciarActividad(uid);
         }
     }
 
@@ -186,20 +205,20 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
 
         if (id == R.id.colaborador) {
             if (sesionIniciada == getResources().getInteger(R.integer.rol_no_iniciada)) {
-                startActivity(new Intent(this, MainActivity_col.class).putExtra("abrirEnMainActivity_col", getResources().getInteger(R.integer.accion_a_v04)));
+                startActivity(new Intent(this, MainActivity_col.class).putExtra("accion_col", getResources().getInteger(R.integer.accion_a_v04)));
                 Toast.makeText(this, "Inicie la sesion por favor", Toast.LENGTH_SHORT).show();
             } else if (sesionIniciada == getResources().getInteger(R.integer.rol_colaborador))
-                startActivity(new Intent(this, MainActivity_col.class).putExtra("abrirEnMainActivity_col", getResources().getInteger(R.integer.accion_a_v01)));
+                startActivity(new Intent(this, MainActivity_col.class).putExtra("accion_col", getResources().getInteger(R.integer.accion_a_v01)));
             else
                 Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
 
         }
         if (id == R.id.administrador) {
             if (sesionIniciada == getResources().getInteger(R.integer.rol_no_iniciada)) {
-                startActivity(new Intent(this, MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", getResources().getInteger(R.integer.accion_a_v04)));
+                startActivity(new Intent(this, MainActivity_adm.class).putExtra("accion_adm", getResources().getInteger(R.integer.accion_a_v04)));
                 Toast.makeText(this, "Inicie la sesion por favor", Toast.LENGTH_SHORT).show();
             } else if (sesionIniciada == getResources().getInteger(R.integer.rol_administrador))
-                startActivity(new Intent(this, MainActivity_adm.class).putExtra("abrirEnMainActivity_adm", getResources().getInteger(R.integer.accion_a_v01)));
+                startActivity(new Intent(this, MainActivity_adm.class).putExtra("accion_adm", getResources().getInteger(R.integer.accion_a_v01)));
             else
                 Toast.makeText(this, "No tienes permisos", Toast.LENGTH_SHORT).show();
 
@@ -214,9 +233,44 @@ public class MainActivity_val extends AppCompatActivity implements NavigationVie
         DrawerLayout drawer = findViewById(R.id.drawer_layout_val);
         drawer.closeDrawer(GravityCompat.START);
 
-
         return true;
     }
+
+    public Bundle iniciarActividad (String uid) {
+        bundlePersonaUser = new Bundle();
+        //buscamos en FirebaseFirestore el documento con esa Uid
+        DocumentReference docRef = fbf.collection("persona_prs").document(uid);
+        docRef.get().addOnCompleteListener(task1 -> {
+            if (task1.isSuccessful()) {
+                DocumentSnapshot document = task1.getResult();
+                if (document.exists()) {
+
+                    //recuperamos la persona
+                    personaTipo = document.toObject(Persona_prs.class);
+
+                    setTitle(personaTipo.getEmail_prs());
+
+                    //si es valiente
+                    if (personaTipo.getUsuariotipo_prs() == getResources().getInteger(R.integer.rol_valiente)) {
+                        sesionIniciada = personaTipo.getUsuariotipo_prs();
+                    }
+                    //si es colaborador
+                    else if (personaTipo.getUsuariotipo_prs() == getResources().getInteger(R.integer.rol_colaborador)) {
+                        sesionIniciada = personaTipo.getUsuariotipo_prs();
+                        startActivity(new Intent(this, MainActivity_col.class).putExtra("accion_col", 0));
+                    }
+                    //si es administrador
+                    else if (personaTipo.getUsuariotipo_prs() == getResources().getInteger(R.integer.rol_administrador)) {
+                        sesionIniciada = personaTipo.getUsuariotipo_prs();
+                        startActivity(new Intent(this, MainActivity_adm.class).putExtra("accion_adm", 0));
+                    }
+                }
+            }
+        });
+        bundlePersonaUser.putSerializable("User", personaTipo);
+        return bundlePersonaUser;
+    }
+
 // https://stackoverflow.com/questions/5448653/how-to-implement-onbackpressed-in-fragments
 // https://stackoverflow.com/questions/35708453/how-to-automatically-click-a-button-in-android-after-a-5-second-delay
 // https://stackoverflow.com/questions/41981546/cant-resolve-method-showandroid-support-v4-app-fragmentmanager-java-lang-stri

@@ -121,7 +121,7 @@ public class C_03_1 extends Fragment {
         c03_1_contacto2cargo_prs.setText(personaEnProceso.getContacto2Cargo_prs() + " " + personaEnProceso.getContacto2Movil_prs());
         c03_1_fechaalta_prs.setText("Alta: " + personaEnProceso.getFechaalta_prs() + " / Baja: " + personaEnProceso.getFechabaja_prs());
         c03_1_dni_prs.setText("DNI: " + personaEnProceso.getDni_prs());
-        c03_1_condicioneslegales_prs.setText("Condiciones " + (personaEnProceso.getCondicioneslegales_prs() ? "Aceptadas" : "Rechazadas"));
+        c03_1_condicioneslegales_prs.setText("Condiciones " + (personaEnProceso.isCondicioneslegales_prs() ? "Aceptadas" : "Rechazadas"));
         c03_1_nps01fecha_prs.setText(personaEnProceso.getNps01Fecha_prs() + " - NPS1: " + personaEnProceso.getNps01_prs());
         c03_1_nps02fecha_prs.setText(personaEnProceso.getNps02Fecha_prs() + " - NPS2: " + personaEnProceso.getNps02_prs());
         c03_1_nps03fecha_prs.setText(personaEnProceso.getNps03Fecha_prs() + " - NPS3: " + personaEnProceso.getNps03_prs());
@@ -142,12 +142,11 @@ public class C_03_1 extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("text/email");
-
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{personaEnProceso.getEmail_prs()});
-                intent.putExtra(Intent.EXTRA_CC, "hola@gmail.com");
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Amigos de la Montaña");
-                intent.putExtra(Intent.EXTRA_TEXT, "Hola " + personaEnProceso.getNombre_prs() + ",\n\n Soy ");
+                intent.setType("text/email")
+                    .putExtra(Intent.EXTRA_EMAIL, new String[]{personaEnProceso.getEmail_prs()})
+                    .putExtra(Intent.EXTRA_CC, "hola@gmail.com")
+                    .putExtra(Intent.EXTRA_SUBJECT, "Amigos de la Montaña")
+                    .putExtra(Intent.EXTRA_TEXT, "Hola " + personaEnProceso.getNombre_prs() + ",\n\n Soy ");
                 startActivity(Intent.createChooser(intent, "Send Feedback:"));
             }
         });

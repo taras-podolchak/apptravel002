@@ -66,7 +66,6 @@
                             android:layout_weight="1"
                             android:gravity="start"
                             android:textColor="@color/black"
-                            android:paddingBottom="11dp"
                             android:textSize="18sp"
                             android:hint="¿Llevas el coche?" />
 
@@ -159,21 +158,6 @@
                         android:text="RESTRICCIONES ALIMENTARIAS"
                         android:textSize="18sp" />
 
-    <!--
-                    <Spinner
-                        android:id="@+id/v05_spn_tipo_alojamiento"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="48dp"
-                        android:textAlignment="center" />
-
-                    <Spinner
-                        android:id="@+id/v05_spn_restricciones_allimentarias"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="48dp"
-                        android:textAlignment="center" />
-    -->
                     <TextView
                         android:id="@+id/v05_txv_alimentacion_prs"
                         android:layout_width="match_parent"
@@ -182,7 +166,6 @@
                         android:inputType="textMultiLine|text"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
                         android:textColor="@color/black"
-                        android:paddingBottom="11dp"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -227,7 +210,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center_horizontal|center_vertical"
-                            android:textSize="20sp" />
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
@@ -250,7 +233,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center_horizontal|center_vertical"
-                            android:textSize="20sp" />
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
@@ -273,7 +256,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center_horizontal|center_vertical"
-                            android:textSize="20sp" />
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 

@@ -70,8 +70,6 @@
     <string name="renunciar">Renunciar</string>
 
     <!-- pantalla v_04 -->
-    <string name="contrasenna_prs">Contraseña</string>
-    <string name="recordarme">Recordarme</string>
     <string name="olvidaste_tu_contraseña">¿Olvidaste tu contraseña?</string>
     <string name="iniciar_sesion">Iniciar sesion</string>
     <string name="registrarse">Registrarse</string>
@@ -83,7 +81,8 @@
     <string name="nombre_prs">Nombre</string>
     <string name="apellido1_prs">Primer apellido</string>
     <string name="apellido2_prs">Segundo apellido</string>
-    <string name="contrasennaConfirmar_prs">Contraseña</string>
+    <string name="contrasenna_prs">Contraseña</string>
+    <string name="contrasennaConfirmar_prs">Confirmar contraseña</string>
     <string name="recordarcontrasenna_prs">Recordar contraseña</string>
     <string name="actividadtipo_prs">Actividad preferente</string>
     <string name="documentotipo_prs">Tipo de documento</string>
@@ -118,9 +117,9 @@
     <string name="nps02_prs">NPS #2</string>
     <string name="nps03fecha_prs">Fecha NPS #3</string>
     <string name="nps03_prs">NPS #3</string>
+    <string name="condicioneslegales_prs">Aceptación de condiciones</string>
     <string name="soy_valiente">Soy valiente</string>
     <string name="soy_colaborador">Soy colaborador</string>
-    <string name="aceptacion_de_condiciones">Aceptacion de condiciones</string>
     <string name="aceptar">Aceptar</string>
 
     <!-- pantalla v_05? -->

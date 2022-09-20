@@ -8,21 +8,23 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appvisibility.apptravel002.MainActivity_val;
 import com.appvisibility.apptravel002.R;
 import com.appvisibility.apptravel002.ui.controller.ACV_usuario;
+import com.appvisibility.apptravel002.ui.entities.Evento_eve;
 import com.appvisibility.apptravel002.ui.entities.Persona_prs;
 
 import java.util.Arrays;
@@ -42,7 +44,7 @@ public class Identidad_idtService extends Fragment {
 
     // Rename and change types of parameters
     private String mParam1;
-    private String mParam2;
+    private static Bundle mBundlePersonaUser;
 
     // Campos de xml
     public static EditText v01_1_apodo_prs;
@@ -58,10 +60,13 @@ public class Identidad_idtService extends Fragment {
     public static EditText v01_1_nacionalidad_prs;
     public static EditText v01_1_razonsocial_prs;
     public static EditText v01_1_numerocta_prs;
+    public static TextView v01_1_recomendacionIdentidad;
 
     // Entities
     private Persona_prs personaUser;
     private Persona_prs identidadEnProceso;
+    private Evento_eve eventoEnProceso;
+    private int id_prs;
     private String apodo_prs;
     private String nombre_prs;
     private String apellido1_prs;
@@ -75,6 +80,7 @@ public class Identidad_idtService extends Fragment {
     private String nacionalidad_prs;
     private String razonsocial_prs;
     private String numerocta_prs;
+    private boolean condicioneslegales_prs;
     private Boolean validacion;
     private ArrayAdapter<String> arrayAdapter_act;
     private ArrayAdapter<String> arrayAdapter_idt;
@@ -89,16 +95,17 @@ public class Identidad_idtService extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param bundlePersonaUser Parameter 2.
      * @return A new instance of fragment Identidad_idtService.
      */
     // Rename and change types and number of parameters
-    public static Identidad_idtService newInstance(String param1, String param2) {
+    public static Identidad_idtService newInstance(String param1, Bundle bundlePersonaUser) {
         Identidad_idtService fragment = new Identidad_idtService();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putBundle(ARG_PARAM2, bundlePersonaUser);
         fragment.setArguments(args);
+        mBundlePersonaUser = bundlePersonaUser;
         return fragment;
     }
 
@@ -106,8 +113,8 @@ public class Identidad_idtService extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mBundlePersonaUser = getArguments().getBundle(ARG_PARAM2);
         }
     }
 
@@ -116,15 +123,43 @@ public class Identidad_idtService extends Fragment {
         View view = inflater.inflate(R.layout.fragment_acv_identidad, container, false);
         // Inflate the layout for this fragment
 
+        //Recuperamos el Evento
+        Bundle bundleEvento = getArguments();
+//        eventoEnProceso = (Evento_eve) mBundleEvento.getSerializable("eventoParaIdentidad");
+//        eventoEnProceso = (mBundleEvento == null)? null : (Evento_eve) mBundleEvento.getSerializable("eventoParaV_05");
+        eventoEnProceso = (bundleEvento == null)? null : (Evento_eve) bundleEvento.getSerializable("eventoParaV_05");
+
 //https://stackoverflow.com/questions/12739909/send-data-from-activity-to-fragment-in-android
         /* So, to pass data from the MotherActivity to such a Fragment you will need to create private Strings/Bundles above the onCreate of your Mother activity - which you can fill with the data you want to pass to the fragments, and pass them on via a method created after the onCreate (here called getMyData()).*/
 //Recuperamos los datos del Usuario activo
-        MainActivity_val activity = (MainActivity_val) view.getContext();
-        Bundle bundlePersonaUser = activity.getUser();
-        personaUser = (Persona_prs) bundlePersonaUser.getSerializable("User");
+        if (eventoEnProceso == null) {
+            MainActivity_val activity = (MainActivity_val) view.getContext();
+            Bundle bundlePersonaUser = activity.getUser();
+            personaUser = (Persona_prs) bundlePersonaUser.getSerializable("User");
+        } else {
+//            mBundlePersonaUser = getArguments().getBundle(ARG_PARAM2);
+//            mBundlePersonaUser = getArguments();
+            personaUser = (Persona_prs) mBundlePersonaUser.getSerializable("User");
+            bundleEvento.putSerializable("eventoParaV_05", eventoEnProceso);
+//            personaUser = (Persona_prs) mBundlePersonaUser.getSerializable("User");
+//            mBundleEvento.putSerializable("eventoParaV_05", eventoEnProceso);
+        }
+
+/*
+        //Recuperamos el Evento
+        Bundle bundleEvento = getArguments();
+        eventoEnProceso = (Evento_eve) bundleEvento.getSerializable("eventoParaV_05");
+
+        bundleEvento.putSerializable("eventoParaV_03", eventoEnProceso);
+        bundleEvento.putSerializable("eventoParaV_02", eventoEnProceso);
+
+
+ */
 
         Bundle bundleIdentidad = new Bundle();
 
+
+        //Referenciamos los views
         v01_1_apodo_prs = view.findViewById(R.id.v01_1_etx_apodo_prs);
         v01_1_nombre_prs = view.findViewById(R.id.v01_1_etx_nombre_prs);
         v01_1_apellido1_prs = view.findViewById(R.id.v01_1_etx_apellido1_prs);
@@ -138,12 +173,19 @@ public class Identidad_idtService extends Fragment {
         v01_1_nacionalidad_prs = view.findViewById(R.id.v01_1_etx_nacionalidad_prs);
         v01_1_razonsocial_prs = view.findViewById(R.id.v01_1_etx_razonsocial_prs);
         v01_1_numerocta_prs = view.findViewById(R.id.v01_1_etx_numerocta_prs);
+        v01_1_recomendacionIdentidad = view.findViewById(R.id.v01_1_txv_recomendacionIdentidad);
 
         v01_1_nacionalidad_prs.setVisibility(View.GONE);
 
+        if (eventoEnProceso != null) {
+            v01_1_contrasenna_prs.setVisibility(View.GONE);
+            v01_1_contrasennaConfirmar_prs.setVisibility(View.GONE);
+            v01_1_recomendacionIdentidad.setVisibility(View.VISIBLE);
+        }
+
         recuperarIdentidadActual(view);
 
-        identidadEnProceso = new Persona_prs(apodo_prs, nombre_prs, apellido1_prs, apellido2_prs, contrasenna_prs, recordarcontrasenna_prs, actividadtipo_prs, documentotipo_prs, dni_prs, nacionalidad_prs, razonsocial_prs, numerocta_prs);
+        identidadEnProceso = new Persona_prs(id_prs, apodo_prs, nombre_prs, apellido1_prs, apellido2_prs, contrasenna_prs, recordarcontrasenna_prs, null, 0, actividadtipo_prs, documentotipo_prs, dni_prs, nacionalidad_prs, razonsocial_prs, numerocta_prs, condicioneslegales_prs);
         mostrarIdentidadEnProceso(view);
         bundleIdentidad.putSerializable("identidadParaValidacion", identidadEnProceso);
 
@@ -208,8 +250,8 @@ public class Identidad_idtService extends Fragment {
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        prepararValidacion(view, null);
-                        bundleIdentidad.putSerializable("identidadParaValidacion", identidadEnProceso);
+                        prepararValidacion(view);
+//                        bundleIdentidad.putSerializable("identidadParaValidacion", identidadEnProceso);
                         Validacion_vldService.newInstance(null, null, bundleIdentidad);
                         validacion = secuenciaDeValidacion(view);
                         mostrarIdentidadEnProceso(view);
@@ -231,10 +273,13 @@ public class Identidad_idtService extends Fragment {
                             Toast.makeText(view.getContext(), "La identificación no se puede guardar, datos incorrectos", Toast.LENGTH_LONG).show();
                         } else {
                             validacion = false;
-                            volcarIdentidad(view, null);
+                            volcarIdentidad(view);
                             datosActualizados = personaUserU(datosActualizados, personaUser);
                             if (datosActualizados){
                                 Toast.makeText(view.getContext(), "La identidad se ha guardado satisfactoriamente", Toast.LENGTH_LONG).show();
+                                if (eventoEnProceso != null) {
+                                    Navigation.findNavController(view).navigate(R.id.action_nav_identidad_to_nav_v05, bundleEvento);
+                                }
                             } else {
                                 Toast.makeText(view.getContext(), "La identidad no se han podido guardar", Toast.LENGTH_LONG).show();
                             }
@@ -294,7 +339,8 @@ public class Identidad_idtService extends Fragment {
         return view;
     }//Fin de constructor
 
-    public void volcarIdentidad(View view, String innecesarioAqui) {
+    public void volcarIdentidad(View view) {
+        personaUser.setId_prs(identidadEnProceso.getId_prs());
         personaUser.setApodo_prs(identidadEnProceso.getApodo_prs());
         personaUser.setNombre_prs(identidadEnProceso.getNombre_prs());
         personaUser.setApellido1_prs(identidadEnProceso.getApellido1_prs());
@@ -313,14 +359,20 @@ public class Identidad_idtService extends Fragment {
         personaUser.setNacionalidad_prs(identidadEnProceso.getNacionalidad_prs());
         personaUser.setRazonsocial_prs(identidadEnProceso.getRazonsocial_prs());
         personaUser.setNumerocta_prs(identidadEnProceso.getNumerocta_prs().replaceAll("[\\s()-]", ""));
+        if (identidadEnProceso.isCondicioneslegales_prs()) {
+            personaUser.setCondicioneslegales_prs(true);
+        } else {
+            personaUser.setCondicioneslegales_prs(false);
+        }
     }
 
-    public void prepararValidacion(View view, String innecesarioAqui){
-        identidadEnProceso.setApodo_prs(v01_1_apodo_prs.getText().toString());
-        identidadEnProceso.setNombre_prs(limpiarApellido(view, v01_1_nombre_prs.getText().toString()));
-        identidadEnProceso.setApellido1_prs(limpiarApellido(view, v01_1_apellido1_prs.getText().toString()));
-        identidadEnProceso.setApellido2_prs(limpiarApellido(view, v01_1_apellido2_prs.getText().toString()));
-        identidadEnProceso.setContrasenna_prs(v01_1_contrasenna_prs.getText().toString());
+// Obtenemos los datos desde las cajas de texto
+    public void prepararValidacion(View view){
+        identidadEnProceso.setApodo_prs(v01_1_apodo_prs.getText().toString().trim());
+        identidadEnProceso.setNombre_prs(limpiarApellido(view, v01_1_nombre_prs.getText().toString().trim()));
+        identidadEnProceso.setApellido1_prs(limpiarApellido(view, v01_1_apellido1_prs.getText().toString().trim()));
+        identidadEnProceso.setApellido2_prs(limpiarApellido(view, v01_1_apellido2_prs.getText().toString().trim()));
+        identidadEnProceso.setContrasenna_prs(v01_1_contrasenna_prs.getText().toString().trim());
         if (v01_1_recordarcontrasenna_prs.isChecked()) {
             identidadEnProceso.setRecordarcontrasenna_prs(true);
         } else {
@@ -330,13 +382,38 @@ public class Identidad_idtService extends Fragment {
         identidadEnProceso.setActividadtipo_prs(arrayAdapter_act.getItem(indexOfPreviousSelection));
         indexOfPreviousSelection = v01_1_documentotipo_prs.getSelectedItemPosition();
         identidadEnProceso.setDocumentotipo_prs(arrayAdapter_idt.getItem(indexOfPreviousSelection));
-        identidadEnProceso.setDni_prs(v01_1_dni_prs.getText().toString());
-        identidadEnProceso.setNacionalidad_prs(v01_1_nacionalidad_prs.getText().toString());
-        identidadEnProceso.setRazonsocial_prs(v01_1_razonsocial_prs.getText().toString());
-        identidadEnProceso.setNumerocta_prs(v01_1_numerocta_prs.getText().toString());
+        identidadEnProceso.setDni_prs(v01_1_dni_prs.getText().toString().trim());
+        identidadEnProceso.setNacionalidad_prs(v01_1_nacionalidad_prs.getText().toString().trim());
+        identidadEnProceso.setRazonsocial_prs(v01_1_razonsocial_prs.getText().toString().trim());
+        identidadEnProceso.setNumerocta_prs(v01_1_numerocta_prs.getText().toString().trim());
+// https://stackoverflow.com/questions/4172242/live-editing-of-users-input/4172392#4172392
+/*
+        v01_1_numerocta_prs.addTextChangedListener(new TextWatcher() {
+            int len=0;
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                String str = v01_1_numerocta_prs.getText().toString().trim();
+                len = str.length();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String str = v01_1_numerocta_prs.getText().toString().trim();
+                if(str.length()==4&& len < str.length()){//len check for backspace
+                    v01_1_numerocta_prs.append(" ");
+                }
+            }
+        });
+ */
     }
 
     public void recuperarIdentidadActual(View view) {
+        id_prs = (personaUser.getId_prs() == 0)? -1 : personaUser.getId_prs();
         apodo_prs = (personaUser.getApodo_prs() == null)? "" : personaUser.getApodo_prs();
         nombre_prs = (personaUser.getNombre_prs() == null)? "" : personaUser.getNombre_prs();
         apellido1_prs = (personaUser.getApellido1_prs() == null)? "" : personaUser.getApellido1_prs();
@@ -349,6 +426,7 @@ public class Identidad_idtService extends Fragment {
         nacionalidad_prs = (personaUser.getNacionalidad_prs() == null)? "" : personaUser.getNacionalidad_prs();
         razonsocial_prs = (personaUser.getRazonsocial_prs() == null)? "" : personaUser.getRazonsocial_prs();
         numerocta_prs = (personaUser.getContacto1Email_prs() == null)? "" : personaUser.getNumerocta_prs();
+        condicioneslegales_prs = personaUser.isCondicioneslegales_prs();
     }
 
     public void mostrarIdentidadEnProceso (View view) {
@@ -402,7 +480,7 @@ public class Identidad_idtService extends Fragment {
         return apellidoLimpio;
     }
 
-    public Boolean secuenciaDeValidacion(View view) {
+    public Boolean secuenciaDeValidacion (View view) {
         Boolean validacion = false;
 // https://www.android--code.com/2015/08/android-edittext-border-color_20.html
 // https://stackoverflow.com/questions/34075131/how-to-set-a-button-border-color-programmatically-in-android
@@ -444,7 +522,8 @@ public class Identidad_idtService extends Fragment {
             validacion = !validacion? false: true;
         }
         contrasennaConfirmar_prs = (String.valueOf(v01_1_contrasennaConfirmar_prs.getText()) == null)? "" : String.valueOf(v01_1_contrasennaConfirmar_prs.getText());
-        if (!contrasenna_prs.equals(contrasennaConfirmar_prs)) {
+        if (!contrasenna_prs.equals(contrasennaConfirmar_prs) ||
+                !Validacion_vldService.validarContrasenna()) {
             v01_1_contrasenna_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
             v01_1_contrasennaConfirmar_prs.setBackgroundResource(R.drawable.etx_alerta_validacion);
             validacion = false;

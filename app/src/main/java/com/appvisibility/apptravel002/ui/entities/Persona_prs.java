@@ -169,29 +169,29 @@ public class Persona_prs implements Serializable, Parcelable {
 		}
 	};
 /*
-	public Persona_prs(int id_prs, String contacto1nombre_prs, String contacto1apellido1_prs, String contacto1apellido2_prs, String contacto1movil_prs, String contacto1telefono_prs, String contacto1email_prs) {
-		this.id_prs = id_prs;
-		this.contacto1nombre_prs = contacto1nombre_prs;
-		this.contacto1apellido1_prs = contacto1apellido1_prs;
-		this.contacto1apellido2_prs = contacto1apellido2_prs;
-		this.contacto1movil_prs = contacto1movil_prs;
-		this.contacto1telefono_prs = contacto1telefono_prs;
-		this.contacto1email_prs = contacto1email_prs;
+	public Persona_prs(String contrasenna_prs, Boolean recordarcontrasenna_prs, String email_prs) {
+		this.contrasenna_prs = contrasenna_prs;
+		this.recordarcontrasenna_prs = recordarcontrasenna_prs;
+		this.email_prs = email_prs;
 	}
 */
-	public Persona_prs(String apodo_prs, String nombre_prs, String apellido1_prs, String apellido2_prs, String contrasenna_prs, Boolean recordarcontrasenna_prs, String actividadtipo_prs, String documentotipo_prs, String dni_prs, String nacionalidad_prs, String razonsocial_prs, String numerocta_prs) {
+	public Persona_prs(int id_prs, String apodo_prs, String nombre_prs, String apellido1_prs, String apellido2_prs, String contrasenna_prs, Boolean recordarcontrasenna_prs, String email_prs, int usuariotipo_prs, String actividadtipo_prs, String documentotipo_prs, String dni_prs, String nacionalidad_prs, String razonsocial_prs, String numerocta_prs, boolean condicioneslegales_prs) {
+		this.id_prs = id_prs;
 		this.apodo_prs = apodo_prs;
 		this.nombre_prs = nombre_prs;
 		this.apellido1_prs = apellido1_prs;
 		this.apellido2_prs = apellido2_prs;
 		this.contrasenna_prs = contrasenna_prs;
 		this.recordarcontrasenna_prs = recordarcontrasenna_prs;
+		this.email_prs = email_prs;
+		this.usuariotipo_prs = usuariotipo_prs;
 		this.actividadtipo_prs = actividadtipo_prs;
 		this.documentotipo_prs = documentotipo_prs;
 		this.dni_prs = dni_prs;
 		this.nacionalidad_prs = nacionalidad_prs;
 		this.razonsocial_prs = razonsocial_prs;
 		this.numerocta_prs = numerocta_prs;
+		this.condicioneslegales_prs = condicioneslegales_prs;
 	}
 
 	public 	int	getId_prs	() {return 	id_prs	;}	public void 	setId_prs	(int	id_prs	) {this.	id_prs=	id_prs	;}
@@ -264,7 +264,7 @@ public class Persona_prs implements Serializable, Parcelable {
 	public 	String	getNps02Fecha_prs	() {return 	nps02fecha_prs	;}	public void 	setNps02Fecha_prs	(	String	nps02fecha_prs	) {this.	nps02fecha_prs=	nps02fecha_prs	;}
 	public 	int	getNps03_prs	() {return 	nps03_prs	;}	public void 	setNps03_prs	(	int	nps03_prs	) {this.	nps03_prs=	nps03_prs	;}
 	public 	String	getNps03Fecha_prs	() {return 	nps03fecha_prs	;}	public void 	setNps03Fecha_prs	(	String	nps03fecha_prs	) {this.	nps03fecha_prs=	nps03fecha_prs	;}
-	public 	boolean	getCondicioneslegales_prs	() {return 	condicioneslegales_prs	;}	public void 	setCondicioneslegales_prs	(	boolean	condicioneslegales_prs	) {this.	condicioneslegales_prs=	condicioneslegales_prs	;}
+	public boolean isCondicioneslegales_prs() {return condicioneslegales_prs;}	public void setCondicioneslegales_prs(boolean condicioneslegales_prs) {this.condicioneslegales_prs = condicioneslegales_prs;}
 
 	@Override
 	public String toString() {

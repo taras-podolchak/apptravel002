@@ -9,75 +9,115 @@
     android:orientation="vertical"
     tools:context=".ui.controller.V_04">
 
-    <LinearLayout
-        android:id="@+id/v04_LinearLayout"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="25dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="220dp"
-        android:background="@drawable/contenedor_blanco_radius4"
-        android:orientation="vertical"
-        android:gravity="center">
-
-        <EditText
-            android:id="@+id/v04_etx_email_prs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="50dp"
-            android:layout_marginVertical="25dp"
-            android:hint="@string/email_prs"
-            android:inputType="textEmailAddress" />
-
-        <EditText
-            android:id="@+id/v04_etx_contrasenna_prs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="50dp"
-            android:hint="@string/contrasenna_prs"
-            android:inputType="textPassword" />
+        android:layout_marginTop="30dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="50dp"
-            android:layout_marginVertical="25dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <CheckBox
-                android:id="@+id/v04_ckb_recordarcontrasenna_prs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:text="@string/recordarme" />
-
-            <TextView
-                android:id="@+id/v04_txv_olvidaste_contrasenna"
+            <LinearLayout
+                android:id="@+id/v04_LinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="@string/olvidaste_tu_contraseña"
-                android:textAlignment="center" />
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="220dp"
+                android:background="@drawable/contenedor_blanco_radius4"
+                android:orientation="vertical"
+                android:gravity="center">
 
+                <EditText
+                    android:id="@+id/v04_etx_email_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="25dp"
+                    android:layout_marginVertical="15dp"
+                    android:hint="@string/email_prs"
+                    android:inputType="textEmailAddress" />
+
+                <EditText
+                    android:id="@+id/v04_etx_contrasenna_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="25dp"
+                    android:layout_marginVertical="15dp"
+                    android:hint="@string/contrasenna_prs"
+                    android:inputType="textPassword" />
+
+                <EditText
+                    android:id="@+id/v04_etx_contrasennaConfirmar_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="25dp"
+                    android:layout_marginVertical="15dp"
+                    android:hint="@string/contrasennaConfirmar_prs"
+                    android:inputType="textPassword" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginHorizontal="25dp"
+                    android:layout_marginVertical="15dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="11dp"
+                        android:textSize="18sp"
+                        android:text="¿Recordar contraseña?"  />
+
+                    <Switch
+                        android:id="@+id/v04_swc_recordarcontrasenna_prs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/v04_txv_olvidaste_contrasenna"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="25dp"
+                    android:layout_marginVertical="15dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:textSize="18sp"
+                    android:text="@string/olvidaste_tu_contraseña"
+                    android:textAlignment="center" />
+
+                <CheckBox
+                    android:id="@+id/v04_ckb_condicioneslegales_prs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="25dp"
+                    android:layout_marginVertical="15dp"
+                    android:text="@string/condicioneslegales_prs" />
+
+                <Button
+                    android:id="@+id/v04_btn_iniciar_sesion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="25dp"
+                    android:layout_marginVertical="15dp"
+                    android:background="@drawable/btn_formato_left"
+                    android:text="@string/iniciar_sesion" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/v04_btn_registrarse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="50dp"
+                android:layout_marginTop="-180dp"
+                android:background="@drawable/btn_formato_left"
+                android:text="@string/registrarse" />
         </LinearLayout>
+    </ScrollView>
 
-        <Button
-            android:id="@+id/v04_btn_iniciar_sesion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="50dp"
-            android:layout_marginTop="80dp"
-            android:background="@drawable/btn_formato_left"
-            android:text="@string/iniciar_sesion" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/v04_btn_registrarse"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="50dp"
-        android:layout_marginTop="-180dp"
-        android:background="@drawable/btn_formato_left"
-        android:text="@string/registrarse" />
 </LinearLayout>

@@ -61,7 +61,7 @@ public class V_05 extends Fragment {
 
     // Rename and change types of parameters
     private String mParam1;
-    private Bundle mBundlePersonaUser;
+    private static Bundle mBundlePersonaUser;
 
     // Campos de xml
     private Button v05_adelante, v05_atras;
@@ -135,6 +135,7 @@ public class V_05 extends Fragment {
         args.putString(ARG_PARAM1, param1);
         args.putBundle(ARG_PARAM2, bundlePersonaUser);
         fragment.setArguments(args);
+        mBundlePersonaUser = bundlePersonaUser;
         return fragment;
     }
 
@@ -142,8 +143,8 @@ public class V_05 extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mBundlePersonaUser = getArguments().getBundle(ARG_PARAM2);
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mBundlePersonaUser = getArguments().getBundle(ARG_PARAM2);
         }
     }
 
@@ -161,13 +162,10 @@ public class V_05 extends Fragment {
 //https://stackoverflow.com/questions/12739909/send-data-from-activity-to-fragment-in-android
 /* So, to pass data from the MotherActivity to such a Fragment you will need to create private Strings/Bundles above the onCreate of your Mother activity - which you can fill with the data you want to pass to the fragments, and pass them on via a method created after the onCreate (here called getMyData()).*/
 //Recuperamos los datos del Usuario activo
-/*
-        MainActivity_val activity = (MainActivity_val) getActivity();
-        Bundle bundlePersonaUser = activity.getUser();
-        personaUser = (Persona_prs) bundlePersonaUser.getSerializable("User");
-*/
-        MainActivity_val activity = (MainActivity_val) getActivity();
-        mBundlePersonaUser = activity.getUser();
+        if (mBundlePersonaUser == null) {
+            MainActivity_val activity = (MainActivity_val) getActivity();
+            mBundlePersonaUser = activity.getUser();
+        }
         personaUser = (Persona_prs) mBundlePersonaUser.getSerializable("User");
 
         //Recuperamos el Evento

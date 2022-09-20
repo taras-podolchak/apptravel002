@@ -121,4 +121,11 @@
         android:hint="@string/numerocta_prs"
         android:inputType="text" />
 
+    <TextView
+        android:id="@+id/v01_1_txv_recomendacionIdentidad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom|center_horizontal"
+        android:text="Por prevención necesitamos tus datos."
+        android:textSize="15sp" />
 </LinearLayout>

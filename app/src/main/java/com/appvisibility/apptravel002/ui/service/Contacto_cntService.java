@@ -87,7 +87,6 @@ public class Contacto_cntService extends Fragment {
     private ArrayAdapter<String> arrayAdapter_prs;
     private ArrayAdapter<String> arrayAdapter_sum;
     private Boolean datosActualizados;
-
     private Context mContext;
 
     public Contacto_cntService() {
@@ -117,8 +116,8 @@ public class Contacto_cntService extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mContactoNumero = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+//            mContactoNumero = getArguments().getString(ARG_PARAM1);
+//            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -400,7 +399,7 @@ public class Contacto_cntService extends Fragment {
                 email_cnt = (email_cnt == null)? "":email_cnt;
                 contactoEnProceso = new Contacto_cnt(Integer.parseInt(id_cnt), cargo_cnt, nombre_cnt, apellido1_cnt, apellido2_cnt, movil_cnt, telefono_cnt, email_cnt);
                 mostrarContactoEnProceso(view);
-                bundleContacto.putSerializable("contactoParaValidacion", contactoEnProceso);
+//                bundleContacto.putSerializable("contactoParaValidacion", contactoEnProceso);
 
                 nuevoContacto = false;
                 if (nombre_cnt != ""){
@@ -465,7 +464,7 @@ public class Contacto_cntService extends Fragment {
                     @Override
                     public void onClick(View view) {
                         prepararValidacion(view, tituloListaCargo_cnt);
-                        bundleContacto.putSerializable("contactoParaValidacion", contactoEnProceso);
+ //                       bundleContacto.putSerializable("contactoParaValidacion", contactoEnProceso);
                         Validacion_vldService.newInstance(bundleContacto, tituloListaCargo_cnt, null);
                         validacion = secuenciaDeValidacion(view, cargosAsignados);
 
@@ -577,6 +576,7 @@ public class Contacto_cntService extends Fragment {
         contactoEnProceso.setEmail_cnt("");
     }
 
+// Obtenemos los datos desde las cajas de texto
     public void prepararValidacion(View view, String tituloListaCargo_cnt){
         int indexOfPreviousSelection = v05_2_cargo_cnt.getSelectedItemPosition();
         switch (tituloListaCargo_cnt) {
@@ -589,12 +589,12 @@ public class Contacto_cntService extends Fragment {
                 break;
             }
         }
-        contactoEnProceso.setNombre_cnt(v05_2_nombre_cnt.getText().toString());
-        contactoEnProceso.setApellido1_cnt(v05_2_apellido1_cnt.getText().toString());
-        contactoEnProceso.setApellido2_cnt(v05_2_apellido2_cnt.getText().toString());
-        contactoEnProceso.setMovil_cnt(v05_2_movil_cnt.getText().toString());
-        contactoEnProceso.setTelefono_cnt(v05_2_telefono_cnt.getText().toString());
-        contactoEnProceso.setEmail_cnt(v05_2_email_cnt.getText().toString());
+        contactoEnProceso.setNombre_cnt(v05_2_nombre_cnt.getText().toString().trim());
+        contactoEnProceso.setApellido1_cnt(v05_2_apellido1_cnt.getText().toString().trim());
+        contactoEnProceso.setApellido2_cnt(v05_2_apellido2_cnt.getText().toString().trim());
+        contactoEnProceso.setMovil_cnt(v05_2_movil_cnt.getText().toString().trim());
+        contactoEnProceso.setTelefono_cnt(v05_2_telefono_cnt.getText().toString().trim());
+        contactoEnProceso.setEmail_cnt(v05_2_email_cnt.getText().toString().trim());
     }
 
     public void recuperarContactoActual(View view, String contactoNumero) {

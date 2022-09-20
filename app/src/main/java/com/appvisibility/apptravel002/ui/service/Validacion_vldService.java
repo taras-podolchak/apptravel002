@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,8 +70,8 @@ public class Validacion_vldService extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mTituloListaCargo_cnt = getArguments().getString(ARG_PARAM2);
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mTituloListaCargo_cnt = getArguments().getString(ARG_PARAM2);
         }
     }//Fin de constructor
 
@@ -84,7 +85,7 @@ public class Validacion_vldService extends Fragment {
 // https://regexr.com/346hf
 // https://www.w3schools.com/java/java_regex.asp
     public static Boolean validarApodo() {
-        if (identidadEnProceso.getApodo_prs().equalsIgnoreCase("") ||
+        if (TextUtils.isEmpty(identidadEnProceso.getApodo_prs()) ||
                 identidadEnProceso.getApodo_prs() == null ||
                 !identidadEnProceso.getApodo_prs().matches("^([0-9]*[a-z]*[A-Z]*){8,10}$")) {
             return false;
@@ -94,7 +95,7 @@ public class Validacion_vldService extends Fragment {
     }
 // https://es.stackoverflow.com/questions/224929/c%C3%B3mo-validar-un-nombre-con-expresiones-regulares
     public static Boolean validarNombre() {
-        if (identidadEnProceso.getNombre_prs().equalsIgnoreCase("") ||
+        if (TextUtils.isEmpty(identidadEnProceso.getNombre_prs()) ||
                 identidadEnProceso.getNombre_prs() == null ||
                 !identidadEnProceso.getNombre_prs().matches("^(([A-ZÑÇ'-ÄËÏÖÜÁÉÍÓÚÂÊÎÔÛÀÈÌÒÙ]*[a-zñç'äëïöüáéíóúáéíóúâêîôûàèìòù]*)*\\s*)*$")) {
             return false;
@@ -104,7 +105,7 @@ public class Validacion_vldService extends Fragment {
     }
 
     public static Boolean validarApellido1() {
-        if (identidadEnProceso.getApellido1_prs().equalsIgnoreCase("") ||
+        if (TextUtils.isEmpty(identidadEnProceso.getApellido1_prs()) ||
                 identidadEnProceso.getApellido1_prs() == null ||
                 !identidadEnProceso.getApellido1_prs().matches("^(([A-ZÑÇ'-ÄËÏÖÜÁÉÍÓÚÂÊÎÔÛÀÈÌÒÙ]*[a-zñç'äëïöüáéíóúáéíóúâêîôûàèìòù]*)*\\s*)*$")) {
             return false;
@@ -114,7 +115,7 @@ public class Validacion_vldService extends Fragment {
     }
 
     public static Boolean validarApellido2() {
-        if (identidadEnProceso.getApellido2_prs().equalsIgnoreCase("") ||
+        if (TextUtils.isEmpty(identidadEnProceso.getApellido2_prs()) ||
                 identidadEnProceso.getApellido2_prs() == null ||
                 !identidadEnProceso.getApellido2_prs().matches("^(([A-ZÑÇ'-ÄËÏÖÜÁÉÍÓÚÂÊÎÔÛÀÈÌÒÙ]*[a-zñç'äëïöüáéíóúáéíóúâêîôûàèìòù]*)*\\s*)*$")) {
             return false;
@@ -124,7 +125,7 @@ public class Validacion_vldService extends Fragment {
     }
 // https://stackoverflow.com/questions/3802192/regexp-java-for-password-validation
     public static Boolean validarContrasenna() {
-        if (identidadEnProceso.getContrasenna_prs().equalsIgnoreCase("") ||
+        if (TextUtils.isEmpty(identidadEnProceso.getContrasenna_prs()) ||
                 identidadEnProceso.getContrasenna_prs() == null ||
                 !identidadEnProceso.getContrasenna_prs().matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,20}$")) {
             return false;
@@ -134,7 +135,7 @@ public class Validacion_vldService extends Fragment {
     }
 // https://es.stackoverflow.com/questions/5535/sabeis-alguna-expresi%C3%B3n-regular-para-validar-el-nie
     public static Boolean validarDni() {
-        if (identidadEnProceso.getDni_prs().equalsIgnoreCase("") ||
+        if (TextUtils.isEmpty(identidadEnProceso.getDni_prs()) ||
                 identidadEnProceso.getDni_prs() == null ||
                 !identidadEnProceso.getDni_prs().matches("^[0-9]{8}[A-Z]$")) {
             return false;
@@ -158,7 +159,7 @@ public class Validacion_vldService extends Fragment {
 // https://es.stackoverflow.com/questions/5535/sabeis-alguna-expresi%C3%B3n-regular-para-validar-el-nie
 // https://trellat.es/funcion-para-validar-dni-o-nie-en-javascript/
     public static Boolean validarNieNif() {
-        if (identidadEnProceso.getDni_prs().equalsIgnoreCase("") ||
+        if (TextUtils.isEmpty(identidadEnProceso.getDni_prs()) ||
                 identidadEnProceso.getDni_prs() == null ||
                 !identidadEnProceso.getDni_prs().matches("^[XYZ][0-9]{7}[A-Z]$")) {
             return false;
@@ -181,7 +182,7 @@ public class Validacion_vldService extends Fragment {
 // https://stackoverflow.com/questions/40647728/regex-for-passport-number
 // https://trellat.es/funcion-para-validar-dni-o-nie-en-javascript/
     public static Boolean validarPasaporte() {
-        if (identidadEnProceso.getDni_prs().equalsIgnoreCase("") ||
+        if (TextUtils.isEmpty(identidadEnProceso.getDni_prs()) ||
                 identidadEnProceso.getDni_prs() == null ||
                 !identidadEnProceso.getDni_prs().matches("^(?!^0+$)[a-zA-Z0-9]{3,20}$")) {
             return false;
@@ -191,7 +192,7 @@ public class Validacion_vldService extends Fragment {
     }
 
     public static Boolean validarNacionalidad() {
-        if (identidadEnProceso.getNacionalidad_prs().equalsIgnoreCase("") ||
+        if (TextUtils.isEmpty(identidadEnProceso.getNacionalidad_prs()) ||
                 identidadEnProceso.getNacionalidad_prs() == null) {
             return false;
         } else {
@@ -199,9 +200,20 @@ public class Validacion_vldService extends Fragment {
         }
     }
 
+//  http://w3.unpocodetodo.info/utiles/regex-ejemplos.php?type=email
+    public static Boolean validarEmail() {
+        if (TextUtils.isEmpty(identidadEnProceso.getEmail_prs()) ||
+                identidadEnProceso.getEmail_prs() == null ||
+                !identidadEnProceso.getEmail_prs().matches("^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public static Boolean validarRazonsocial() {
-        if (identidadEnProceso.getDni_prs().equalsIgnoreCase("") ||
-                identidadEnProceso.getDni_prs() == null) {
+        if (TextUtils.isEmpty(identidadEnProceso.getRazonsocial_prs()) ||
+                identidadEnProceso.getRazonsocial_prs() == null) {
             return false;
         } else {
             return true;
@@ -213,7 +225,7 @@ public class Validacion_vldService extends Fragment {
 // https://commons.apache.org/proper/commons-validator/
 // https://commons.apache.org/proper/commons-validator/jacoco/org.apache.commons.validator.routines.checkdigit/IBANCheckDigit.java.html
     public static Boolean validarNumerocta() {
-        if (!identidadEnProceso.getNumerocta_prs().matches("^[A-Z]{2}[0-9]{2}(?:[ ]?[0-9]{4}){5}(?:[ ]?[0-9]{1,2})?$")) {
+        if (!identidadEnProceso.getNumerocta_prs().matches("^[A-Z]{2}[0-9]{2}(?:[ ]?[0-9]{4}){4}(?:[ ]?[0-9]{1,2})?$")) {
             IBANCheckDigit iBANCheckDigit = new IBANCheckDigit();
             if (iBANCheckDigit.isValid(identidadEnProceso.getNumerocta_prs())) {
                 return true;
@@ -234,7 +246,7 @@ public class Validacion_vldService extends Fragment {
     }
 
     public static Boolean validarNombreContacto() {
-        if (contactoEnProceso.getNombre_cnt().equalsIgnoreCase("") ||
+        if (TextUtils.isEmpty(contactoEnProceso.getNombre_cnt()) ||
                 contactoEnProceso.getNombre_cnt() == null) {
             return false;
         } else {
@@ -243,7 +255,7 @@ public class Validacion_vldService extends Fragment {
     }
 
     public static Boolean validarApellido1Contacto() {
-        if (contactoEnProceso.getApellido1_cnt().equalsIgnoreCase("") ||
+        if (TextUtils.isEmpty(contactoEnProceso.getApellido1_cnt()) ||
                 contactoEnProceso.getApellido1_cnt() == null) {
             return false;
         } else {
@@ -252,7 +264,7 @@ public class Validacion_vldService extends Fragment {
     }
 
     public static Boolean validarApellido2Contacto() {
-        if (contactoEnProceso.getApellido2_cnt().equalsIgnoreCase("") ||
+        if (TextUtils.isEmpty(contactoEnProceso.getApellido2_cnt()) ||
                 contactoEnProceso.getApellido2_cnt() == null) {
             return false;
         } else {
@@ -262,7 +274,7 @@ public class Validacion_vldService extends Fragment {
 
     public static Boolean validarMovilContacto() {
 // Regex Teléfono Movil: Prefijo de país seguido de un 6 más 8-10 dígitos
-        if (contactoEnProceso.getMovil_cnt().equalsIgnoreCase("") ||
+        if (TextUtils.isEmpty(contactoEnProceso.getMovil_cnt()) ||
                 contactoEnProceso.getMovil_cnt() == null ||
                 !contactoEnProceso.getMovil_cnt().matches("^([+]*(\\s)*(\\d{2,3}))*\\s*[6](?:\\s*\\d){8,10}$")) {
             return false;
@@ -280,7 +292,7 @@ public class Validacion_vldService extends Fragment {
     }
 //  http://w3.unpocodetodo.info/utiles/regex-ejemplos.php?type=email
     public static Boolean validarEmailContacto() {
-        if (contactoEnProceso.getEmail_cnt().equalsIgnoreCase("") ||
+        if (TextUtils.isEmpty(contactoEnProceso.getEmail_cnt()) ||
                 contactoEnProceso.getEmail_cnt() == null ||
                 !contactoEnProceso.getEmail_cnt().matches("^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$")) {
             return false;

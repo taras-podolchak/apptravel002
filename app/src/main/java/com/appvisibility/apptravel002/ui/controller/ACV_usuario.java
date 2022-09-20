@@ -117,7 +117,6 @@ public class ACV_usuario extends Fragment {
     // Rename and change types of parameters
     private String mParam1;
     private Bundle mBundlePersonaUser;
-
     private Context mContext;
 
     public ACV_usuario() {
@@ -146,8 +145,8 @@ public class ACV_usuario extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mBundlePersonaUser = getArguments().getBundle(ARG_PARAM2);
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mBundlePersonaUser = getArguments().getBundle(ARG_PARAM2);
         }
     }
 
@@ -185,6 +184,7 @@ public class ACV_usuario extends Fragment {
         arrayAdapter_idt = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, documentotipos_prs);
         arrayAdapter_idt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        //Referenciamos los views
         acv_usuario_fotopropia_prs = view.findViewById(R.id.acv_usuario_imv_fotopropia_prs);
 
         acv_usuario_identidad1 = view.findViewById(R.id.acv_usuario_lly_identidad1);
@@ -263,22 +263,22 @@ public class ACV_usuario extends Fragment {
         }
 
         fbf.collection("persona_prs").document(idPersona)
-                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                mostrarUsuarioEnProceso(document.toObject(Persona_prs.class));
-                                Toast.makeText(getContext(), "Datos del usuario recibidos:", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(getContext(), "Datos del usuario no encontrados", Toast.LENGTH_SHORT).show();
-                            }
+            .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            mostrarUsuarioEnProceso(document.toObject(Persona_prs.class));
+                            Toast.makeText(getContext(), "Datos del usuario recibidos:", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(getContext(), "get failed with", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Datos del usuario no encontrados", Toast.LENGTH_SHORT).show();
                         }
+                    } else {
+                        Toast.makeText(getContext(), "get failed with", Toast.LENGTH_SHORT).show();
                     }
-                });
+                }
+            });
 
         acv_usuario_identidad1.setOnClickListener(new View.OnClickListener() {
             @Override
